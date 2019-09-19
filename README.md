@@ -142,4 +142,3 @@ See [People Search API](https://docs.google.com/document/d/1145R9-FcmA1NMXMAwbzF
 [rn-url]: https://facebook.github.io/react-native/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE
-
