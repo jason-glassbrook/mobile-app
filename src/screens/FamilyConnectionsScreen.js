@@ -45,16 +45,15 @@ setCaseVisible(visible) {
 }
 
 handleKeywordChange = event => {
-  this.setState({ 
+  this.setState({
     searchKeywords: event,
   })
   console.log(this.state.searchKeywords);
 };
 
 getUserCases() {
-  // getUserCases Todos:
-  // store token in secure location
-  const token;
+
+  const token = "";
    axios.get('http://api.demo.connectourkids.org/v1/cases/', {
     headers: {
       Authorization: `Bearer ${token}`
@@ -79,7 +78,7 @@ render() {
   // Searchbar functionality - filters by case first_name or last_name
   let filteredCases = this.state.results.filter(
     (result) => {
-      return result.full_name.indexOf(this.state.searchKeywords) 
+      return result.full_name.indexOf(this.state.searchKeywords)
         != -1;
     }
   );
@@ -90,10 +89,10 @@ render() {
   return (
     <SafeAreaView>
       <View style={{ flexDirection: "row" }}>
-          <SearchBar 
-            placeholder="Search Keywords..." 
+          <SearchBar
+            placeholder="Search Keywords..."
             placeholderTextColor="black"
-            lightTheme 
+            lightTheme
             round
             name="searchKeywords"
             value={this.state.searchKeywords}
@@ -106,7 +105,7 @@ render() {
           <Button
             title="Filters"
             buttonStyle={{ backgroundColor: constants.highlightColor }}
-            containerStyle={styles.filterButton} 
+            containerStyle={styles.filterButton}
             onPress={() => {
               this.setModalVisible(true);
             }}
@@ -126,7 +125,7 @@ render() {
 
         <ScrollView>
           <View style={{ marginVertical: 100, justifyContent:"space-evenly", alignSelf: "center" }}>
-              
+
             <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Gender
             </Text>
@@ -187,7 +186,7 @@ render() {
               checked={this.state.checked}
               onPress={() => this.setState({checked: !this.state.checked})}
             />
-            
+
             <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
 
             <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
@@ -227,8 +226,8 @@ render() {
         <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
           <TouchableHighlight>
             <Button
-              buttonStyle={{ backgroundColor: constants.highlightColor }} 
-              title="Apply Filters" 
+              buttonStyle={{ backgroundColor: constants.highlightColor }}
+              title="Apply Filters"
               onPress={() => {
                 this.setModalVisible(!this.state.modalVisible);
               }}
@@ -237,7 +236,7 @@ render() {
         </View>
         </Modal>
 
-      
+
 
       {/* Case List Todos:
        Cache case info from API for faster loading */}
@@ -247,11 +246,11 @@ render() {
         <ScrollView>
 
           {/* Displays text placeholder until cases load */}
-          { (this.state.isLoading === true) ? 
+          { (this.state.isLoading === true) ?
             <Text style={styles.isLoading}> Loading Cases... </Text>
               :
               filteredCases.map((result, index) => (
-              
+
                 <ListItem
                   key={index}
                   title={result.full_name}
@@ -294,7 +293,7 @@ render() {
   }
 }
 
-// Todos: 
+// Todos:
 // Create styles that target both platforms
 
 const styles = StyleSheet.create({
