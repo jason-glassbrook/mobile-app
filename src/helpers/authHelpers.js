@@ -1,7 +1,8 @@
 import { AsyncStorage } from 'react-native';
-import { AuthSession } from 'expo';
+import AuthSessionCustom from './AuthSessionCustom.js';
 import getEnvVars from '../../environment';
 import jwtDecode from 'jwt-decode';
+
 
 const { auth0Domain, auth0ClientId } = getEnvVars();
 
@@ -16,50 +17,63 @@ const toQueryString = params => {
       .join('&')
   );
 };
+
 const setItem = async (key, value) => {
   try {
     await AsyncStorage.setItem(key, JSON.stringify(value));
   } catch (e) {
-    // console.log('SET TOKEN ERROR', e);
+    console.log(`error storing ${key}`, e);
   }
 };
-const _loginWithAuth0 = async () => {
-  const redirectUrl = AuthSession.getRedirectUrl();
-  let authUrl =
-    `https://${auth0Domain}/authorize` +
-    toQueryString({
-      client_id: auth0ClientId,
-      response_type: 'token id_token',
-      scope: 'openid profile email',
-      redirect_uri: redirectUrl,
-      nonce:
-        Math.random()
-          .toString(36)
-          .substring(2, 15) +
-        Math.random()
-          .toString(36)
-          .substring(2, 15)
-    });
 
-  return await AuthSession.startAsync({ authUrl });
-};
+
 const handleLogin = async (authSession, setUserCreds) => {
-  // Retrieve the JWT token and decode it
-  let result = await authSession();
+
+  const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
+  console.log(`Redirect URL: ${redirectUrl}`);
+
+  // Structure the auth parameters and URL
+  const queryParams = toQueryString({
+    client_id: auth0ClientId,
+    redirect_uri: redirectUrl,
+    response_type: 'id_token', // id_token will return a JWT token
+    scope: 'openid profile email', // retrieve the user's profile
+    nonce: 'nonce', // ideally, this will be a random value
+  });
+  const authUrl = `https://${auth0Domain}/authorize` + queryParams;
+
+  console.log(`AuthURL: ${authUrl}`);
+
+  // Perform the authentication
+  const response = await AuthSessionCustom.startAsync({ authUrl });
+  console.log('Authentication response', response);
+
+  if (response.error) {
+    Alert('Authentication error', response.error_description || 'something went wrong');
+    return;
+  }
   // if users cancels login process, terminate method
-  if (result.type === 'dismiss') return;
-  const jwtToken = result.params.id_token;
+  else if (response.type === 'dismiss') return;
+
+  // assume success
+
+  // Retrieve the JWT token and decode it
+  const jwtToken = response.params.id_token;
   const decoded = jwtDecode(jwtToken);
+
+  console.log(decoded);
+
+  const { name,email } = decoded;
+
   // SET THE TIME TOKEN EXPIRES IN ASYNC STORAGE
-  const expiresAt = result.params.expires_in * 1000 + new Date().getTime();
+  const expiresAt = response.expires_in * 1000 + new Date().getTime();
   setItem('expiresAt', expiresAt);
-  setItem('auth0Data', result);
-  setUserCreds(decoded, result);
+  setItem('auth0Data', response);
+  setUserCreds(decoded, response);
 };
 
 export default {
   toQueryString,
   setItem,
-  _loginWithAuth0,
   handleLogin
 };

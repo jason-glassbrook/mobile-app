@@ -10,23 +10,23 @@ import Constants from 'expo-constants';
 
 const ENV = {
   dev: {
-    auth0Domain: `connectourkids.auth0.com`,
-    auth0ClientId: 'JUR6JVt9N4sn8bHrSXR818rwrj91hsTb',
+    auth0Domain: `login.connectourkids.org`,
+    auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
     // auth0Domain: `ck-testing.auth0.com`,
     // auth0ClientId: 'u2uduMsueiqYuJ6m2JG6qpCUpSgaYR1b',
     peopleSearchURL: 'https://dev.search.connectourkids.org/api/search-v2',
     eventTrackingURL: 'https://dev.search.connectourkids.org/api/sendEvent'
   },
   staging: {
-    auth0Domain: `connectourkids.auth0.com`,
-    auth0ClientId: 'JUR6JVt9N4sn8bHrSXR818rwrj91hsTb',
+    auth0Domain: `login.connectourkids.org`,
+    auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
     peopleSearchURL: 'https://dev.search.connectourkids.org/api/search-v2',
     eventTrackingURL: 'https://dev.search.connectourkids.org/api/sendEvent'
     // Add other keys you want here
   },
   prod: {
     auth0Domain: `login.connectourkids.org`,
-    auth0ClientId: 'i5NGofkl7Z4jEexA7YTbasrLT8pcKLDU',
+    auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
     peopleSearchURL: 'https://search.connectourkids.org/api/search-v2',
     eventTrackingURL: 'https://search.connectourkids.org/api/sendEvent'
     // Add other keys you want here
