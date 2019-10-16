@@ -31,7 +31,19 @@ class FamilyConnectionsScreen extends Component {
             results: [],
             isLoading: true,
             modalVisible: false,
-            checked: false,
+            filters: {
+              male: false,
+              female: false,
+              unspecified: false,
+              zero_five: false,
+              six_nine: false,
+              ten_thirteen: false,
+              fourteen_eighteen: false,
+              name: false,
+              DOB: false,
+              created: false,
+              updated: false, 
+            },
             caseVisible: false,
             }
         }
@@ -72,6 +84,11 @@ getUserCases() {
 
 componentDidMount() {
   this.getUserCases();
+}
+
+checkHandler(check) {
+  console.log('********' + check)
+  console.log(check)
 }
 
 render() {
@@ -134,22 +151,25 @@ render() {
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Male'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.male}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, male: !this.state.filters.male}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Female'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.female}
+              onPress={this.checkHandler}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, female: !this.state.filters.female}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Unspecified'
               size={16}
-              checked={this.state.checked}
-              onPress={() => this.setState({checked: !this.state.checked})}
+              checked={this.state.filters.unspecified}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, unspecified: !this.state.filters.unspecified}})}
             />
 
             <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
@@ -162,29 +182,32 @@ render() {
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='0 - 5 years'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.zero_five}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, zero_five: !this.state.filters.zero_five}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='6 - 9 years'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.six_nine}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, six_nine: !this.state.filters.six_nine}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='10 - 13 years'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.ten_thirteen}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, ten_thirteen: !this.state.filters.ten_thirteen}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='14 - 18 years'
               size={16}
-              checked={this.state.checked}
-              onPress={() => this.setState({checked: !this.state.checked})}
+              checked={this.state.filters.fourteen_eighteen}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, fourteen_eighteen: !this.state.filters.fourteen_eighteen}})}
             />
 
             <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
@@ -197,29 +220,32 @@ render() {
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Name'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.name}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, name: !this.state.filters.name}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Date of Birth'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.DOB}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, DOB: !this.state.filters.DOB}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Created'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.created}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, created: !this.state.filters.created}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Updated'
               size={16}
-              checked={this.state.checked}
-              onPress={() => this.setState({checked: !this.state.checked})}
+              checked={this.state.filters.updated}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, updated: !this.state.filters.updated}})}
             />
           </View>
         </ScrollView>

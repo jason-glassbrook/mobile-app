@@ -36,7 +36,8 @@ const handleLogin = async (authSession, setUserCreds) => {
   const queryParams = toQueryString({
     client_id: auth0ClientId,
     redirect_uri: redirectUrl,
-    response_type: 'id_token', // id_token will return a JWT token
+    audience: 'https://family-staging.connectourkids.org/api/v1/',
+    response_type: 'id_token token', // id_token will return a JWT token
     scope: 'openid profile email', // retrieve the user's profile
     nonce: 'nonce', // ideally, this will be a random value
   });
