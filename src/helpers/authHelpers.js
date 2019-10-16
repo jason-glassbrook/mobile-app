@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import AuthSessionCustom from './AuthSessionCustom.js';
-import getEnvVars from '../../environment';
+import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
 
 
@@ -36,7 +36,8 @@ const handleLogin = async (authSession, setUserCreds) => {
   const queryParams = toQueryString({
     client_id: auth0ClientId,
     redirect_uri: redirectUrl,
-    response_type: 'id_token', // id_token will return a JWT token
+    audience: 'https://family-staging.connectourkids.org/api/v1/',
+    response_type: 'id_token token', // id_token will return a JWT token
     scope: 'openid profile email', // retrieve the user's profile
     nonce: 'nonce', // ideally, this will be a random value
   });
@@ -46,7 +47,7 @@ const handleLogin = async (authSession, setUserCreds) => {
 
   // Perform the authentication
   const response = await AuthSessionCustom.startAsync({ authUrl });
-  console.log('Authentication response', response);
+  console.log('AUTH response', response);
 
   if (response.error) {
     Alert('Authentication error', response.error_description || 'something went wrong');
@@ -61,7 +62,7 @@ const handleLogin = async (authSession, setUserCreds) => {
   const jwtToken = response.params.id_token;
   const decoded = jwtDecode(jwtToken);
 
-  console.log(decoded);
+  console.log('DECODED ===>', decoded);
 
   const { name,email } = decoded;
 
