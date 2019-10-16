@@ -11,7 +11,7 @@ async function startAsync(options) {
     //const startUrl = getStartUrl(authUrl, returnUrl);
     startUrl = authUrl;
 
-    console.log(startUrl);
+    console.log('startUrl', startUrl);
 
     // Prevent accidentally starting to an empty url
     if (!authUrl) {
