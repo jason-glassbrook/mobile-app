@@ -13,6 +13,7 @@ import {
   TouchableHighlight,
   Alert
 } from 'react-native';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { ListItem, Image, SearchBar, Button, CheckBox, Divider } from "react-native-elements";
 // import { Picker } from 'react-native-picker-dropdown';
@@ -65,10 +66,10 @@ handleKeywordChange = event => {
 
 getUserCases() {
 
-  const token = "";
-   axios.get('http://api.demo.connectourkids.org/v1/cases/', {
+  const accessToken = this.props.accessToken;
+   axios.get('https://family-staging.connectourkids.org/api/v1/cases/', {
     headers: {
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${accessToken}`
     }
   })
   .then(response => {
@@ -342,9 +343,21 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FamilyConnectionsScreen;
+// export default FamilyConnectionsScreen;
 
+const mapStateToProps = state => {
+  const {
+    accessToken
+  } = state.auth;
+  return {
+    accessToken
+    // email: state.auth.user ? state.auth.user.email : null
+  };
+};
 
+export default connect(mapStateToProps)(FamilyConnectionsScreen);
+
+// ---------------------------------------------------
 
 // import { Button } from 'native-base';
 // import { ScrollView } from 'react-native-gesture-handler';
@@ -478,10 +491,3 @@ export default FamilyConnectionsScreen;
 //   }
 // });
 
-// const mapStateToProps = state => {
-//   return {
-//     email: state.auth.user ? state.auth.user.email : null
-//   };
-// };
-
-// export default connect(mapStateToProps)(FamilyConnectionsScreen);

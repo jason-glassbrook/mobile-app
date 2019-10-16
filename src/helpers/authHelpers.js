@@ -1,6 +1,6 @@
 import { AsyncStorage } from 'react-native';
 import AuthSessionCustom from './AuthSessionCustom.js';
-import getEnvVars from '../../environment';
+import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
 
 
@@ -47,7 +47,7 @@ const handleLogin = async (authSession, setUserCreds) => {
 
   // Perform the authentication
   const response = await AuthSessionCustom.startAsync({ authUrl });
-  console.log('Authentication response', response);
+  console.log('AUTH response', response);
 
   if (response.error) {
     Alert('Authentication error', response.error_description || 'something went wrong');
@@ -62,7 +62,7 @@ const handleLogin = async (authSession, setUserCreds) => {
   const jwtToken = response.params.id_token;
   const decoded = jwtDecode(jwtToken);
 
-  console.log(decoded);
+  console.log('DECODED ===>', decoded);
 
   const { name,email } = decoded;
 
