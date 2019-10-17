@@ -87,14 +87,52 @@ componentDidMount() {
   this.getUserCases();
 }
 
-checkHandler(check) {
-  console.log('********' + check)
-  console.log(check)
-}
-
 render() {
+  // filter gender functionality
+  let filteredCases = this.state.results
+
+  if (!this.state.filters.male && !this.state.filters.female && !this.state.filters.unspecified) { //if nothing is selected -- do nothing
+   
+    
+  } else {
+    if (!this.state.filters.male) {filteredCases = filteredCases.filter(c => c.gender !== 'M')} // if male is not selected -- remove all males
+    if (!this.state.filters.female) {filteredCases = filteredCases.filter(c => c.gender !== 'F')}
+    if (!this.state.filters.unspecified) {filteredCases = filteredCases.filter(c => c.gender !== "O")}
+  }
+
+
+  // filter age functionality
+  if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
+  
+  } else {
+   let year = new Date()
+
+   let noNullBirthday = []
+   let nullBirthday = []
+
+   for (c in filteredCases) {
+     if (filteredCases[c].birthday === null) {
+       nullBirthday.push(filteredCases[c])
+     } else {
+       noNullBirthday.push(filteredCases[c])
+     }
+   }
+
+
+   if (!this.state.filters.zero_five) {noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4)) > 5)} //if this is not selected -- dont return ages 0-5
+   if (!this.state.filters.six_nine) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 6) && (year.getFullYear() - c.birthday.slice(0,4)) <= 9 ))}
+   if (!this.state.filters.ten_thirteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 10) && (year.getFullYear() - c.birthday.slice(0,4)) <= 13))}
+   if (!this.state.filters.fourteen_eighteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 14) && (year.getFullYear() - c.birthday.slice(0,4)) <= 18))}
+   noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4) < 18))
+  
+
+   filteredCases = noNullBirthday
+  }
+
+
+
   // Searchbar functionality - filters by case first_name or last_name
-  let filteredCases = this.state.results.filter(
+  let SearchedCases = filteredCases.filter(
     (result) => {
       return result.full_name.indexOf(this.state.searchKeywords)
         != -1;
@@ -276,7 +314,7 @@ render() {
           { (this.state.isLoading === true) ?
             <Text style={styles.isLoading}> Loading Cases... </Text>
               :
-              filteredCases.map((result, index) => (
+              SearchedCases.map((result, index) => (
 
                 <ListItem
                   key={index}
