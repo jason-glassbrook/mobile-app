@@ -30,6 +30,7 @@ class FamilyConnectionsScreen extends Component {
             ageRange: "Age Range",
             sortBy: "Sort By",
             results: [],
+            caseData: {},
             isLoading: true,
             modalVisible: false,
             checked: false,
@@ -55,6 +56,7 @@ handleKeywordChange = event => {
 getUserCases() {
 
   const accessToken = this.props.accessToken;
+  console.log(accessToken);
    axios.get('https://family-staging.connectourkids.org/api/v1/cases/', {
     headers: {
       Authorization: `Bearer ${accessToken}`
@@ -71,10 +73,34 @@ getUserCases() {
   });
 }
 
+getCaseData(pk) {
+  const accessToken = this.props.accessToken;
+  
+  axios.get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+
+  .then(res => {
+    this.setState({caseData: res.data})
+    console.log('caseData:', this.state.caseData);
+
+  })
+  .catch(err => {
+    console.log(err);
+  })
+}
+
 componentDidMount() {
   this.getUserCases();
 }
 
+/*
+componentDidMount() {
+  this.getCaseData();
+}
+*/
 render() {
   // Searchbar functionality - filters by case first_name or last_name
   let filteredCases = this.state.results.filter(
@@ -260,7 +286,12 @@ render() {
                   subtitleStyle={{ color: '#9FABB3' }}
                   leftAvatar={{ source: { uri: result.picture }}}
                   topDivider={true}
-                  onPress={() => this.setCaseVisible(true)}
+                  onPress={() => {this.setCaseVisible(true)
+                  
+                    this.getCaseData(result.pk);
+                  }
+
+                  }
 
                   // Case badges for document value/count
                   badge={{ value: result.count_documents, textStyle: { fontSize: 14, color: 'white', backgroundColor: constants.highlightColor }, containerStyle: {  marginTop: -10 } }}
@@ -269,24 +300,45 @@ render() {
           }
 
           {/* Case onPress Modal */}
+
           <Modal
               animationType="slide"
               transparent={false}
               visible={this.state.caseVisible}
-            >
-            <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
-              <Text>Working on it... </Text>
+              >
+              <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
+              <Text>{this.state.caseData.full_name}</Text>
+              <View>
+                <ListItem
+                gender={this.state.caseData.gender}
+                leftAvatar={{ source: { uri: this.state.caseData.picture }}}
+                 />
+              </View>
 
+               
+              <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
+                  <Text>Gender: {this.state.caseData.gender}</Text>
+                  <TouchableHighlight>
+                    <Button
+                      buttonStyle={{ backgroundColor: constants.highlightColor }}
+                      title="Work on Case"
+                      onPress={() => {
+                        this.setModalVisible(!this.state.modalVisible);
+                      }}
+                    />
+                  </TouchableHighlight>
+               </View>
               <TouchableHighlight
-                underlayColor="lightgray"
-                onPress={() => {
+              underlayColor="lightgray"
+              onPress={() => {
                   this.setCaseVisible(false);
                   }}
               >
               <Text>Close Modal</Text>
               </TouchableHighlight>
-            </View>
+              </View>
           </Modal>
+         
         </ScrollView>
       </View>
     </SafeAreaView>
