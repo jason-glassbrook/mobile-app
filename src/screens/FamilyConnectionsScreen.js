@@ -62,6 +62,7 @@ getUserCases() {
       Authorization: `Bearer ${accessToken}`
     }
   })
+
   .then(response => {
     this.setState({
       results: response.data.results,
@@ -84,8 +85,11 @@ getCaseData(pk) {
 
   .then(res => {
     this.setState({caseData: res.data})
+    console.log('Initiation:', this.state.caseData.foster_care);
     console.log('caseData:', this.state.caseData);
-
+    console.log('address:', JSON.stringify(this.state.caseData.address.formatted).split(
+      
+    ));
   })
   .catch(err => {
     console.log(err);
@@ -96,11 +100,6 @@ componentDidMount() {
   this.getUserCases();
 }
 
-/*
-componentDidMount() {
-  this.getCaseData();
-}
-*/
 render() {
   // Searchbar functionality - filters by case first_name or last_name
   let filteredCases = this.state.results.filter(
@@ -310,14 +309,20 @@ render() {
               <Text>{this.state.caseData.full_name}</Text>
               <View>
                 <ListItem
-                gender={this.state.caseData.gender}
                 leftAvatar={{ source: { uri: this.state.caseData.picture }}}
+
                  />
+                <Text>Gender: {this.state.caseData.gender}</Text>
+                <Text>Date of Birth: {this.state.caseData.birthday}</Text>
+                <Text>Age: TBA</Text>
+                {/*<Text>Residence:{this.state.caseData.address.raw}</Text>*/}
+                <Text>Initiation:{this.state.caseData.foster_care}</Text>
+
               </View>
 
                
               <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
-                  <Text>Gender: {this.state.caseData.gender}</Text>
+                  
                   <TouchableHighlight>
                     <Button
                       buttonStyle={{ backgroundColor: constants.highlightColor }}
