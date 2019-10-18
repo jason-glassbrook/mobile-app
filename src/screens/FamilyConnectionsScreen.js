@@ -30,7 +30,49 @@ class FamilyConnectionsScreen extends Component {
             ageRange: "Age Range",
             sortBy: "Sort By",
             results: [],
-            caseData: {},
+            caseData: {
+              "pk": 0,
+   "first_name": "",
+   "last_name": "",
+   "gender": "",
+   "address": {
+       "pk": 0,
+       "raw": "",
+       "route": "",
+       "street_number": "",
+       "formatted": "",
+       "latitude": 0,
+       "longitude": 0,
+       "locality": "",
+       "state": "",
+       "state_code": ""
+   },
+   "birthday": "",
+   "deceased": false,
+   "date_of_death": null,
+   "picture": "",
+   "notes": "",
+   "created_by": {
+       "id": 2,
+       "first_name": "",
+       "last_name": "",
+       "full_name": "",
+       "email": "",
+       "date_joined": "",
+       "picture": ""
+   },
+   "count_relationships": 0,
+   "count_documents": 0,
+   "created_at": "",
+   "updated_at": "",
+   "is_archive": false,
+   "workpad_id_by_user": 0,
+   "full_name": "",
+   "organization": 0,
+   "suffix": null,
+   "foster_care": "",
+   "resourcetype": ""
+            },
             isLoading: true,
             modalVisible: false,
             filters: {
@@ -98,10 +140,7 @@ getCaseData(pk) {
   .then(res => {
     this.setState({caseData: res.data})
     console.log('Initiation:', this.state.caseData.foster_care);
-    console.log('caseData:', this.state.caseData);
-    console.log('address:', JSON.stringify(this.state.caseData.address.formatted).split(
-      
-    ));
+    console.log('caseData:', this.state.caseData);      
   })
   .catch(err => {
     console.log(err);
@@ -274,7 +313,7 @@ render() {
 
   // const { navigate } = this.props.navigation;
   const fullYear = new Date();
-
+  
   return (
     <SafeAreaView>
       <View style={{ flexDirection: "row" }}>
@@ -519,8 +558,8 @@ render() {
                  />
                 <Text>Gender: {this.state.caseData.gender}</Text>
                 <Text>Date of Birth: {this.state.caseData.birthday}</Text>
-                <Text>Age: TBA</Text>
-                {/*<Text>Residence:{this.state.caseData.address.raw}</Text>*/}
+                <Text>Age: {(fullYear.getFullYear() - this.state.caseData.birthday.slice(0,4)) } years old</Text>
+                <Text>Residence: {this.state.caseData.address.formatted}</Text>
                 <Text>Initiation:{this.state.caseData.foster_care}</Text>
 
               </View>
