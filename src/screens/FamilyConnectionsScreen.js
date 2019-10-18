@@ -32,7 +32,19 @@ class FamilyConnectionsScreen extends Component {
             results: [],
             isLoading: true,
             modalVisible: false,
-            checked: false,
+            filters: {
+              male: false,
+              female: false,
+              unspecified: false,
+              zero_five: false,
+              six_nine: false,
+              ten_thirteen: false,
+              fourteen_eighteen: false,
+              name: false,
+              DOB: false,
+              created: false,
+              updated: false, 
+            },
             caseVisible: false,
             }
         }
@@ -76,8 +88,159 @@ componentDidMount() {
 }
 
 render() {
-  // Searchbar functionality - filters by case first_name or last_name
-  let filteredCases = this.state.results.filter(
+  // ------filter gender functionality------
+  let filteredCases = this.state.results
+
+  if (!this.state.filters.male && !this.state.filters.female && !this.state.filters.unspecified) { //if nothing is selected -- do nothing
+   
+    
+  } else {
+    if (!this.state.filters.male) {filteredCases = filteredCases.filter(c => c.gender !== 'M')} // if male is not selected -- remove all males
+    if (!this.state.filters.female) {filteredCases = filteredCases.filter(c => c.gender !== 'F')}
+    if (!this.state.filters.unspecified) {filteredCases = filteredCases.filter(c => c.gender !== "O")}
+  }
+
+
+  // ------filter age functionality------
+  if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
+  
+  } else {
+   let year = new Date()
+
+   let noNullBirthday = []
+   let nullBirthday = []
+
+   for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break the if statements starting on line 122
+     if (filteredCases[c].birthday === null) {
+       nullBirthday.push(filteredCases[c])
+     } else {
+       noNullBirthday.push(filteredCases[c])
+     }
+   }
+
+
+   if (!this.state.filters.zero_five) {noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4)) > 5)} //if this is not selected -- dont return ages 0-5
+   if (!this.state.filters.six_nine) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 6) && (year.getFullYear() - c.birthday.slice(0,4)) <= 9 ))}
+   if (!this.state.filters.ten_thirteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 10) && (year.getFullYear() - c.birthday.slice(0,4)) <= 13))}
+   if (!this.state.filters.fourteen_eighteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 14) && (year.getFullYear() - c.birthday.slice(0,4)) <= 18))}
+   noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4) < 18))
+  
+   if (!this.state.filters.unspecified) { //add null birthdays back if unspecified is checked
+    filteredCases = noNullBirthday
+  } else {
+    filteredCases = noNullBirthday.concat(nullBirthday)
+    }
+  }
+
+
+  // ------sorting Functionality------
+
+  const name = (a, b) => {
+    const A = a.full_name.toUpperCase();
+    const B = b.full_name.toUpperCase();
+
+    let comparison = 0;
+    if (A > B) {
+      comparison = 1;
+    } else {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  const lastName = (a, b) => {
+    const A = a.last_name.toUpperCase();
+    const B = b.last_name.toUpperCase();
+
+    let comparison = 0;
+    if (A > B) {
+      comparison = 1;
+    } else {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+
+  const DOB = (a, b) => {
+    const A = a.birthday;
+    const B = b.birthday;
+
+    let comparison = 0;
+    if (A < B) {
+      comparison = 1;
+    } else {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  const created = (a, b) => {
+    const A = a.created_at;
+    const B = b.created_at;
+
+    let comparison = 0;
+    if (A > B) {
+      comparison = 1;
+    } else {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+  const updated = (a, b) => {
+    const A = a.updated_at;
+    const B = b.updated_at;
+
+    let comparison = 0;
+    if (A > B) {
+      comparison = 1;
+    } else {
+      comparison = -1;
+    }
+    return comparison;
+  }
+
+
+  if (this.state.filters.name){
+
+    filteredCases.sort(lastName)
+
+  } else if (this.state.filters.DOB) {
+    
+    let Birthdays = []
+    let noBirthdays = []
+ 
+    for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break
+      console.log(filteredCases[c].last_name)
+      if (filteredCases[c].birthday === null) {
+        noBirthdays.push(filteredCases[c])
+      } else {
+        Birthdays.push(filteredCases[c])
+      }
+      Birthdays.sort(DOB)
+    }
+    filteredCases = Birthdays.concat(noBirthdays)
+
+
+  } else if (this.state.filters.created) {
+
+    filteredCases.sort(created)
+
+  } else if (this.state.filters.updated) {
+
+    filteredCases.sort(updated)
+
+  } else {
+    filteredCases.sort(name)
+  }
+
+
+
+
+
+  // ------Searchbar functionality - filters by case first_name or last_name---------
+  let SearchedCases = filteredCases.filter(
     (result) => {
       return result.full_name.indexOf(this.state.searchKeywords)
         != -1;
@@ -135,22 +298,25 @@ render() {
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Male'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.male}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, male: !this.state.filters.male}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Female'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.female}
+              onPress={this.checkHandler}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, female: !this.state.filters.female}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Unspecified'
               size={16}
-              checked={this.state.checked}
-              onPress={() => this.setState({checked: !this.state.checked})}
+              checked={this.state.filters.unspecified}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, unspecified: !this.state.filters.unspecified}})}
             />
 
             <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
@@ -163,29 +329,32 @@ render() {
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='0 - 5 years'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.zero_five}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, zero_five: !this.state.filters.zero_five}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='6 - 9 years'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.six_nine}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, six_nine: !this.state.filters.six_nine}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='10 - 13 years'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.ten_thirteen}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, ten_thirteen: !this.state.filters.ten_thirteen}})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='14 - 18 years'
               size={16}
-              checked={this.state.checked}
-              onPress={() => this.setState({checked: !this.state.checked})}
+              checked={this.state.filters.fourteen_eighteen}
+              onPress={() => this.setState({...this.state, filters: {...this.state.filters, fourteen_eighteen: !this.state.filters.fourteen_eighteen}})}
             />
 
             <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
@@ -196,31 +365,67 @@ render() {
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
-              title='Name'
+              title='Last Name'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.name}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: !this.state.filters.name,
+                  DOB: false,
+                  created: false,
+                  updated: false
+                }})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
-              title='Date of Birth'
+              title='Age'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.DOB}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: false,
+                  DOB: !this.state.filters.DOB,
+                  created: false,
+                  updated: false
+                }})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
-              title='Created'
+              title='Date Created'
               size={16}
-              checked={this.state.checked}
+              checked={this.state.filters.created}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: false,
+                  DOB: false,
+                  created: !this.state.filters.created,
+                  updated: false
+                }})}
             />
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
-              title='Updated'
+              title='Last Updated'
               size={16}
-              checked={this.state.checked}
-              onPress={() => this.setState({checked: !this.state.checked})}
+              checked={this.state.filters.updated}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: false,
+                  DOB: false,
+                  created: false,
+                  updated: !this.state.filters.updated
+                }})
+              }
             />
           </View>
         </ScrollView>
@@ -250,7 +455,7 @@ render() {
           { (this.state.isLoading === true) ?
             <Text style={styles.isLoading}> Loading Cases... </Text>
               :
-              filteredCases.map((result, index) => (
+              SearchedCases.map((result, index) => (
 
                 <ListItem
                   key={index}
