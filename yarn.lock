@@ -2125,6 +2125,13 @@ expo-linear-gradient@~7.0.0:
   resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-7.0.0.tgz#91e86f3f4a70428c7ac5e43ee0d06215bca39afd"
   integrity sha512-8VrFWR9tpXrDmk0kMyIpo6C5jKiDRzXPZN55JtyPhjuN1kF8Kle4d9ybNtV+bYd3Ql6PAZXY8Y/bhLAuWv0L9g==
 
+expo-local-authentication@~7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/expo-local-authentication/-/expo-local-authentication-7.0.0.tgz#aca6b79e59e53ec3d44d4951203abb1a85d9f5c6"
+  integrity sha512-LTFMc8A7hm0Glgs6fSdkpHzrGH2EVqpUPdLQCyvMNwhQMncsh9Q13kzuNhrSjeBX+4M9c8HiH5OymETiC4GQYA==
+  dependencies:
+    invariant "^2.2.4"
+
 expo-location@~7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-7.0.0.tgz#de5818f828354c681a173471e4dc25ec795a9b42"
@@ -3801,7 +3808,7 @@ native-base-shoutem-theme@0.3.1:
     lodash "^4.17.14"
     prop-types "^15.5.10"
 
-native-base@^2.12.1:
+native-base@^2.13.8:
   version "2.13.8"
   resolved "https://registry.yarnpkg.com/native-base/-/native-base-2.13.8.tgz#817dfaf74ec63cd17f48991fab452fdc75103db9"
   integrity sha512-47Wm7bjH5Dc99gBUeVvsURyADU97aiLMLPGX4ewPgR9kW47TD9slS/Y5vGMToBgz1bsku9anXgN2T1rpdQbpFA==
@@ -4552,6 +4559,11 @@ react-native-tab-view@^1.2.0, react-native-tab-view@^1.4.1:
   integrity sha512-Bke8KkDcDhvB/z0AS7MnQKMD2p6Kwfc1rSKlMOvg9CC5CnClQ2QEnhPSbwegKDYhUkBI92iH/BYy7hNSm5kbUQ==
   dependencies:
     prop-types "^15.6.1"
+
+react-native-touch-id@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-touch-id/-/react-native-touch-id-4.4.1.tgz#8b1bb2d04c30bac36bb9696d2d723e719c4a8b08"
+  integrity sha512-1jTl8fC+0fxvqegy/XXTyo6vMvPhjzkoDdaqoYZx0OH8AT250NuXnNPyKktvigIcys3+2acciqOeaCall7lrvg==
 
 react-native-vector-icons@^6.6.0:
   version "6.6.0"
