@@ -2,7 +2,7 @@ import { AsyncStorage } from 'react-native';
 import AuthSessionCustom from './AuthSessionCustom.js';
 import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
-
+import * as LocalAuthentication from 'expo-local-authentication';
 
 const { auth0Domain, auth0ClientId } = getEnvVars();
 
@@ -28,6 +28,36 @@ const setItem = async (key, value) => {
 
 
 const handleLogin = async (authSession, setUserCreds) => {
+
+  await LocalAuthentication.hasHardwareAsync()
+  .then(res => 
+    console.log(res),
+    await LocalAuthentication.supportedAuthenticationTypesAsync()
+      .then(res => 
+        console.log(res),
+        await LocalAuthentication.isEnrolledAsync()
+          .then(res => 
+            console.log(res),
+            await LocalAuthentication.authenticateAsync({
+              promptMessage: 'Authenticate', 
+              fallbackLabel: 'Use Passcode'
+            })
+            .then(res => 
+              console.log(res)
+            )
+            .catch(err => 
+              console.log(err)
+            )
+          )
+          .catch(err => 
+            console.log(err)
+          )
+      )
+      .catch(err => 
+        console.log(err)
+      )
+  )
+  .catch(err => console.log(err));
 
   const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
   console.log(`Redirect URL: ${redirectUrl}`);
