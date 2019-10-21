@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarnpkg add expo-constants@~5.0.1 expo-constants@~5.0.1 expo-web-browser@~5.0.2 expo-react-native-gesture-handler
+  /usr/local/bin/node /usr/local/bin/yarn add expo-cli
 
 PATH: 
   /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,17 +14,7 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/expo-react-native-gesture-handler: Not found
-      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:66918:18)
-      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:140539:22)
-      at Request.emit (events.js:198:13)
-      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141511:10)
-      at Request.emit (events.js:198:13)
-      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:141433:12)
-      at Object.onceWrapper (events.js:286:20)
-      at IncomingMessage.emit (events.js:203:15)
-      at endReadableNT (_stream_readable.js:1145:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  Error: EACCES: permission denied, mkdir '/Users/lambda_school_loaner_149/Desktop/Labs/mobile-app/node_modules/@expo/bunyan'
 
 npm manifest: 
   {
@@ -43,6 +33,7 @@ npm manifest:
       "expo-font": "~7.0.0",
       "expo-web-browser": "~7.0.0",
       "flatted": "^2.0.1",
+      "jshint": "^2.10.2",
       "jwt-decode": "^2.2.0",
       "native-base": "^2.12.1",
       "react": "16.8.3",

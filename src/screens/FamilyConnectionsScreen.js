@@ -19,6 +19,7 @@ import { ListItem, Image, SearchBar, Button, CheckBox, Divider } from "react-nat
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from '../helpers/constants';
 
+import  CaseViewScreen from './CaseViewScreen.js';
 class FamilyConnectionsScreen extends Component {
     static navigationOptions = ({ navigation }) =>
       headerConfig('Family Connections', navigation);
@@ -47,7 +48,7 @@ class FamilyConnectionsScreen extends Component {
        "state": "",
        "state_code": ""
    },
-   "birthday": "",
+   "birthday": "0000-00-00",
    "deceased": false,
    "date_of_death": null,
    "picture": "",
@@ -97,7 +98,7 @@ setModalVisible(visible) {
   }
 
 setCaseVisible(visible) {
-  this.setState({ caseVisible: visible })
+  this.setState({ caseVisible: visible });
 }
 
 handleKeywordChange = event => {
@@ -110,7 +111,7 @@ handleKeywordChange = event => {
 getUserCases() {
 
   const accessToken = this.props.accessToken;
-  console.log(accessToken);
+  console.log('accessToken:', accessToken);
    axios.get('https://family-staging.connectourkids.org/api/v1/cases/', {
     headers: {
       Authorization: `Bearer ${accessToken}`
@@ -543,13 +544,14 @@ render() {
           }
 
           {/* Case onPress Modal */}
-
+            
           <Modal
               animationType="slide"
               transparent={false}
               visible={this.state.caseVisible}
               >
-              <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
+              <CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>
+              {/*<View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
               <Text>{this.state.caseData.full_name}</Text>
               <View>
                 <ListItem
@@ -561,7 +563,7 @@ render() {
                 <Text>Age: {(fullYear.getFullYear() - this.state.caseData.birthday.slice(0,4)) } years old</Text>
                 <Text>Residence: {this.state.caseData.address.formatted}</Text>
                 <Text>Initiation:{this.state.caseData.foster_care}</Text>
-
+                  
               </View>
 
                
@@ -577,6 +579,11 @@ render() {
                     />
                   </TouchableHighlight>
                </View>
+               <View>
+                  <Text>Engagement</Text>
+                  <Text>Participants</Text>
+                  <Text>Highlights</Text>
+               </View>
               <TouchableHighlight
               underlayColor="lightgray"
               onPress={() => {
@@ -585,7 +592,7 @@ render() {
               >
               <Text>Close Modal</Text>
               </TouchableHighlight>
-              </View>
+              </View>*/}
           </Modal>
          
         </ScrollView>
