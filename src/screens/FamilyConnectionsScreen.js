@@ -161,19 +161,19 @@ render() {
     return comparison;
   }
 
+//leaving this out for now because year and day are not required
+  // const DOB = (a, b) => {
+  //   const A = a.birthday;
+  //   const B = b.birthday;
 
-  const DOB = (a, b) => {
-    const A = a.birthday;
-    const B = b.birthday;
-
-    let comparison = 0;
-    if (A < B) {
-      comparison = 1;
-    } else {
-      comparison = -1;
-    }
-    return comparison;
-  }
+  //   let comparison = 0;
+  //   if (A < B) {
+  //     comparison = 1;
+  //   } else {
+  //     comparison = -1;
+  //   }
+  //   return comparison;
+  // }
 
   const created = (a, b) => {
     const A = a.created_at;
@@ -206,24 +206,30 @@ render() {
 
     filteredCases.sort(lastName)
 
-  } else if (this.state.filters.DOB) {
+  } 
+
+  //leaving this out for now because year and day are no longer required
+  
+  // else if (this.state.filters.DOB) {
     
-    let Birthdays = []
-    let noBirthdays = []
+  //   let Birthdays = []
+  //   let noBirthdays = []
  
-    for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break
-      console.log(filteredCases[c].last_name)
-      if (filteredCases[c].birthday === null) {
-        noBirthdays.push(filteredCases[c])
-      } else {
-        Birthdays.push(filteredCases[c])
-      }
-      Birthdays.sort(DOB)
-    }
-    filteredCases = Birthdays.concat(noBirthdays)
+  //   for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break
+
+  //     if (filteredCases[c].birthday === null) {
+  //       noBirthdays.push(filteredCases[c])
+  //     } else {
+  //       Birthdays.push(filteredCases[c])
+  //     }
+  //     Birthdays.sort(DOB)
+  //   }
+  //   filteredCases = Birthdays.concat(noBirthdays)
 
 
-  } else if (this.state.filters.created) {
+  // } 
+  
+  else if (this.state.filters.created) {
 
     filteredCases.sort(created)
 
@@ -274,6 +280,7 @@ render() {
               this.setModalVisible(true);
             }}
           />
+
         </View>
 
 
@@ -378,8 +385,9 @@ render() {
                   updated: false
                 }})}
             />
-
-            <CheckBox
+            {/* leaving this out for not because year and day are not required */}
+            
+            {/* <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Age'
               size={16}
@@ -393,7 +401,7 @@ render() {
                   created: false,
                   updated: false
                 }})}
-            />
+            /> */}
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
