@@ -12,13 +12,16 @@ function AddCaseScreen(props) {
             headers: {
                 Authorization: `Bearer ${props.accessToken}`
             }
+            body: {
+
+            }
         })
 
     }
 
-    const handleChange = (e) => {
+    const handleChange = (event) => {
         //console.log(e.target.name, + ': ' + e.target.value)
-        setUserInfo({ [e.target.name]: e.target.value })
+        setUserInfo({ [event.target.name]: event.target.value })
         //console.log(userInfo)
     }
 

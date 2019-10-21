@@ -20,7 +20,9 @@ import { ListItem, Image, SearchBar, Button, CheckBox, Divider } from "react-nat
 import constants from '../helpers/constants';
 import AddCaseScreen from './AddCaseScreen';
 
+import  CaseViewScreen from './CaseViewScreen.js';
 class FamilyConnectionsScreen extends Component {
+<<<<<<< HEAD
   static navigationOptions = ({ navigation }) =>
     headerConfig('Family Connections', navigation);
   constructor(props) {
@@ -97,14 +99,112 @@ class FamilyConnectionsScreen extends Component {
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
+=======
+    static navigationOptions = ({ navigation }) =>
+      headerConfig('Family Connections', navigation);
+        constructor(props) {
+          super(props);
+          this.state = {
+            searchKeywords: '',
+            gender: "Gender",
+            ageRange: "Age Range",
+            sortBy: "Sort By",
+            results: [],
+            caseData: {
+              "pk": 0,
+   "first_name": "",
+   "last_name": "",
+   "gender": "",
+   "address": {
+       "pk": 0,
+       "raw": "",
+       "route": "",
+       "street_number": "",
+       "formatted": "",
+       "latitude": 0,
+       "longitude": 0,
+       "locality": "",
+       "state": "",
+       "state_code": ""
+   },
+   "birthday": "0000-00-00",
+   "deceased": false,
+   "date_of_death": null,
+   "picture": "",
+   "notes": "",
+   "created_by": {
+       "id": 2,
+       "first_name": "",
+       "last_name": "",
+       "full_name": "",
+       "email": "",
+       "date_joined": "",
+       "picture": ""
+   },
+   "count_relationships": 0,
+   "count_documents": 0,
+   "created_at": "",
+   "updated_at": "",
+   "is_archive": false,
+   "workpad_id_by_user": 0,
+   "full_name": "",
+   "organization": 0,
+   "suffix": null,
+   "foster_care": "",
+   "resourcetype": ""
+            },
+            isLoading: true,
+            modalVisible: false,
+            filters: {
+              male: false,
+              female: false,
+              unspecified: false,
+              zero_five: false,
+              six_nine: false,
+              ten_thirteen: false,
+              fourteen_eighteen: false,
+              name: false,
+              DOB: false,
+              created: false,
+              updated: false, 
+            },
+            caseVisible: false,
+            }
+        }
+
+setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
+setCaseVisible(visible) {
+  this.setState({ caseVisible: visible });
+}
+
+handleKeywordChange = event => {
+  this.setState({
+    searchKeywords: event,
+  })
+  console.log(this.state.searchKeywords);
+};
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
 
   setAddCaseVisible(visible) {
     this.setState({ addCaseVisible: visible });
   }
 
+<<<<<<< HEAD
   setCaseVisible(visible) {
     this.setState({ caseVisible: visible })
   }
+=======
+  const accessToken = this.props.accessToken;
+  console.log('accessToken:', accessToken);
+   axios.get('https://family-staging.connectourkids.org/api/v1/cases/', {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
 
   handleKeywordChange = event => {
     this.setState({
@@ -202,7 +302,12 @@ class FamilyConnectionsScreen extends Component {
       }
     }
 
+//leaving this out for now because year and day are not required
+  // const DOB = (a, b) => {
+  //   const A = a.birthday;
+  //   const B = b.birthday;
 
+<<<<<<< HEAD
     // ------sorting Functionality------
 
     const name = (a, b) => {
@@ -217,6 +322,16 @@ class FamilyConnectionsScreen extends Component {
       }
       return comparison;
     }
+=======
+  //   let comparison = 0;
+  //   if (A < B) {
+  //     comparison = 1;
+  //   } else {
+  //     comparison = -1;
+  //   }
+  //   return comparison;
+  // }
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
 
     const lastName = (a, b) => {
       const A = a.last_name.toUpperCase();
@@ -262,6 +377,7 @@ class FamilyConnectionsScreen extends Component {
       const A = a.updated_at;
       const B = b.updated_at;
 
+<<<<<<< HEAD
       let comparison = 0;
       if (A > B) {
         comparison = 1;
@@ -270,9 +386,36 @@ class FamilyConnectionsScreen extends Component {
       }
       return comparison;
     }
+=======
+  } 
 
+  //leaving this out for now because year and day are no longer required
+  
+  // else if (this.state.filters.DOB) {
+    
+  //   let Birthdays = []
+  //   let noBirthdays = []
+ 
+  //   for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
 
+  //     if (filteredCases[c].birthday === null) {
+  //       noBirthdays.push(filteredCases[c])
+  //     } else {
+  //       Birthdays.push(filteredCases[c])
+  //     }
+  //     Birthdays.sort(DOB)
+  //   }
+  //   filteredCases = Birthdays.concat(noBirthdays)
+
+<<<<<<< HEAD
     if (this.state.filters.name) {
+=======
+
+  // } 
+  
+  else if (this.state.filters.created) {
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
 
       filteredCases.sort(lastName)
 
@@ -344,6 +487,7 @@ class FamilyConnectionsScreen extends Component {
               this.setModalVisible(true);
             }}
           />
+
         </View>
 
 
@@ -445,6 +589,7 @@ class FamilyConnectionsScreen extends Component {
                 Sort By
             </Text>
 
+<<<<<<< HEAD
               <CheckBox
                 containerStyle={{ backgroundColor: "white", borderColor: "white" }}
                 title='Last Name'
@@ -525,6 +670,73 @@ class FamilyConnectionsScreen extends Component {
                 }}
               />
             </TouchableHighlight>
+=======
+            <CheckBox
+              containerStyle={{ backgroundColor: "white", borderColor: "white" }}
+              title='Last Name'
+              size={16}
+              checked={this.state.filters.name}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: !this.state.filters.name,
+                  DOB: false,
+                  created: false,
+                  updated: false
+                }})}
+            />
+            {/* leaving this out for not because year and day are not required */}
+            
+            {/* <CheckBox
+              containerStyle={{ backgroundColor: "white", borderColor: "white" }}
+              title='Age'
+              size={16}
+              checked={this.state.filters.DOB}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: false,
+                  DOB: !this.state.filters.DOB,
+                  created: false,
+                  updated: false
+                }})}
+            /> */}
+
+            <CheckBox
+              containerStyle={{ backgroundColor: "white", borderColor: "white" }}
+              title='Date Created'
+              size={16}
+              checked={this.state.filters.created}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: false,
+                  DOB: false,
+                  created: !this.state.filters.created,
+                  updated: false
+                }})}
+            />
+
+            <CheckBox
+              containerStyle={{ backgroundColor: "white", borderColor: "white" }}
+              title='Last Updated'
+              size={16}
+              checked={this.state.filters.updated}
+              onPress={() => this.setState({
+                ...this.state, 
+                filters: {
+                  ...this.state.filters, 
+                  name: false,
+                  DOB: false,
+                  created: false,
+                  updated: !this.state.filters.updated
+                }})
+              }
+            />
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
           </View>
         </Modal>
 
@@ -573,6 +785,7 @@ class FamilyConnectionsScreen extends Component {
               ))
             }
 
+<<<<<<< HEAD
             {/* Case onPress Modal */}
 
             <Modal
@@ -580,12 +793,23 @@ class FamilyConnectionsScreen extends Component {
               transparent={false}
               visible={this.state.caseVisible}
             >
+=======
+          {/* Case onPress Modal */}
+            
+          <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.caseVisible}
+              >
+              {/*<CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>*/}
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
               <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
                 <Text>{this.state.caseData.full_name}</Text>
                 <View>
                   <ListItem
                     leftAvatar={{ source: { uri: this.state.caseData.picture } }}
 
+<<<<<<< HEAD
                   />
                   <Text>Gender: {this.state.caseData.gender}</Text>
                   <Text>Date of Birth: {this.state.caseData.birthday}</Text>
@@ -595,6 +819,16 @@ class FamilyConnectionsScreen extends Component {
 
                 </View>
 
+=======
+                 />
+                <Text>Gender: {this.state.caseData.gender}</Text>
+                <Text>Date of Birth: {this.state.caseData.birthday}</Text>
+                <Text>Age: {(fullYear.getFullYear() - this.state.caseData.birthday.slice(0,4)) } years old</Text>
+                <Text>Residence: {this.state.caseData.address.formatted}</Text>
+                <Text>Initiation:{this.state.caseData.foster_care}</Text>
+                  
+              </View>
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
 
                 <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
 
@@ -607,11 +841,24 @@ class FamilyConnectionsScreen extends Component {
                       }}
                     />
                   </TouchableHighlight>
+<<<<<<< HEAD
                 </View>
                 <TouchableHighlight
                   underlayColor="lightgray"
                   onPress={() => {
                     this.setCaseVisible(false);
+=======
+               </View>
+               <View>
+                  <Text>Engagement</Text>
+                  <Text>Participants</Text>
+                  <Text>Highlights</Text>
+               </View>
+              <TouchableHighlight
+              underlayColor="lightgray"
+              onPress={() => {
+                  this.setCaseVisible(false);
+>>>>>>> a307ca3a64960e34878b1bab7130187e2661f68b
                   }}
                 >
                   <Text>Close Modal</Text>
