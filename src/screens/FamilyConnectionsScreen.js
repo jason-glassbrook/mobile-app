@@ -19,6 +19,7 @@ import { ListItem, Image, SearchBar, Button, CheckBox, Divider } from "react-nat
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from '../helpers/constants';
 
+import  CaseViewScreen from './CaseViewScreen.js';
 class FamilyConnectionsScreen extends Component {
     static navigationOptions = ({ navigation }) =>
       headerConfig('Family Connections', navigation);
@@ -30,6 +31,49 @@ class FamilyConnectionsScreen extends Component {
             ageRange: "Age Range",
             sortBy: "Sort By",
             results: [],
+            caseData: {
+              "pk": 0,
+   "first_name": "",
+   "last_name": "",
+   "gender": "",
+   "address": {
+       "pk": 0,
+       "raw": "",
+       "route": "",
+       "street_number": "",
+       "formatted": "",
+       "latitude": 0,
+       "longitude": 0,
+       "locality": "",
+       "state": "",
+       "state_code": ""
+   },
+   "birthday": "0000-00-00",
+   "deceased": false,
+   "date_of_death": null,
+   "picture": "",
+   "notes": "",
+   "created_by": {
+       "id": 2,
+       "first_name": "",
+       "last_name": "",
+       "full_name": "",
+       "email": "",
+       "date_joined": "",
+       "picture": ""
+   },
+   "count_relationships": 0,
+   "count_documents": 0,
+   "created_at": "",
+   "updated_at": "",
+   "is_archive": false,
+   "workpad_id_by_user": 0,
+   "full_name": "",
+   "organization": 0,
+   "suffix": null,
+   "foster_care": "",
+   "resourcetype": ""
+            },
             isLoading: true,
             modalVisible: false,
             filters: {
@@ -54,7 +98,7 @@ setModalVisible(visible) {
   }
 
 setCaseVisible(visible) {
-  this.setState({ caseVisible: visible })
+  this.setState({ caseVisible: visible });
 }
 
 handleKeywordChange = event => {
@@ -67,11 +111,13 @@ handleKeywordChange = event => {
 getUserCases() {
 
   const accessToken = this.props.accessToken;
+  console.log('accessToken:', accessToken);
    axios.get('https://family-staging.connectourkids.org/api/v1/cases/', {
     headers: {
       Authorization: `Bearer ${accessToken}`
     }
   })
+
   .then(response => {
     this.setState({
       results: response.data.results,
@@ -81,6 +127,25 @@ getUserCases() {
   .catch(error => {
     console.log(error);
   });
+}
+
+getCaseData(pk) {
+  const accessToken = this.props.accessToken;
+  
+  axios.get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`
+    }
+  })
+
+  .then(res => {
+    this.setState({caseData: res.data})
+    console.log('Initiation:', this.state.caseData.foster_care);
+    console.log('caseData:', this.state.caseData);      
+  })
+  .catch(err => {
+    console.log(err);
+  })
 }
 
 componentDidMount() {
@@ -255,7 +320,7 @@ render() {
 
   // const { navigate } = this.props.navigation;
   const fullYear = new Date();
-
+  
   return (
     <SafeAreaView>
       <View style={{ flexDirection: "row" }}>
@@ -473,7 +538,12 @@ render() {
                   subtitleStyle={{ color: '#9FABB3' }}
                   leftAvatar={{ source: { uri: result.picture }}}
                   topDivider={true}
-                  onPress={() => this.setCaseVisible(true)}
+                  onPress={() => {this.setCaseVisible(true)
+                  
+                    this.getCaseData(result.pk);
+                  }
+
+                  }
 
                   // Case badges for document value/count
                   badge={{ value: result.count_documents, textStyle: { fontSize: 14, color: 'white', backgroundColor: constants.highlightColor }, containerStyle: {  marginTop: -10 } }}
@@ -482,24 +552,57 @@ render() {
           }
 
           {/* Case onPress Modal */}
+            
           <Modal
               animationType="slide"
               transparent={false}
               visible={this.state.caseVisible}
-            >
-            <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
-              <Text>Working on it... </Text>
+              >
+              {/*<CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>*/}
+              <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
+              <Text>{this.state.caseData.full_name}</Text>
+              <View>
+                <ListItem
+                leftAvatar={{ source: { uri: this.state.caseData.picture }}}
 
+                 />
+                <Text>Gender: {this.state.caseData.gender}</Text>
+                <Text>Date of Birth: {this.state.caseData.birthday}</Text>
+                <Text>Age: {(fullYear.getFullYear() - this.state.caseData.birthday.slice(0,4)) } years old</Text>
+                <Text>Residence: {this.state.caseData.address.formatted}</Text>
+                <Text>Initiation:{this.state.caseData.foster_care}</Text>
+                  
+              </View>
+
+               
+              <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
+                  
+                  <TouchableHighlight>
+                    <Button
+                      buttonStyle={{ backgroundColor: constants.highlightColor }}
+                      title="Work on Case"
+                      onPress={() => {
+                        this.setModalVisible(!this.state.modalVisible);
+                      }}
+                    />
+                  </TouchableHighlight>
+               </View>
+               <View>
+                  <Text>Engagement</Text>
+                  <Text>Participants</Text>
+                  <Text>Highlights</Text>
+               </View>
               <TouchableHighlight
-                underlayColor="lightgray"
-                onPress={() => {
+              underlayColor="lightgray"
+              onPress={() => {
                   this.setCaseVisible(false);
                   }}
               >
               <Text>Close Modal</Text>
               </TouchableHighlight>
-            </View>
+              </View>
           </Modal>
+         
         </ScrollView>
       </View>
     </SafeAreaView>
