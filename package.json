@@ -16,6 +16,7 @@
     "expo-secure-store": "~7.0.0",
     "expo-web-browser": "^7.0.1",
     "flatted": "^2.0.1",
+    "jshint": "^2.10.2",
     "jwt-decode": "^2.2.0",
     "native-base": "^2.13.8",
     "react": "16.8.3",

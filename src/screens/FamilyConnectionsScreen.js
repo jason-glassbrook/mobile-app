@@ -19,6 +19,7 @@ import { ListItem, Image, SearchBar, Button, CheckBox, Divider } from "react-nat
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from '../helpers/constants';
 
+import  CaseViewScreen from './CaseViewScreen.js';
 class FamilyConnectionsScreen extends Component {
     static navigationOptions = ({ navigation }) =>
       headerConfig('Family Connections', navigation);
@@ -47,7 +48,7 @@ class FamilyConnectionsScreen extends Component {
        "state": "",
        "state_code": ""
    },
-   "birthday": "",
+   "birthday": "0000-00-00",
    "deceased": false,
    "date_of_death": null,
    "picture": "",
@@ -97,7 +98,7 @@ setModalVisible(visible) {
   }
 
 setCaseVisible(visible) {
-  this.setState({ caseVisible: visible })
+  this.setState({ caseVisible: visible });
 }
 
 handleKeywordChange = event => {
@@ -110,7 +111,7 @@ handleKeywordChange = event => {
 getUserCases() {
 
   const accessToken = this.props.accessToken;
-  console.log(accessToken);
+  console.log('accessToken:', accessToken);
    axios.get('https://family-staging.connectourkids.org/api/v1/cases/', {
     headers: {
       Authorization: `Bearer ${accessToken}`
@@ -166,35 +167,35 @@ render() {
 
 
   // ------filter age functionality------
-  if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
+  // if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
   
-  } else {
-   let year = new Date()
+  // } else {
+  //  let year = new Date()
 
-   let noNullBirthday = []
-   let nullBirthday = []
+  //  let noNullBirthday = []
+  //  let nullBirthday = []
 
-   for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break the if statements starting on line 122
-     if (filteredCases[c].birthday === null) {
-       nullBirthday.push(filteredCases[c])
-     } else {
-       noNullBirthday.push(filteredCases[c])
-     }
-   }
+  //  for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break the if statements starting on line 122
+  //    if (filteredCases[c].birthday === null) {
+  //      nullBirthday.push(filteredCases[c])
+  //    } else {
+  //      noNullBirthday.push(filteredCases[c])
+  //    }
+  //  }
 
 
-   if (!this.state.filters.zero_five) {noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4)) > 5)} //if this is not selected -- dont return ages 0-5
-   if (!this.state.filters.six_nine) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 6) && (year.getFullYear() - c.birthday.slice(0,4)) <= 9 ))}
-   if (!this.state.filters.ten_thirteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 10) && (year.getFullYear() - c.birthday.slice(0,4)) <= 13))}
-   if (!this.state.filters.fourteen_eighteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 14) && (year.getFullYear() - c.birthday.slice(0,4)) <= 18))}
-   noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4) < 18))
+  //  if (!this.state.filters.zero_five) {noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4)) > 5)} //if this is not selected -- dont return ages 0-5
+  //  if (!this.state.filters.six_nine) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 6) && (year.getFullYear() - c.birthday.slice(0,4)) <= 9 ))}
+  //  if (!this.state.filters.ten_thirteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 10) && (year.getFullYear() - c.birthday.slice(0,4)) <= 13))}
+  //  if (!this.state.filters.fourteen_eighteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 14) && (year.getFullYear() - c.birthday.slice(0,4)) <= 18))}
+  //  noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4) < 18))
   
-   if (!this.state.filters.unspecified) { //add null birthdays back if unspecified is checked
-    filteredCases = noNullBirthday
-  } else {
-    filteredCases = noNullBirthday.concat(nullBirthday)
-    }
-  }
+  //  if (!this.state.filters.unspecified) { //add null birthdays back if unspecified is checked
+  //   filteredCases = noNullBirthday
+  // } else {
+  //   filteredCases = noNullBirthday.concat(nullBirthday)
+  //   }
+  // }
 
 
   // ------sorting Functionality------
@@ -225,19 +226,19 @@ render() {
     return comparison;
   }
 
+//leaving this out for now because year and day are not required
+  // const DOB = (a, b) => {
+  //   const A = a.birthday;
+  //   const B = b.birthday;
 
-  const DOB = (a, b) => {
-    const A = a.birthday;
-    const B = b.birthday;
-
-    let comparison = 0;
-    if (A < B) {
-      comparison = 1;
-    } else {
-      comparison = -1;
-    }
-    return comparison;
-  }
+  //   let comparison = 0;
+  //   if (A < B) {
+  //     comparison = 1;
+  //   } else {
+  //     comparison = -1;
+  //   }
+  //   return comparison;
+  // }
 
   const created = (a, b) => {
     const A = a.created_at;
@@ -270,24 +271,30 @@ render() {
 
     filteredCases.sort(lastName)
 
-  } else if (this.state.filters.DOB) {
+  } 
+
+  //leaving this out for now because year and day are no longer required
+  
+  // else if (this.state.filters.DOB) {
     
-    let Birthdays = []
-    let noBirthdays = []
+  //   let Birthdays = []
+  //   let noBirthdays = []
  
-    for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break
-      console.log(filteredCases[c].last_name)
-      if (filteredCases[c].birthday === null) {
-        noBirthdays.push(filteredCases[c])
-      } else {
-        Birthdays.push(filteredCases[c])
-      }
-      Birthdays.sort(DOB)
-    }
-    filteredCases = Birthdays.concat(noBirthdays)
+  //   for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break
+
+  //     if (filteredCases[c].birthday === null) {
+  //       noBirthdays.push(filteredCases[c])
+  //     } else {
+  //       Birthdays.push(filteredCases[c])
+  //     }
+  //     Birthdays.sort(DOB)
+  //   }
+  //   filteredCases = Birthdays.concat(noBirthdays)
 
 
-  } else if (this.state.filters.created) {
+  // } 
+  
+  else if (this.state.filters.created) {
 
     filteredCases.sort(created)
 
@@ -338,6 +345,7 @@ render() {
               this.setModalVisible(true);
             }}
           />
+
         </View>
 
 
@@ -385,7 +393,7 @@ render() {
 
             <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
 
-            <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
+            {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
 
@@ -421,7 +429,7 @@ render() {
               onPress={() => this.setState({...this.state, filters: {...this.state.filters, fourteen_eighteen: !this.state.filters.fourteen_eighteen}})}
             />
 
-            <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
+            <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} /> */}
 
             <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Sort By
@@ -442,8 +450,9 @@ render() {
                   updated: false
                 }})}
             />
-
-            <CheckBox
+            {/* leaving this out for not because year and day are not required */}
+            
+            {/* <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Age'
               size={16}
@@ -457,7 +466,7 @@ render() {
                   created: false,
                   updated: false
                 }})}
-            />
+            /> */}
 
             <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
@@ -525,7 +534,7 @@ render() {
                   key={index}
                   title={result.full_name}
                   titleStyle={{ color: '#5A6064' }}
-                  subtitle={`${(result.gender && result.birthday) && (!null || '') ? `Gender: ${result.gender} , ${(fullYear.getFullYear() - result.birthday.slice(0,4)) } years old` : 'unspecified' }`}
+                  subtitle={`${(result.gender && result.birthday) && (!null || '') ? `Gender: ${result.gender} , ${result.birthday}` : 'unspecified' }`}
                   subtitleStyle={{ color: '#9FABB3' }}
                   leftAvatar={{ source: { uri: result.picture }}}
                   topDivider={true}
@@ -543,13 +552,14 @@ render() {
           }
 
           {/* Case onPress Modal */}
-
+            
           <Modal
               animationType="slide"
               transparent={false}
               visible={this.state.caseVisible}
               >
-              <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
+              <CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>
+              {/* <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
               <Text>{this.state.caseData.full_name}</Text>
               <View>
                 <ListItem
@@ -558,10 +568,9 @@ render() {
                  />
                 <Text>Gender: {this.state.caseData.gender}</Text>
                 <Text>Date of Birth: {this.state.caseData.birthday}</Text>
-                <Text>Age: {(fullYear.getFullYear() - this.state.caseData.birthday.slice(0,4)) } years old</Text>
                 <Text>Residence: {this.state.caseData.address.formatted}</Text>
                 <Text>Initiation:{this.state.caseData.foster_care}</Text>
-
+                  
               </View>
 
                
@@ -577,6 +586,11 @@ render() {
                     />
                   </TouchableHighlight>
                </View>
+               <View>
+                  <Text>Engagement</Text>
+                  <Text>Participants</Text>
+                  <Text>Highlights</Text>
+               </View>
               <TouchableHighlight
               underlayColor="lightgray"
               onPress={() => {
@@ -585,7 +599,7 @@ render() {
               >
               <Text>Close Modal</Text>
               </TouchableHighlight>
-              </View>
+              </View> */}
           </Modal>
          
         </ScrollView>
