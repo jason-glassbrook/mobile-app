@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, TouchableHighlight } from "react-native";
+import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
 import constants from "../helpers/constants";
 import { ListItem, Button } from "react-native-elements";
 import { Engagement, Participants, Highlights } from "../components/CaseViewTabs";
@@ -10,6 +10,25 @@ export default function CaseViewScreen(props) {
     engagement: true,
     participants: false,
     highlights: false
+  })
+
+  const styles = StyleSheet.create({
+
+    tabs: {
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+    },
+
+    selected: {
+      backgroundColor: constants.highlightColor,
+
+    },
+
+    tab: {
+      padding: 10,
+      fontSize: 16
+    }
   })
 
 
@@ -52,20 +71,12 @@ export default function CaseViewScreen(props) {
             />
           </TouchableHighlight>
         </View>
-        <View style={{flexDirection: 'row'}}>
-          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: true, participants: false, highlights: false }) }}>Engagement</Text>
-          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: false, participants: true, highlights: false }) }}>Participants</Text>
-          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: false, participants: false, highlights: true }) }}>Highlights</Text>
+        <View style={styles.tabs}>
+          <Text style={[styles.tab, tabs.engagement ? styles.selected : null]} onPress={() => { setTabs({ engagement: true, participants: false, highlights: false }) }}>Engagement</Text>
+          <Text style={[styles.tab, tabs.participants ? styles.selected : null]} onPress={() => { setTabs({ engagement: false, participants: true, highlights: false }) }}>Participants</Text>
+          <Text style={[styles.tab, tabs.highlights ? styles.selected : null]} onPress={() => { setTabs({ engagement: false, participants: false, highlights: true }) }}>Highlights</Text>
         </View>
-        <TouchableHighlight
-          underlayColor="lightgray"
-          onPress={
-            () => {
-              props.setCaseVisible()
-            }}
-        >
-          <Text>Close Case</Text>
-        </TouchableHighlight>
+
       </View>
       {
         tabs.engagement ? <Engagement caseData={caseData} /> : null
@@ -76,6 +87,23 @@ export default function CaseViewScreen(props) {
       {
         tabs.highlights ? <Highlights caseData={caseData} /> : null
       }
+
+      <TouchableHighlight
+        underlayColor="lightgray"
+        style={{ alignItems: 'center' }}
+        onPress={
+          () => {
+            props.setCaseVisible()
+          }}
+      >
+        <Text style={{
+          padding: 10,
+          borderRadius: 4,
+          borderWidth: 1,
+          borderColor: `${constants.highlightColor}`,
+          color: `${constants.highlightColor}`
+        }}>Close Case</Text>
+      </TouchableHighlight>
     </View>
   );
 }
