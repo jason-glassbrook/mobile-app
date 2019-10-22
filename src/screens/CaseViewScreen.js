@@ -53,9 +53,9 @@ export default function CaseViewScreen(props) {
           </TouchableHighlight>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <Text onPress={() => { setTabs({ engagement: true, participants: false, highlights: false }) }}>Engagement</Text>
-          <Text onPress={() => { setTabs({ engagement: false, participants: true, highlights: false }) }}>Participants</Text>
-          <Text onPress={() => { setTabs({ engagement: false, participants: false, highlights: true }) }}>Highlights</Text>
+          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: true, participants: false, highlights: false }) }}>Engagement</Text>
+          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: false, participants: true, highlights: false }) }}>Participants</Text>
+          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: false, participants: false, highlights: true }) }}>Highlights</Text>
         </View>
         <TouchableHighlight
           underlayColor="lightgray"
