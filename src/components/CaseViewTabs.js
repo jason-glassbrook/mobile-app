@@ -1,70 +1,46 @@
 import React from 'react';
-import {createAppContainer} from 'react-navigation';
-import {createMaterialTopTabNavigator} from 'react-navigation-tabs';
-import {createStackNavigator} from 'react-navigation-stack';
-import { Text } from 'react-native';
 
-// import CaseViewScreen from './screens/CaseViewScreen.js';
-
-// const TabScreen = createMaterialTopTabNavigator(
-//   {
-//     Engagement: { screen: CaseViewScreen },
-//     Settings: { screen: SecondPage },
-//   },
-//   {
-//     tabBarPosition: 'top',
-//     swipeEnabled: true,
-//     animationEnabled: true,
-//     tabBarOptions: {
-//       activeTintColor: '#FFFFFF',
-//       inactiveTintColor: '#F8F8F8',
-//       style: {
-//         backgroundColor: '#633689',
-//       },
-//       labelStyle: {
-//         textAlign: 'center',
-//       },
-//       indicatorStyle: {
-//         borderBottomColor: '#87B56A',
-//         borderBottomWidth: 2,
-//       },
-//     },
-//   }
-// );
- 
-// //making a StackNavigator to export as default
-// const App = createStackNavigator({
-//   TabScreen: {
-//     screen: TabScreen,
-//     navigationOptions: {
-//       headerStyle: {
-//         backgroundColor: '#633689',
-//       },
-//       headerTintColor: '#FFFFFF',
-//       title: 'TabExample',
-//     },
-//   },
-// });
-// export default createAppContainer(App);
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Modal,
+  StatusBar,
+  TextInput,
+  ActivityIndicator,
+  ScrollView,
+  Platform,
+  TouchableHighlight,
+  Alert
+} from 'react-native';
+import { ListItem, Button } from "react-native-elements";
 
 export const Engagement = (props) => {
-
   return(
-    <>
-    <Text>Engagement</Text>
-
-
-
-    </>
+  <View>
+    <Text>notes:{props.caseData.notes}</Text>
+    <Text>documents:{props.caseData.count_documents}</Text>
+    <Text>phone calls:{props.caseData.phone_calls}</Text>
+    <Text>emails:{props.caseData.emails}</Text>
+    <Text>reminders{props.caseData.reminders}</Text>
+  </View>   
   )
 }
 
 export const Participants = (props) => {
 
   return(
-    <>
-    <Text>Participants</Text>
-    </>
+    <View>
+      <ScrollView>
+        <TextInput placeholder="Add Person" />
+        <TextInput placeholder="Add Group" />
+        <ListItem leftAvatar={{ source: { uri: props.caseData.created_by.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
+        <Text>Owners: {props.caseData.created_by.full_name}</Text>
+        <Text>Participants:{props.caseData.participants}</Text>
+        <Text>Viewers: {props.caseData.viewers}</Text>
+      </ScrollView>
+    </View>
   )
 }
 

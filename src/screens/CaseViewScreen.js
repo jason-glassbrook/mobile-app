@@ -77,6 +77,5 @@ export default function CaseViewScreen(props) {
         tabs.highlights ? <Highlights caseData={caseData} /> : null
       }
     </View>
-
   );
 }
