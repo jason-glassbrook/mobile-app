@@ -22,7 +22,7 @@ export default function CaseViewScreen(props) {
           <Text>Gender: {caseData.gender}</Text>
           <Text>Date of Birth: {caseData.birthday}</Text>
           <Text>
-            Age: {fullYear.getFullYear() - caseData.birthday.slice(0, 4)} years
+            Age: {caseData.birthday} years
             old
           </Text>
           <Text>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted: "no address available"}</Text>
