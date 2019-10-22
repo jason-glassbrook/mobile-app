@@ -2094,7 +2094,7 @@ expo-asset@~7.0.0:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-constants@~7.0.0:
+expo-constants@^7.0.0, expo-constants@~7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/expo-constants/-/expo-constants-7.0.0.tgz#668c3ec0100e219522ffd9515ec47fadfccd443d"
   integrity sha512-oLINuMtGcAwfHGInSVhq6xGojp3atUpSIp7KImo9rqXhWwD5FNmqA5Jflo4J0ODPq590kN5ieiYCCqwls2/u0w==
@@ -2108,7 +2108,7 @@ expo-file-system@~7.0.0:
   dependencies:
     uuid-js "^0.7.5"
 
-expo-font@~7.0.0:
+expo-font@^7.0.0, expo-font@~7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/expo-font/-/expo-font-7.0.0.tgz#0b36f5c91a77eb718fb20559b2c0c58d762ba535"
   integrity sha512-OVlUydfexjq1u57Xlymcx5egfFF2WZ5MXkg3GGjHyiSMfp09inZ7OzAu+O/TXjxjlaq9d6vBXiwVxqQoUIlx1Q==
@@ -2125,7 +2125,7 @@ expo-linear-gradient@~7.0.0:
   resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-7.0.0.tgz#91e86f3f4a70428c7ac5e43ee0d06215bca39afd"
   integrity sha512-8VrFWR9tpXrDmk0kMyIpo6C5jKiDRzXPZN55JtyPhjuN1kF8Kle4d9ybNtV+bYd3Ql6PAZXY8Y/bhLAuWv0L9g==
 
-expo-local-authentication@~7.0.0:
+expo-local-authentication@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/expo-local-authentication/-/expo-local-authentication-7.0.0.tgz#aca6b79e59e53ec3d44d4951203abb1a85d9f5c6"
   integrity sha512-LTFMc8A7hm0Glgs6fSdkpHzrGH2EVqpUPdLQCyvMNwhQMncsh9Q13kzuNhrSjeBX+4M9c8HiH5OymETiC4GQYA==
@@ -2144,6 +2144,11 @@ expo-permissions@~7.0.0:
   resolved "https://registry.yarnpkg.com/expo-permissions/-/expo-permissions-7.0.0.tgz#f4135c3cf8e49c673a9a714459a1eb2b40fe2092"
   integrity sha512-C+qyVz+pdZO4YpVR2HSC3gsBZg0Qb8brCFgzmDmWcAtgrOiHClaLPdhI2XtQuGh8ubXcKPUGZp++UCEGiG0Jxg==
 
+expo-secure-store@~7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-7.0.0.tgz#83aee977ef2fe0bb9fa9f2baecdf6d50b26a893a"
+  integrity sha512-7O80jH+JynoO8OlAHSj+F9Rbk1Vaf8309shuyZVW3C0tB1dXN+UiJUrCKAJ38dI8k/eV8+f5orw7x67VTJNUSQ==
+
 expo-sqlite@~7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/expo-sqlite/-/expo-sqlite-7.0.0.tgz#f52585b342278b4034c06caac8384edb2531afa4"
@@ -2153,7 +2158,7 @@ expo-sqlite@~7.0.0:
     "@types/websql" "^0.0.27"
     lodash "^4.17.15"
 
-expo-web-browser@~7.0.0:
+expo-web-browser@^7.0.1, expo-web-browser@~7.0.0:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/expo-web-browser/-/expo-web-browser-7.0.1.tgz#b64ef895b5c0604f312b64b085f7a2f1da630e20"
   integrity sha512-THjqlMitUsjHUGYEfag2ybdhgZpp0C4ATixfNpWlS/8vTM4Sw/KGfwB0VuqtqLUMT2q2MTJSrlrWY8Boi4yvTg==

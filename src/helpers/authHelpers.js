@@ -2,7 +2,10 @@ import { AsyncStorage } from 'react-native';
 import AuthSessionCustom from './AuthSessionCustom.js';
 import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
+import * as SecureStore from 'expo-secure-store';
 import * as LocalAuthentication from 'expo-local-authentication';
+import axios from 'axios';
+import refreshHelper from './refreshHelper'
 
 const { auth0Domain, auth0ClientId } = getEnvVars();
 
@@ -20,44 +23,51 @@ const toQueryString = params => {
 
 const setItem = async (key, value) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(value));
+    await SecureStore.setItemAsync(key, JSON.stringify(value), options);
   } catch (e) {
     console.log(`error storing ${key}`, e);
   }
 };
 
+const getItem = async (key) => {
+  try {
+    await SecureStore.getItemAsync(key, options)
+  } catch (e) {
+    console.log(`error getting ${key}`, e)
+  }
+}
 
 const handleLogin = async (authSession, setUserCreds) => {
 
-  await LocalAuthentication.hasHardwareAsync()
-  .then(res => 
-    console.log(res),
-    await LocalAuthentication.supportedAuthenticationTypesAsync()
-      .then(res => 
-        console.log(res),
-        await LocalAuthentication.isEnrolledAsync()
-          .then(res => 
-            console.log(res),
-            await LocalAuthentication.authenticateAsync({
-              promptMessage: 'Authenticate', 
-              fallbackLabel: 'Use Passcode'
-            })
-            .then(res => 
-              console.log(res)
-            )
-            .catch(err => 
-              console.log(err)
-            )
-          )
-          .catch(err => 
-            console.log(err)
-          )
-      )
-      .catch(err => 
-        console.log(err)
-      )
-  )
-  .catch(err => console.log(err));
+  // await LocalAuthentication.hasHardwareAsync()
+  // .then(res => 
+  //   console.log(res),
+  //   await LocalAuthentication.supportedAuthenticationTypesAsync()
+  //     .then(res => 
+  //       console.log(res),
+  //       await LocalAuthentication.isEnrolledAsync()
+  //         .then(res => 
+  //           console.log(res),
+  //           await LocalAuthentication.authenticateAsync({
+  //             promptMessage: 'Authenticate', 
+  //             fallbackLabel: 'Use Passcode'
+  //           })
+  //           .then(res => 
+  //             console.log(res)
+  //           )
+  //           .catch(err => 
+  //             console.log(err)
+  //           )
+  //         )
+  //         .catch(err => 
+  //           console.log(err)
+  //         )
+  //     )
+  //     .catch(err => 
+  //       console.log(err)
+  //     )
+  // )
+  // .catch(err => console.log(err));
 
   const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
   console.log(`Redirect URL: ${redirectUrl}`);
@@ -101,7 +111,11 @@ const handleLogin = async (authSession, setUserCreds) => {
   const expiresAt = response.expires_in * 1000 + new Date().getTime();
   setItem('expiresAt', expiresAt);
   setItem('auth0Data', response);
+  
+  await SecureStore.setItemAsync('auth0code', response.params.code)
+
   setUserCreds(decoded, response);
+  refreshHelper()
 };
 
 export default {

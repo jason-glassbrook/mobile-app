@@ -13,7 +13,6 @@ import MainText from '../UI/MainText';
 import NavigationButton from '../UI/NavigationButton';
 import ScreenContainer from '../UI/ScreenContainer';
 import authHelpers from '../helpers/authHelpers';
-import GetRefresh from '../helpers/refreshHelper'
 
 class BestPracticesScreen extends Component {
   static navigationOptions = ({ navigation }) =>
