@@ -67,8 +67,9 @@ const handleLogin = async (authSession, setUserCreds) => {
     client_id: auth0ClientId,
     redirect_uri: redirectUrl,
     audience: 'https://family-staging.connectourkids.org/api/v1/',
-    response_type: 'id_token token', // id_token will return a JWT token
-    scope: 'openid profile email', // retrieve the user's profile
+    response_type: 'code id_token token', // id_token will return a JWT token
+    scope: 'offline_access openid profile email', // retrieve the user's profile
+    prompt: 'consent',
     nonce: 'nonce', // ideally, this will be a random value
   });
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
@@ -77,7 +78,7 @@ const handleLogin = async (authSession, setUserCreds) => {
 
   // Perform the authentication
   const response = await AuthSessionCustom.startAsync({ authUrl });
-  console.log('AUTH response', response);
+  console.log('AUTH response', await response);
 
   if (response.error) {
     Alert('Authentication error', response.error_description || 'something went wrong');
