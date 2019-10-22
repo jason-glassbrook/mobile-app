@@ -167,35 +167,35 @@ render() {
 
 
   // ------filter age functionality------
-  if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
+  // if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
   
-  } else {
-   let year = new Date()
+  // } else {
+  //  let year = new Date()
 
-   let noNullBirthday = []
-   let nullBirthday = []
+  //  let noNullBirthday = []
+  //  let nullBirthday = []
 
-   for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break the if statements starting on line 122
-     if (filteredCases[c].birthday === null) {
-       nullBirthday.push(filteredCases[c])
-     } else {
-       noNullBirthday.push(filteredCases[c])
-     }
-   }
+  //  for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break the if statements starting on line 122
+  //    if (filteredCases[c].birthday === null) {
+  //      nullBirthday.push(filteredCases[c])
+  //    } else {
+  //      noNullBirthday.push(filteredCases[c])
+  //    }
+  //  }
 
 
-   if (!this.state.filters.zero_five) {noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4)) > 5)} //if this is not selected -- dont return ages 0-5
-   if (!this.state.filters.six_nine) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 6) && (year.getFullYear() - c.birthday.slice(0,4)) <= 9 ))}
-   if (!this.state.filters.ten_thirteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 10) && (year.getFullYear() - c.birthday.slice(0,4)) <= 13))}
-   if (!this.state.filters.fourteen_eighteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 14) && (year.getFullYear() - c.birthday.slice(0,4)) <= 18))}
-   noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4) < 18))
+  //  if (!this.state.filters.zero_five) {noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4)) > 5)} //if this is not selected -- dont return ages 0-5
+  //  if (!this.state.filters.six_nine) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 6) && (year.getFullYear() - c.birthday.slice(0,4)) <= 9 ))}
+  //  if (!this.state.filters.ten_thirteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 10) && (year.getFullYear() - c.birthday.slice(0,4)) <= 13))}
+  //  if (!this.state.filters.fourteen_eighteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 14) && (year.getFullYear() - c.birthday.slice(0,4)) <= 18))}
+  //  noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4) < 18))
   
-   if (!this.state.filters.unspecified) { //add null birthdays back if unspecified is checked
-    filteredCases = noNullBirthday
-  } else {
-    filteredCases = noNullBirthday.concat(nullBirthday)
-    }
-  }
+  //  if (!this.state.filters.unspecified) { //add null birthdays back if unspecified is checked
+  //   filteredCases = noNullBirthday
+  // } else {
+  //   filteredCases = noNullBirthday.concat(nullBirthday)
+  //   }
+  // }
 
 
   // ------sorting Functionality------
@@ -393,7 +393,7 @@ render() {
 
             <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
 
-            <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
+            {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
 
@@ -429,7 +429,7 @@ render() {
               onPress={() => this.setState({...this.state, filters: {...this.state.filters, fourteen_eighteen: !this.state.filters.fourteen_eighteen}})}
             />
 
-            <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} />
+            <Divider style={{ height: 1, backgroundColor: 'lightgray', margin: 20 }} /> */}
 
             <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Sort By
@@ -534,7 +534,7 @@ render() {
                   key={index}
                   title={result.full_name}
                   titleStyle={{ color: '#5A6064' }}
-                  subtitle={`${(result.gender && result.birthday) && (!null || '') ? `Gender: ${result.gender} , ${(fullYear.getFullYear() - result.birthday.slice(0,4)) } years old` : 'unspecified' }`}
+                  subtitle={`${(result.gender && result.birthday) && (!null || '') ? `Gender: ${result.gender} , ${result.birthday}` : 'unspecified' }`}
                   subtitleStyle={{ color: '#9FABB3' }}
                   leftAvatar={{ source: { uri: result.picture }}}
                   topDivider={true}
@@ -568,7 +568,6 @@ render() {
                  />
                 <Text>Gender: {this.state.caseData.gender}</Text>
                 <Text>Date of Birth: {this.state.caseData.birthday}</Text>
-                <Text>Age: {(fullYear.getFullYear() - this.state.caseData.birthday.slice(0,4)) } years old</Text>
                 <Text>Residence: {this.state.caseData.address.formatted}</Text>
                 <Text>Initiation:{this.state.caseData.foster_care}</Text>
                   
