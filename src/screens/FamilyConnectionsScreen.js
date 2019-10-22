@@ -558,8 +558,8 @@ render() {
               transparent={false}
               visible={this.state.caseVisible}
               >
-              {/*<CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>*/}
-              <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
+              <CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>
+              {/* <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
               <Text>{this.state.caseData.full_name}</Text>
               <View>
                 <ListItem
@@ -603,7 +603,7 @@ render() {
               >
               <Text>Close Modal</Text>
               </TouchableHighlight>
-              </View>
+              </View> */}
           </Modal>
          
         </ScrollView>

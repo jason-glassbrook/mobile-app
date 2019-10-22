@@ -21,10 +21,6 @@ export default function CaseViewScreen(props) {
           <ListItem leftAvatar={{ source: { uri: caseData.picture||"https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"} }} />
           <Text>Gender: {caseData.gender}</Text>
           <Text>Date of Birth: {caseData.birthday}</Text>
-          <Text>
-            Age: {fullYear.getFullYear() - caseData.birthday.slice(0, 4)} years
-            old
-          </Text>
           <Text>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted: "no address available"}</Text>
           <Text>Initiation:{caseData.foster_care}</Text>
         </View>
