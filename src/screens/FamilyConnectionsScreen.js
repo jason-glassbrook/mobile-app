@@ -152,6 +152,7 @@ componentDidMount() {
   this.getUserCases();
 }
 
+
 render() {
   // ------filter gender functionality------
   let filteredCases = this.state.results
@@ -558,17 +559,17 @@ render() {
               transparent={false}
               visible={this.state.caseVisible}
               >
-              <CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>
+              <CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={() => {this.setCaseVisible(false)}}  caseVisible={this.state.caseVisible}/>
               {/* <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
               <Text>{this.state.caseData.full_name}</Text>
               <View>
                 <ListItem
-                leftAvatar={{ source: { uri: this.state.caseData.picture }}}
+                leftAvatar={{ source: { uri: this.state.caseData.picture||"https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"} }}
 
                  />
                 <Text>Gender: {this.state.caseData.gender}</Text>
                 <Text>Date of Birth: {this.state.caseData.birthday}</Text>
-                <Text>Residence: {this.state.caseData.address.formatted}</Text>
+                {/* <Text>Residence: {this.state.caseData.address}</Text>
                 <Text>Initiation:{this.state.caseData.foster_care}</Text>
                   
               </View>
@@ -586,11 +587,14 @@ render() {
                     />
                   </TouchableHighlight>
                </View>
-               <View>
-                  <Text>Engagement</Text>
-                  <Text>Participants</Text>
-                  <Text>Highlights</Text>
-               </View>
+
+                  <View style= {{flexDirection: "row", textAlign: "space-between", padding: 20}} >
+                    <Text>Engagement
+                          Participants
+                          Highlights
+                    </Text>
+                  </View>
+               
               <TouchableHighlight
               underlayColor="lightgray"
               onPress={() => {
