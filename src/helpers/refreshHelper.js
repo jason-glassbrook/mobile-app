@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store'
 import getEnvVars from '../../environment.js';
@@ -16,7 +15,7 @@ const refreshHelper = async () => {
     grant_type: 'authorization_code',
     code: code,
   }
-  
+
   axios
     .post('https://connectourkids.auth0.com/oauth/token', refreshParams)
     .then(res => {
