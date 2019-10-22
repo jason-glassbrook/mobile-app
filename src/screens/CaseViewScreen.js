@@ -51,11 +51,11 @@ export default function CaseViewScreen(props) {
         </View>
         <TouchableHighlight
           underlayColor="lightgray"
-          onPress={() => {
-            props.setCaseVisible(!props.caseVisible);
+          onPress={
+            () => {props.setCaseVisible()
           }}
         >
-          <Text>Close Modal</Text>
+          <Text>Close Case</Text>
         </TouchableHighlight>
       </View>
     </View>
