@@ -4,7 +4,6 @@ import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
 import * as LocalAuthentication from 'expo-local-authentication';
-import axios from 'axios';
 import refreshHelper from './refreshHelper'
 
 const { auth0Domain, auth0ClientId } = getEnvVars();
@@ -28,14 +27,6 @@ const setItem = async (key, value) => {
     console.log(`error storing ${key}`, e);
   }
 };
-
-const getItem = async (key) => {
-  try {
-    await SecureStore.getItemAsync(key, options)
-  } catch (e) {
-    console.log(`error getting ${key}`, e)
-  }
-}
 
 const handleLogin = async (authSession, setUserCreds) => {
 
@@ -111,10 +102,10 @@ const handleLogin = async (authSession, setUserCreds) => {
   const expiresAt = response.expires_in * 1000 + new Date().getTime();
   setItem('expiresAt', expiresAt);
   setItem('auth0Data', response);
-  
-  await SecureStore.setItemAsync('auth0code', response.params.code)
-
   setUserCreds(decoded, response);
+
+  await SecureStore.setItemAsync('cok_auth0code', response.params.code)
+
   refreshHelper()
 };
 
