@@ -19,11 +19,13 @@ import { ListItem, Button } from "react-native-elements";
 export const Engagement = (props) => {
   return(
   <View>
-    <Text>notes:{props.caseData.notes}</Text>
-    <Text>documents:{props.caseData.count_documents}</Text>
-    <Text>phone calls:{props.caseData.phone_calls}</Text>
-    <Text>emails:{props.caseData.emails}</Text>
-    <Text>reminders{props.caseData.reminders}</Text>
+    <ScrollView>
+      <Text>notes:{props.caseData.notes}</Text>
+      <Text>documents:{props.caseData.count_documents}</Text>
+      <Text>phone calls:{props.caseData.phone_calls}</Text>
+      <Text>emails:{props.caseData.emails}</Text>
+      <Text>reminders{props.caseData.reminders}</Text>
+    </ScrollView>
   </View>   
   )
 }
@@ -47,8 +49,10 @@ export const Participants = (props) => {
 export const Highlights = (props) => {
 
   return(
-    <>
-    <Text>Highlights</Text>
-    </>
+    <View>
+      <ScrollView>
+        <Text>Highlights: {props.caseData.notes}</Text>
+      </ScrollView>
+    </View>
   )
 }
