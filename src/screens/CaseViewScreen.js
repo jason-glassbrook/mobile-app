@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, View, TouchableHighlight } from "react-native";
 import constants from "../helpers/constants";
 import { ListItem, Button } from "react-native-elements";
+import { Engagement, Participants, Highlights } from "../components/CaseViewTabs";
 
 export default function CaseViewScreen(props) {
+
+  const [tabs, setTabs] = useState({
+    engagement: true,
+    participants: false,
+    highlights: false
+  })
+
+
   let caseData = props.caseData;
-  const fullYear = new Date();
   console.log(props.caseData);
   return (
     <View>
@@ -18,10 +26,10 @@ export default function CaseViewScreen(props) {
       >
         <Text>{caseData.full_name}</Text>
         <View>
-          <ListItem leftAvatar={{ source: { uri: caseData.picture||"https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"} }} />
+          <ListItem leftAvatar={{ source: { uri: caseData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
           <Text>Gender: {caseData.gender}</Text>
           <Text>Date of Birth: {caseData.birthday}</Text>
-          <Text>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted: "no address available"}</Text>
+          <Text>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted : "no address available"}</Text>
           <Text>Initiation:{caseData.foster_care}</Text>
         </View>
         <View
@@ -44,20 +52,31 @@ export default function CaseViewScreen(props) {
             />
           </TouchableHighlight>
         </View>
-        <View>
-          <Text>Engagement</Text>
-          <Text>Participants</Text>
-          <Text>Highlights</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: true, participants: false, highlights: false }) }}>Engagement</Text>
+          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: false, participants: true, highlights: false }) }}>Participants</Text>
+          <Text style={{padding: 10}} onPress={() => { setTabs({ engagement: false, participants: false, highlights: true }) }}>Highlights</Text>
         </View>
         <TouchableHighlight
           underlayColor="lightgray"
-          onPress={() => {
-            props.setCaseVisible(!props.caseVisible);
-          }}
+          onPress={
+            () => {
+              props.setCaseVisible()
+            }}
         >
-          <Text>Close Modal</Text>
+          <Text>Close Case</Text>
         </TouchableHighlight>
       </View>
+      {
+        tabs.engagement ? <Engagement caseData={caseData} /> : null
+      }
+      {
+        tabs.participants ? <Participants caseData={caseData} /> : null
+      }
+      {
+        tabs.highlights ? <Highlights caseData={caseData} /> : null
+      }
     </View>
+
   );
 }

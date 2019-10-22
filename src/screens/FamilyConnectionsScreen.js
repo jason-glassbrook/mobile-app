@@ -152,6 +152,7 @@ componentDidMount() {
   this.getUserCases();
 }
 
+
 render() {
   // ------filter gender functionality------
   let filteredCases = this.state.results
@@ -558,7 +559,7 @@ render() {
               transparent={false}
               visible={this.state.caseVisible}
               >
-              <CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={this.setCaseVisible} modalVisible={this.modalVisible} caseVisible={this.caseVisible}/>
+              <CaseViewScreen caseData={this.state.caseData} setModalVisible={this.setModalVisible} setCaseVisible={() => {this.setCaseVisible(false)}}  caseVisible={this.state.caseVisible}/>
               {/* <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
               <Text>{this.state.caseData.full_name}</Text>
               <View>
@@ -568,7 +569,7 @@ render() {
                  />
                 <Text>Gender: {this.state.caseData.gender}</Text>
                 <Text>Date of Birth: {this.state.caseData.birthday}</Text>
-                <Text>Residence: {this.state.caseData.address.formatted}</Text>
+                {/* <Text>Residence: {this.state.caseData.address}</Text>
                 <Text>Initiation:{this.state.caseData.foster_care}</Text>
                   
               </View>
