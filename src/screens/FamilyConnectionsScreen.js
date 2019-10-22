@@ -563,7 +563,7 @@ render() {
               <Text>{this.state.caseData.full_name}</Text>
               <View>
                 <ListItem
-                leftAvatar={{ source: { uri: this.state.caseData.picture }}}
+                leftAvatar={{ source: { uri: this.state.caseData.picture||"https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"} }}
 
                  />
                 <Text>Gender: {this.state.caseData.gender}</Text>
@@ -587,11 +587,14 @@ render() {
                     />
                   </TouchableHighlight>
                </View>
-               <View>
-                  <Text>Engagement</Text>
-                  <Text>Participants</Text>
-                  <Text>Highlights</Text>
-               </View>
+
+                  <View style= {{flexDirection: "row", textAlign: "space-between", padding: 20}} >
+                    <Text>Engagement
+                          Participants
+                          Highlights
+                    </Text>
+                  </View>
+               
               <TouchableHighlight
               underlayColor="lightgray"
               onPress={() => {
