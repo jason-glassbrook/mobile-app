@@ -5,7 +5,7 @@ import getEnvVars from '../../environment.js';
 const { auth0ClientId } = getEnvVars();
 
 // Refresh Token
-const refreshHelper = async () => {
+const getRefreshToken = async () => {
 
   const code = await SecureStore.getItemAsync('cok_auth0code');
 
@@ -24,4 +24,4 @@ const refreshHelper = async () => {
     .catch(err => console.log(err))
 }
 
-export default refreshHelper;
+export default getRefreshToken;

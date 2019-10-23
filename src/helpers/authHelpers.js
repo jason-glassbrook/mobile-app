@@ -4,7 +4,8 @@ import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
 import * as LocalAuthentication from 'expo-local-authentication';
-import refreshHelper from './refreshHelper'
+import getRefreshToken from './getRefreshToken'
+import getNewAccessToken from './getNewAccessToken'
 
 const { auth0Domain, auth0ClientId } = getEnvVars();
 
@@ -106,7 +107,7 @@ const handleLogin = async (authSession, setUserCreds) => {
 
   await SecureStore.setItemAsync('cok_auth0code', response.params.code)
 
-  refreshHelper()
+  getNewAccessToken()
 };
 
 export default {
