@@ -2,7 +2,10 @@ import { AsyncStorage } from 'react-native';
 import AuthSessionCustom from './AuthSessionCustom.js';
 import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
-
+import * as SecureStore from 'expo-secure-store';
+import * as LocalAuthentication from 'expo-local-authentication';
+import getRefreshToken from './getRefreshToken'
+import getNewAccessToken from './getNewAccessToken'
 
 const { auth0Domain, auth0ClientId } = getEnvVars();
 
@@ -20,14 +23,43 @@ const toQueryString = params => {
 
 const setItem = async (key, value) => {
   try {
-    await AsyncStorage.setItem(key, JSON.stringify(value));
+    await SecureStore.setItemAsync(key, JSON.stringify(value), options);
   } catch (e) {
     console.log(`error storing ${key}`, e);
   }
 };
 
-
 const handleLogin = async (authSession, setUserCreds) => {
+
+  // await LocalAuthentication.hasHardwareAsync()
+  // .then(res => 
+  //   console.log(res),
+  //   await LocalAuthentication.supportedAuthenticationTypesAsync()
+  //     .then(res => 
+  //       console.log(res),
+  //       await LocalAuthentication.isEnrolledAsync()
+  //         .then(res => 
+  //           console.log(res),
+  //           await LocalAuthentication.authenticateAsync({
+  //             promptMessage: 'Authenticate', 
+  //             fallbackLabel: 'Use Passcode'
+  //           })
+  //           .then(res => 
+  //             console.log(res)
+  //           )
+  //           .catch(err => 
+  //             console.log(err)
+  //           )
+  //         )
+  //         .catch(err => 
+  //           console.log(err)
+  //         )
+  //     )
+  //     .catch(err => 
+  //       console.log(err)
+  //     )
+  // )
+  // .catch(err => console.log(err));
 
   const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
   console.log(`Redirect URL: ${redirectUrl}`);
@@ -37,8 +69,9 @@ const handleLogin = async (authSession, setUserCreds) => {
     client_id: auth0ClientId,
     redirect_uri: redirectUrl,
     audience: 'https://family-staging.connectourkids.org/api/v1/',
-    response_type: 'id_token token', // id_token will return a JWT token
-    scope: 'openid profile email', // retrieve the user's profile
+    response_type: 'code id_token token', // id_token will return a JWT token
+    scope: 'offline_access openid profile email', // retrieve the user's profile
+    prompt: 'consent',
     nonce: 'nonce', // ideally, this will be a random value
   });
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
@@ -47,7 +80,7 @@ const handleLogin = async (authSession, setUserCreds) => {
 
   // Perform the authentication
   const response = await AuthSessionCustom.startAsync({ authUrl });
-  console.log('AUTH response', response);
+  console.log('AUTH response', await response);
 
   if (response.error) {
     Alert('Authentication error', response.error_description || 'something went wrong');
@@ -71,6 +104,11 @@ const handleLogin = async (authSession, setUserCreds) => {
   setItem('expiresAt', expiresAt);
   setItem('auth0Data', response);
   setUserCreds(decoded, response);
+
+  await SecureStore.setItemAsync('cok_auth0code', response.params.code)
+
+  // Testing the helper function
+  getNewAccessToken()
 };
 
 export default {

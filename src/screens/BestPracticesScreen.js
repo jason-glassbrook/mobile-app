@@ -61,7 +61,6 @@ class BestPracticesScreen extends Component {
             </Text>
 
             <Video uri={constants.bestPracticesURI} />
-
             <NavigationButton
               titleText="People Search"
               subTitleText="Find Contact Information for Anyone"

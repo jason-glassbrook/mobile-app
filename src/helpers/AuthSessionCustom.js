@@ -9,10 +9,7 @@ async function startAsync(options) {
     const returnUrl = options.returnUrl || getDefaultReturnUrl();
     const authUrl = options.authUrl;
     //const startUrl = getStartUrl(authUrl, returnUrl);
-    startUrl = authUrl;
-
-    console.log('startUrl', startUrl);
-
+        startUrl = authUrl;
     // Prevent accidentally starting to an empty url
     if (!authUrl) {
         throw new Error('No authUrl provided to AuthSessionCustom.startAsync. An authUrl is required -- it points to the page where the user will be able to sign in.');
