@@ -107,6 +107,7 @@ const handleLogin = async (authSession, setUserCreds) => {
 
   await SecureStore.setItemAsync('cok_auth0code', response.params.code)
 
+  // Testing the helper function
   getNewAccessToken()
 };
 

@@ -4,7 +4,7 @@ import getEnvVars from '../../environment.js';
 
 const { auth0ClientId } = getEnvVars();
 
-// Refresh Token
+// Get a Refresh Token using 'Authorization Code Flow' ( code ) and save to SecureStorage for use in retrieving new Access Tokens
 const getRefreshToken = async () => {
 
   const code = await SecureStore.getItemAsync('cok_auth0code');
