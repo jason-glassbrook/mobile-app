@@ -1,17 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, Alert } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Alert } from 'react-native';
 import { Button } from 'react-native-elements';
 import axios from 'axios';
-import { Formik } from 'formik';
+const Formik = require('formik')
 import * as Yup from 'yup';
 
 // components
+// const Input = require('../components/Input.js')
 import Input from '../components/Input.js';
 
-
 export default class AddCaseScreen extends React.Component {
-    _handleSubmit = (values) => {
-        Alert.alert(JSON.stringify)
+    _handleSubmit = async (values, bag) => {
+        try {
+            Alert.alert('Added a new case')
+        } catch (error) {
+            bag.setSubmitting(false);
+            bag.setError
+        }
     }
     render() {
         return (
@@ -23,27 +28,42 @@ export default class AddCaseScreen extends React.Component {
                         firstName: Yup.string().required('Please enter a first name.'),
                         lastName: Yup.string().required('Please enter a last name.')
                     })}
-                    render={({ values, handleSubmit, setFieldValue, errors, touched, setFieldTouched }) => (
-                        <React.Fragment>
-                            <Input
-                                label="First Name"
-                                value={values.firstName}
-                                onChange={setFieldValue}
-                                onTouch={setFieldTouched}
-                                name="firstName"
-                                error={touched.firstName && errors.firstName}
-                            />
-                            <Input
-                                label="Last Name"
-                                value={values.lastName}
-                                onChange={setFieldValue}
-                                onTouch={setFieldTouched}
-                                name="lastName"
-                                error={touched.lastName && errors.lastName}
-                            />
-                            <Button buttonStyle={styles.button} title="Submit" />
-                        </React.Fragment>
-                    )}
+                    render={({
+                        values,
+                        handleSubmit,
+                        setFieldValue,
+                        errors,
+                        touched,
+                        setFieldTouched,
+                        isValid,
+                        isSubmitting
+                    }) => (
+                            <React.Fragment>
+                                <Input
+                                    label="First Name"
+                                    value={values.firstName}
+                                    onChange={setFieldValue}
+                                    onTouch={setFieldTouched}
+                                    name="firstName"
+                                    error={touched.firstName && errors.firstName}
+                                />
+                                <Input
+                                    label="Last Name"
+                                    value={values.lastName}
+                                    onChange={setFieldValue}
+                                    onTouch={setFieldTouched}
+                                    name="lastName"
+                                    error={touched.lastName && errors.lastName}
+                                />
+                                <Button
+                                    buttonStyle={styles.button}
+                                    title="Submit"
+                                    onPress={handleSubmit}
+                                    disabled={!isValid || isSubmitting}
+                                    loading={isSubmitting}
+                                />
+                            </React.Fragment>
+                        )}
                 />
             </View>
         );

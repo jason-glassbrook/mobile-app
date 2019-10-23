@@ -18,6 +18,7 @@ import axios from 'axios';
 import { ListItem, Image, SearchBar, Button, CheckBox, Divider } from "react-native-elements";
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from '../helpers/constants';
+// const AddCaseScreen = require('./AddCaseScreen').default
 import AddCaseScreen from './AddCaseScreen';
 
 class FamilyConnectionsScreen extends Component {
@@ -531,7 +532,7 @@ class FamilyConnectionsScreen extends Component {
         <Modal>
           <ScrollView>
             <View>
-              <AddCaseScreen results={this.state.results} visible={this.state.AddCaseScreen} accessToken ={this.props.accessToken}/>
+              <AddCaseScreen results={this.state.results} visible={this.state.AddCaseScreen} accessToken={this.props.accessToken} />
             </View>
           </ScrollView>
         </Modal>

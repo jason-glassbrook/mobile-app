@@ -5,16 +5,15 @@ import {
     FormInput,
     FormValidationMessage,
 } from 'react-native-elements';
-import axios from 'axios';
-import { Formik } from 'formik';
 
-class Input extends PureComponent {
+export default class Input extends PureComponent {
     _handleChange = (value) => {
         this.props.onChange(this.props.name, value)
     }
     _handleTouch = (value) => {
         this.props.onTouch(this.props.name, value)
     }
+
     render() {
         const { label, error, ...rest } = this.props;
         return (
@@ -38,5 +37,3 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
 })
-
-export default Input;
