@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Text, View, TouchableHighlight, StyleSheet } from "react-native";
+import { Text, View, TouchableHighlight, StyleSheet, ScrollView } from "react-native";
 import constants from "../helpers/constants";
-import { ListItem, Button } from "react-native-elements";
+import { ListItem, Button, Divider } from "react-native-elements";
 import { Engagement, Participants, Highlights } from "../components/CaseViewTabs";
 
 export default function CaseViewScreen(props) {
@@ -22,12 +22,16 @@ export default function CaseViewScreen(props) {
 
     selected: {
       backgroundColor: constants.highlightColor,
-
+      color: 'white',
+      borderWidth: 1,
+      borderColor: constants.highlightColor,
+      borderRadius: 4,
+      overflow: "hidden"
     },
 
     tab: {
       padding: 10,
-      fontSize: 16
+      fontSize: 16,
     }
   })
 
@@ -35,22 +39,26 @@ export default function CaseViewScreen(props) {
   let caseData = props.caseData;
   console.log(props.caseData);
   return (
-    <View>
+    <ScrollView>
       <View
         style={{
-          marginVertical: 200,
           justifyContent: "center",
           alignItems: "center"
         }}
       >
-        <Text>{caseData.full_name}</Text>
-        <View>
-          <ListItem leftAvatar={{ source: { uri: caseData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
-          <Text>Gender: {caseData.gender}</Text>
-          <Text>Date of Birth: {caseData.birthday}</Text>
-          <Text>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted : "no address available"}</Text>
-          <Text>Initiation:{caseData.foster_care}</Text>
+     <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 55, width: '85%'}}> 
+      <View>
+        <Text style={{fontSize: 20}}>{caseData.full_name}</Text>
+        <ListItem leftAvatar={{ source: { uri: caseData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
+      </View>
+        <View style={{maxWidth: '60%'}}>
+          
+          <Text style={{padding: 5}}>Gender: {caseData.gender}</Text>
+          <Text style={{padding: 5}}>Date of Birth: {caseData.birthday}</Text>
+          <Text style={{padding: 5}}>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted : "no address available"}</Text>
+          <Text style={{padding: 5}}>Initiation:{caseData.foster_care}</Text>
         </View>
+      </View> 
         <View
           style={{
             alignContent: "center",
@@ -77,6 +85,10 @@ export default function CaseViewScreen(props) {
           <Text style={[styles.tab, tabs.highlights ? styles.selected : null]} onPress={() => { setTabs({ engagement: false, participants: false, highlights: true }) }}>Highlights</Text>
         </View>
 
+       <Divider 
+                style={{ height: 1, backgroundColor: "lightgrey", margin: 5, width: "85%", marginTop: 15 }}
+              />
+
       </View>
       {
         tabs.engagement ? <Engagement caseData={caseData} /> : null
@@ -97,6 +109,7 @@ export default function CaseViewScreen(props) {
           }}
       >
         <Text style={{
+          marginVertical: 30,
           padding: 10,
           borderRadius: 4,
           borderWidth: 1,
@@ -104,6 +117,6 @@ export default function CaseViewScreen(props) {
           color: `${constants.highlightColor}`
         }}>Close Case</Text>
       </TouchableHighlight>
-    </View>
+    </ScrollView>
   );
 }

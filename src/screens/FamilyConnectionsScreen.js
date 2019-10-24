@@ -423,10 +423,10 @@ class FamilyConnectionsScreen extends Component {
                 }
               />
 
-              <Divider
+              <Divider 
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
               />
-
+              
               {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
