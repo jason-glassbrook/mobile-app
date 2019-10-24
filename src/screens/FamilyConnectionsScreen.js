@@ -27,7 +27,8 @@ import {
 import constants from "../helpers/constants";
 
 // import screen components
-import AddCaseScreen from "./AddCaseScreen";
+// discontinued work on AddCaseScreen. Button and Modal also commented out below
+// import AddCaseScreen from "./AddCaseScreen";
 import CaseViewScreen from "./CaseViewScreen.js";
 
 class FamilyConnectionsScreen extends Component {
@@ -310,14 +311,15 @@ class FamilyConnectionsScreen extends Component {
     const fullYear = new Date();
     return (
       <SafeAreaView>
-        <Button
+        {/* addCase Button */}
+        {/* <Button
           title="Add Case"
           buttonStyle={{ backgroundColor: constants.highlightColor }}
           containerStyle={styles.addCaseButton}
           onPress={() => {
             this.setState({ addCaseModalVisible: true });
           }}
-        />
+        /> */}
         <View style={{ flexDirection: "row" }}>
           <SearchBar
             placeholder="Search Keywords..."
@@ -423,10 +425,10 @@ class FamilyConnectionsScreen extends Component {
                 }
               />
 
-              <Divider 
+              <Divider
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
               />
-              
+
               {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
@@ -668,7 +670,7 @@ class FamilyConnectionsScreen extends Component {
           </ScrollView>
 
           {/* AddCase - onPress Modal */}
-          <View>
+          {/* <View>
             <Modal
               animationType="slide"
               transparent={false}
@@ -689,19 +691,10 @@ class FamilyConnectionsScreen extends Component {
                     alignSelf: "center"
                   }}
                 >
-                  {/* <Text>Hewwo?</Text>
-                  <Button
-                    title="Close"
-                    buttonStyle={{ backgroundColor: constants.highlightColor }}
-                    containerStyle={styles.filterButton}
-                    onPress={() => {
-                      this.setAddCaseModalVisible(false);
-                    }}
-                  /> */}
                 </View>
               </ScrollView>
             </Modal>
-          </View>
+          </View> */}
 
         </View>
       </SafeAreaView>

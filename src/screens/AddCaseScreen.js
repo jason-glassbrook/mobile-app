@@ -1,3 +1,4 @@
+//Discontinued AddCaseScreen. Occasional errors referencing import semicolons. Not connected to axios
 import React, { useState } from 'react';
 import {
     Text,
