@@ -3,6 +3,7 @@ import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
 import * as LocalAuthentication from 'expo-local-authentication';
+import Constants from 'expo-constants';
 import getRefreshToken from './getRefreshToken'
 import getNewAccessToken from './getNewAccessToken'
 // import { verifier, challenge } from './auth0Verifiers'
@@ -49,13 +50,16 @@ const handleLogin = async (AuthSession, setUserCreds) => {
                 const refresh = await SecureStore.getItemAsync('cok_refresh_token');
                 console.log('refreshhhhh', refresh)
                 if (refresh) {
-                  getNewAccessToken();
+                  await getNewAccessToken();
                   // const idToken = await SecureStore.getItemAsync('cok_id_token');
                   // const decoded = jwtDecode(idToken);
                   // const { name, email } = decoded;
                   // setUserCreds(decoded, idToken);
+                  console.log('getNewAccessToken')
                 } else {
-                    initialLogin();
+                    await initialLogin();
+                    // await getRefreshToken();
+                    console.log('initialLogin')
                   }
                 const id_token = await SecureStore.getItemAsync('cok_id_token');
                 const decoded = jwtDecode(id_token);
@@ -100,7 +104,8 @@ const initialLogin = async (AuthSession, setUserCreds) => {
     audience: 'https://family-staging.connectourkids.org/api/v1/',
     response_type: 'code id_token token', // id_token will return a JWT token
     scope: 'offline_access openid profile email', // retrieve the user's profile
-    prompt: 'consent',
+    device: Constants.deviceName,
+    prompt: 'none',
     nonce: 'nonce', // ideally, this will be a random value
 
     // client_id: auth0ClientId,
@@ -110,7 +115,7 @@ const initialLogin = async (AuthSession, setUserCreds) => {
     // audience: 'https://family-staging.connectourkids.org/api/v1/',
     // scope: 'offline_access openid profile email',
     // redirect_uri: 'exp://127.0.0.1:19000/--/expo-auth-session',
-    // state: 'asldfkj6748fjh9pjshhjs'
+    state: 'asldfkj6748fjh9pjshhjs'
 
     });
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;

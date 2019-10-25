@@ -20,9 +20,9 @@ const getNewAccessToken = async () => {
 
   axios
     .post('https://connectourkids.auth0.com/oauth/token', newAccessParams)
-    .then(res => {
-      SecureStore.setItemAsync('cok_access_token', res.data.access_token);
-      SecureStore.setItemAsync('cok_id_token', res.data.id_token);
+    .then(async res => {
+      await SecureStore.setItemAsync('cok_access_token', res.data.access_token);
+      await SecureStore.setItemAsync('cok_id_token', res.data.id_token);
       // console.log('Res.Data', res.data);
       return res.data;
     })

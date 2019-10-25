@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store'
 import getEnvVars from '../../environment.js';
-import { verifier, challenge } from './auth0Verifiers';
+// import { verifier, challenge } from './auth0Verifiers';
 import Constants from 'expo-constants';
 
 const { auth0ClientId } = getEnvVars();
@@ -10,11 +10,11 @@ const { auth0ClientId } = getEnvVars();
 const getRefreshToken = async () => {
 
   const code = await SecureStore.getItemAsync('cok_auth_code');
-  const device = await Constants.deviceName;
-  console.log('CODE DEVICE', code, device)
+  // const device = Constants.deviceName;
+  // console.log('CODE DEVICE', code, device)
   const refreshParams = {
     client_id: auth0ClientId,
-    code_verifier: verifier,
+    // code_verifier: verifier,
     // code_challenge: challenge,
     // response_type: 'code',
     audience: 'https://family-staging.connectourkids.org/api/v1/',
@@ -29,14 +29,15 @@ const getRefreshToken = async () => {
 
   axios
     .post('https://connectourkids.auth0.com/oauth/token', refreshParams)
-    .then(res => {
-      SecureStore.setItemAsync('cok_refresh_token', JSON.stringify(res.data.refresh_token))
+    .then(async res => {
+      await SecureStore.setItemAsync('cok_refresh_token', res.data.refresh_token)
       // SecureStore.setItemAsync('cok_access_token', JSON.stringify(res.data.access_token)),
-      SecureStore.setItemAsync('cok_id_token', JSON.stringify(res.data.id_token))
+      await SecureStore.setItemAsync('cok_id_token', res.data.id_token)
+      console.log('REFRESH', await SecureStore.getItemAsync('cok_refresh_token'))
       // console.log('res', res)
     })
     .catch(err => console.log(err))
-    console.log('REFRESH', await SecureStore.getItemAsync('cok_refresh_token'))
+    
 }
 
 export default getRefreshToken;
