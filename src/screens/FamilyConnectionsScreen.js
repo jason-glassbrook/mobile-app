@@ -26,8 +26,9 @@ import {
 import * as SecureStore from 'expo-secure-store';
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from "../helpers/constants";
-// import AddCaseScreen from "./AddCaseScreen";
 
+// import screen components
+import AddCaseScreen from "./AddCaseScreen";
 import CaseViewScreen from "./CaseViewScreen.js";
 
 class FamilyConnectionsScreen extends Component {
@@ -99,12 +100,17 @@ class FamilyConnectionsScreen extends Component {
         created: false,
         updated: false
       },
-      caseVisible: false
+      caseVisible: false,
+      addCaseModalVisible: true,
     };
   }
   
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
+  }
+
+  setAddCaseModalVisible(visible) {
+    this.setState({ addCaseModalVisible: visible });
   }
 
   setCaseVisible(visible) {
@@ -146,7 +152,6 @@ class FamilyConnectionsScreen extends Component {
           Authorization: `Bearer ${accessToken}`
         }
       })
-
       .then(res => {
         this.setState({ caseData: res.data });
         console.log("Initiation:", this.state.caseData.foster_care);
@@ -185,13 +190,10 @@ class FamilyConnectionsScreen extends Component {
 
     // ------filter age functionality------
     // if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
-
     // } else {
     //  let year = new Date()
-
     //  let noNullBirthday = []
     //  let nullBirthday = []
-
     //  for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break the if statements starting on line 122
     //    if (filteredCases[c].birthday === null) {
     //      nullBirthday.push(filteredCases[c])
@@ -199,13 +201,11 @@ class FamilyConnectionsScreen extends Component {
     //      noNullBirthday.push(filteredCases[c])
     //    }
     //  }
-
     //  if (!this.state.filters.zero_five) {noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4)) > 5)} //if this is not selected -- dont return ages 0-5
     //  if (!this.state.filters.six_nine) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 6) && (year.getFullYear() - c.birthday.slice(0,4)) <= 9 ))}
     //  if (!this.state.filters.ten_thirteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 10) && (year.getFullYear() - c.birthday.slice(0,4)) <= 13))}
     //  if (!this.state.filters.fourteen_eighteen) {noNullBirthday = noNullBirthday.filter(c => !((year.getFullYear() - c.birthday.slice(0,4) >= 14) && (year.getFullYear() - c.birthday.slice(0,4)) <= 18))}
     //  noNullBirthday = noNullBirthday.filter(c => (year.getFullYear() - c.birthday.slice(0,4) < 18))
-
     //  if (!this.state.filters.unspecified) { //add null birthdays back if unspecified is checked
     //   filteredCases = noNullBirthday
     // } else {
@@ -214,11 +214,9 @@ class FamilyConnectionsScreen extends Component {
     // }
 
     // ------sorting Functionality------
-
     const name = (a, b) => {
       const A = a.full_name.toUpperCase();
       const B = b.full_name.toUpperCase();
-
       let comparison = 0;
       if (A > B) {
         comparison = 1;
@@ -231,7 +229,6 @@ class FamilyConnectionsScreen extends Component {
     const lastName = (a, b) => {
       const A = a.last_name.toUpperCase();
       const B = b.last_name.toUpperCase();
-
       let comparison = 0;
       if (A > B) {
         comparison = 1;
@@ -245,7 +242,6 @@ class FamilyConnectionsScreen extends Component {
     // const DOB = (a, b) => {
     //   const A = a.birthday;
     //   const B = b.birthday;
-
     //   let comparison = 0;
     //   if (A < B) {
     //     comparison = 1;
@@ -258,7 +254,6 @@ class FamilyConnectionsScreen extends Component {
     const created = (a, b) => {
       const A = a.created_at;
       const B = b.created_at;
-
       let comparison = 0;
       if (A > B) {
         comparison = 1;
@@ -271,7 +266,6 @@ class FamilyConnectionsScreen extends Component {
     const updated = (a, b) => {
       const A = a.updated_at;
       const B = b.updated_at;
-
       let comparison = 0;
       if (A > B) {
         comparison = 1;
@@ -286,14 +280,10 @@ class FamilyConnectionsScreen extends Component {
     }
 
     //leaving this out for now because year and day are no longer required
-
     // else if (this.state.filters.DOB) {
-
     //   let Birthdays = []
     //   let noBirthdays = []
-
     //   for (c in filteredCases) { //pull out the object with a null value for birthday so it doesnt break
-
     //     if (filteredCases[c].birthday === null) {
     //       noBirthdays.push(filteredCases[c])
     //     } else {
@@ -302,8 +292,8 @@ class FamilyConnectionsScreen extends Component {
     //     Birthdays.sort(DOB)
     //   }
     //   filteredCases = Birthdays.concat(noBirthdays)
-
     // }
+
     else if (this.state.filters.created) {
       filteredCases.sort(created);
     } else if (this.state.filters.updated) {
@@ -319,9 +309,16 @@ class FamilyConnectionsScreen extends Component {
 
     // const { navigate } = this.props.navigation;
     const fullYear = new Date();
-
     return (
       <SafeAreaView>
+        <Button
+          title="Add Case"
+          buttonStyle={{ backgroundColor: constants.highlightColor }}
+          containerStyle={styles.addCaseButton}
+          onPress={() => {
+            this.setState({ addCaseModalVisible: true });
+          }}
+        />
         <View style={{ flexDirection: "row" }}>
           <SearchBar
             placeholder="Search Keywords..."
@@ -335,7 +332,6 @@ class FamilyConnectionsScreen extends Component {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-
           <Button
             title="Filters"
             buttonStyle={{ backgroundColor: constants.highlightColor }}
@@ -346,14 +342,15 @@ class FamilyConnectionsScreen extends Component {
           />
         </View>
 
+
         {/* Filters Button - onPress Modal */}
         <Modal
           animationType="fade"
           transparent={false}
           visible={this.state.modalVisible}
-          // onRequestClose={() => {
-          //   Alert.alert('Modal has been closed.');
-          // }}
+        // onRequestClose={() => {
+        //   Alert.alert('Modal has been closed.');
+        // }}
         >
           <ScrollView>
             <View
@@ -427,10 +424,10 @@ class FamilyConnectionsScreen extends Component {
                 }
               />
 
-              <Divider
+              <Divider 
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
               />
-
+              
               {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
@@ -586,40 +583,38 @@ class FamilyConnectionsScreen extends Component {
             {this.state.isLoading === true ? (
               <Text style={styles.isLoading}> Loading Cases... </Text>
             ) : (
-              SearchedCases.map((result, index) => (
-                <ListItem
-                  key={index}
-                  title={result.full_name}
-                  titleStyle={{ color: "#5A6064" }}
-                  subtitle={`${
-                    result.gender && result.birthday && (!null || "")
-                      ? `Gender: ${result.gender} , ${result.birthday}`
-                      : "unspecified"
-                  }`}
-                  subtitleStyle={{ color: "#9FABB3" }}
-                  leftAvatar={{ source: { uri: result.picture } }}
-                  topDivider={true}
-                  onPress={() => {
-                    this.setCaseVisible(true);
-
-                    this.getCaseData(result.pk);
-                  }}
-                  // Case badges for document value/count
-                  badge={{
-                    value: result.count_documents,
-                    textStyle: {
-                      fontSize: 14,
-                      color: "white",
-                      backgroundColor: constants.highlightColor
-                    },
-                    containerStyle: { marginTop: -10 }
-                  }}
-                />
-              ))
-            )}
+                SearchedCases.map((result, index) => (
+                  <ListItem
+                    key={index}
+                    title={result.full_name}
+                    titleStyle={{ color: "#5A6064" }}
+                    subtitle={`${
+                      result.gender && result.birthday && (!null || "")
+                        ? `Gender: ${result.gender} , ${result.birthday}`
+                        : "unspecified"
+                      }`}
+                    subtitleStyle={{ color: "#9FABB3" }}
+                    leftAvatar={{ source: { uri: result.picture } }}
+                    topDivider={true}
+                    onPress={() => {
+                      this.setCaseVisible(true);
+                      this.getCaseData(result.pk);
+                    }}
+                    // Case badges for document value/count
+                    badge={{
+                      value: result.count_documents,
+                      textStyle: {
+                        fontSize: 14,
+                        color: "white",
+                        backgroundColor: constants.highlightColor
+                      },
+                      containerStyle: { marginTop: -10 }
+                    }}
+                  />
+                ))
+              )}
 
             {/* Case onPress Modal */}
-
             <Modal
               animationType="slide"
               transparent={false}
@@ -638,16 +633,13 @@ class FamilyConnectionsScreen extends Component {
               <View>
                 <ListItem
                 leftAvatar={{ source: { uri: this.state.caseData.picture||"https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"} }}
-                 />
+                />
                 <Text>Gender: {this.state.caseData.gender}</Text>
                 <Text>Date of Birth: {this.state.caseData.birthday}</Text>
                 {/* <Text>Residence: {this.state.caseData.address}</Text>
-                <Text>Initiation:{this.state.caseData.foster_care}</Text>
-                  
+                <Text>Initiation:{this.state.caseData.foster_care}</Text>   
               </View>
-               
               <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
-                  
                   <TouchableHighlight>
                     <Button
                       buttonStyle={{ backgroundColor: constants.highlightColor }}
@@ -657,14 +649,13 @@ class FamilyConnectionsScreen extends Component {
                       }}
                     />
                   </TouchableHighlight>
-               </View>
+              </View>
                   <View style= {{flexDirection: "row", textAlign: "space-between", padding: 20}} >
                     <Text>Engagement
                           Participants
                           Highlights
                     </Text>
                   </View>
-               
               <TouchableHighlight
               underlayColor="lightgray"
               onPress={() => {
@@ -676,17 +667,43 @@ class FamilyConnectionsScreen extends Component {
               </View> */}
             </Modal>
           </ScrollView>
-          {/* <Modal>
-            <ScrollView>
-              <View>
-                <AddCaseScreen
-                  results={this.state.results}
-                  visible={this.state.AddCaseScreen}
-                  accessToken={this.props.accessToken}
-                />
-              </View>
-            </ScrollView>
-          </Modal> */}
+
+          {/* AddCase - onPress Modal */}
+          <View>
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.addCaseModalVisible}
+            >
+              <AddCaseScreen
+                setAddCaseModalVisible={this.setAddCaseModalVisible}
+                setAddCaseModalVisible={() => {
+                  this.setAddCaseModalVisible(false);
+                }}
+                addCaseModalVisible={this.state.addCaseModalVisible}
+              />
+              <ScrollView>
+                <View
+                  style={{
+                    marginVertical: 20,
+                    justifyContent: "center",
+                    alignSelf: "center"
+                  }}
+                >
+                  {/* <Text>Hewwo?</Text>
+                  <Button
+                    title="Close"
+                    buttonStyle={{ backgroundColor: constants.highlightColor }}
+                    containerStyle={styles.filterButton}
+                    onPress={() => {
+                      this.setAddCaseModalVisible(false);
+                    }}
+                  /> */}
+                </View>
+              </ScrollView>
+            </Modal>
+          </View>
+
         </View>
       </SafeAreaView>
     );
@@ -695,12 +712,17 @@ class FamilyConnectionsScreen extends Component {
 
 // Todos:
 // Create styles that target both platforms
-
 const styles = StyleSheet.create({
   searchBar: {
     marginHorizontal: Platform.OS === "ios" ? 5 : 5,
     width: Platform.OS === "ios" ? 285 : 320,
     backgroundColor: Platform.OS === "ios" ? "white" : "white"
+  },
+  addCaseButton: {
+    marginHorizontal: Platform.OS === "ios" ? 5 : 5,
+    width: Platform.OS === "ios" ? 200 : 200,
+    marginVertical: Platform.OS === "ios" ? 20 : 20,
+    maxHeight: Platform.OS === "ios" ? 40 : 40
   },
   filterButton: {
     width: Platform.OS === "ios" ? 70 : 70,
@@ -728,19 +750,19 @@ export default FamilyConnectionsScreen;
 
 // export default connect(mapStateToProps)(FamilyConnectionsScreen);
 
-// ---------------------------------------------------
+        // ---------------------------------------------------
 
-// import { Button } from 'native-base';
-// import { ScrollView } from 'react-native-gesture-handler';
-// import { connect } from 'react-redux';
-// import headerConfig from '../helpers/headerConfig';
-// import { sendEvent } from './../helpers/createEvent';
-// import FamilyConnectionsModal from './../components/FamilyConnectionsModal/FamilyConnectionsModal';
-// import Video from '../components/Video/Video';
-// import constants from '../helpers/constants';
-// import MainText from '../UI/MainText';
-// import ScreenContainer from '../UI/ScreenContainer';
-// import { wrap } from 'module';
+// import {Button} from 'native-base';
+// import {ScrollView} from 'react-native-gesture-handler';
+// import {connect} from 'react-redux';
+          // import headerConfig from '../helpers/headerConfig';
+// import {sendEvent} from './../helpers/createEvent';
+          // import FamilyConnectionsModal from './../components/FamilyConnectionsModal/FamilyConnectionsModal';
+          // import Video from '../components/Video/Video';
+          // import constants from '../helpers/constants';
+          // import MainText from '../UI/MainText';
+          // import ScreenContainer from '../UI/ScreenContainer';
+// import {wrap} from 'module';
 
 // class FamilyConnectionsScreen extends Component {
 //   static navigationOptions = ({ navigation }) =>

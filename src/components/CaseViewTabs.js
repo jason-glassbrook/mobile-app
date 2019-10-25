@@ -12,35 +12,37 @@ import {
   ScrollView,
   Platform,
   TouchableHighlight,
-  Alert
+  Alert,
 } from 'react-native';
 import { ListItem, Button } from "react-native-elements";
 
 export const Engagement = (props) => {
   return(
-  <View>
+  <View style={{padding: 30}}>
     <ScrollView>
-      <Text>notes:{props.caseData.notes}</Text>
-      <Text>documents:{props.caseData.count_documents}</Text>
-      <Text>phone calls:{props.caseData.phone_calls}</Text>
-      <Text>emails:{props.caseData.emails}</Text>
-      <Text>reminders{props.caseData.reminders}</Text>
+        <Text style={{padding: 5}}>notes:{props.caseData.notes}</Text>
+        <Text style={{padding: 5}}>documents:{props.caseData.count_documents}</Text>
+        <Text style={{padding: 5}}>phone calls:{props.caseData.phone_calls}</Text>
+        <Text style={{padding: 5}}>emails:{props.caseData.emails}</Text>
+        <Text>reminders: {props.caseData.reminders}</Text>  
     </ScrollView>
-  </View>   
+  </View> 
   )
 }
 
 export const Participants = (props) => {
 
   return(
-    <View>
+    <View style={{padding: 30}}>
       <ScrollView>
-        <TextInput placeholder="Add Person" />
-        <TextInput placeholder="Add Group" />
+      <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+        <TextInput placeholder="Add Person" style= {{borderColor: "gray", borderWidth: 1, padding: 10 }} />
+        <TextInput placeholder="Add Group" style= {{borderColor: "gray", borderWidth: 1, padding: 10 }} />
+      </View>  
         <ListItem leftAvatar={{ source: { uri: props.caseData.created_by.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
-        <Text>Owners: {props.caseData.created_by.full_name}</Text>
-        <Text>Participants:{props.caseData.participants}</Text>
-        <Text>Viewers: {props.caseData.viewers}</Text>
+        <Text style={{padding: 5}}>Owners: {props.caseData.created_by.full_name}</Text>
+        <Text style={{padding: 5}}>Participants:{props.caseData.participants}</Text>
+        <Text style={{padding: 5}}>Viewers: {props.caseData.viewers}</Text>
       </ScrollView>
     </View>
   )
@@ -49,7 +51,7 @@ export const Participants = (props) => {
 export const Highlights = (props) => {
 
   return(
-    <View>
+    <View style={{padding: 30}}>
       <ScrollView>
         <Text>Highlights: {props.caseData.notes}</Text>
       </ScrollView>
