@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text, Linking, StatusBar } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { AsyncStorage } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import { setUserCreds, logOut } from '../store/actions';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
@@ -19,15 +19,15 @@ class BestPracticesScreen extends Component {
     headerConfig('Best Practices', navigation);
 
   async componentDidMount() {
-    let confirmedUser = await AsyncStorage.getItem('auth0Data');
-    if (confirmedUser) {
-      confirmedUser = JSON.parse(confirmedUser);
-      const expiresAt = await AsyncStorage.getItem('expiresAt');
+    let idToken = await SecureStore.getItemAsync('cok_id_token');
+    if (idToken) {
+      // confirmedUser = JSON.parse(confirmedUser);
+      const expiresAt = await SecureStore.getItemAsync('expiresAt');
       const isAuthenticated = new Date().getTime() < JSON.parse(expiresAt);
       if (isAuthenticated) {
-        const jwtToken = confirmedUser.params.id_token;
+        const jwtToken = idToken;
         const decoded = jwtDecode(jwtToken);
-        this.props.setUserCreds(decoded, confirmedUser);
+        this.props.setUserCreds(decoded, idToken);
       } else {
         // re-login
         authHelpers.handleLogin(

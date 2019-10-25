@@ -9,6 +9,7 @@ import {
   Modal
 } from 'react-native';
 import { connect } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
 import {
   fetchPerson,
   fetchSearchResult,
@@ -56,11 +57,13 @@ class PeopleSearchScreen extends React.Component {
     return encodeURI(JSON.stringify(person));
   };
 
-  handleSearchRequest = (person, searchType, searchInput) => {
+  handleSearchRequest = async (person, searchType, searchInput) => {
+    const accessToken = await SecureStore.getItemAsync('cok_access_token')
+    const idToken = await SecureStore.getItemAsync('cok_id_token')
     const {
-      accessToken,
+      // accessToken,
       fetchSearchResult,
-      idToken,
+      // idToken,
       isLoggedIn,
       navigation,
       user
@@ -323,7 +326,7 @@ const mapStateToProps = state => {
     query
   } = state.people;
   const {
-    accessToken,
+    // accessToken,
     idToken,
     isLoggedIn,
     user,
@@ -332,7 +335,7 @@ const mapStateToProps = state => {
     videoVisible
   } = state.auth;
   return {
-    accessToken,
+    // accessToken,
     error,
     idToken,
     isFetching,
