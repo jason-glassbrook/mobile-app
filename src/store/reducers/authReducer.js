@@ -5,7 +5,7 @@ import {
   SET_VIDEO_AGREE_VISIBLE,
   SET_VIDEO_PLAYER_VISIBLE
 } from './../actions/actionTypes';
-import { AsyncStorage } from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 
 const initialState = {
   user: null,
@@ -27,9 +27,9 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         user: action.decodedToken,
         isLoggedIn: true,
-        accessToken: action.auth0Data.params.access_token,
-        idToken: action.auth0Data.params.id_token,
-        expiresIn: action.auth0Data.params.expires_in,
+        accessToken: action.auth0Data.access_token,
+        idToken: action.auth0Data.id_token,
+        expiresIn: action.auth0Data.expires_in,
         error: null,
         loadingUser: false
       };
@@ -52,7 +52,8 @@ export const authReducer = (state = initialState, action) => {
         videoVisible: true
       };
     case LOG_OUT:
-      AsyncStorage.removeItem('auth0Data');
+      SecureStore.deleteItemAsync('cok_access_token');
+      SecureStore.deleteItemAsync('cok_id_token');
       return initialState;
     default:
       return state;

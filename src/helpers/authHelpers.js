@@ -1,4 +1,3 @@
-import { AsyncStorage } from 'react-native';
 import AuthSessionCustom from './AuthSessionCustom.js';
 import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
@@ -6,6 +5,7 @@ import * as SecureStore from 'expo-secure-store';
 import * as LocalAuthentication from 'expo-local-authentication';
 import getRefreshToken from './getRefreshToken'
 import getNewAccessToken from './getNewAccessToken'
+// import { verifier, challenge } from './auth0Verifiers'
 
 const { auth0Domain, auth0ClientId } = getEnvVars();
 
@@ -21,7 +21,7 @@ const toQueryString = params => {
   );
 };
 
-const setItem = async (key, value) => {
+const setItem = async (key, value, options) => {
   try {
     await SecureStore.setItemAsync(key, JSON.stringify(value), options);
   } catch (e) {
@@ -29,37 +29,66 @@ const setItem = async (key, value) => {
   }
 };
 
-const handleLogin = async (authSession, setUserCreds) => {
+const handleLogin = async (AuthSession, setUserCreds) => {
+  
+  await LocalAuthentication.hasHardwareAsync()
+  .then(res => 
+    console.log(res),
+    await LocalAuthentication.supportedAuthenticationTypesAsync()
+      .then(res => 
+        console.log(res),
+        await LocalAuthentication.isEnrolledAsync()
+          .then(res => 
+            console.log(res),
+            await LocalAuthentication.authenticateAsync({
+              promptMessage: 'Authenticate', 
+              fallbackLabel: 'Use Passcode'
+            })
+            .then(async res => {
+                console.log(res);
+                const refresh = await SecureStore.getItemAsync('cok_refresh_token');
+                console.log('refreshhhhh', refresh)
+                if (refresh) {
+                  getNewAccessToken();
+                  // const idToken = await SecureStore.getItemAsync('cok_id_token');
+                  // const decoded = jwtDecode(idToken);
+                  // const { name, email } = decoded;
+                  // setUserCreds(decoded, idToken);
+                } else {
+                    initialLogin();
+                  }
+                const id_token = await SecureStore.getItemAsync('cok_id_token');
+                const decoded = jwtDecode(id_token);
+                const { name, email } = decoded;
+                setUserCreds(decoded, id_token);
+              }
+            )
+            .catch(err => 
+              console.log(err)
+            )
+          )
+          .catch(err => 
+            console.log(err)
+          )
+      )
+      .catch(err => 
+        console.log(err)
+      )
+  )
+  .catch(err => console.log(err));
 
-  // await LocalAuthentication.hasHardwareAsync()
-  // .then(res => 
-  //   console.log(res),
-  //   await LocalAuthentication.supportedAuthenticationTypesAsync()
-  //     .then(res => 
-  //       console.log(res),
-  //       await LocalAuthentication.isEnrolledAsync()
-  //         .then(res => 
-  //           console.log(res),
-  //           await LocalAuthentication.authenticateAsync({
-  //             promptMessage: 'Authenticate', 
-  //             fallbackLabel: 'Use Passcode'
-  //           })
-  //           .then(res => 
-  //             console.log(res)
-  //           )
-  //           .catch(err => 
-  //             console.log(err)
-  //           )
-  //         )
-  //         .catch(err => 
-  //           console.log(err)
-  //         )
-  //     )
-  //     .catch(err => 
-  //       console.log(err)
-  //     )
-  // )
-  // .catch(err => console.log(err));
+  
+  
+};
+
+// check if refresh_token exists in SecureStorage
+// const refreshChecker = async () => {
+//   await SecureStore.getItemAsync('cok_refresh_token');
+// }
+  
+const initialLogin = async (AuthSession, setUserCreds) => {
+
+  // if no refresh_token exists, then this is a first time and we need to perform initial /authorize endpoint
 
   const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
   console.log(`Redirect URL: ${redirectUrl}`);
@@ -73,43 +102,49 @@ const handleLogin = async (authSession, setUserCreds) => {
     scope: 'offline_access openid profile email', // retrieve the user's profile
     prompt: 'consent',
     nonce: 'nonce', // ideally, this will be a random value
-  });
+
+    // client_id: auth0ClientId,
+    // code_verifier: verifier,
+    // code_challenge: challenge,
+    // response_type: 'code',
+    // audience: 'https://family-staging.connectourkids.org/api/v1/',
+    // scope: 'offline_access openid profile email',
+    // redirect_uri: 'exp://127.0.0.1:19000/--/expo-auth-session',
+    // state: 'asldfkj6748fjh9pjshhjs'
+
+    });
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
 
   console.log(`AuthURL: ${authUrl}`);
 
   // Perform the authentication
   const response = await AuthSessionCustom.startAsync({ authUrl });
-  console.log('AUTH response', await response);
 
   if (response.error) {
     Alert('Authentication error', response.error_description || 'something went wrong');
     return;
-  }
-  // if users cancels login process, terminate method
-  else if (response.type === 'dismiss') return;
+    }
+    // if users cancels login process, terminate method
+    else if (response.type === 'dismiss') return;
+  
+  // await SecureStore.setItemAsync('cok_auth_code', JSON.stringify(response.params.code))
+  // await SecureStore.setItemAsync('cok_id_token', JSON.stringify(response.params.id_token))
+  console.log('AUTH response', await response);
 
   // assume success
 
-  // Retrieve the JWT token and decode it
-  const jwtToken = response.params.id_token;
-  const decoded = jwtDecode(jwtToken);
-
-  console.log('DECODED ===>', decoded);
-
-  const { name,email } = decoded;
-
+ 
   // SET THE TIME TOKEN EXPIRES IN ASYNC STORAGE
   const expiresAt = response.expires_in * 1000 + new Date().getTime();
   setItem('expiresAt', expiresAt);
-  setItem('auth0Data', response);
-  setUserCreds(decoded, response);
-
-  await SecureStore.setItemAsync('cok_auth0code', response.params.code)
-
-  // Testing the helper function
-  getNewAccessToken()
-};
+  // setItem('cok_auth_code', response.params.code);
+  // setItem('cok_id_token', response.params.id_token);
+  // setItem('cok_access_token', response.params.access_token);
+  await SecureStore.setItemAsync('cok_auth_code', response.params.code)
+  await SecureStore.setItemAsync('cok_id_token', response.params.id_token)
+  await SecureStore.setItemAsync('cok_access_token', response.params.access_token)
+  // await getRefreshToken();
+}
 
 export default {
   toQueryString,

@@ -13,7 +13,7 @@ import {
   TouchableHighlight,
   Alert
 } from "react-native";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import axios from "axios";
 import {
   ListItem,
@@ -23,6 +23,7 @@ import {
   CheckBox,
   Divider
 } from "react-native-elements";
+import * as SecureStore from 'expo-secure-store';
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from "../helpers/constants";
 // import AddCaseScreen from "./AddCaseScreen";
@@ -101,7 +102,7 @@ class FamilyConnectionsScreen extends Component {
       caseVisible: false
     };
   }
-
+  
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -117,16 +118,15 @@ class FamilyConnectionsScreen extends Component {
     console.log(this.state.searchKeywords);
   };
 
-  getUserCases() {
-    const accessToken = this.props.accessToken;
-    console.log("accessToken:", accessToken);
+  async getUserCases() {
+    const theAccessToken = await SecureStore.getItemAsync('cok_access_token');
+    console.log('access tokenssssss', theAccessToken);
     axios
       .get("https://family-staging.connectourkids.org/api/v1/cases/", {
         headers: {
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${theAccessToken}`
         }
       })
-
       .then(response => {
         this.setState({
           results: response.data.results,
@@ -139,8 +139,7 @@ class FamilyConnectionsScreen extends Component {
   }
 
   getCaseData(pk) {
-    const accessToken = this.props.accessToken;
-
+    let accessToken = SecureStore.getItemAsync('cok_access_token');
     axios
       .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
         headers: {
@@ -717,17 +716,17 @@ const styles = StyleSheet.create({
   }
 });
 
-// export default FamilyConnectionsScreen;
+export default FamilyConnectionsScreen;
 
-const mapStateToProps = state => {
-  const { accessToken } = state.auth;
-  return {
-    accessToken
-    // email: state.auth.user ? state.auth.user.email : null
-  };
-};
+// const mapStateToProps = state => {
+//   const { accessToken } = state.auth;
+//   return {
+//     accessToken
+//     // email: state.auth.user ? state.auth.user.email : null
+//   };
+// };
 
-export default connect(mapStateToProps)(FamilyConnectionsScreen);
+// export default connect(mapStateToProps)(FamilyConnectionsScreen);
 
 // ---------------------------------------------------
 
