@@ -1,271 +1,99 @@
-import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import React, { useState } from 'react';
+import {
+    Text,
+    View,
+    StyleSheet,
+    Alert,
+    TouchableHighlight,
+    TouchableOpacity,
+    TextInput,
+    Keyboard
+} from 'react-native';
 import { Button } from 'react-native-elements';
-import axios from 'axios';
-const Formik = require('formik')
-import * as Yup from 'yup';
+import constants from '../helpers/constants';
 
-// components
-// const Input = require('../components/Input.js')
-import Input from '../components/Input.js';
-
-export default class AddCaseScreen extends React.Component {
-    _handleSubmit = async (values, bag) => {
-        try {
-            Alert.alert('Added a new case')
-        } catch (error) {
-            bag.setSubmitting(false);
-            bag.setError
+export default function AddCaseScreen(props) {
+    const styles = StyleSheet.create({
+        selected: {
+            backgroundColor: constants.highlightColor,
+        },
+        textInput: {
+            padding: 10,
+            borderRadius: 4,
+            borderWidth: 1,
+            borderColor: `${constants.highlightColor}`,
+            color: `${constants.highlightColor}`
+        },
+        text: {
+            alignContent: "center",
+            marginVertical: 60,
+            marginHorizontal: 30,
+            fontSize: 80,
+            fontWeight: "bold",
+            paddingTop: -10
         }
+    })
+
+    const [caseInput, setCaseInput] = useState({
+        first_name: '',
+        last_name: ''
+    })
+
+    function submitHandler() {
+        //axios call goes here
     }
-    render() {
-        return (
-            <View style={styles.container}>
-                <Formik
-                    initialValues={{ firstName: '', lastName: '' }}
-                    onSubmit={this._handleSubmit}
-                    validationSchema={Yup.object().shape({
-                        firstName: Yup.string().required('Please enter a first name.'),
-                        lastName: Yup.string().required('Please enter a last name.')
-                    })}
-                    render={({
-                        values,
-                        handleSubmit,
-                        setFieldValue,
-                        errors,
-                        touched,
-                        setFieldTouched,
-                        isValid,
-                        isSubmitting
-                    }) => (
-                            <React.Fragment>
-                                <Input
-                                    label="First Name"
-                                    value={values.firstName}
-                                    onChange={setFieldValue}
-                                    onTouch={setFieldTouched}
-                                    name="firstName"
-                                    error={touched.firstName && errors.firstName}
-                                />
-                                <Input
-                                    label="Last Name"
-                                    value={values.lastName}
-                                    onChange={setFieldValue}
-                                    onTouch={setFieldTouched}
-                                    name="lastName"
-                                    error={touched.lastName && errors.lastName}
-                                />
-                                <Button
-                                    buttonStyle={styles.button}
-                                    title="Submit"
-                                    onPress={handleSubmit}
-                                    disabled={!isValid || isSubmitting}
-                                    loading={isSubmitting}
-                                />
-                            </React.Fragment>
-                        )}
+
+    //handle the changes to the form
+    function handleChange(e) {
+        setCaseInput({ ...caseInput, [e.target.name]: e.target.value })
+        console.log(caseInput)
+    }
+
+    return (
+        <View>
+            <View
+                style={{
+                    marginVertical: 200,
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}
+            >
+                <Text>First Name</Text>
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="First Name"
+                    onBlur={Keyboard.dismiss}
+                    value={caseInput.first_name}
+                    onChangeText={handleChange}
                 />
+                <Text>Last Name</Text>
+                <TextInput
+                    style={styles.textInput}
+                    placeholder="Last Name"
+                    onBlur={Keyboard.dismiss}
+                    value={caseInput.last_name}
+                    onChangeText={handleChange}
+                />
+                <TouchableOpacity>
+                    <Button
+                        style={styles.selected, styles.text}
+                        title="Confirm"
+                        onPress={() => {
+                            props.setAddCaseModalVisible(!props.addCaseModalVisible);
+                        }}
+                    />
+                </TouchableOpacity>
             </View>
-        );
-    }
+            <TouchableHighlight
+                underlayColor="lightgray"
+                style={{ alignItems: 'center' }}
+                onPress={() => {
+                    props.setAddCaseModalVisible(false)
+                }}
+            >
+                {/* close button */}
+                <Text style={styles.text, styles.selected}>Close</Text>
+            </TouchableHighlight>
+        </View>
+    )
 }
-
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    button: {
-        marginTop: 20,
-        width: '100%',
-    }
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//functional
-
-// function AddCase() {
-
-//     return (
-//         <View styles={styles.container, styles.root, styles.form}>
-//             <Input label="First Name"/>
-//             <Input label="Last Name"/>
-//         </View>
-//     )
-// }
-
-// function Input(props) {
-
-//     return (
-//         <View>
-//             <FormLabel>{props.label}</FormLabel>
-//             <FormInput placeholder={props.label}/>
-//             <FormValidationMessage>Error</FormValidationMessage>
-//         </View>
-//     )
-// }
-
-// const styles = StyleSheet.create({
-//     container: {
-//         flex: 1,
-//         backgroundColor: '#fff',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//     },
-//     root: {
-//         width: '90%',
-//         alignSelf: 'center'
-//     },
-//     input: {
-
-//     },
-//     form: {
-
-//     }
-// })
-
-// export default AddCase
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Antiquated - may be removed
-
-
-// function AddCaseScreen(props) {
-
-//     const [userInfo, setUserInfo] = useState({
-//         first_name: '',
-//         last_name: ''
-//     });
-
-//     const submitHandler = () => {
-
-//         axios.post('https://family-staging.connectourkids.org/api/v1/cases/', {
-//             headers: {
-//                 Authorization: `Bearer ${props.accessToken}`
-//             },
-//             body: {
-//                 first_name: userInfo.first_name,
-//                 last_name: userInfo.last_name
-//             }
-//         }
-//             .then(res => {
-//                 console.log(res)
-//             })
-//             .catch(err => {
-//                 console.log(err)
-//             })
-//         )
-
-
-
-//         const handleChange = (event) => {
-//             //console.log(e.target.name, + ': ' + e.target.value)
-//             setUserInfo({ ...userInfo, [event.target.name]: event.target.value })
-//             //console.log(userInfo)
-//         }
-
-//         // const errorHandler = () => {
-
-//         // }
-
-//         return (
-//             <>
-//                 <FormLabel>First Name</FormLabel>
-
-//                 <FormInput name="last_name" onChangeText={handleChange} />
-
-//                 <FormValidationMessage>{'This field is required'}</FormValidationMessage>
-
-//                 <Button onPress={submitHandler}>submit</Button>
-//             </>
-//         )
-//     }
-// }
-
-// export default AddCaseScreen;
