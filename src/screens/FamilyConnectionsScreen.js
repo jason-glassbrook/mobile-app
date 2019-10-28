@@ -125,7 +125,7 @@ class FamilyConnectionsScreen extends Component {
 
   getUserCases() {
     const accessToken = this.props.accessToken;
-    console.log("accessToken:", accessToken);
+    // console.log("accessToken:", accessToken);
     axios
       .get("https://family-staging.connectourkids.org/api/v1/cases/", {
         headers: {
@@ -153,8 +153,8 @@ class FamilyConnectionsScreen extends Component {
       })
       .then(res => {
         this.setState({ caseData: res.data });
-        console.log("Initiation:", this.state.caseData.foster_care);
-        console.log("caseData:", this.state.caseData);
+        // console.log("Initiation:", this.state.caseData.foster_care);
+        // console.log("caseData:", this.state.caseData);
       })
       .catch(err => {
         console.log(err);
@@ -626,44 +626,9 @@ class FamilyConnectionsScreen extends Component {
                   this.setCaseVisible(false);
                 }}
                 caseVisible={this.state.caseVisible}
+                accessToken={this.props.accessToken}
               />
-              {/* <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
-              <Text>{this.state.caseData.full_name}</Text>
-              <View>
-                <ListItem
-                leftAvatar={{ source: { uri: this.state.caseData.picture||"https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"} }}
-                />
-                <Text>Gender: {this.state.caseData.gender}</Text>
-                <Text>Date of Birth: {this.state.caseData.birthday}</Text>
-                {/* <Text>Residence: {this.state.caseData.address}</Text>
-                <Text>Initiation:{this.state.caseData.foster_care}</Text>   
-              </View>
-              <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
-                  <TouchableHighlight>
-                    <Button
-                      buttonStyle={{ backgroundColor: constants.highlightColor }}
-                      title="Work on Case"
-                      onPress={() => {
-                        this.setModalVisible(!this.state.modalVisible);
-                      }}
-                    />
-                  </TouchableHighlight>
-              </View>
-                  <View style= {{flexDirection: "row", textAlign: "space-between", padding: 20}} >
-                    <Text>Engagement
-                          Participants
-                          Highlights
-                    </Text>
-                  </View>
-              <TouchableHighlight
-              underlayColor="lightgray"
-              onPress={() => {
-                  this.setCaseVisible(false);
-                  }}
-              >
-              <Text>Close Modal</Text>
-              </TouchableHighlight>
-              </View> */}
+
             </Modal>
           </ScrollView>
 
