@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
@@ -14,7 +14,6 @@ import {
   Documents,
 } from '../components/CaseViewTabs';
 
-import ConnectionsViewScreen from './ConnectionsViewScreen';
 import axios from 'axios';
 
 export default function CaseViewScreen(props) {
@@ -24,7 +23,7 @@ export default function CaseViewScreen(props) {
     highlights: false,
   });
 
-  const [ connections, setConnections ] = useState([]);
+  const [connections, setConnections] = useState();
 
   const styles = StyleSheet.create({
     tabs: {
@@ -51,16 +50,33 @@ export default function CaseViewScreen(props) {
   let caseData = props.caseData;
   console.log(props.caseData);
 
-  axios
-  .get('', {header: {
-    access_token: ''
-  }})
-  .then(res => {
-      console.log(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  if (!connections) {
+    // useEffect(() => {
+    //   const accessToken = props.accessToken;
+    //   console.log('accessToken:' + accessToken);
+    //   axios
+    //     .get(
+    //       `https://family-staging.connectourkids.org/api/v1/cases/4/relationships/`,
+    //       {
+    //         headers: {
+    //           Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik1USkNPRFV3TlVRNVJrVTFNelpDTUVJNFJVVXpRekkzTlRreE5UTkdSRGhCTmtVMVJUazNNZyJ9.eyJpc3MiOiJodHRwczovL2xvZ2luLmNvbm5lY3RvdXJraWRzLm9yZy8iLCJzdWIiOiJhdXRoMHw1ZDliOTVjZTU2NzIyNzBlMGE2MjVlZjAiLCJhdWQiOlsiaHR0cHM6Ly9mYW1pbHktc3RhZ2luZy5jb25uZWN0b3Vya2lkcy5vcmcvYXBpL3YxLyIsImh0dHBzOi8vY29ubmVjdG91cmtpZHMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU3MjI5NzAzOCwiZXhwIjoxNTcyMzA0MjM4LCJhenAiOiIzZEtUWGlsRHlvQ1YzWVAwNmU5MDA1OUtJNmJQRVJZUSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwgb2ZmbGluZV9hY2Nlc3MifQ.ehbjCPrFzkd-Go600duvGBS_Yrkv_IwyyccbZxhEcB_rW9S5hh99NryIGzS3q_IN_cj6Meuc9EUy1ahOUXIg9S-5BeOijFa2JKB79A0nhGXQwwp1o43tENoSZucwL0wv77vH6fNWXPuxyzVOCQNTRD_wyZuMCSVLT1qzJjtKrF15vR3HKczbgb_Ao3g32D8O7qk_ejPFPCJMwQ9hcrh2lw_JeqQXl8gh71Fq9Ceerj9tFAwGQqlN5gaK0LTqIKbALAuB0F_wb9L-FJQuxjrnHdK2UjjG3jnPM4yx85B1w-Z_Ww_emEijTQQEpoQmmVmYIj5HSdL3gTaPCYpAqXxvCQ`,
+    //         },
+    //       }
+    //     )
+    //     .then((response) => {
+    //       console.log(
+    //         '********************************************response***************************************************'
+    //       );
+    //       console.log('full_name' + response.data.results[0].full_name);
+    //       setConnections(response.data.results);
+    //     })
+    //     .catch((error) => {
+    //       console.log("*****************************************error************************************************")
+    //       console.log(error);
+    //     });
+    // }, []);
+  }
+  
 
   return (
     <ScrollView>
@@ -141,12 +157,25 @@ export default function CaseViewScreen(props) {
       </View>
 
       <View>
-        {
-          connections.map(connection => {
-            return <ConnectionsViewScreen connection={connection} />
-          })
-        }
+        {/* {connections ? (
+          connections.map((connection) => {
+            return (
+            
+            <Text>{connection.full_name}</Text>
 
+            );
+          })
+        ) : (
+          <Text
+            style={{
+              textAlignVertical: 'center',
+              textAlign: 'center',
+              fontWeight: 'bold',
+            }}
+          >
+            loading connections....
+          </Text>
+        )} */}
       </View>
 
       <TouchableHighlight

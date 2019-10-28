@@ -125,7 +125,7 @@ class FamilyConnectionsScreen extends Component {
 
   getUserCases() {
     const accessToken = this.props.accessToken;
-    console.log("accessToken:", accessToken);
+    // console.log("accessToken:", accessToken);
     axios
       .get("https://family-staging.connectourkids.org/api/v1/cases/", {
         headers: {
@@ -153,8 +153,8 @@ class FamilyConnectionsScreen extends Component {
       })
       .then(res => {
         this.setState({ caseData: res.data });
-        console.log("Initiation:", this.state.caseData.foster_care);
-        console.log("caseData:", this.state.caseData);
+        // console.log("Initiation:", this.state.caseData.foster_care);
+        // console.log("caseData:", this.state.caseData);
       })
       .catch(err => {
         console.log(err);
@@ -626,6 +626,7 @@ class FamilyConnectionsScreen extends Component {
                   this.setCaseVisible(false);
                 }}
                 caseVisible={this.state.caseVisible}
+                accessToken={this.state.accessToken}
               />
 
             </Modal>
