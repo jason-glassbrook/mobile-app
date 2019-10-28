@@ -159,7 +159,7 @@ export default function CaseViewScreen(props) {
           connections.map((connection) => {
             return (
             
-            <Text>{connection.person.full_name}</Text>
+            <Text key={connection.person.pk}>{connection.person.full_name}</Text>
 
             );
           })
