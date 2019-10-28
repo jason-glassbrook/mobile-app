@@ -4,7 +4,6 @@ import {
     GET_USER_CASES_FAILURE
 } from "../actions/userCases";
 
-import axios from 'axios'
 
 const initialState = {
     results: [],

@@ -107,6 +107,7 @@ class FamilyConnectionsScreen extends Component {
       },
       caseVisible: false,
       addCaseModalVisible: true,
+      pk: '',
     };
   }
 
@@ -603,8 +604,9 @@ class FamilyConnectionsScreen extends Component {
                     leftAvatar={{ source: { uri: result.picture } }}
                     topDivider={true}
                     onPress={async () => {
+                      this.setState({pk : result.pk});
                       this.setCaseVisible(true);
-                      await this.getCaseData(result.pk);
+                      
                     }}
                     // Case badges for document value/count
                     badge={{
@@ -627,7 +629,7 @@ class FamilyConnectionsScreen extends Component {
               visible={this.state.caseVisible}
             >
               <CaseViewScreen
-                caseData={this.state.caseData}
+                pk={this.state.pk}
                 setModalVisible={this.setModalVisible}
                 setCaseVisible={() => {
                   this.setCaseVisible(false);

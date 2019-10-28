@@ -3,6 +3,7 @@ import axios from 'axios';
 export const GET_CASE_DATA_START = "GET_CASE_DATA_START";
 export const GET_CASE_DATA_SUCCESS = "GET_CASE_DATA_SUCCESS";
 export const GET_CASE_DATA_FAILURE = "GET_CASE_DATA_FAILURE";
+export const CLEAR_CASE_DATA = "CLEAR_CASE_DATA";
 
 // const accessToken = async () => {
 //     await 
@@ -21,7 +22,7 @@ export const getCaseData = (pk) => dispatch => {
                     }
                 })
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     dispatch({
                         type: GET_CASE_DATA_SUCCESS,
                         payload: res.data
@@ -37,5 +38,8 @@ export const getCaseData = (pk) => dispatch => {
                     });
                 });
             })
-   
 }; 
+
+export const clearCaseData = () => dispatch => {
+    dispatch({ type: CLEAR_CASE_DATA })
+}

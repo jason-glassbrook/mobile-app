@@ -1,13 +1,12 @@
 import {
     GET_CASE_DATA_START,
     GET_CASE_DATA_SUCCESS,
-    GET_CASE_DATA_FAILURE
-} from "../actions/userCases";
-
-import axios from 'axios';
+    GET_CASE_DATA_FAILURE,
+    CLEAR_CASE_DATA
+} from "../actions/caseData";
 
 const initialState = {
-    caseData: [],
+    caseData: {},
     isLoading: false,
     error: ""
 };
@@ -22,11 +21,11 @@ export const getCaseDataReducer = (state = initialState, action) => {
             };
 
         case GET_CASE_DATA_SUCCESS:
-            console.log("user cases payload", action.payload);
+            // console.log("case data payload", action.payload);
             return {
                 ...state,
                 isLoading: false,
-                ...action.payload
+                caseData: {...action.payload}
             };
 
         case GET_CASE_DATA_FAILURE:
@@ -35,6 +34,11 @@ export const getCaseDataReducer = (state = initialState, action) => {
                 isLoading: false,
                 error: "Error loading case data. Please try again later."
             };
+        
+        case CLEAR_CASE_DATA:
+            return {
+                caseData: {}
+            }
 
         default:
             return state;
