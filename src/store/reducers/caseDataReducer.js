@@ -6,7 +6,7 @@ import {
 
 const initialState = {
     caseData: [],
-    isFetching: false,
+    isLoading: false,
     error: ""
 };
 
@@ -15,7 +15,7 @@ const getUserCasesReducer = (state = initialState, action) => {
         case GET_CASE_DATA_START:
             return {
                 ...state,
-                isFetching: true,
+                isLoading: true,
                 error: ""
             };
 
@@ -23,14 +23,14 @@ const getUserCasesReducer = (state = initialState, action) => {
             console.log("user cases payload", action.payload);
             return {
                 ...state,
-                isFetching: false,
+                isLoading: false,
                 ...action.payload
             };
 
         case GET_CASE_DATA_FAILURE:
             return {
                 ...state,
-                isFetching: false,
+                isLoading: false,
                 error: "Error loading case data. Please try again later."
             };
 

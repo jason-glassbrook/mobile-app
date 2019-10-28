@@ -4,12 +4,11 @@ export const GET_CASE_DATA_START = "GET_CASE_DATA_START";
 export const GET_CASE_DATA_SUCCESS = "GET_CASE_DATA_SUCCESS";
 export const GET_CASE_DATA_FAILURE = "GET_CASE_DATA_FAILURE";
 
-getCaseData = (pk) => dispatch => {
+const accessToken = SecureStore.getItemAsync('cok_access_token')
+console.log("accessToken:", accessToken);
+
+export const getCaseData = (pk) => dispatch => {
     dispatch({ type: GET_CASE_DATA_START });
-
-    const accessToken = await SecureStore.getItemAsync('cok_access_token')
-    console.log("accessToken:", accessToken);
-
     axios
         .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
             headers: {
@@ -18,12 +17,18 @@ getCaseData = (pk) => dispatch => {
         })
         .then(res => {
             console.log(res);
-            dispatch({ type: GET_CASE_DATA_SUCCESS, payload: res.data });
+            dispatch({
+                type: GET_CASE_DATA_SUCCESS,
+                payload: res.data
+            });
             console.log("Initiation:", this.state.caseData.foster_care);
             console.log("caseData:", this.state.caseData);
         })
         .catch(err => {
             console.log(err);
-            dispatch({ type: GET_CASE_DATA_FAILURE, payload: err.response });
+            dispatch({
+                type: GET_CASE_DATA_FAILURE,
+                payload: err.response
+            });
         });
 };

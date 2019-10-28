@@ -13,7 +13,7 @@ import {
   TouchableHighlight,
   Alert
 } from "react-native";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
 import axios from "axios";
 import {
   ListItem,
@@ -42,51 +42,51 @@ class FamilyConnectionsScreen extends Component {
       gender: "Gender",
       ageRange: "Age Range",
       sortBy: "Sort By",
-      results: [],
-      caseData: {
-        pk: 0,
-        first_name: "",
-        last_name: "",
-        gender: "",
-        address: {
-          pk: 0,
-          raw: "",
-          route: "",
-          street_number: "",
-          formatted: "",
-          latitude: 0,
-          longitude: 0,
-          locality: "",
-          state: "",
-          state_code: ""
-        },
-        birthday: "0000-00-00",
-        deceased: false,
-        date_of_death: null,
-        picture: "",
-        notes: "",
-        created_by: {
-          id: 2,
-          first_name: "",
-          last_name: "",
-          full_name: "",
-          email: "",
-          date_joined: "",
-          picture: ""
-        },
-        count_relationships: 0,
-        count_documents: 0,
-        created_at: "",
-        updated_at: "",
-        is_archive: false,
-        workpad_id_by_user: 0,
-        full_name: "",
-        organization: 0,
-        suffix: null,
-        foster_care: "",
-        resourcetype: ""
-      },
-      isLoading: true,
+      // results: [],
+      // caseData: {
+      //   pk: 0,
+      //   first_name: "",
+      //   last_name: "",
+      //   gender: "",
+      //   address: {
+      //     pk: 0,
+      //     raw: "",
+      //     route: "",
+      //     street_number: "",
+      //     formatted: "",
+      //     latitude: 0,
+      //     longitude: 0,
+      //     locality: "",
+      //     state: "",
+      //     state_code: ""
+      //   },
+      //   birthday: "0000-00-00",
+      //   deceased: false,
+      //   date_of_death: null,
+      //   picture: "",
+      //   notes: "",
+      //   created_by: {
+      //     id: 2,
+      //     first_name: "",
+      //     last_name: "",
+      //     full_name: "",
+      //     email: "",
+      //     date_joined: "",
+      //     picture: ""
+      //   },
+      //   count_relationships: 0,
+      //   count_documents: 0,
+      //   created_at: "",
+      //   updated_at: "",
+      //   is_archive: false,
+      //   workpad_id_by_user: 0,
+      //   full_name: "",
+      //   organization: 0,
+      //   suffix: null,
+      //   foster_care: "",
+      //   resourcetype: ""
+      // },
+      // isLoading: true,
       modalVisible: false,
       filters: {
         male: false,
@@ -105,7 +105,7 @@ class FamilyConnectionsScreen extends Component {
       addCaseModalVisible: true,
     };
   }
-  
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -125,43 +125,43 @@ class FamilyConnectionsScreen extends Component {
     console.log(this.state.searchKeywords);
   };
 
-  async getUserCases() {
-    const theAccessToken = await SecureStore.getItemAsync('cok_access_token');
-    console.log('access tokenssssss', theAccessToken);
-    axios
-      .get("https://family-staging.connectourkids.org/api/v1/cases/", {
-        headers: {
-          Authorization: `Bearer ${theAccessToken}`
-        }
-      })
-      .then(response => {
-        this.setState({
-          results: response.data.results,
-          isLoading: false
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // async getUserCases() {
+  //   const theAccessToken = await SecureStore.getItemAsync('cok_access_token');
+  //   console.log('access tokenssssss', theAccessToken);
+  //   axios
+  //     .get("https://family-staging.connectourkids.org/api/v1/cases/", {
+  //       headers: {
+  //         Authorization: `Bearer ${theAccessToken}`
+  //       }
+  //     })
+  //     .then(response => {
+  //       this.setState({
+  //         results: response.data.results,
+  //         isLoading: false
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
 
-  getCaseData(pk) {
-    let accessToken = SecureStore.getItemAsync('cok_access_token');
-    axios
-      .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      })
-      .then(res => {
-        this.setState({ caseData: res.data });
-        console.log("Initiation:", this.state.caseData.foster_care);
-        console.log("caseData:", this.state.caseData);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // async getCaseData(pk) {
+  //   let accessToken = await SecureStore.getItemAsync('cok_access_token');
+  //   axios
+  //     .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`
+  //       }
+  //     })
+  //     .then(res => {
+  //       this.setState({ caseData: res.data });
+  //       console.log("Initiation:", this.state.caseData.foster_care);
+  //       console.log("caseData:", this.state.caseData);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   componentDidMount() {
     this.getUserCases();
@@ -598,9 +598,9 @@ class FamilyConnectionsScreen extends Component {
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
                     topDivider={true}
-                    onPress={() => {
+                    onPress={async () => {
                       this.setCaseVisible(true);
-                      this.getCaseData(result.pk);
+                      await this.getCaseData(result.pk);
                     }}
                     // Case badges for document value/count
                     badge={{
@@ -731,17 +731,20 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FamilyConnectionsScreen;
+// export default FamilyConnectionsScreen;
 
-// const mapStateToProps = state => {
-//   const { accessToken } = state.auth;
-//   return {
-//     accessToken
-//     // email: state.auth.user ? state.auth.user.email : null
-//   };
-// };
+const mapStateToProps = state => {
+  const { isLoading, results, caseData } = state;
+  return {
+    // accessToken
+    // email: state.auth.user ? state.auth.user.email : null
+    isLoading,
+    results,
+    caseData
+  };
+};
 
-// export default connect(mapStateToProps)(FamilyConnectionsScreen);
+export default connect(mapStateToProps, { getUserCases, getCaseData })(FamilyConnectionsScreen);
 
         // ---------------------------------------------------
 
