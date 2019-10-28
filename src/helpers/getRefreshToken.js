@@ -30,9 +30,9 @@ const getRefreshToken = async () => {
   axios
     .post('https://connectourkids.auth0.com/oauth/token', refreshParams)
     .then(async res => {
-      await SecureStore.setItemAsync('cok_refresh_token', res.data.refresh_token)
+      await SecureStore.setItemAsync('cok_refresh_token', res.data.refresh_token);
       // SecureStore.setItemAsync('cok_access_token', JSON.stringify(res.data.access_token)),
-      await SecureStore.setItemAsync('cok_id_token', res.data.id_token)
+      await SecureStore.setItemAsync('cok_id_token', res.data.id_token);
       console.log('REFRESH', await SecureStore.getItemAsync('cok_refresh_token'))
       // console.log('res', res)
     })

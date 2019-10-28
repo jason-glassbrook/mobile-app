@@ -144,8 +144,8 @@ class FamilyConnectionsScreen extends Component {
       });
   }
 
-  getCaseData(pk) {
-    let accessToken = SecureStore.getItemAsync('cok_access_token');
+  async getCaseData(pk) {
+    let accessToken = await SecureStore.getItemAsync('cok_access_token');
     axios
       .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
         headers: {
@@ -596,9 +596,9 @@ class FamilyConnectionsScreen extends Component {
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
                     topDivider={true}
-                    onPress={() => {
+                    onPress={async () => {
                       this.setCaseVisible(true);
-                      this.getCaseData(result.pk);
+                      await this.getCaseData(result.pk);
                     }}
                     // Case badges for document value/count
                     badge={{
