@@ -4,13 +4,15 @@ import {
     GET_USER_CASES_FAILURE
 } from "../actions/userCases";
 
+import axios from 'axios'
+
 const initialState = {
     results: [],
     isLoading: false,
     error: ""
 };
 
-const getUserCasesReducer = (state = initialState, action) => {
+export const getUserCasesReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_USER_CASES_START:
             return {
@@ -38,5 +40,3 @@ const getUserCasesReducer = (state = initialState, action) => {
             return state;
     }
 };
-
-export default getUserCasesReducer;

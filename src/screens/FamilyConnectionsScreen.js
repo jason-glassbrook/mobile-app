@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,6 +14,10 @@ import {
   Alert
 } from "react-native";
 import { connect } from "react-redux";
+import { 
+  getCaseData, 
+  getUserCases 
+} from "../store/actions"
 import axios from "axios";
 import {
   ListItem,
@@ -164,12 +168,12 @@ class FamilyConnectionsScreen extends Component {
   // }
 
   componentDidMount() {
-    this.getUserCases();
+    this.props.getUserCases();
   }
 
   render() {
     // ------filter gender functionality------
-    let filteredCases = this.state.results;
+    let filteredCases = this.props.results; // this.state.results
 
     if (
       !this.state.filters.male &&
@@ -734,13 +738,30 @@ const styles = StyleSheet.create({
 // export default FamilyConnectionsScreen;
 
 const mapStateToProps = state => {
-  const { isLoading, results, caseData } = state;
+  const { 
+    caseData 
+  } = state.caseData;
+  const {
+    results
+  } = state.userCases;
+  const {
+    isLoading,
+    error, 
+  } = state;
+
+  /* const {
+    casedata: casedata,
+    usercases: results,
+    
+  }*/
+
   return {
     // accessToken
     // email: state.auth.user ? state.auth.user.email : null
-    isLoading,
     results,
-    caseData
+    caseData,
+    isLoading,
+    error
   };
 };
 

@@ -3,8 +3,8 @@ import { authReducer as auth } from './authReducer';
 import { peopleSearchReducer as people } from './peopleSearchReducer';
 import { confirmationModalReducer as confirmationModal } from './confirmationModal';
 import { recentSearchesReducer as recentSearches } from './recentSearchesReducer';
-import { userCasesReducer as userCases } from './userCasesReducer';
-import { caseDataReducer as caseData } from './caseDataReducer';
+import { getUserCasesReducer as userCases } from './userCasesReducer';
+import { getCaseDataReducer as caseData } from './caseDataReducer';
 
 export default combineReducers({
   auth,
