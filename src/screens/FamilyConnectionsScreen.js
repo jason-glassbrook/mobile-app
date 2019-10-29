@@ -439,6 +439,7 @@ class FamilyConnectionsScreen extends Component {
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
               />
 
+                {/* age filter */}
               {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
@@ -641,44 +642,9 @@ class FamilyConnectionsScreen extends Component {
                   this.setCaseVisible(false);
                 }}
                 caseVisible={this.state.caseVisible}
+                accessToken={this.props.accessToken}
               />
-              {/* <View style={{ marginVertical: 200, justifyContent: "center", alignItems: "center" }}>
-              <Text>{this.state.caseData.full_name}</Text>
-              <View>
-                <ListItem
-                leftAvatar={{ source: { uri: this.state.caseData.picture||"https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"} }}
-                />
-                <Text>Gender: {this.state.caseData.gender}</Text>
-                <Text>Date of Birth: {this.state.caseData.birthday}</Text>
-                {/* <Text>Residence: {this.state.caseData.address}</Text>
-                <Text>Initiation:{this.state.caseData.foster_care}</Text>   
-              </View>
-              <View style={{ alignContent: "center", marginVertical: 60, marginHorizontal: 30, fontSize: 80, fontWeight: "bold", paddingTop: -10 }}>
-                  <TouchableHighlight>
-                    <Button
-                      buttonStyle={{ backgroundColor: constants.highlightColor }}
-                      title="Work on Case"
-                      onPress={() => {
-                        this.setModalVisible(!this.state.modalVisible);
-                      }}
-                    />
-                  </TouchableHighlight>
-              </View>
-                  <View style= {{flexDirection: "row", textAlign: "space-between", padding: 20}} >
-                    <Text>Engagement
-                          Participants
-                          Highlights
-                    </Text>
-                  </View>
-              <TouchableHighlight
-              underlayColor="lightgray"
-              onPress={() => {
-                  this.setCaseVisible(false);
-                  }}
-              >
-              <Text>Close Modal</Text>
-              </TouchableHighlight>
-              </View> */}
+
             </Modal>
           </ScrollView>
 
@@ -777,136 +743,3 @@ export default connect(
     getCaseData 
   })(FamilyConnectionsScreen);
 
-        // ---------------------------------------------------
-
-// import {Button} from 'native-base';
-// import {ScrollView} from 'react-native-gesture-handler';
-// import {connect} from 'react-redux';
-          // import headerConfig from '../helpers/headerConfig';
-// import {sendEvent} from './../helpers/createEvent';
-          // import FamilyConnectionsModal from './../components/FamilyConnectionsModal/FamilyConnectionsModal';
-          // import Video from '../components/Video/Video';
-          // import constants from '../helpers/constants';
-          // import MainText from '../UI/MainText';
-          // import ScreenContainer from '../UI/ScreenContainer';
-// import {wrap} from 'module';
-
-// class FamilyConnectionsScreen extends Component {
-//   static navigationOptions = ({ navigation }) =>
-//     headerConfig('Family Connections', navigation);
-
-//   state = {
-//     modalVisible: false,
-//     message: false,
-//     email: ''
-//   };
-
-//   openModal = () => {
-//     this.setState({
-//       modalVisible: true
-//     });
-//   };
-
-//   closeModal = () => {
-//     this.setState({
-//       modalVisible: false
-//     });
-//   };
-
-//   trackInterest = trackingEmail => {
-//     let email = this.props.email ? this.props.email : trackingEmail;
-//     sendEvent(email, 'click', 'request-familyconnections');
-//     this.setState({
-//       modalVisible: false,
-//       email,
-//       message: true
-//     });
-//     this.startClearState();
-//   };
-
-//   startClearState = () => {
-//     setTimeout(() => {
-//       this.setState({ message: false, email: '' });
-//     }, 3000);
-//   };
-
-//   render() {
-//     return (
-//       <ScreenContainer>
-//         <SafeAreaView>
-//           <StatusBar barStyle="dark-content" />
-//           <View>
-//             <Modal
-//               animationType="slide"
-//               transparent={false}
-//               visible={this.state.modalVisible}
-//               onRequestClose={this.closeModal}
-//             >
-//               <FamilyConnectionsModal
-//                 trackInterest={this.trackInterest}
-//                 closeModal={this.closeModal}
-//                 startRegister={this.startRegister}
-//                 email={this.props.email}
-//               />
-//             </Modal>
-//           </View>
-//           <ScrollView>
-//             <MainText>
-//               Learn about a revolutionary way to discover and engage extended
-//               families for at-risk foster youth.
-//             </MainText>
-
-//             <Video uri={constants.familyConnectionsURI} />
-
-//             <Button style={styles.button} block onPress={this.openModal}>
-//               <Text style={styles.buttonText}>
-//                 I Want To Access Family Connections
-//               </Text>
-//             </Button>
-
-//             {this.state.message && (
-//               <View style={styles.messageContainer}>
-//                 <Text style={styles.thankyouMessage}>
-//                   Thank you for showing interest, {this.state.email} has been
-//                   added to our list.
-//                 </Text>
-//               </View>
-//             )}
-//           </ScrollView>
-//         </SafeAreaView>
-//       </ScreenContainer>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   button: {
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     flexDirection: 'row',
-//     backgroundColor: constants.highlightColor
-//   },
-//   buttonText: {
-//     color: '#fff',
-//     fontWeight: '700'
-//   },
-//   loginContainer: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center'
-//   },
-//   videoContainer: { height: 300, marginBottom: 30 },
-//   thankyouMessage: {
-//     fontSize: 24,
-//     color: '#fff',
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     textTransform: 'uppercase'
-//   },
-//   messageContainer: {
-//     marginTop: 20,
-//     padding: 10,
-//     backgroundColor: constants.highlightColor,
-//     borderRadius: 5
-//   }
-// });
