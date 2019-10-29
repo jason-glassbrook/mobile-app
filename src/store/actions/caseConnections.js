@@ -23,7 +23,7 @@ export const getCaseConnections = (pk) => dispatch => {
                     });
                 })
                 .catch(err => {
-                    console.log(err);
+                    // console.log(err);
                     dispatch({
                         type: GET_CASE_CONNECTIONS_FAILURE,
                         payload: err.response

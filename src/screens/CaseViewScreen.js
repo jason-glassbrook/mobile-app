@@ -23,7 +23,6 @@ import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 
 export function CaseViewScreen(props) {
-
   const styles = StyleSheet.create({
     tabs: {
       width: "100%",
@@ -46,13 +45,11 @@ export function CaseViewScreen(props) {
     }
   });
 
-
   // on load get case data and case connections through redux
   useEffect(() => {
     props.getCaseData(props.pk);
     props.getCaseConnections(props.pk);
   }, [false]);
-
 
   let caseData = props.caseData;
   // console.log(props.caseData);

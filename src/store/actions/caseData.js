@@ -21,11 +21,9 @@ export const getCaseData = (pk) => dispatch => {
                         type: GET_CASE_DATA_SUCCESS,
                         payload: res.data
                     });
-                    // console.log("Initiation:", this.state.caseData.foster_care);
-                    // console.log("caseData:", this.state.caseData);
                 })
                 .catch(err => {
-                    console.log(err);
+                    // console.log(err);
                     dispatch({
                         type: GET_CASE_DATA_FAILURE,
                         payload: err.response
