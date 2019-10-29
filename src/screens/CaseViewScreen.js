@@ -4,25 +4,36 @@ import {
   View,
   TouchableHighlight,
   StyleSheet,
-  ScrollView
+  Platform,
+  ScrollView,
 } from "react-native";
 import constants from "../helpers/constants";
-import { 
-  ListItem, 
-  Button, 
-  Divider 
+import {
+  ListItem,
+  Button,
+  Divider,
+  SearchBar
 } from "react-native-elements";
-import { 
-  getCaseData, 
-  clearCaseData } from "../store/actions/caseData";
-import { 
-  getCaseConnections, 
-  clearCaseConnections 
+import {
+  getCaseData,
+  clearCaseData
+} from "../store/actions/caseData";
+import {
+  getCaseConnections,
+  clearCaseConnections
 } from "../store/actions/caseConnections"
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
+import CaseListComponent from "../components/CaseListComponent";
 
 export function CaseViewScreen(props) {
+
+  const [searchKeywords, setSearchKeywords] = useState('')
+
+  const [filtersSelected, setFiltersSelected] = useState({
+
+  })
+
   const styles = StyleSheet.create({
     tabs: {
       width: "100%",
@@ -42,8 +53,21 @@ export function CaseViewScreen(props) {
     tab: {
       padding: 10,
       fontSize: 16
-    }
+    },
+
+    searchBar: {
+      marginHorizontal: Platform.OS === "ios" ? 5 : 5,
+      width: Platform.OS === "ios" ? 285 : 320,
+      backgroundColor: Platform.OS === "ios" ? "white" : "white"
+    },
   });
+
+  // ------SEARCHBAR functionality - filters by case first_name or last_name---------
+  let SearchedConnections = props.caseConnections.filter(result => {
+    return result.person.full_name.indexOf(searchKeywords) != -1;
+  });
+
+
 
   // on load get case data and case connections through redux
   useEffect(() => {
@@ -51,11 +75,18 @@ export function CaseViewScreen(props) {
     props.getCaseConnections(props.pk);
   }, [false]);
 
+
   let caseData = props.caseData;
   // console.log(props.caseData);
 
+  const handleKeywordChange = (e) => {
+
+    setSearchKeywords(e)
+
+  }
+
   return (
-    <ScrollView>
+    <View>
       <View
         style={{
           justifyContent: "center",
@@ -65,88 +96,99 @@ export function CaseViewScreen(props) {
         {props.isLoadingCaseData ? (
           <Loader />
         ) : (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              marginTop: 55,
-              width: "85%"
-            }}
-          >
-            <View>
-              <Text style={{ fontSize: 20 }}>{caseData.full_name}</Text>
-              <ListItem
-                leftAvatar={{
-                  source: {
-                    uri:
-                      caseData.picture ||
-                      "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
-                  }
-                }}
-              />
-            </View>
-            <View style={{ maxWidth: "60%" }}>
-              <Text style={{ padding: 5 }}>Gender: {caseData.gender}</Text>
-              <Text style={{ padding: 5 }}>
-                Date of Birth: {caseData.birthday}
-              </Text>
-              <Text style={{ padding: 5 }}>
-                Residence:{" "}
-                {caseData.address && caseData.address.formatted
-                  ? caseData.address.formatted
-                  : "no address available"}
-              </Text>
-              <Text style={{ padding: 5 }}>
-                Initiation:{caseData.foster_care}
-              </Text>
-            </View>
-          </View>
-        )}
-        <View
-          style={{
-            alignContent: "center",
-            marginVertical: 60,
-            marginHorizontal: 30,
-            fontSize: 80,
-            fontWeight: "bold",
-            paddingTop: -10
-          }}
-        >
-          <TouchableHighlight>
-            <Button
-              buttonStyle={{ backgroundColor: constants.highlightColor }}
-              title="Work on Case"
-              onPress={() => {
-                props.setModalVisible(!props.modalVisible);
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 55,
+                width: "85%"
               }}
-            />
-          </TouchableHighlight>
+            >
+              <View>
+                <Text style={{ fontSize: 20 }}>{caseData.full_name}</Text>
+                <ListItem
+                  leftAvatar={{
+                    source: {
+                      uri:
+                        caseData.picture ||
+                        "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+                    }
+                  }}
+                />
+              </View>
+              <View style={{ maxWidth: "60%" }}>
+                <Text style={{ padding: 5 }}>Gender: {caseData.gender}</Text>
+                <Text style={{ padding: 5 }}>
+                  Date of Birth: {caseData.birthday}
+                </Text>
+                <Text style={{ padding: 5 }}>
+                  Residence:{" "}
+                  {caseData.address && caseData.address.formatted
+                    ? caseData.address.formatted
+                    : "no address available"}
+                </Text>
+                <Text style={{ padding: 5 }}>
+                  Initiation:{caseData.foster_care}
+                </Text>
+              </View>
+            </View>
+          )}
+
+
+        {/* search Functionality */}
+
+        <View style={{ flexDirection: "row" }}>
+          <SearchBar
+            placeholder="Search Name..."
+            placeholderTextColor="black"
+            lightTheme
+            round
+            name="searchKeywords"
+            value={searchKeywords}
+            onChangeText={handleKeywordChange}
+            // create searchbar target platform.os
+            platform="ios"
+            containerStyle={styles.searchBar}
+          />
         </View>
 
         <Divider
           style={{
             height: 1,
             backgroundColor: "lightgrey",
-            margin: 5,
             width: "85%",
             marginTop: 15
           }}
         />
-      </View>
+        </View>
+      
 
-      <View>
+      <ScrollView style={{ height: '55%' }}>
         {props.isLoadingConnections ? (
           <Loader />
         ) : (
-          props.caseConnections.map(connection => {
-            return (
-              <Text key={connection.person.pk}>
-                {connection.person.full_name}
-              </Text>
-            );
-          })
-        )}
-      </View>
+
+            SearchedConnections.map((connection, index) => {
+              return (
+                <CaseListComponent key={index} connection={connection} />
+              );
+            })
+          )}
+      </ScrollView>
+
+        <View style={{
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+        <Divider
+          style={{
+            height: 1,
+            backgroundColor: "lightgrey",
+            width: "85%",
+          }}
+        />
+        </View>
+        
 
       <TouchableHighlight
         underlayColor="lightgray"
@@ -170,13 +212,13 @@ export function CaseViewScreen(props) {
           Close Case
         </Text>
       </TouchableHighlight>
-    </ScrollView>
+    </View>
   );
 }
 
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;
-  const {caseConnections, isLoadingConnections, connectionsError} = state.caseConnections;
+  const { caseConnections, isLoadingConnections, connectionsError } = state.caseConnections;
   return {
     caseData,
     isLoadingCaseData,

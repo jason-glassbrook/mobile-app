@@ -83,12 +83,11 @@ class FamilyConnectionsScreen extends Component {
     this.setState({
       searchKeywords: event
     });
-    console.log(this.state.searchKeywords);
+    // console.log(this.state.searchKeywords);
   };
 
   componentDidMount() {
     this.props.getUserCases();
-    console.log('isLOADING beforeeeeeeeeee?', this.props.isLoading)
   }
 
   render() {
@@ -503,7 +502,7 @@ class FamilyConnectionsScreen extends Component {
         <View style={{ paddingBottom: 170 }}>
           <ScrollView>
             {/* Displays text placeholder until cases load */}
-            {console.log('isLOADING', this.props)}
+            {/* {console.log('isLOADING', this.props)} */}
             {this.props.isLoading ? (
               // <Text style={styles.isLoading}> Loading Cases... </Text>
               <Loader />
