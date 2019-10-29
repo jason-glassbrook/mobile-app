@@ -7,16 +7,22 @@ import {
   ScrollView
 } from "react-native";
 import constants from "../helpers/constants";
-import { ListItem, Button, Divider } from "react-native-elements";
-import { getCaseData, clearCaseData } from "../store/actions/caseData";
+import { 
+  ListItem, 
+  Button, 
+  Divider 
+} from "react-native-elements";
+import { 
+  getCaseData, 
+  clearCaseData } from "../store/actions/caseData";
+import { 
+  getCaseConnections, 
+  clearCaseConnections 
+} from "../store/actions/caseConnections"
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
-import axios from "axios";
 
 export function CaseViewScreen(props) {
-
-  const [connections, setConnections] = useState();
-
   const styles = StyleSheet.create({
     tabs: {
       width: "100%",
@@ -39,42 +45,14 @@ export function CaseViewScreen(props) {
     }
   });
 
+  // on load get case data and case connections through redux
   useEffect(() => {
     props.getCaseData(props.pk);
+    props.getCaseConnections(props.pk);
   }, [false]);
 
-  console.log("CaseDATTTTA", props.caseData);
-
-
   let caseData = props.caseData;
-  console.log(props.caseData);
-
-  if (!connections) {
-    const accessToken = props.accessToken;
-    console.log("accessToken caseview:" + " " + props.accessToken);
-    axios
-      .get(
-        `https://family-staging.connectourkids.org/api/v1/cases/4/relationships/`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`
-          }
-        }
-      )
-      .then(response => {
-        console.log(
-          "********************************************response***************************************************"
-        );
-        console.log(response.data.results[0].person.full_name);
-        setConnections(response.data.results);
-      })
-      .catch(error => {
-        console.log(
-          "*****************************************error************************************************"
-        );
-        console.log(error);
-      });
-  }
+  // console.log(props.caseData);
 
   return (
     <ScrollView>
@@ -84,7 +62,7 @@ export function CaseViewScreen(props) {
           alignItems: "center"
         }}
       >
-        {props.isLoading ? (
+        {props.isLoadingCaseData ? (
           <Loader />
         ) : (
           <View
@@ -157,24 +135,16 @@ export function CaseViewScreen(props) {
       </View>
 
       <View>
-        {connections ? (
-          connections.map(connection => {
+        {props.isLoadingConnections ? (
+          <Loader />
+        ) : (
+          props.caseConnections.map(connection => {
             return (
               <Text key={connection.person.pk}>
                 {connection.person.full_name}
               </Text>
             );
           })
-        ) : (
-          <Text
-            style={{
-              textAlignVertical: "center",
-              textAlign: "center",
-              fontWeight: "bold"
-            }}
-          >
-            loading connections....
-          </Text>
         )}
       </View>
 
@@ -183,6 +153,7 @@ export function CaseViewScreen(props) {
         style={{ alignItems: "center" }}
         onPress={() => {
           props.clearCaseData();
+          props.clearCaseConnections();
           props.setCaseVisible();
         }}
       >
@@ -203,15 +174,16 @@ export function CaseViewScreen(props) {
   );
 }
 
-// export default CaseViewScreen;
-
 const mapStateToProps = state => {
-  // const { caseData } = state.caseData
-  const { caseData, isLoading, error } = state.caseData;
+  const { caseData, isLoadingCaseData, caseDataError } = state.caseData;
+  const {caseConnections, isLoadingConnections, connectionsError} = state.caseConnections;
   return {
     caseData,
-    isLoading,
-    error
+    isLoadingCaseData,
+    isLoadingConnections,
+    caseDataError,
+    connectionsError,
+    caseConnections
   };
 };
 
@@ -219,6 +191,8 @@ export default connect(
   mapStateToProps,
   {
     getCaseData,
-    clearCaseData
+    clearCaseData,
+    getCaseConnections,
+    clearCaseConnections
   }
 )(CaseViewScreen);

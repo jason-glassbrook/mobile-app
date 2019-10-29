@@ -47,51 +47,6 @@ class FamilyConnectionsScreen extends Component {
       gender: "Gender",
       ageRange: "Age Range",
       sortBy: "Sort By",
-      // results: [],
-      // caseData: {
-      //   pk: 0,
-      //   first_name: "",
-      //   last_name: "",
-      //   gender: "",
-      //   address: {
-      //     pk: 0,
-      //     raw: "",
-      //     route: "",
-      //     street_number: "",
-      //     formatted: "",
-      //     latitude: 0,
-      //     longitude: 0,
-      //     locality: "",
-      //     state: "",
-      //     state_code: ""
-      //   },
-      //   birthday: "0000-00-00",
-      //   deceased: false,
-      //   date_of_death: null,
-      //   picture: "",
-      //   notes: "",
-      //   created_by: {
-      //     id: 2,
-      //     first_name: "",
-      //     last_name: "",
-      //     full_name: "",
-      //     email: "",
-      //     date_joined: "",
-      //     picture: ""
-      //   },
-      //   count_relationships: 0,
-      //   count_documents: 0,
-      //   created_at: "",
-      //   updated_at: "",
-      //   is_archive: false,
-      //   workpad_id_by_user: 0,
-      //   full_name: "",
-      //   organization: 0,
-      //   suffix: null,
-      //   foster_care: "",
-      //   resourcetype: ""
-      // },
-      // isLoading: true,
       modalVisible: false,
       filters: {
         male: false,
@@ -131,53 +86,13 @@ class FamilyConnectionsScreen extends Component {
     console.log(this.state.searchKeywords);
   };
 
-  // async getUserCases() {
-  //   const theAccessToken = await SecureStore.getItemAsync('cok_access_token');
-  //   console.log('access tokenssssss', theAccessToken);
-  //   axios
-  //     .get("https://family-staging.connectourkids.org/api/v1/cases/", {
-  //       headers: {
-  //         Authorization: `Bearer ${theAccessToken}`
-  //       }
-  //     })
-  //     .then(response => {
-  //       this.setState({
-  //         results: response.data.results,
-  //         isLoading: false
-  //       });
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }
-
-  // async getCaseData(pk) {
-  //   let accessToken = await SecureStore.getItemAsync('cok_access_token');
-  //   axios
-  //     .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
-  //       headers: {
-  //         Authorization: `Bearer ${accessToken}`
-  //       }
-  //     })
-  //     .then(res => {
-  //       this.setState({ caseData: res.data });
-  //       console.log("Initiation:", this.state.caseData.foster_care);
-  //       console.log("caseData:", this.state.caseData);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // }
-
   componentDidMount() {
     this.props.getUserCases();
     console.log('isLOADING beforeeeeeeeeee?', this.props.isLoading)
   }
 
-  
-
   render() {
-    // ------filter gender functionality------
+    // ------GENDER FILTER functionality------
     let filteredCases = this.props.results; // this.state.results
 
     if (
@@ -198,7 +113,7 @@ class FamilyConnectionsScreen extends Component {
       }
     }
 
-    // ------filter age functionality------
+    // ------AGE FILTER functionality------
     // if (!this.state.filters.zero_five && !this.state.filters.six_nine && !this.state.filters.ten_thirteen && !this.state.filters.fourteen_eighteen) { //if nothing is selected -- do nothing
     // } else {
     //  let year = new Date()
@@ -223,7 +138,7 @@ class FamilyConnectionsScreen extends Component {
     //   }
     // }
 
-    // ------sorting Functionality------
+    // ------SORTING Functionality------
     const name = (a, b) => {
       const A = a.full_name.toUpperCase();
       const B = b.full_name.toUpperCase();
@@ -290,6 +205,7 @@ class FamilyConnectionsScreen extends Component {
     }
 
     //leaving this out for now because year and day are no longer required
+    // *******BIRTHDAY FILTER*********
     // else if (this.state.filters.DOB) {
     //   let Birthdays = []
     //   let noBirthdays = []
@@ -312,7 +228,7 @@ class FamilyConnectionsScreen extends Component {
       filteredCases.sort(name);
     }
 
-    // ------Searchbar functionality - filters by case first_name or last_name---------
+    // ------SEARCHBAR functionality - filters by case first_name or last_name---------
     let SearchedCases = filteredCases.filter(result => {
       return result.full_name.indexOf(this.state.searchKeywords) != -1;
     });
@@ -321,7 +237,7 @@ class FamilyConnectionsScreen extends Component {
     const fullYear = new Date();
     return (
       <SafeAreaView>
-        {/* addCase Button */}
+        {/* ADDCASE BUTTON -  leaving out for now */}
         {/* <Button
           title="Add Case"
           buttonStyle={{ backgroundColor: constants.highlightColor }}
@@ -353,15 +269,11 @@ class FamilyConnectionsScreen extends Component {
           />
         </View>
 
-
-        {/* Filters Button - onPress Modal */}
+        {/* FILTERS BUTTON - onPress Modal */}
         <Modal
           animationType="fade"
           transparent={false}
           visible={this.state.modalVisible}
-        // onRequestClose={() => {
-        //   Alert.alert('Modal has been closed.');
-        // }}
         >
           <ScrollView>
             <View
@@ -439,7 +351,7 @@ class FamilyConnectionsScreen extends Component {
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
               />
 
-                {/* age filter */}
+                {/* AGE FILTER */}
               {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
@@ -500,8 +412,8 @@ class FamilyConnectionsScreen extends Component {
                   })
                 }
               />
-              {/* leaving this out for not because year and day are not required */}
 
+              {/* leaving this out for not because year and day are not required */}
               {/* <CheckBox
               containerStyle={{ backgroundColor: "white", borderColor: "white" }}
               title='Age'
@@ -587,13 +499,12 @@ class FamilyConnectionsScreen extends Component {
 
         {/* Case List Todos:
        Cache case info from API for faster loading */}
-
         {/* Case List View Starts Here */}
         <View style={{ paddingBottom: 170 }}>
           <ScrollView>
             {/* Displays text placeholder until cases load */}
             {console.log('isLOADING', this.props)}
-            {this.props.isLoading === true ? (
+            {this.props.isLoading ? (
               // <Text style={styles.isLoading}> Loading Cases... </Text>
               <Loader />
             ) : (
@@ -629,7 +540,7 @@ class FamilyConnectionsScreen extends Component {
                 ))
               )}
 
-            {/* Case onPress Modal */}
+            {/* CASE onPress MODAL */}
             <Modal
               animationType="slide"
               transparent={false}
@@ -648,7 +559,7 @@ class FamilyConnectionsScreen extends Component {
             </Modal>
           </ScrollView>
 
-          {/* AddCase - onPress Modal */}
+          {/* AddCase - onPress MODAL - leaving out for now */}
           {/* <View>
             <Modal
               animationType="slide"
@@ -674,7 +585,6 @@ class FamilyConnectionsScreen extends Component {
               </ScrollView>
             </Modal>
           </View> */}
-
         </View>
       </SafeAreaView>
     );
@@ -689,12 +599,12 @@ const styles = StyleSheet.create({
     width: Platform.OS === "ios" ? 285 : 320,
     backgroundColor: Platform.OS === "ios" ? "white" : "white"
   },
-  addCaseButton: {
-    marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-    width: Platform.OS === "ios" ? 200 : 200,
-    marginVertical: Platform.OS === "ios" ? 20 : 20,
-    maxHeight: Platform.OS === "ios" ? 40 : 40
-  },
+  // addCaseButton: {
+  //   marginHorizontal: Platform.OS === "ios" ? 5 : 5,
+  //   width: Platform.OS === "ios" ? 200 : 200,
+  //   marginVertical: Platform.OS === "ios" ? 20 : 20,
+  //   maxHeight: Platform.OS === "ios" ? 40 : 40
+  // },
   filterButton: {
     width: Platform.OS === "ios" ? 70 : 70,
     marginVertical: Platform.OS === "ios" ? 20 : 20,
@@ -709,8 +619,6 @@ const styles = StyleSheet.create({
   }
 });
 
-// export default FamilyConnectionsScreen;
-
 const mapStateToProps = state => {
   const { 
     caseData 
@@ -718,28 +626,19 @@ const mapStateToProps = state => {
   const {
     results,
     isLoading,
-    error,
+    caseDataError,
   } = state.userCases;
 
-  /* const {
-    casedata: casedata,
-    usercases: results,
-    
-  }*/
-
   return {
-    // accessToken
-    // email: state.auth.user ? state.auth.user.email : null
     results,
     caseData,
     isLoading,
-    error
+    caseDataError,
   };
 };
 
 export default connect(
   mapStateToProps, { 
     getUserCases, 
-    getCaseData 
+    getCaseData,
   })(FamilyConnectionsScreen);
-
