@@ -7,8 +7,8 @@ import {
 
 const initialState = {
     caseData: {},
-    isLoading: false,
-    error: ""
+    isLoadingCaseData: false,
+    caseDataError: ""
 };
 
 export const getCaseDataReducer = (state = initialState, action) => {
@@ -16,23 +16,23 @@ export const getCaseDataReducer = (state = initialState, action) => {
         case GET_CASE_DATA_START:
             return {
                 ...state,
-                isLoading: true,
-                error: ""
+                isLoadingCaseData: true,
+                caseDataError: ""
             };
 
         case GET_CASE_DATA_SUCCESS:
             // console.log("case data payload", action.payload);
             return {
                 ...state,
-                isLoading: false,
+                isLoadingCaseData: false,
                 caseData: {...action.payload}
             };
 
         case GET_CASE_DATA_FAILURE:
             return {
                 ...state,
-                isLoading: false,
-                error: "Error loading case data. Please try again later."
+                isLoadingCaseData: false,
+                caseDataError: "Error loading case data. Please try again later."
             };
         
         case CLEAR_CASE_DATA:

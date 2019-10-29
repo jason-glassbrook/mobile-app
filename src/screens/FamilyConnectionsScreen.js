@@ -717,29 +717,24 @@ const mapStateToProps = state => {
   } = state.caseData;
   const {
     results,
-    isLoading,
-    error,
+    isLoadingCaseData,
+    caseDataError,
   } = state.userCases;
 
-  /* const {
-    casedata: casedata,
-    usercases: results,
-    
-  }*/
-
   return {
-    // accessToken
-    // email: state.auth.user ? state.auth.user.email : null
     results,
     caseData,
-    isLoading,
-    error
+    isLoadingCaseData,
+    // isLoadingConnections,
+    caseDataError,
+    // connectionsError
   };
 };
 
 export default connect(
   mapStateToProps, { 
     getUserCases, 
-    getCaseData 
+    getCaseData,
+    // getCaseConnections, 
   })(FamilyConnectionsScreen);
 
