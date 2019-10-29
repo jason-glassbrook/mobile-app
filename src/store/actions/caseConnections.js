@@ -32,7 +32,7 @@ export const getCaseConnections = (pk) => dispatch => {
             })
 }; 
 
-//to prevent data persitance during case switching
+//to prevent data persistance during case switching
 export const clearCaseConnections = () => dispatch => {
     dispatch({ type: CLEAR_CASE_CONNECTIONS })
 }

@@ -7,12 +7,20 @@ import {
   ScrollView
 } from "react-native";
 import constants from "../helpers/constants";
-import { ListItem, Button, Divider } from "react-native-elements";
-import { getCaseData, clearCaseData } from "../store/actions/caseData";
-import { getCaseConnections, clearCaseConnections } from "../store/actions/caseConnections"
+import { 
+  ListItem, 
+  Button, 
+  Divider 
+} from "react-native-elements";
+import { 
+  getCaseData, 
+  clearCaseData } from "../store/actions/caseData";
+import { 
+  getCaseConnections, 
+  clearCaseConnections 
+} from "../store/actions/caseConnections"
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
-import axios from "axios";
 
 export function CaseViewScreen(props) {
 
@@ -38,12 +46,13 @@ export function CaseViewScreen(props) {
     }
   });
 
+
+  // on load get case data and case connections through redux
   useEffect(() => {
     props.getCaseData(props.pk);
     props.getCaseConnections(props.pk);
   }, [false]);
 
-  // console.log("CASECONNECTIONS LOGGGGGGGGG", props.caseConnections[1], 'Now for the second one!!!!', props.caseConnections[2]);
 
   let caseData = props.caseData;
   // console.log(props.caseData);
@@ -56,7 +65,7 @@ export function CaseViewScreen(props) {
           alignItems: "center"
         }}
       >
-        {props.isLoading ? (
+        {props.isLoadingCaseData ? (
           <Loader />
         ) : (
           <View
@@ -129,7 +138,9 @@ export function CaseViewScreen(props) {
       </View>
 
       <View>
-        {props.caseConnections ? (
+        {props.isLoadingConnections ? (
+          <Loader />
+        ) : (
           props.caseConnections.map(connection => {
             return (
               <Text key={connection.person.pk}>
@@ -137,16 +148,6 @@ export function CaseViewScreen(props) {
               </Text>
             );
           })
-        ) : (
-          <Text
-            style={{
-              textAlignVertical: "center",
-              textAlign: "center",
-              fontWeight: "bold"
-            }}
-          >
-            loading connections....
-          </Text>
         )}
       </View>
 

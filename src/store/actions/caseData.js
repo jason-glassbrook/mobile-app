@@ -5,12 +5,6 @@ export const GET_CASE_DATA_SUCCESS = "GET_CASE_DATA_SUCCESS";
 export const GET_CASE_DATA_FAILURE = "GET_CASE_DATA_FAILURE";
 export const CLEAR_CASE_DATA = "CLEAR_CASE_DATA";
 
-// const accessToken = async () => {
-//     await 
-// }
-    
-// console.log("accessToken:", accessToken);
-
 export const getCaseData = (pk) => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
