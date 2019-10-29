@@ -48,12 +48,23 @@ export const Participants = (props) => {
   )
 }
 
-export const Highlights = (props) => {
+// export const Highlights = (props) => {
+
+//   return(
+//     <View style={{padding: 30}}>
+//       <ScrollView>
+//         <Text>Highlights: {props.caseData.notes}</Text>
+//       </ScrollView>
+//     </View>
+//   )
+// }
+
+export const Documents = (props) => {
 
   return(
     <View style={{padding: 30}}>
       <ScrollView>
-        <Text>Highlights: {props.caseData.notes}</Text>
+        <Text>Documents: {props.caseData.notes}</Text>
       </ScrollView>
     </View>
   )
