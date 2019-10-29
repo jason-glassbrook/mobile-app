@@ -86,7 +86,7 @@ export function CaseViewScreen(props) {
   }
 
   return (
-    <View>
+    <View style={{height: '100%'}}>
       <View
         style={{
           justifyContent: "center",
@@ -137,7 +137,8 @@ export function CaseViewScreen(props) {
 
         {/* search Functionality */}
 
-        <View style={{ flexDirection: "row" }}>
+        <View style={{ flexDirection: "columb" }}>
+          <Text style={{margin: 10, fontSize: 20}}>Connections:</Text>
           <SearchBar
             placeholder="Search Name..."
             placeholderTextColor="black"
