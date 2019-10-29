@@ -31,65 +31,65 @@ const setItem = async (key, value, options) => {
 };
 
 const handleLogin = async (AuthSession, setUserCreds) => {
-  
+
   await LocalAuthentication.hasHardwareAsync()
-  .then(res => 
-    console.log(res),
-    await LocalAuthentication.supportedAuthenticationTypesAsync()
-      .then(res => 
-        console.log(res),
-        await LocalAuthentication.isEnrolledAsync()
-          .then(res => 
-            console.log(res),
-            await LocalAuthentication.authenticateAsync({
-              promptMessage: 'Authenticate', 
-              fallbackLabel: 'Use Passcode'
-            })
-            .then(async res => {
-                console.log(res);
-                const refresh = await SecureStore.getItemAsync('cok_refresh_token');
-                console.log('refreshhhhh', refresh)
-                if (refresh) {
-                  await getNewAccessToken();
-                  // const idToken = await SecureStore.getItemAsync('cok_id_token');
-                  // const decoded = jwtDecode(idToken);
-                  // const { name, email } = decoded;
-                  // setUserCreds(decoded, idToken);
-                  console.log('getNewAccessToken')
-                } else {
+    .then(res =>
+      console.log(res),
+      await LocalAuthentication.supportedAuthenticationTypesAsync()
+        .then(res =>
+          console.log(res),
+          await LocalAuthentication.isEnrolledAsync()
+            .then(res =>
+              console.log(res),
+              await LocalAuthentication.authenticateAsync({
+                promptMessage: 'Authenticate',
+                fallbackLabel: 'Use Passcode'
+              })
+                .then(async res => {
+                  console.log(res);
+                  const refresh = await SecureStore.getItemAsync('cok_refresh_token');
+                  console.log('refreshhhhh', refresh)
+                  if (refresh) {
+                    await getNewAccessToken();
+                    // const idToken = await SecureStore.getItemAsync('cok_id_token');
+                    // const decoded = jwtDecode(idToken);
+                    // const { name, email } = decoded;
+                    // setUserCreds(decoded, idToken);
+                    console.log('getNewAccessToken')
+                  } else {
                     await initialLogin();
                     // await getRefreshToken();
                     console.log('initialLogin')
                   }
-                const id_token = await SecureStore.getItemAsync('cok_id_token');
-                const decoded = jwtDecode(id_token);
-                const { name, email } = decoded;
-                setUserCreds(decoded, id_token);
-              }
+                  const id_token = await SecureStore.getItemAsync('cok_id_token');
+                  const decoded = jwtDecode(id_token);
+                  const { name, email } = decoded;
+                  setUserCreds(decoded, id_token);
+                }
+                )
+                .catch(err =>
+                  console.log(err)
+                )
             )
-            .catch(err => 
+            .catch(err =>
               console.log(err)
             )
-          )
-          .catch(err => 
-            console.log(err)
-          )
-      )
-      .catch(err => 
-        console.log(err)
-      )
-  )
-  .catch(err => console.log(err));
+        )
+        .catch(err =>
+          console.log(err)
+        )
+    )
+    .catch(err => console.log(err));
 
-  
-  
+
+
 };
 
 // check if refresh_token exists in SecureStorage
 // const refreshChecker = async () => {
 //   await SecureStore.getItemAsync('cok_refresh_token');
 // }
-  
+
 const initialLogin = async (AuthSession, setUserCreds) => {
 
   // if no refresh_token exists, then this is a first time and we need to perform initial /authorize endpoint
@@ -105,7 +105,7 @@ const initialLogin = async (AuthSession, setUserCreds) => {
     response_type: 'code id_token token', // id_token will return a JWT token
     scope: 'offline_access openid profile email', // retrieve the user's profile
     device: Constants.deviceName,
-    prompt: 'none',
+    prompt: 'consent',
     nonce: 'nonce', // ideally, this will be a random value
 
     // client_id: auth0ClientId,
@@ -117,7 +117,7 @@ const initialLogin = async (AuthSession, setUserCreds) => {
     // redirect_uri: 'exp://127.0.0.1:19000/--/expo-auth-session',
     state: 'asldfkj6748fjh9pjshhjs'
 
-    });
+  });
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
 
   console.log(`AuthURL: ${authUrl}`);
@@ -128,17 +128,17 @@ const initialLogin = async (AuthSession, setUserCreds) => {
   if (response.error) {
     Alert('Authentication error', response.error_description || 'something went wrong');
     return;
-    }
-    // if users cancels login process, terminate method
-    else if (response.type === 'dismiss') return;
-  
+  }
+  // if users cancels login process, terminate method
+  else if (response.type === 'dismiss') return;
+
   // await SecureStore.setItemAsync('cok_auth_code', JSON.stringify(response.params.code))
   // await SecureStore.setItemAsync('cok_id_token', JSON.stringify(response.params.id_token))
   console.log('AUTH response', await response);
 
   // assume success
 
- 
+
   // SET THE TIME TOKEN EXPIRES IN ASYNC STORAGE
   const expiresAt = response.expires_in * 1000 + new Date().getTime();
   setItem('expiresAt', expiresAt);

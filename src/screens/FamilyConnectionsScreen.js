@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
 import {
   SafeAreaView,
   StyleSheet,
@@ -13,7 +13,11 @@ import {
   TouchableHighlight,
   Alert
 } from "react-native";
-// import { connect } from "react-redux";
+import { connect } from "react-redux";
+import { 
+  getCaseData, 
+  getUserCases 
+} from "../store/actions"
 import axios from "axios";
 import {
   ListItem,
@@ -28,8 +32,10 @@ import * as SecureStore from 'expo-secure-store';
 import constants from "../helpers/constants";
 
 // import screen components
-import AddCaseScreen from "./AddCaseScreen";
+// discontinued work on AddCaseScreen. Button and Modal also commented out below
+// import AddCaseScreen from "./AddCaseScreen";
 import CaseViewScreen from "./CaseViewScreen.js";
+import Loader from "../components/Loader/Loader";
 
 class FamilyConnectionsScreen extends Component {
   static navigationOptions = ({ navigation }) =>
@@ -41,51 +47,51 @@ class FamilyConnectionsScreen extends Component {
       gender: "Gender",
       ageRange: "Age Range",
       sortBy: "Sort By",
-      results: [],
-      caseData: {
-        pk: 0,
-        first_name: "",
-        last_name: "",
-        gender: "",
-        address: {
-          pk: 0,
-          raw: "",
-          route: "",
-          street_number: "",
-          formatted: "",
-          latitude: 0,
-          longitude: 0,
-          locality: "",
-          state: "",
-          state_code: ""
-        },
-        birthday: "0000-00-00",
-        deceased: false,
-        date_of_death: null,
-        picture: "",
-        notes: "",
-        created_by: {
-          id: 2,
-          first_name: "",
-          last_name: "",
-          full_name: "",
-          email: "",
-          date_joined: "",
-          picture: ""
-        },
-        count_relationships: 0,
-        count_documents: 0,
-        created_at: "",
-        updated_at: "",
-        is_archive: false,
-        workpad_id_by_user: 0,
-        full_name: "",
-        organization: 0,
-        suffix: null,
-        foster_care: "",
-        resourcetype: ""
-      },
-      isLoading: true,
+      // results: [],
+      // caseData: {
+      //   pk: 0,
+      //   first_name: "",
+      //   last_name: "",
+      //   gender: "",
+      //   address: {
+      //     pk: 0,
+      //     raw: "",
+      //     route: "",
+      //     street_number: "",
+      //     formatted: "",
+      //     latitude: 0,
+      //     longitude: 0,
+      //     locality: "",
+      //     state: "",
+      //     state_code: ""
+      //   },
+      //   birthday: "0000-00-00",
+      //   deceased: false,
+      //   date_of_death: null,
+      //   picture: "",
+      //   notes: "",
+      //   created_by: {
+      //     id: 2,
+      //     first_name: "",
+      //     last_name: "",
+      //     full_name: "",
+      //     email: "",
+      //     date_joined: "",
+      //     picture: ""
+      //   },
+      //   count_relationships: 0,
+      //   count_documents: 0,
+      //   created_at: "",
+      //   updated_at: "",
+      //   is_archive: false,
+      //   workpad_id_by_user: 0,
+      //   full_name: "",
+      //   organization: 0,
+      //   suffix: null,
+      //   foster_care: "",
+      //   resourcetype: ""
+      // },
+      // isLoading: true,
       modalVisible: false,
       filters: {
         male: false,
@@ -102,9 +108,10 @@ class FamilyConnectionsScreen extends Component {
       },
       caseVisible: false,
       addCaseModalVisible: true,
+      pk: '',
     };
   }
-  
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -124,51 +131,54 @@ class FamilyConnectionsScreen extends Component {
     console.log(this.state.searchKeywords);
   };
 
-  async getUserCases() {
-    const theAccessToken = await SecureStore.getItemAsync('cok_access_token');
-    console.log('access tokenssssss', theAccessToken);
-    axios
-      .get("https://family-staging.connectourkids.org/api/v1/cases/", {
-        headers: {
-          Authorization: `Bearer ${theAccessToken}`
-        }
-      })
-      .then(response => {
-        this.setState({
-          results: response.data.results,
-          isLoading: false
-        });
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+  // async getUserCases() {
+  //   const theAccessToken = await SecureStore.getItemAsync('cok_access_token');
+  //   console.log('access tokenssssss', theAccessToken);
+  //   axios
+  //     .get("https://family-staging.connectourkids.org/api/v1/cases/", {
+  //       headers: {
+  //         Authorization: `Bearer ${theAccessToken}`
+  //       }
+  //     })
+  //     .then(response => {
+  //       this.setState({
+  //         results: response.data.results,
+  //         isLoading: false
+  //       });
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }
 
-  async getCaseData(pk) {
-    let accessToken = await SecureStore.getItemAsync('cok_access_token');
-    axios
-      .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      })
-      .then(res => {
-        this.setState({ caseData: res.data });
-        // console.log("Initiation:", this.state.caseData.foster_care);
-        // console.log("caseData:", this.state.caseData);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  // async getCaseData(pk) {
+  //   let accessToken = await SecureStore.getItemAsync('cok_access_token');
+  //   axios
+  //     .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`
+  //       }
+  //     })
+  //     .then(res => {
+  //       this.setState({ caseData: res.data });
+  //       console.log("Initiation:", this.state.caseData.foster_care);
+  //       console.log("caseData:", this.state.caseData);
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //     });
+  // }
 
   componentDidMount() {
-    this.getUserCases();
+    this.props.getUserCases();
+    console.log('isLOADING beforeeeeeeeeee?', this.props.isLoading)
   }
+
+  
 
   render() {
     // ------filter gender functionality------
-    let filteredCases = this.state.results;
+    let filteredCases = this.props.results; // this.state.results
 
     if (
       !this.state.filters.male &&
@@ -311,14 +321,15 @@ class FamilyConnectionsScreen extends Component {
     const fullYear = new Date();
     return (
       <SafeAreaView>
-        <Button
+        {/* addCase Button */}
+        {/* <Button
           title="Add Case"
           buttonStyle={{ backgroundColor: constants.highlightColor }}
           containerStyle={styles.addCaseButton}
           onPress={() => {
             this.setState({ addCaseModalVisible: true });
           }}
-        />
+        /> */}
         <View style={{ flexDirection: "row" }}>
           <SearchBar
             placeholder="Search Keywords..."
@@ -424,10 +435,11 @@ class FamilyConnectionsScreen extends Component {
                 }
               />
 
-              <Divider 
+              <Divider
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
               />
-              
+
+                {/* age filter */}
               {/* <Text style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}>
               Age Range
             </Text>
@@ -580,8 +592,10 @@ class FamilyConnectionsScreen extends Component {
         <View style={{ paddingBottom: 170 }}>
           <ScrollView>
             {/* Displays text placeholder until cases load */}
-            {this.state.isLoading === true ? (
-              <Text style={styles.isLoading}> Loading Cases... </Text>
+            {console.log('isLOADING', this.props)}
+            {this.props.isLoading === true ? (
+              // <Text style={styles.isLoading}> Loading Cases... </Text>
+              <Loader />
             ) : (
                 SearchedCases.map((result, index) => (
                   <ListItem
@@ -595,10 +609,11 @@ class FamilyConnectionsScreen extends Component {
                       }`}
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
-                    topDivider={true}
+                    to pDivider={true}
                     onPress={async () => {
+                      this.setState({pk : result.pk});
                       this.setCaseVisible(true);
-                      await this.getCaseData(result.pk);
+                      
                     }}
                     // Case badges for document value/count
                     badge={{
@@ -621,7 +636,7 @@ class FamilyConnectionsScreen extends Component {
               visible={this.state.caseVisible}
             >
               <CaseViewScreen
-                caseData={this.state.caseData}
+                pk={this.state.pk}
                 setModalVisible={this.setModalVisible}
                 setCaseVisible={() => {
                   this.setCaseVisible(false);
@@ -634,7 +649,7 @@ class FamilyConnectionsScreen extends Component {
           </ScrollView>
 
           {/* AddCase - onPress Modal */}
-          <View>
+          {/* <View>
             <Modal
               animationType="slide"
               transparent={false}
@@ -655,19 +670,10 @@ class FamilyConnectionsScreen extends Component {
                     alignSelf: "center"
                   }}
                 >
-                  {/* <Text>Hewwo?</Text>
-                  <Button
-                    title="Close"
-                    buttonStyle={{ backgroundColor: constants.highlightColor }}
-                    containerStyle={styles.filterButton}
-                    onPress={() => {
-                      this.setAddCaseModalVisible(false);
-                    }}
-                  /> */}
                 </View>
               </ScrollView>
             </Modal>
-          </View>
+          </View> */}
 
         </View>
       </SafeAreaView>
@@ -703,148 +709,37 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FamilyConnectionsScreen;
+// export default FamilyConnectionsScreen;
 
-// const mapStateToProps = state => {
-//   const { accessToken } = state.auth;
-//   return {
-//     accessToken
-//     // email: state.auth.user ? state.auth.user.email : null
-//   };
-// };
+const mapStateToProps = state => {
+  const { 
+    caseData 
+  } = state.caseData;
+  const {
+    results,
+    isLoading,
+    error,
+  } = state.userCases;
 
-// export default connect(mapStateToProps)(FamilyConnectionsScreen);
+  /* const {
+    casedata: casedata,
+    usercases: results,
+    
+  }*/
 
-        // ---------------------------------------------------
+  return {
+    // accessToken
+    // email: state.auth.user ? state.auth.user.email : null
+    results,
+    caseData,
+    isLoading,
+    error
+  };
+};
 
-// import {Button} from 'native-base';
-// import {ScrollView} from 'react-native-gesture-handler';
-// import {connect} from 'react-redux';
-          // import headerConfig from '../helpers/headerConfig';
-// import {sendEvent} from './../helpers/createEvent';
-          // import FamilyConnectionsModal from './../components/FamilyConnectionsModal/FamilyConnectionsModal';
-          // import Video from '../components/Video/Video';
-          // import constants from '../helpers/constants';
-          // import MainText from '../UI/MainText';
-          // import ScreenContainer from '../UI/ScreenContainer';
-// import {wrap} from 'module';
+export default connect(
+  mapStateToProps, { 
+    getUserCases, 
+    getCaseData 
+  })(FamilyConnectionsScreen);
 
-// class FamilyConnectionsScreen extends Component {
-//   static navigationOptions = ({ navigation }) =>
-//     headerConfig('Family Connections', navigation);
-
-//   state = {
-//     modalVisible: false,
-//     message: false,
-//     email: ''
-//   };
-
-//   openModal = () => {
-//     this.setState({
-//       modalVisible: true
-//     });
-//   };
-
-//   closeModal = () => {
-//     this.setState({
-//       modalVisible: false
-//     });
-//   };
-
-//   trackInterest = trackingEmail => {
-//     let email = this.props.email ? this.props.email : trackingEmail;
-//     sendEvent(email, 'click', 'request-familyconnections');
-//     this.setState({
-//       modalVisible: false,
-//       email,
-//       message: true
-//     });
-//     this.startClearState();
-//   };
-
-//   startClearState = () => {
-//     setTimeout(() => {
-//       this.setState({ message: false, email: '' });
-//     }, 3000);
-//   };
-
-//   render() {
-//     return (
-//       <ScreenContainer>
-//         <SafeAreaView>
-//           <StatusBar barStyle="dark-content" />
-//           <View>
-//             <Modal
-//               animationType="slide"
-//               transparent={false}
-//               visible={this.state.modalVisible}
-//               onRequestClose={this.closeModal}
-//             >
-//               <FamilyConnectionsModal
-//                 trackInterest={this.trackInterest}
-//                 closeModal={this.closeModal}
-//                 startRegister={this.startRegister}
-//                 email={this.props.email}
-//               />
-//             </Modal>
-//           </View>
-//           <ScrollView>
-//             <MainText>
-//               Learn about a revolutionary way to discover and engage extended
-//               families for at-risk foster youth.
-//             </MainText>
-
-//             <Video uri={constants.familyConnectionsURI} />
-
-//             <Button style={styles.button} block onPress={this.openModal}>
-//               <Text style={styles.buttonText}>
-//                 I Want To Access Family Connections
-//               </Text>
-//             </Button>
-
-//             {this.state.message && (
-//               <View style={styles.messageContainer}>
-//                 <Text style={styles.thankyouMessage}>
-//                   Thank you for showing interest, {this.state.email} has been
-//                   added to our list.
-//                 </Text>
-//               </View>
-//             )}
-//           </ScrollView>
-//         </SafeAreaView>
-//       </ScreenContainer>
-//     );
-//   }
-// }
-
-// const styles = StyleSheet.create({
-//   button: {
-//     justifyContent: 'center',
-//     alignItems: 'center',
-//     flexDirection: 'row',
-//     backgroundColor: constants.highlightColor
-//   },
-//   buttonText: {
-//     color: '#fff',
-//     fontWeight: '700'
-//   },
-//   loginContainer: {
-//     flex: 1,
-//     alignItems: 'center',
-//     justifyContent: 'center'
-//   },
-//   videoContainer: { height: 300, marginBottom: 30 },
-//   thankyouMessage: {
-//     fontSize: 24,
-//     color: '#fff',
-//     fontWeight: 'bold',
-//     textAlign: 'center',
-//     textTransform: 'uppercase'
-//   },
-//   messageContainer: {
-//     marginTop: 20,
-//     padding: 10,
-//     backgroundColor: constants.highlightColor,
-//     borderRadius: 5
-//   }
-// });

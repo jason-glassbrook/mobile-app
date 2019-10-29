@@ -3,10 +3,14 @@ import { authReducer as auth } from './authReducer';
 import { peopleSearchReducer as people } from './peopleSearchReducer';
 import { confirmationModalReducer as confirmationModal } from './confirmationModal';
 import { recentSearchesReducer as recentSearches } from './recentSearchesReducer';
+import { getUserCasesReducer as userCases } from './userCasesReducer';
+import { getCaseDataReducer as caseData } from './caseDataReducer';
 
 export default combineReducers({
   auth,
   people,
   confirmationModal,
-  recentSearches
+  recentSearches,
+  userCases,
+  caseData
 });
