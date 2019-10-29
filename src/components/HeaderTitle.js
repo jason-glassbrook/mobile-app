@@ -30,7 +30,7 @@ const HeaderTitle = ({ title, navigation, email }) => (
         />
       </TouchableWithoutFeedback>
     ) : null}
-    <Text style={styles.text}>{`Connect Our Kids \n${title}`}</Text>
+    <Text style={styles.text}>{title}</Text> 
   </View>
 );
 
