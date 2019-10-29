@@ -13,7 +13,7 @@ import {
   TouchableHighlight,
   Alert
 } from "react-native";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import axios from "axios";
 import {
   ListItem,
@@ -23,6 +23,7 @@ import {
   CheckBox,
   Divider
 } from "react-native-elements";
+import * as SecureStore from 'expo-secure-store';
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from "../helpers/constants";
 
@@ -103,7 +104,7 @@ class FamilyConnectionsScreen extends Component {
       addCaseModalVisible: true,
     };
   }
-
+  
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -123,13 +124,13 @@ class FamilyConnectionsScreen extends Component {
     console.log(this.state.searchKeywords);
   };
 
-  getUserCases() {
-    const accessToken = this.props.accessToken;
-    // console.log("accessToken:", accessToken);
+  async getUserCases() {
+    const theAccessToken = await SecureStore.getItemAsync('cok_access_token');
+    console.log('access tokenssssss', theAccessToken);
     axios
       .get("https://family-staging.connectourkids.org/api/v1/cases/", {
         headers: {
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${theAccessToken}`
         }
       })
       .then(response => {
@@ -143,8 +144,8 @@ class FamilyConnectionsScreen extends Component {
       });
   }
 
-  getCaseData(pk) {
-    const accessToken = this.props.accessToken;
+  async getCaseData(pk) {
+    let accessToken = await SecureStore.getItemAsync('cok_access_token');
     axios
       .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
         headers: {
@@ -595,9 +596,9 @@ class FamilyConnectionsScreen extends Component {
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
                     topDivider={true}
-                    onPress={() => {
+                    onPress={async () => {
                       this.setCaseVisible(true);
-                      this.getCaseData(result.pk);
+                      await this.getCaseData(result.pk);
                     }}
                     // Case badges for document value/count
                     badge={{
@@ -702,16 +703,17 @@ const styles = StyleSheet.create({
   }
 });
 
-// export default FamilyConnectionsScreen;
-const mapStateToProps = state => {
-  const { accessToken } = state.auth;
-  return {
-    accessToken
-    // email: state.auth.user ? state.auth.user.email : null
-  };
-};
+export default FamilyConnectionsScreen;
 
-export default connect(mapStateToProps)(FamilyConnectionsScreen);
+// const mapStateToProps = state => {
+//   const { accessToken } = state.auth;
+//   return {
+//     accessToken
+//     // email: state.auth.user ? state.auth.user.email : null
+//   };
+// };
+
+// export default connect(mapStateToProps)(FamilyConnectionsScreen);
 
         // ---------------------------------------------------
 
