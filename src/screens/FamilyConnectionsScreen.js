@@ -35,6 +35,7 @@ import constants from "../helpers/constants";
 // discontinued work on AddCaseScreen. Button and Modal also commented out below
 // import AddCaseScreen from "./AddCaseScreen";
 import CaseViewScreen from "./CaseViewScreen.js";
+import Loader from "../components/Loader/Loader";
 
 class FamilyConnectionsScreen extends Component {
   static navigationOptions = ({ navigation }) =>
@@ -170,7 +171,10 @@ class FamilyConnectionsScreen extends Component {
 
   componentDidMount() {
     this.props.getUserCases();
+    console.log('isLOADING beforeeeeeeeeee?', this.props.isLoading)
   }
+
+  
 
   render() {
     // ------filter gender functionality------
@@ -587,8 +591,10 @@ class FamilyConnectionsScreen extends Component {
         <View style={{ paddingBottom: 170 }}>
           <ScrollView>
             {/* Displays text placeholder until cases load */}
-            {this.state.isLoading === true ? (
-              <Text style={styles.isLoading}> Loading Cases... </Text>
+            {console.log('isLOADING', this.props)}
+            {this.props.isLoading === true ? (
+              // <Text style={styles.isLoading}> Loading Cases... </Text>
+              <Loader />
             ) : (
                 SearchedCases.map((result, index) => (
                   <ListItem
@@ -602,7 +608,7 @@ class FamilyConnectionsScreen extends Component {
                       }`}
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
-                    topDivider={true}
+                    to pDivider={true}
                     onPress={async () => {
                       this.setState({pk : result.pk});
                       this.setCaseVisible(true);
@@ -744,12 +750,10 @@ const mapStateToProps = state => {
     caseData 
   } = state.caseData;
   const {
-    results
-  } = state.userCases;
-  const {
+    results,
     isLoading,
-    error, 
-  } = state;
+    error,
+  } = state.userCases;
 
   /* const {
     casedata: casedata,
@@ -767,7 +771,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getUserCases, getCaseData })(FamilyConnectionsScreen);
+export default connect(
+  mapStateToProps, { 
+    getUserCases, 
+    getCaseData 
+  })(FamilyConnectionsScreen);
 
         // ---------------------------------------------------
 

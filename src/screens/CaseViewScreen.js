@@ -8,6 +8,7 @@ import {
   clearCaseData
 } from "../store/actions/caseData";
 import { connect } from "react-redux";
+import Loader from "../components/Loader/Loader";
 
 export function CaseViewScreen(props) {
   const [tabs, setTabs] = useState({
@@ -17,14 +18,14 @@ export function CaseViewScreen(props) {
   })
 
 
-  
+
   // const [caseInfo, setCaseInfo] = useState({...getCaseData(props.pk)})
   // console.log('START YEAHHHHHHHHHHH', caseInfo, 'END OF PROPS')
-  
+
   // const [caseData, setCaseData] = useState({})
 
-  console.log('PROPPPPPPPPPPPPPPPPS', props)
-  
+  console.log('Is doing a load?', props.isLoading)
+
 
   const styles = StyleSheet.create({
     tabs: {
@@ -51,32 +52,33 @@ export function CaseViewScreen(props) {
   useEffect(() => {
     props.getCaseData(props.pk)
   }, [false])
-  
+
   console.log('CaseDATTTTA', props.caseData)
-  
+
   // let caseData = props.caseData;
   // console.log(props.caseData);
-  
+
   return (
     <ScrollView>
+
       <View
         style={{
           justifyContent: "center",
           alignItems: "center"
         }}
       >
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 55, width: '85%'}}> 
-      <View>
-        <Text style={{fontSize: 20}}>{props.caseData.full_name}</Text>
-        <ListItem leftAvatar={{ source: { uri: props.caseData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
-      </View>
-        <View style={{maxWidth: '60%'}}> 
-          <Text style={{padding: 5}}>Gender: {props.caseData.gender}</Text>
-          <Text style={{padding: 5}}>Date of Birth: {props.caseData.birthday}</Text>
-          <Text style={{padding: 5}}>Residence: {props.caseData.address && props.caseData.address.formatted ? props.caseData.address.formatted : "no address available"}</Text>
-          <Text style={{padding: 5}}>Initiation:{props.caseData.foster_care}</Text>
-        </View>
-      </View> 
+        {props.isLoading ? (<Loader />) : (<View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 55, width: '85%' }}>
+            <View>
+              <Text style={{ fontSize: 20 }}>{props.caseData.full_name}</Text>
+              <ListItem leftAvatar={{ source: { uri: props.caseData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
+            </View>
+            <View style={{ maxWidth: '60%' }}>
+              <Text style={{ padding: 5 }}>Gender: {props.caseData.gender}</Text>
+              <Text style={{ padding: 5 }}>Date of Birth: {props.caseData.birthday}</Text>
+              <Text style={{ padding: 5 }}>Residence: {props.caseData.address && props.caseData.address.formatted ? props.caseData.address.formatted : "no address available"}</Text>
+              <Text style={{ padding: 5 }}>Initiation:{props.caseData.foster_care}</Text>
+            </View>
+      </View>)}
         <View
           style={{
             alignContent: "center",
@@ -102,8 +104,7 @@ export function CaseViewScreen(props) {
           <Text style={[styles.tab, tabs.participants ? styles.selected : null]} onPress={() => { setTabs({ engagement: false, participants: true, highlights: false }) }}>Participants</Text>
           <Text style={[styles.tab, tabs.highlights ? styles.selected : null]} onPress={() => { setTabs({ engagement: false, participants: false, highlights: true }) }}>Highlights</Text>
         </View>
-
-        <Divider 
+        <Divider
           style={{ height: 1, backgroundColor: "lightgrey", margin: 5, width: "85%", marginTop: 15 }}
         />
 
@@ -143,12 +144,12 @@ export function CaseViewScreen(props) {
 // export default CaseViewScreen;
 
 const mapStateToProps = state => {
-  const { caseData } = state.caseData
+  // const { caseData } = state.caseData
   const {
-      // caseData,
-      isLoading,
-      error
-  } = state;
+    caseData,
+    isLoading,
+    error
+  } = state.caseData;
   return {
     caseData,
     isLoading,
@@ -158,6 +159,6 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps, {
-    getCaseData,
-    clearCaseData
-  })(CaseViewScreen);
+  getCaseData,
+  clearCaseData
+})(CaseViewScreen);
