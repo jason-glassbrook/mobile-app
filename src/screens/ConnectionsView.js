@@ -8,14 +8,26 @@ import {
   Button
 } from 'react-native';
 import constants from "../helpers/constants";
+import { connect } from "react-redux";
 // import { Engagement, Documents } from '../CaseViewTabs'
 
-export default function RelationshipsView(props) {
+function ConnectionsView(props) {
 
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false
   })
+
+  // useEffect(() => {
+  //   axios
+  //   .get(`https://family-staging.connectourkids.org/api/v1/person/${props.relationshipData.pk}/histories/`)
+  //   .then((res) => {
+  //     console.log(res.data)
+  //   })
+  //   .catch((err) => {
+  //     console.log(err)
+  //   })
+  // }, [false])
 
   const styles = StyleSheet.create({
     tabs: {
@@ -40,14 +52,10 @@ export default function RelationshipsView(props) {
       fontSize: 16,
       textAlign: 'center',
       paddingTop: 8
-
     }
-
   })
 
-
   return (
-
     <View>
       <Text style={{margin: 50}}>Relationship  Screen</Text>
       <View style={styles.tabs}>
@@ -91,7 +99,6 @@ export default function RelationshipsView(props) {
   console.log('**********************************************************')
   console.log(props.relationshipData)}} />
 
-
 <TouchableHighlight
         underlayColor="lightgray"
         style={{ alignItems: "center" }}
@@ -112,7 +119,29 @@ export default function RelationshipsView(props) {
           Close Connection
         </Text>
       </TouchableHighlight>
-
     </View>
   );
 }
+
+const mapStateToProps = state => {
+  const {engagements, isLoadingEngagements, engagementsError} = state.engagements;
+  const {documents, isLoadingDocuments, documentsError} = state.documents;
+  return {
+    engagments,
+    isLoadingEngagments,
+    engagmentsError,
+    documents,
+    isLoadingDocuments,
+    documentsError
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    getEngagements,
+    clearEngagements,
+    getDocuments,
+    clearDocuments
+  }
+)(ConnectionsView);
