@@ -8,16 +8,27 @@ import {
 } from 'react-native';
 import { 
   createStackNavigator
- } from 'react-navigation-stack';
+} from 'react-navigation-stack';
 import {
   createSwitchNavigator,
-  createAppContainer
+  createAppContainer,
+  NavigationActions
 } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { sendEvent } from '../helpers/createEvent';
 import AuthenticationView from '../screens/AuthenticationScreen';
 import constants from '../helpers/constants';
+
+// const navigateAction = NavigationActions.navigate({
+//   routeName: 'MyAcount',
+
+//   // params: {},
+
+//   // action: NavigationActions.navigate({ routeName: 'MyAccount' }),
+// });
+
+// this.props.navigation.dispatch(navigateAction);
 
 // const AccountNavigator = createStackNavigator(
 //   {
@@ -36,6 +47,20 @@ import constants from '../helpers/constants';
 //   }
 // );
 
+// const TopNavigator = createMaterialTopTabNavigator(
+//   {
+//     AccountNavigator: {
+//         screen: AccountNavigator,
+//         navigationOptions: {
+//           headerMode: 'none',
+//           // tabBarLabel: 'My Account',
+//           tabBarIcon: ({ tintColor }) => (
+//             <Ionicons name="ios-settings" size={30} color='white' />
+//           )
+//         }
+//       }
+//   }
+// )
 // const AppSwitchNavigator = createSwitchNavigator({
 //   // FamilyConnections: { screen: BottomNavigator },
 //   Authentication: { screen: AccountNavigator }
@@ -64,7 +89,11 @@ export default (headerConfig = (title, navigation, email) => {
     headerRight: (
       <TouchableWithoutFeedback
         onPress={() => {
-          navigation.navigate('MyAccount');
+          navigation.navigate('MyAccount')
+          // NavigationActions.navigate({
+          //   routeName: 'MyAccount',
+          //   action: NavigationActions.navigate({ routeName: 'MyAccount' })
+          // });
           // sendEvent(email, 'click', 'logo');
         }}
       >

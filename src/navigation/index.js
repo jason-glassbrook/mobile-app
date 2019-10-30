@@ -6,7 +6,8 @@ import {
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import {
   createStackNavigator,
-} from 'react-navigation-stack'
+} from 'react-navigation-stack';
+import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import BestPracticesScreen from '../screens/BestPracticesScreen';
 import FamilyConnectionsScreen from '../screens/FamilyConnectionsScreen';
@@ -71,7 +72,7 @@ const PeopleSearchNavigator = createStackNavigator(
   }
 );
 
-export const AccountNavigator = createStackNavigator(
+const AccountNavigator = createStackNavigator(
   {
     MyAccount: {
       screen: AuthenticationView
@@ -85,7 +86,7 @@ export const AccountNavigator = createStackNavigator(
         backgroundColor: constants.highlightColor
       }
     }
-  }
+  }, 
 );
 
 const BottomNavigator = createBottomTabNavigator(
@@ -144,7 +145,7 @@ const AppSwitchNavigator = createSwitchNavigator({
   BestPractices: { screen: BottomNavigator },
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
-  // Authentication: { screen: BottomNavigator }
+  Authentication: { screen: BottomNavigator }
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
