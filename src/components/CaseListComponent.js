@@ -41,14 +41,14 @@ const CaseListComponent = (props) => {
         <View>
             {props.connection.person.status ?
             <View>
+              
                 <ListItem
                     title={props.connection.person.full_name}
                     titleStyle={{ color: "#5A6064" }}
                     leftAvatar={{ source: { uri: props.connection.person.picture } }}
                     to pDivider={true}
                     onPress={async () => {
-                        // this.setState({ pk: props.result.pk });
-                        // this.setCaseVisible(true);
+                        props.pressed()
 
                     }}
                 />
@@ -63,8 +63,7 @@ const CaseListComponent = (props) => {
                     leftAvatar={{ source: { uri: props.connection.person.picture } }}
                     to pDivider={true}
                     onPress={async () => {
-                        // this.setState({ pk: props.result.pk });
-                        // this.setCaseVisible(true);
+                        props.pressed()
 
                     }}
                 />
