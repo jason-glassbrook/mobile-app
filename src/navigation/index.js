@@ -1,10 +1,9 @@
 import {
   createAppContainer,
-  createDrawerNavigator,
-  createStackNavigator,
   createSwitchNavigator
 } from 'react-navigation';
-
+import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import BestPracticesScreen from '../screens/BestPracticesScreen';
 import FamilyConnectionsScreen from '../screens/FamilyConnectionsScreen';
 import PeopleSearchScreen from '../screens/PeopleSearchScreen';
