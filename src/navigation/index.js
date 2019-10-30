@@ -1,15 +1,22 @@
+import React, { Component } from 'react'
 import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
 import { createDrawerNavigator } from 'react-navigation-drawer';
+import {createBottomTabNavigator} from 'react-navigation-tabs'
+import {
+  createStackNavigator,
+} from 'react-navigation-stack'
+import { Ionicons } from '@expo/vector-icons';
 import BestPracticesScreen from '../screens/BestPracticesScreen';
 import FamilyConnectionsScreen from '../screens/FamilyConnectionsScreen';
 import PeopleSearchScreen from '../screens/PeopleSearchScreen';
 import SearchResultScreen from '../screens/SearchResultScreen';
 import constants from '../helpers/constants';
 import AuthenticationView from '../screens/AuthenticationScreen';
+
+import {Icon} from 'react-native-elements';
 
 const BestPracticeNavigator = createStackNavigator(
   {
@@ -21,11 +28,13 @@ const BestPracticeNavigator = createStackNavigator(
     initialRouteName: 'BestPractices',
     defaultNavigationOptions: {
       headerStyle: {
-        height: 80
+        height: 55,
+        // backgroundColor: constants.highlightColor
       }
     }
   }
 );
+
 const FamilyConnectionsNavigator = createStackNavigator(
   {
     FamilyConnections: {
@@ -77,34 +86,68 @@ const AccountNavigator = createStackNavigator(
   }
 );
 
-const AppDrawerNavigator = createDrawerNavigator(
+const BottomNavigator = createBottomTabNavigator(
   {
-    'Best Practices': {
-      screen: BestPracticeNavigator
+    Home: {
+      screen: BestPracticeNavigator,
+      navigationOptions: {
+        tabBarLabel: 'Home',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="md-home" size={30} color='white' />
+        )
+      }
     },
-    'Family Connections': {
-      screen: FamilyConnectionsNavigator
+    FamilyConnections: {
+      screen: FamilyConnectionsNavigator,
+      navigationOptions: {
+        tabBarLabel: 'Connections',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="md-people" size={30} color='white' />
+        )
+      }
     },
-    'People Search': {
-      screen: PeopleSearchNavigator
+    PeopleSearchNavigator: {
+      screen: PeopleSearchNavigator,
+      navigationOptions: {
+        tabBarLabel: 'People Search',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="md-search" size={30} color='white' />
+        )
+      }
     },
-    'My Account': {
-      screen: AccountNavigator
+    AccountNavigator: {
+      screen: AccountNavigator,
+      navigationOptions: {
+        tabBarLabel: 'My Account',
+        tabBarIcon: ({ tintColor }) => (
+          <Ionicons name="md-person" size={30} color='white' />
+        )
+      }
     }
   },
   {
-    drawerPosition: 'right',
-    contentOptions: { activeTintColor: constants.highlightColor }
-  }
-);
+    tabBarOptions: {
+      inactiveTintColor: 'white',
+      activeTintColor: 'black',
+      style: {
+        backgroundColor: constants.highlightColor,
+        height: 60,
+        padding: 5
+      }
+    }
+  })
 
 const AppSwitchNavigator = createSwitchNavigator({
-  BestPractices: { screen: AppDrawerNavigator },
-  FamilyConnections: { screen: AppDrawerNavigator },
-  PeopleSearch: { screen: AppDrawerNavigator },
-  Authentication: { screen: AuthenticationView }
+  BestPractices: { screen: BottomNavigator },
+  FamilyConnections: { screen: BottomNavigator },
+  PeopleSearch: { screen: BottomNavigator },
+  Authentication: { screen: BottomNavigator }
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
 
 export default AppContainer;
+
+<Icon
+  reverse
+  name='md-home' />

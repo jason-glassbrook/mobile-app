@@ -28,15 +28,15 @@ export default (headerConfig = (title, navigation, email) => {
           />
         </TouchableWithoutFeedback>
       ) : null,
-    headerRight: (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          navigation.toggleDrawer();
-        }}
-      >
-        <Icon ios="ios-menu" android="md-menu" style={styles.iconStyles} />
-      </TouchableWithoutFeedback>
-    )
+    // headerRight: (
+    //   <TouchableWithoutFeedback
+    //     onPress={() => {
+    //       navigation.toggleDrawer();
+    //     }}
+    //   >
+    //     <Icon ios="ios-menu" android="md-menu" style={styles.iconStyles} />
+    //   </TouchableWithoutFeedback>
+    // )
   };
 });
 
