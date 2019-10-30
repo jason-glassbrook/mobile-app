@@ -27,8 +27,8 @@ const BestPracticeNavigator = createStackNavigator(
     initialRouteName: 'BestPractices',
     defaultNavigationOptions: {
       headerStyle: {
-        height: 55,
-        // backgroundColor: constants.highlightColor
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor
       }
     }
   }
@@ -44,7 +44,8 @@ const FamilyConnectionsNavigator = createStackNavigator(
     initialRouteName: 'FamilyConnections',
     defaultNavigationOptions: {
       headerStyle: {
-        height: 80
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor
       }
     }
   }
@@ -63,13 +64,14 @@ const PeopleSearchNavigator = createStackNavigator(
     initialRouteName: 'PeopleSearch',
     defaultNavigationOptions: {
       headerStyle: {
-        height: 80
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor
       }
     }
   }
 );
 
-const AccountNavigator = createStackNavigator(
+export const AccountNavigator = createStackNavigator(
   {
     MyAccount: {
       screen: AuthenticationView
@@ -79,7 +81,8 @@ const AccountNavigator = createStackNavigator(
     initialRouteName: 'MyAccount',
     defaultNavigationOptions: {
       headerStyle: {
-        height: 80
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor
       }
     }
   }
@@ -114,15 +117,16 @@ const BottomNavigator = createBottomTabNavigator(
         )
       }
     },
-    AccountNavigator: {
-      screen: AccountNavigator,
-      navigationOptions: {
-        tabBarLabel: 'My Account',
-        tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-person" size={30} color='white' />
-        )
-      }
-    }
+    // AccountNavigator: {
+    //   screen: AccountNavigator,
+    //   navigationOptions: {
+    //     headerMode: 'none',
+    //     tabBarLabel: 'My Account',
+    //     tabBarIcon: ({ tintColor }) => (
+    //       <Ionicons name="md-person" size={30} color='white' />
+    //     )
+    //   }
+    // }
   },
   {
     tabBarOptions: {
@@ -130,8 +134,8 @@ const BottomNavigator = createBottomTabNavigator(
       activeTintColor: 'black',
       style: {
         backgroundColor: constants.highlightColor,
-        height: 60,
-        padding: 5
+        height: 53,
+        padding: 3
       }
     }
   })
@@ -140,13 +144,9 @@ const AppSwitchNavigator = createSwitchNavigator({
   BestPractices: { screen: BottomNavigator },
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
-  Authentication: { screen: BottomNavigator }
+  // Authentication: { screen: BottomNavigator }
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
 
 export default AppContainer;
-
-<Icon
-  reverse
-  name='md-home' />

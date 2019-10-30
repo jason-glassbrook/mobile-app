@@ -60,7 +60,8 @@ class BestPracticesScreen extends Component {
               resources in this app.
             </Text>
 
-            <Video uri={constants.bestPracticesURI} />
+            <Video uri={constants.bestPracticesURI}/> 
+            <Text style={{color: constants.highlightColor}}>Video Not loading on your device? Click Here.</Text>
             {/* <NavigationButton
               titleText="People Search"
               subTitleText="Find Contact Information for Anyone"

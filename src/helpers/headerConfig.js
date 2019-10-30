@@ -6,9 +6,42 @@ import {
   TouchableWithoutFeedback,
   StyleSheet
 } from 'react-native';
-import { Icon } from 'native-base';
+import { 
+  createStackNavigator
+ } from 'react-navigation-stack';
+import {
+  createSwitchNavigator,
+  createAppContainer
+} from 'react-navigation';
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { sendEvent } from '../helpers/createEvent';
+import AuthenticationView from '../screens/AuthenticationScreen';
+import constants from '../helpers/constants';
+
+// const AccountNavigator = createStackNavigator(
+//   {
+//     MyAccount: {
+//       screen: AuthenticationView
+//     }
+//   },
+//   {
+//     initialRouteName: 'MyAccount',
+//     defaultNavigationOptions: {
+//       headerStyle: {
+//         height: constants.headerHeight,
+//         backgroundColor: constants.highlightColor
+//       }
+//     }
+//   }
+// );
+
+// const AppSwitchNavigator = createSwitchNavigator({
+//   // FamilyConnections: { screen: BottomNavigator },
+//   Authentication: { screen: AccountNavigator }
+// });
+
+// const AppContainer = createAppContainer(AppSwitchNavigator);
 
 export default (headerConfig = (title, navigation, email) => {
   return {
@@ -28,15 +61,21 @@ export default (headerConfig = (title, navigation, email) => {
           />
         </TouchableWithoutFeedback>
       ) : null,
-    // headerRight: (
-    //   <TouchableWithoutFeedback
-    //     onPress={() => {
-    //       navigation.toggleDrawer();
-    //     }}
-    //   >
-    //     <Icon ios="ios-menu" android="md-menu" style={styles.iconStyles} />
-    //   </TouchableWithoutFeedback>
-    // )
+    headerRight: (
+      <TouchableWithoutFeedback
+        onPress={() => {
+          navigation.navigate('MyAccount');
+          // sendEvent(email, 'click', 'logo');
+        }}
+      >
+      <Ionicons 
+        name="ios-settings" 
+        size={32} color='white' 
+        style={{ width: 32, height: 32, marginHorizontal: 10 }}
+        resizeMode="contain"
+      />
+      </TouchableWithoutFeedback>
+    )
   };
 });
 
@@ -44,3 +83,4 @@ const styles = StyleSheet.create({
   imageStyles: { width: 40, height: 40, marginHorizontal: 20 },
   iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 }
 });
+
