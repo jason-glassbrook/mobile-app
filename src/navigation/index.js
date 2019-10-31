@@ -16,7 +16,7 @@ import SearchResultScreen from '../screens/SearchResultScreen';
 import constants from '../helpers/constants';
 import AuthenticationView from '../screens/AuthenticationScreen';
 import CaseViewScreen from '../screens/CaseViewScreen';
-import ConnectionsViewScreen from '../screens/ConnectionsViewScreen';
+import ConnectionsView from '../screens/ConnectionsView';
 
 const BestPracticeNavigator = createStackNavigator(
   {
@@ -66,7 +66,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
       }
     },
     ConnectionsView: {
-      screen: ConnectionsViewScreen,
+      screen: ConnectionsView,
       initialRouteName: 'FamilyConnections',
       defaultNavigationOptions: {
         headerStyle: {
