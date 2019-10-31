@@ -9,25 +9,45 @@ import {
 } from 'react-native';
 import constants from "../helpers/constants";
 import { connect } from "react-redux";
+import {
+  getEngagements,
+  getDocuments,
+  clearDocuments,
+  clearEngagements
+} from "../store/actions/connectionData";
 // import { Engagement, Documents } from '../CaseViewTabs'
+import { Ionicons } from '@expo/vector-icons';
 
 function ConnectionsView(props) {
-
+  console.log('PROPS.CONNECTIONDATA', props.connectionData)
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false
   })
 
-  // useEffect(() => {
-  //   axios
-  //   .get(`https://family-staging.connectourkids.org/api/v1/person/${props.relationshipData.pk}/histories/`)
-  //   .then((res) => {
-  //     console.log(res.data)
-  //   })
-  //   .catch((err) => {
-  //     console.log(err)
-  //   })
-  // }, [false])
+  useEffect(() => {
+    props.getEngagements(93)
+    // console.log('ENGAGEMENTS****', props.engagements)
+    // .then((res) => {
+    //   console.log('getEngagements************************************************')
+    //   console.log(res.data)
+    // })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
+  }, [false])
+
+  useEffect(() => {
+    props.getDocuments(93)
+    // console.log('documents*******', props.documents)
+    // .then((res) => {
+    //   console.log('getDocs*************************************************')
+    //   console.log(res.data)
+    // })
+    // .catch((err) => {
+    //   console.log(err)
+    // })
+  }, [false])
 
   const styles = StyleSheet.create({
     tabs: {
@@ -57,7 +77,7 @@ function ConnectionsView(props) {
 
   return (
     <View>
-      <Text style={{margin: 50}}>Relationship  Screen</Text>
+      <Text style={{ margin: 50 }}>Connection  Screen</Text>
       <View style={styles.tabs}>
         <Text
           style={[styles.tab, tabs.engagement ? styles.selected : null]}
@@ -83,56 +103,54 @@ function ConnectionsView(props) {
         </Text>
       </View>
       {/* {
-        tabs.engagement ? <Engagement relationshipData={props.relationshipData} /> : null
+        tabs.engagement ? <Engagement connectionData={props.connectionData} /> : null
       }
       {
-        tabs.docs ? <Documents relationshipData={props.relationshipData} /> : null
+        tabs.docs ? <Documents connectionData={props.connectionData} /> : null
       } */}
 
-{
+      {
         tabs.engagement ? <Text>engagements tab</Text> : null
       }
       {
         tabs.docs ? <Text>docs tab</Text> : null
       }
-<Button title='log' onPress={() => {
-  console.log('**********************************************************')
-  console.log(props.relationshipData)}} />
+      <Button title='log' onPress={() => {
+        console.log('**********************************************************')
+        console.log('props.engagement', props.engagements)
+      }} />
 
-<TouchableHighlight
+      <TouchableHighlight
         underlayColor="lightgray"
         style={{ alignItems: "center" }}
         onPress={() => {
           props.closeCase()
         }}
       >
-        <Text
-          style={{
-            marginVertical: 30,
-            padding: 10,
-            borderRadius: 4,
-            borderWidth: 1,
-            borderColor: `${constants.highlightColor}`,
-            color: `${constants.highlightColor}`
-          }}
-        >
-          Close Connection
-        </Text>
+        <Text>This Is The Back Button</Text>
+              
       </TouchableHighlight>
+      {
+        props.engagements? 
+          props.engagements.map((engagement) => {
+            // console.log(props.engagement)
+            return (
+              <Text key={engagement.pk} >{engagement.action_name}</Text>
+            )
+          }) : console.log('props.engagement = undefined', props.engagements)
+      }
     </View>
   );
 }
 
 const mapStateToProps = state => {
-  const {engagements, isLoadingEngagements, engagementsError} = state.engagements;
-  const {documents, isLoadingDocuments, documentsError} = state.documents;
   return {
-    engagments,
-    isLoadingEngagments,
-    engagmentsError,
-    documents,
-    isLoadingDocuments,
-    documentsError
+    engagements: state.connection.engagements,
+    isLoadingEngagements: state.connection.isLoadingEngagements,
+    engagementsError: state.connection.engagementsError,
+    documents: state.connection.documents,
+    isLoadingDocuments: state.connection.isLoadingDocuments,
+    documentsError: state.connection.documentsError
   }
 }
 

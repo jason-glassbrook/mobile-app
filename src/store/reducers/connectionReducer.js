@@ -11,10 +11,10 @@ import {
 } from "../actions/connectionData";
 
 const initialState = {
-    documents: [],
     engagements: [],
     isLoadingEngagements: false,
     engagementsError: "",
+    documents: [],
     isLoadingDocuments: false,
     documentsError: "",
 };
@@ -29,11 +29,11 @@ export const connectionReducer = (state = initialState, action) => {
             };
 
         case GET_ENGAGEMENTS_SUCCESS:
-            // console.log("case data payload", action.payload);
+            // console.log("getEngagements payload", action.payload);
             return {
                 ...state,
                 isLoadingEngagements: false,
-                engagements: { ...action.payload }
+                engagements: action.payload
             };
 
         case GET_ENGAGEMENTS_FAILURE:
@@ -45,7 +45,7 @@ export const connectionReducer = (state = initialState, action) => {
 
         case CLEAR_ENGAGEMENTS:
             return {
-                connections: {}
+                engagements: []
             }
 
         case GET_DOCUMENTS_START:
@@ -56,11 +56,11 @@ export const connectionReducer = (state = initialState, action) => {
             };
 
         case GET_DOCUMENTS_SUCCESS:
-            // console.log("case data payload", action.payload);
+            console.log("getDocs payload", action.payload);
             return {
                 ...state,
                 isLoadingDocuments: false,
-                documents: { ...action.payload }
+                documents: action.payload
             };
 
         case GET_DOCUMENTS_FAILURE:
@@ -72,7 +72,7 @@ export const connectionReducer = (state = initialState, action) => {
 
         case CLEAR_DOCUMENTS:
             return {
-                documents: {}
+                documents: []
             }
 
         default:

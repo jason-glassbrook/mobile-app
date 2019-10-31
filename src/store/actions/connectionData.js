@@ -13,6 +13,7 @@ export const CLEAR_DOCUMENTS = "CLEAR_DOCUMENTS";
 //grab the history of engagments between specific child and person
 
 export const getEngagements = (id) => dispatch => {
+    console.log('IDDDD People, where is the ID!', id)
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
             dispatch({ type: GET_ENGAGEMENTS_START });
@@ -23,10 +24,10 @@ export const getEngagements = (id) => dispatch => {
                     }
                 })
                 .then(res => {
-                    // console.log(res);
+                    console.log('GET ENGAGEMENTS RESPONSE', res.data.results);
                     dispatch({
                         type: GET_ENGAGEMENTS_SUCCESS,
-                        payload: res.data
+                        payload: res.data.results
                     });
                 })
                 .catch(err => {
@@ -56,14 +57,14 @@ export const getDocuments = (id) => dispatch => {
                     }
                 })
                 .then(res => {
-                    // console.log(res);
+                    console.log('res getDocs', res.data.results);
                     dispatch({
                         type: GET_DOCUMENTS_SUCCESS,
-                        payload: res.data
+                        payload: res.data.results
                     });
                 })
                 .catch(err => {
-                    // console.log(err);
+                    console.log(err);
                     dispatch({
                         type: GET_DOCUMENTS_FAILURE,
                         payload: err.response

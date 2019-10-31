@@ -26,15 +26,15 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
-import RelationshipsView from "./RelationshipsView";
+import ConnectionsView from "./ConnectionsView";
 
 export function CaseViewScreen(props) {
 
   const [searchKeywords, setSearchKeywords] = useState('')
 
-  const [relationshipSelected, setRelationshipSelected] = useState({
-    relationshipOpen: false,
-    relationshipData: {},
+  const [connectionSelected, setConnectionSelected] = useState({
+    connectionOpen: false,
+    connectionData: {},
   })
 
   const styles = StyleSheet.create({
@@ -176,11 +176,11 @@ export function CaseViewScreen(props) {
               return (
                 <CaseListComponent
                   pressed={() => {
-                    console.log('********************************************')
+                    console.log('Please Work!********************************************')
                     console.log(connection)
-                    setRelationshipSelected({
-                      relationshipOpen: true,
-                      relationshipData: connection
+                    setConnectionSelected({
+                      connectionOpen: true,
+                      connectionData: connection
                     })
                   }}
                   key={index}
@@ -193,12 +193,12 @@ export function CaseViewScreen(props) {
         <Modal
           animationType="slide"
           transparent={false}
-          visible={relationshipSelected.relationshipOpen}
+          visible={connectionSelected.connectionOpen}
         >
-          <RelationshipsView
-            relationshipData={relationshipSelected}
+          <ConnectionsView
+            connectionData={connectionSelected}
             closeCase={() => {
-              setRelationshipSelected({ relationshipOpen: false, relationshipData: {} });
+              setConnectionSelected({ connectionOpen: false, connectionData: {} });
             }}
           />
 

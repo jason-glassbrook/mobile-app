@@ -5,7 +5,11 @@
     "scheme": "connectourkids",
     "privacy": "public",
     "sdkVersion": "35.0.0",
-    "platforms": ["ios", "android", "web"],
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +21,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.connectourkids.connect-our-kids"
@@ -25,6 +31,7 @@
     "android": {
       "package": "com.connectOurKids.connectOurKids",
       "versionCode": 3
-    }
+    },
+    "description": ""
   }
 }
