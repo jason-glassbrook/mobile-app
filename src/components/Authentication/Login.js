@@ -46,16 +46,6 @@ const Login = props => {
           )}
         </View>
         <View>
-          {/* <NavigationButton
-            titleText="People Search"
-            subTitleText="Find Contact Information for Anyone"
-            handlePress={() => props.navigation.navigate('PeopleSearch')}
-          />
-          <NavigationButton
-            titleText="Family Connections"
-            subTitleText="Family Trees for Permanency"
-            handlePress={() => props.navigation.navigate('FamilyConnections')}
-          /> */}
           <NavigationButton
             titleText="Resources"
             subTitleText="Useful Materials and Information"
