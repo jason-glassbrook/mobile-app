@@ -46,7 +46,7 @@ const Login = props => {
           )}
         </View>
         <View>
-          <NavigationButton
+          {/* <NavigationButton
             titleText="People Search"
             subTitleText="Find Contact Information for Anyone"
             handlePress={() => props.navigation.navigate('PeopleSearch')}
@@ -55,7 +55,7 @@ const Login = props => {
             titleText="Family Connections"
             subTitleText="Family Trees for Permanency"
             handlePress={() => props.navigation.navigate('FamilyConnections')}
-          />
+          /> */}
           <NavigationButton
             titleText="Resources"
             subTitleText="Useful Materials and Information"

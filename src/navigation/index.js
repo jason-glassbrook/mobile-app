@@ -7,7 +7,6 @@ import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {
   createStackNavigator,
 } from 'react-navigation-stack';
-import { createMaterialTopTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import BestPracticesScreen from '../screens/BestPracticesScreen';
 import FamilyConnectionsScreen from '../screens/FamilyConnectionsScreen';
@@ -15,6 +14,8 @@ import PeopleSearchScreen from '../screens/PeopleSearchScreen';
 import SearchResultScreen from '../screens/SearchResultScreen';
 import constants from '../helpers/constants';
 import AuthenticationView from '../screens/AuthenticationScreen';
+import CaseViewScreen from '../screens/CaseViewScreen';
+import ConnectionsViewScreen from '../screens/ConnectionsViewScreen';
 
 const BestPracticeNavigator = createStackNavigator(
   {
@@ -45,6 +46,26 @@ const FamilyConnectionsNavigator = createStackNavigator(
   {
     FamilyConnections: {
       screen: FamilyConnectionsScreen,
+      initialRouteName: 'FamilyConnections',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
+      }
+    },
+    CaseView: {
+      screen: CaseViewScreen,
+      initialRouteName: 'FamilyConnections',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
+      }
+    },
+    ConnectionsView: {
+      screen: ConnectionsViewScreen,
       initialRouteName: 'FamilyConnections',
       defaultNavigationOptions: {
         headerStyle: {
