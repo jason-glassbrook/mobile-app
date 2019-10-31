@@ -3,7 +3,7 @@ import {
     GET_ENGAGEMENTS_SUCCESS,
     GET_ENGAGEMENTS_FAILURE,
     CLEAR_ENGAGEMENTS,
-
+    
     GET_DOCUMENTS_START,
     GET_DOCUMENTS_SUCCESS,
     GET_DOCUMENTS_FAILURE,
@@ -11,10 +11,10 @@ import {
 } from "../actions/connectionData";
 
 const initialState = {
-    documents: [],
     engagements: [],
     isLoadingEngagements: false,
     engagementsError: "",
+    documents: [],
     isLoadingDocuments: false,
     documentsError: "",
 };
@@ -29,23 +29,23 @@ export const connectionReducer = (state = initialState, action) => {
             };
 
         case GET_ENGAGEMENTS_SUCCESS:
-            // console.log("case data payload", action.payload);
+            // console.log("getEngagements payload", action.payload);
             return {
                 ...state,
                 isLoadingEngagements: false,
-                engagements: { ...action.payload }
+                engagements: action.payload
             };
 
         case GET_ENGAGEMENTS_FAILURE:
             return {
                 ...state,
                 isLoadingConnections: false,
-                engagementsError: ""
+                engagementsError: "Error loading engagements data. Please try again later."
             };
 
         case CLEAR_ENGAGEMENTS:
             return {
-                connections: {}
+                engagements: []
             }
 
         case GET_DOCUMENTS_START:
@@ -56,23 +56,23 @@ export const connectionReducer = (state = initialState, action) => {
             };
 
         case GET_DOCUMENTS_SUCCESS:
-            // console.log("case data payload", action.payload);
+            console.log("getDocs payload", action.payload);
             return {
                 ...state,
                 isLoadingDocuments: false,
-                documents: { ...action.payload }
+                documents: action.payload
             };
 
         case GET_DOCUMENTS_FAILURE:
             return {
                 ...state,
                 isLoadingDocuments: false,
-                documentsError: "Maybe see a couples' counselor?"
+                documentsError: "Error loading documents. Please try again later."
             };
 
         case CLEAR_DOCUMENTS:
             return {
-                documents: {}
+                documents: []
             }
 
         default:

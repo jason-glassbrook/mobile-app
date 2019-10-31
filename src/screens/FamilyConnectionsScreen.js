@@ -551,8 +551,6 @@ class FamilyConnectionsScreen extends Component {
                 setCaseVisible={() => {
                   this.setCaseVisible(false);
                 }}
-                caseVisible={this.state.caseVisible}
-                accessToken={this.props.accessToken}
               />
 
             </Modal>

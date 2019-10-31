@@ -6,6 +6,7 @@ import { recentSearchesReducer as recentSearches } from './recentSearchesReducer
 import { getUserCasesReducer as userCases } from './userCasesReducer';
 import { getCaseDataReducer as caseData } from './caseDataReducer';
 import { getCaseConnectionsReducer as caseConnections } from './caseConnectionsReducer'
+import { connectionReducer as connection } from './connectionReducer'
 
 export default combineReducers({
   auth,
@@ -14,5 +15,6 @@ export default combineReducers({
   recentSearches,
   userCases,
   caseData,
-  caseConnections
+  caseConnections,
+  connection
 });
