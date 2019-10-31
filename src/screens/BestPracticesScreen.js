@@ -57,10 +57,11 @@ class BestPracticesScreen extends Component {
               }}
             >
               Watch the video below to learn more about the free tools and
-              resources in this app.
-            </Text>
+              resources in this app. Video not loading? <Text style={{textDecorationLine: 'underline'}}>Tap here.</Text> </Text>
+              
 
-            <Video uri={constants.bestPracticesURI} />
+            <Video uri={constants.bestPracticesURI}/>
+            
             {/* <NavigationButton
               titleText="People Search"
               subTitleText="Find Contact Information for Anyone"

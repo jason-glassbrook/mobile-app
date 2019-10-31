@@ -13,7 +13,6 @@ export const CLEAR_DOCUMENTS = "CLEAR_DOCUMENTS";
 //grab the history of engagments between specific child and person
 
 export const getEngagements = (id) => dispatch => {
-    console.log('IDDDD People, where is the ID!', id)
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
             dispatch({ type: GET_ENGAGEMENTS_START });
@@ -74,5 +73,5 @@ export const getDocuments = (id) => dispatch => {
 };
 
 export const clearDocuments = () => dispatch => {
-    dispatch({ type: CLEAR_CONNECTIONS })
+    dispatch({ type: CLEAR_DOCUMENTS })
 }

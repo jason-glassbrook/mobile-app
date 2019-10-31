@@ -6,13 +6,20 @@ import {
   TouchableWithoutFeedback,
   StyleSheet
 } from 'react-native';
-import { Icon } from 'native-base';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import React from 'react';
 import { sendEvent } from '../helpers/createEvent';
+import constants from '../helpers/constants'
 
 export default (headerConfig = (title, navigation, email) => {
+
+
   return {
     headerTitle: <HeaderTitle title={title} navigation={navigation} />,
+    headerStyle: {
+      backgroundColor: constants.highlightColor,
+      height: 52
+    },
     headerLeft:
       Platform.OS === 'ios' ? (
         <TouchableWithoutFeedback
@@ -28,15 +35,35 @@ export default (headerConfig = (title, navigation, email) => {
           />
         </TouchableWithoutFeedback>
       ) : null,
-    // headerRight: (
-    //   <TouchableWithoutFeedback
-    //     onPress={() => {
-    //       navigation.toggleDrawer();
-    //     }}
-    //   >
-    //     <Icon ios="ios-menu" android="md-menu" style={styles.iconStyles} />
-    //   </TouchableWithoutFeedback>
-    // )
+    headerRight: 
+    (navigation.state.routeName !== 'MyAccount') ?
+    (
+      <TouchableWithoutFeedback
+        onPress={() => {
+          navigation.navigate('MyAccount')
+        }}
+      >
+      <Ionicons 
+        name="ios-settings" 
+        size={32} color='white' 
+        style={{ width: 32, height: 32, marginHorizontal: 10 }}
+        resizeMode="contain"
+      />
+      </TouchableWithoutFeedback>
+    ) : (
+      <TouchableWithoutFeedback
+        onPress={() => {
+          navigation.goBack()
+        }}
+      >
+      <Feather 
+        name="x" 
+        size={32} color='white' 
+        style={{ width: 32, height: 32, marginHorizontal: 10 }}
+        resizeMode="contain"
+      />
+      </TouchableWithoutFeedback>
+    )
   };
 });
 
@@ -44,3 +71,4 @@ const styles = StyleSheet.create({
   imageStyles: { width: 40, height: 40, marginHorizontal: 20 },
   iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 }
 });
+
