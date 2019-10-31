@@ -3,6 +3,7 @@ import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
+// import { createDrawerNavigator } from 'react-navigation-drawer';
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import {
   createStackNavigator,
@@ -146,7 +147,3 @@ const AppSwitchNavigator = createSwitchNavigator({
 const AppContainer = createAppContainer(AppSwitchNavigator);
 
 export default AppContainer;
-
-<Icon
-  reverse
-  name='md-home' />

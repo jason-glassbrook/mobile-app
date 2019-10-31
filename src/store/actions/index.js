@@ -5,3 +5,4 @@ export * from './recentSearchesAction';
 export * from './userCases';
 export * from './caseData';
 export * from './caseConnections';
+export * from './connectionData';
