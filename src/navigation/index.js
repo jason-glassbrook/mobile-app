@@ -3,7 +3,7 @@ import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
-import {createBottomTabNavigator} from 'react-navigation-tabs'
+import {createBottomTabNavigator} from 'react-navigation-tabs';
 import {
   createStackNavigator,
 } from 'react-navigation-stack';
@@ -15,8 +15,6 @@ import PeopleSearchScreen from '../screens/PeopleSearchScreen';
 import SearchResultScreen from '../screens/SearchResultScreen';
 import constants from '../helpers/constants';
 import AuthenticationView from '../screens/AuthenticationScreen';
-
-import {Icon} from 'react-native-elements';
 
 const BestPracticeNavigator = createStackNavigator(
   {
@@ -80,10 +78,15 @@ const AccountNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'MyAccount',
+    // headerMode: 'none',
+    // navigationOptions: {
+    //   headerMode: 'none',
+    // },
     defaultNavigationOptions: {
+      // headerMode: 'none',
       headerStyle: {
         height: constants.headerHeight,
-        backgroundColor: constants.highlightColor
+        backgroundColor: constants.highlightColor,
       }
     }
   }, 
@@ -120,13 +123,6 @@ const BottomNavigator = createBottomTabNavigator(
     },
     // AccountNavigator: {
     //   screen: AccountNavigator,
-    //   navigationOptions: {
-    //     headerMode: 'none',
-    //     tabBarLabel: 'My Account',
-    //     tabBarIcon: ({ tintColor }) => (
-    //       <Ionicons name="md-person" size={30} color='white' />
-    //     )
-    //   }
     // }
   },
   {
@@ -136,18 +132,20 @@ const BottomNavigator = createBottomTabNavigator(
       style: {
         backgroundColor: constants.highlightColor,
         height: 53,
-        padding: 3
+        padding: 3,
+        width: '100%'
+        //cheeky asf
       }
     }
   })
 
-const AppSwitchNavigator = createSwitchNavigator({
+const AppBottomSwitchNavigator = createSwitchNavigator({
   BestPractices: { screen: BottomNavigator },
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
-  Authentication: { screen: BottomNavigator }
+  Authentication: { screen: AccountNavigator }
 });
 
-const AppContainer = createAppContainer(AppSwitchNavigator);
+const AppContainer = createAppContainer(AppBottomSwitchNavigator);
 
 export default AppContainer;

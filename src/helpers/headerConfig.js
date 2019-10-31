@@ -6,19 +6,19 @@ import {
   TouchableWithoutFeedback,
   StyleSheet
 } from 'react-native';
-import { 
-  createStackNavigator
-} from 'react-navigation-stack';
-import {
-  createSwitchNavigator,
-  createAppContainer,
-  NavigationActions
-} from 'react-navigation';
+// import { 
+//   createStackNavigator
+// } from 'react-navigation-stack';
+// import {
+//   createSwitchNavigator,
+//   createAppContainer,
+//   NavigationActions
+// } from 'react-navigation';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { sendEvent } from '../helpers/createEvent';
-import AuthenticationView from '../screens/AuthenticationScreen';
-import constants from '../helpers/constants';
+// import AuthenticationView from '../screens/AuthenticationScreen';
+// import constants from '../helpers/constants';
 
 // const navigateAction = NavigationActions.navigate({
 //   routeName: 'MyAcount',

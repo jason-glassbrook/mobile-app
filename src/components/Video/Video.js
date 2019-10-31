@@ -1,5 +1,6 @@
 import React from 'react';
-import { Platform, StyleSheet, View, WebView } from 'react-native';
+import { Platform, StyleSheet, View, Text } from 'react-native';
+import {WebView} from 'react-native-webview';
 
 const Video = ({ uri }) => {
   return (
@@ -9,6 +10,7 @@ const Video = ({ uri }) => {
         javaScriptEnabled={true}
         domStorageEnabled={true}
         source={{ uri }}
+        allowsInlineMediaPlayback='true'
       />
     </View>
   );
