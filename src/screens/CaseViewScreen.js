@@ -176,10 +176,8 @@ export function CaseViewScreen(props) {
               return (
                 <CaseListComponent
                   pressed={() => {
-                    console.log('********************************************')
-                    console.log(connection)
                     setRelationshipSelected({
-                      relationshipOpen: true,
+                      relationshipOpen: false,
                       relationshipData: connection
                     })
                   }}
