@@ -13,7 +13,7 @@ import authHelpers from '../helpers/authHelpers';
 import headerConfig from '../helpers/headerConfig';
 class AuthenticationView extends Component {
   static navigationOptions = ({ navigation }) =>
-    headerConfig('My Account', navigation);
+    headerConfig('MyAccount', navigation);
 
   render() {
     return (

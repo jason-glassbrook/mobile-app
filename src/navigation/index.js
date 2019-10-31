@@ -74,16 +74,12 @@ const AccountNavigator = createStackNavigator(
   {
     MyAccount: {
       screen: AuthenticationView
-    }
+    },
+    // navigationOptions: ({ BottomNavigator }) => 
   },
   {
     initialRouteName: 'MyAccount',
-    // headerMode: 'none',
-    // navigationOptions: {
-    //   headerMode: 'none',
-    // },
     defaultNavigationOptions: {
-      // headerMode: 'none',
       headerStyle: {
         height: constants.headerHeight,
         backgroundColor: constants.highlightColor,
@@ -134,7 +130,6 @@ const BottomNavigator = createBottomTabNavigator(
         height: 53,
         padding: 3,
         width: '100%'
-        //cheeky asf
       }
     }
   })
