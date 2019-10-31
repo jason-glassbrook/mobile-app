@@ -6,12 +6,14 @@ import {
   TouchableWithoutFeedback,
   StyleSheet
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import React from 'react';
 import { sendEvent } from '../helpers/createEvent';
 import constants from '../helpers/constants'
 
 export default (headerConfig = (title, navigation, email) => {
+
+
   return {
     headerTitle: <HeaderTitle title={title} navigation={navigation} />,
     headerStyle: {
@@ -33,7 +35,9 @@ export default (headerConfig = (title, navigation, email) => {
           />
         </TouchableWithoutFeedback>
       ) : null,
-    headerRight: (
+    headerRight: 
+    (navigation.state.routeName !== 'MyAccount') ?
+    (
       <TouchableWithoutFeedback
         onPress={() => {
           navigation.navigate('MyAccount')
@@ -41,6 +45,19 @@ export default (headerConfig = (title, navigation, email) => {
       >
       <Ionicons 
         name="ios-settings" 
+        size={32} color='white' 
+        style={{ width: 32, height: 32, marginHorizontal: 10 }}
+        resizeMode="contain"
+      />
+      </TouchableWithoutFeedback>
+    ) : (
+      <TouchableWithoutFeedback
+        onPress={() => {
+          navigation.goBack()
+        }}
+      >
+      <Feather 
+        name="x" 
         size={32} color='white' 
         style={{ width: 32, height: 32, marginHorizontal: 10 }}
         resizeMode="contain"
