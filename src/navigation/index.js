@@ -19,73 +19,87 @@ import AuthenticationView from '../screens/AuthenticationScreen';
 const BestPracticeNavigator = createStackNavigator(
   {
     BestPractices: {
-      screen: BestPracticesScreen
-    }
-  },
-  {
-    initialRouteName: 'BestPractices',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor
+      screen: BestPracticesScreen,
+      initialRouteName: 'BestPractices',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
       }
-    }
+    },
+    MyAccount: {
+      screen: AuthenticationView,
+      initialRouteName: 'MyAccount',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor,
+        }
+      },
+    },
   }
 );
 
 const FamilyConnectionsNavigator = createStackNavigator(
   {
     FamilyConnections: {
-      screen: FamilyConnectionsScreen
-    }
-  },
-  {
-    initialRouteName: 'FamilyConnections',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor
+      screen: FamilyConnectionsScreen,
+      initialRouteName: 'FamilyConnections',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
       }
-    }
-  }
+    },
+    MyAccount: {
+      screen: AuthenticationView,
+      initialRouteName: 'MyAccount',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor,
+        }
+      },
+    },
+  },
+  
 );
 
 const PeopleSearchNavigator = createStackNavigator(
   {
     PeopleSearch: {
-      screen: PeopleSearchScreen
+      screen: PeopleSearchScreen,
+      initialRouteName: 'PeopleSearch',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
+      }
     },
     SearchResult: {
-      screen: SearchResultScreen
-    }
-  },
-  {
-    initialRouteName: 'PeopleSearch',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor
+      screen: SearchResultScreen,
+      initialRouteName: 'PeopleSearch',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
       }
-    }
-  }
-);
-
-const AccountNavigator = createStackNavigator(
-  {
-    MyAccount: {
-      screen: AuthenticationView
     },
-    // navigationOptions: ({ BottomNavigator }) => 
+    MyAccount: {
+      screen: AuthenticationView,
+      initialRouteName: 'MyAccount',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor,
+        }
+      },
+    },
   },
-  {
-    initialRouteName: 'MyAccount',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    }
-  }, 
 );
 
 const BottomNavigator = createBottomTabNavigator(
@@ -117,9 +131,6 @@ const BottomNavigator = createBottomTabNavigator(
         )
       }
     },
-    // AccountNavigator: {
-    //   screen: AccountNavigator,
-    // }
   },
   {
     tabBarOptions: {
@@ -138,7 +149,8 @@ const AppBottomSwitchNavigator = createSwitchNavigator({
   BestPractices: { screen: BottomNavigator },
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
-  Authentication: { screen: AccountNavigator }
+  Authentication: { screen: BottomNavigator },
+  // Authentication2: { screen: BottomNavigator },
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);
