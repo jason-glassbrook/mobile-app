@@ -6,13 +6,14 @@ import {
   StyleSheet,
   Platform,
   ScrollView,
+  Modal
 } from "react-native";
 import constants from "../helpers/constants";
 import {
   ListItem,
   Button,
   Divider,
-  SearchBar
+  SearchBar,
 } from "react-native-elements";
 import {
   getCaseData,
@@ -25,13 +26,15 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
+import RelationshipsView from "./RelationshipsView";
 
 export function CaseViewScreen(props) {
 
   const [searchKeywords, setSearchKeywords] = useState('')
 
-  const [filtersSelected, setFiltersSelected] = useState({
-
+  const [relationshipSelected, setRelationshipSelected] = useState({
+    relationshipOpen: false,
+    relationshipData: {},
   })
 
   const styles = StyleSheet.create({
@@ -86,7 +89,7 @@ export function CaseViewScreen(props) {
   }
 
   return (
-    <View style={{height: '100%'}}>
+    <View style={{ height: '100%' }}>
       <View
         style={{
           justifyContent: "center",
@@ -138,7 +141,7 @@ export function CaseViewScreen(props) {
         {/* search Functionality */}
 
         <View style={{ flexDirection: "columb" }}>
-          <Text style={{margin: 10, fontSize: 20}}>Connections:</Text>
+          <Text style={{ margin: 10, fontSize: 20 }}>Connections:</Text>
           <SearchBar
             placeholder="Search Name..."
             placeholderTextColor="black"
@@ -161,8 +164,8 @@ export function CaseViewScreen(props) {
             marginTop: 15
           }}
         />
-        </View>
-      
+      </View>
+
 
       <ScrollView style={{ height: '55%' }}>
         {props.isLoadingConnections ? (
@@ -171,16 +174,41 @@ export function CaseViewScreen(props) {
 
             SearchedConnections.map((connection, index) => {
               return (
-                <CaseListComponent key={index} connection={connection} />
+                <CaseListComponent
+                  pressed={() => {
+                    setRelationshipSelected({
+                      relationshipOpen: false,
+                      relationshipData: connection
+                    })
+                  }}
+                  key={index}
+                  connection={connection} />
               );
             })
           )}
+
+        {/* CASE onPress MODAL */}
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={relationshipSelected.relationshipOpen}
+        >
+          <RelationshipsView
+            relationshipData={relationshipSelected}
+            closeCase={() => {
+              setRelationshipSelected({ relationshipOpen: false, relationshipData: {} });
+            }}
+          />
+
+        </Modal>
+
+
       </ScrollView>
 
-        <View style={{
-          justifyContent: "center",
-          alignItems: "center"
-        }}>
+      <View style={{
+        justifyContent: "center",
+        alignItems: "center"
+      }}>
         <Divider
           style={{
             height: 1,
@@ -188,8 +216,8 @@ export function CaseViewScreen(props) {
             width: "85%",
           }}
         />
-        </View>
-        
+      </View>
+
 
       <TouchableHighlight
         underlayColor="lightgray"

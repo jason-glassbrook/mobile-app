@@ -30,23 +30,23 @@ export const Engagement = (props) => {
   )
 }
 
-export const Participants = (props) => {
+// export const Participants = (props) => {
 
-  return(
-    <View style={{padding: 30}}>
-      <ScrollView>
-      <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
-        <TextInput placeholder="Add Person" style= {{borderColor: "gray", borderWidth: 1, padding: 10 }} />
-        <TextInput placeholder="Add Group" style= {{borderColor: "gray", borderWidth: 1, padding: 10 }} />
-      </View>  
-        <ListItem leftAvatar={{ source: { uri: props.caseData.created_by.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
-        <Text style={{padding: 5}}>Owners: {props.caseData.created_by.full_name}</Text>
-        <Text style={{padding: 5}}>Participants:{props.caseData.participants}</Text>
-        <Text style={{padding: 5}}>Viewers: {props.caseData.viewers}</Text>
-      </ScrollView>
-    </View>
-  )
-}
+//   return(
+//     <View style={{padding: 30}}>
+//       <ScrollView>
+//       <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+//         <TextInput placeholder="Add Person" style= {{borderColor: "gray", borderWidth: 1, padding: 10 }} />
+//         <TextInput placeholder="Add Group" style= {{borderColor: "gray", borderWidth: 1, padding: 10 }} />
+//       </View>  
+//         <ListItem leftAvatar={{ source: { uri: props.caseData.created_by.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
+//         <Text style={{padding: 5}}>Owners: {props.caseData.created_by.full_name}</Text>
+//         <Text style={{padding: 5}}>Participants:{props.caseData.participants}</Text>
+//         <Text style={{padding: 5}}>Viewers: {props.caseData.viewers}</Text>
+//       </ScrollView>
+//     </View>
+//   )
+// }
 
 // export const Highlights = (props) => {
 
