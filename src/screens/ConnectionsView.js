@@ -98,15 +98,28 @@ function ConnectionsView(props) {
       }
       </ScrollView>
 
-      {/* {
-        tabs.docs ? <Documents connectionData={props.connectionData} /> : null
-      } */}
 
 
-
+      <ScrollView>
       {
-        tabs.docs ? <Text>docs tab</Text> : null
+        tabs.docs ?
+          <View>
+             {
+              props.documents.map((document) => {
+                return (
+                  <Documents key={document.pk} document={document} />)
+              })}
+             
+             </View>: null
+  
       }
+      </ScrollView>
+
+
+
+      {/* {
+        tabs.docs ? <Text>docs tab</Text> : null
+      } */}
 
 
 
