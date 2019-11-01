@@ -15,7 +15,7 @@ import {
   clearDocuments,
   clearEngagements
 } from "../store/actions/connectionData";
-// import { Engagement, Documents } from '../CaseViewTabs'
+import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
 import { Ionicons } from '@expo/vector-icons';
 
 function ConnectionsView(props) {
@@ -24,7 +24,7 @@ function ConnectionsView(props) {
     engagement: true,
     docs: false
   })
-// Can we do this in ONE useEffect?
+  // Can we do this in ONE useEffect?
   useEffect(() => {
     props.getEngagements(props.connectionData.connectionData.person.pk)
     props.getDocuments(props.connectionData.connectionData.person.pk)
@@ -83,28 +83,32 @@ function ConnectionsView(props) {
           Docs
         </Text>
       </View>
-      {/* {
-        tabs.engagement ? <Engagement connectionData={props.connectionData} /> : null
-      }
+      <ScrollView>
       {
+        tabs.engagement ?
+          <View>
+             {
+              props.engagements.map((engagement) => {
+                return (
+                  <Engagement key={engagement.pk} engagement={engagement} />)
+              })}
+             
+             </View>: null
+  
+      }
+      </ScrollView>
+
+      {/* {
         tabs.docs ? <Documents connectionData={props.connectionData} /> : null
       } */}
 
-      {
-        tabs.engagement ? <Text>engagements tab</Text> : null
-      }
+
+
       {
         tabs.docs ? <Text>docs tab</Text> : null
       }
-      <Button title='connectionData' onPress={() => {
-        console.log('**********************************************************')
-        console.log('props.connectionData', props.connectionData)
-      }} />
 
-<Button title='person' onPress={() => {
-        console.log('**********************************************************')
-        console.log('person', props.connectionData.person)
-      }} />
+
 
       <TouchableHighlight
         underlayColor="lightgray"
@@ -114,17 +118,8 @@ function ConnectionsView(props) {
         }}
       >
         <Text>This Is The Back Button</Text>
-              
+
       </TouchableHighlight>
-      {
-        props.engagements? 
-          props.engagements.map((engagement) => {
-            // console.log(props.engagement)
-            return (
-              <Text key={engagement.pk} >{engagement.action_name}</Text>
-            )
-          }) : console.log('props.engagement = undefined', props.engagements)
-      }
     </View>
   );
 }
