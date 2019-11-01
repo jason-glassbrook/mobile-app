@@ -3,10 +3,15 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableWithoutFeedback,
   StyleSheet,
   ScrollView,
   Button
 } from 'react-native';
+import {
+  Divider,
+  ListItem
+} from 'react-native-elements';
 import constants from "../helpers/constants";
 import { connect } from "react-redux";
 import {
@@ -16,10 +21,11 @@ import {
   clearEngagements
 } from "../store/actions/connectionData";
 // import { Engagement, Documents } from '../CaseViewTabs'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 
 function ConnectionsView(props) {
-  console.log('PROPS.CONNECTIONDATA', props.connectionData)
+  
+  const connectionData = props.connectionData.connectionData.person
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false
@@ -53,12 +59,100 @@ function ConnectionsView(props) {
       fontSize: 16,
       textAlign: 'center',
       paddingTop: 8
+    },
+
+    iconStyles: {
+      fontSize: 32, 
+      color: constants.highlightColor, 
+      width: 32, 
+      height: 32, 
+      marginHorizontal: 10
     }
   })
 
   return (
     <View>
-      <Text style={{ margin: 50 }}>Connection  Screen</Text>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center"
+        }}
+      >
+        <View 
+          style={{
+            flexDirection: "column",
+            justifyContent: "center",
+            marginTop: 55,
+            width: "85%"
+          }}
+        >
+          <View>
+            <View>
+              <Text style={{fontSize: 20}}>{connectionData.full_name}</Text>
+              <ListItem
+                leftAvatar={{
+                  source: {
+                    uri:
+                    connectionData.picture ||
+                      "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+                  }
+                }}
+              >{}</ListItem>
+            </View>
+            
+            <Text>{connectionData.telephone}</Text>
+            <Text>{connectionData.address.formatted ? connectionData.address.formatted
+              : "No address available." }</Text>
+          </View>
+          
+          <View style={{ 
+            flexDirection: 'row', 
+            justifyContent: 'space-evenly', 
+            alignItems: 'center'}}
+          >
+            <TouchableWithoutFeedback
+              onPress={() => {
+                navigation.navigate('MyAccount')
+              }}
+            >
+              <Ionicons 
+                name='md-mail' 
+                style={styles.iconStyles}
+              />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                navigation.navigate('MyAccount')
+              }}
+            >
+              <AntDesign
+                name='file1'
+                style={styles.iconStyles}
+              />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback
+              onPress={() => {
+                navigation.navigate('MyAccount')
+              }}
+            >
+              <MaterialCommunityIcons
+                name='clock'
+                style={styles.iconStyles}
+              />
+            </TouchableWithoutFeedback>
+          </View>
+        </View>
+      </View>
+
+      <Divider
+        style={{
+          height: 1,
+          backgroundColor: "lightgrey",
+          width: "85%",
+          marginTop: 15
+        }}
+      />
+
       <View style={styles.tabs}>
         <Text
           style={[styles.tab, tabs.engagement ? styles.selected : null]}
@@ -69,7 +163,7 @@ function ConnectionsView(props) {
             });
           }}
         >
-          Engagement
+          Engagements
         </Text>
         <Text
           style={[styles.tab, tabs.docs ? styles.selected : null]}
@@ -80,7 +174,7 @@ function ConnectionsView(props) {
             });
           }}
         >
-          Docs
+          Documents
         </Text>
       </View>
       {/* {
