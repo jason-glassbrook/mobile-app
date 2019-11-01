@@ -24,29 +24,10 @@ function ConnectionsView(props) {
     engagement: true,
     docs: false
   })
-
+// Can we do this in ONE useEffect?
   useEffect(() => {
-    props.getEngagements(93)
-    // console.log('ENGAGEMENTS****', props.engagements)
-    // .then((res) => {
-    //   console.log('getEngagements************************************************')
-    //   console.log(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
-  }, [false])
-
-  useEffect(() => {
-    props.getDocuments(93)
-    // console.log('documents*******', props.documents)
-    // .then((res) => {
-    //   console.log('getDocs*************************************************')
-    //   console.log(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
+    props.getEngagements(props.connectionData.connectionData.person.pk)
+    props.getDocuments(props.connectionData.connectionData.person.pk)
   }, [false])
 
   const styles = StyleSheet.create({
@@ -115,9 +96,14 @@ function ConnectionsView(props) {
       {
         tabs.docs ? <Text>docs tab</Text> : null
       }
-      <Button title='log' onPress={() => {
+      <Button title='connectionData' onPress={() => {
         console.log('**********************************************************')
-        console.log('props.engagement', props.engagements)
+        console.log('props.connectionData', props.connectionData)
+      }} />
+
+<Button title='person' onPress={() => {
+        console.log('**********************************************************')
+        console.log('person', props.connectionData.person)
       }} />
 
       <TouchableHighlight
