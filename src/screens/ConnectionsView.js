@@ -22,6 +22,7 @@ import {
 } from "../store/actions/connectionData";
 // import { Engagement, Documents } from '../CaseViewTabs'
 import { Ionicons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
 
 function ConnectionsView(props) {
   
@@ -30,7 +31,7 @@ function ConnectionsView(props) {
     engagement: true,
     docs: false
   })
-// Can we do this in ONE useEffect?
+  // Can we do this in ONE useEffect?
   useEffect(() => {
     props.getEngagements(props.connectionData.connectionData.person.pk)
     props.getDocuments(props.connectionData.connectionData.person.pk)
@@ -101,10 +102,10 @@ function ConnectionsView(props) {
             </View>
             
             <Text>{connectionData.telephone}</Text>
-            <Text>{connectionData.address.formatted ? connectionData.address.formatted
-              : "No address available." }</Text>
+            {connectionData.address !== null && connectionData.address.formatted !== null ? <Text>{connectionData.address.formatted}</Text>
+              : <Text>No address provided.</Text>}
           </View>
-          
+
           <View style={{ 
             flexDirection: 'row', 
             justifyContent: 'space-evenly', 
@@ -177,28 +178,44 @@ function ConnectionsView(props) {
           Documents
         </Text>
       </View>
-      {/* {
-        tabs.engagement ? <Engagement connectionData={props.connectionData} /> : null
-      }
+      <ScrollView>
       {
-        tabs.docs ? <Documents connectionData={props.connectionData} /> : null
+        tabs.engagement ?
+          <View>
+            {
+              props.engagements.map((engagement) => {
+                return (
+                  <Engagement key={engagement.pk} engagement={engagement} />)
+              })}
+            </View>: null
+  
+      }
+      </ScrollView>
+
+
+
+      <ScrollView>
+      {
+        tabs.docs ?
+          <View>
+            {
+              props.documents.map((document) => {
+                return (
+                  <Documents key={document.pk} document={document} />)
+              })}
+             
+            </View>: null
+  
+      }
+      </ScrollView>
+
+
+
+      {/* {
+        tabs.docs ? <Text>docs tab</Text> : null
       } */}
 
-      {
-        tabs.engagement ? <Text>engagements tab</Text> : null
-      }
-      {
-        tabs.docs ? <Text>docs tab</Text> : null
-      }
-      <Button title='connectionData' onPress={() => {
-        console.log('**********************************************************')
-        console.log('props.connectionData', props.connectionData)
-      }} />
 
-<Button title='person' onPress={() => {
-        console.log('**********************************************************')
-        console.log('person', props.connectionData.person)
-      }} />
 
       <TouchableHighlight
         underlayColor="lightgray"
@@ -208,17 +225,8 @@ function ConnectionsView(props) {
         }}
       >
         <Text>This Is The Back Button</Text>
-              
+
       </TouchableHighlight>
-      {
-        props.engagements? 
-          props.engagements.map((engagement) => {
-            // console.log(props.engagement)
-            return (
-              <Text key={engagement.pk} >{engagement.action_name}</Text>
-            )
-          }) : console.log('props.engagement = undefined', props.engagements)
-      }
     </View>
   );
 }

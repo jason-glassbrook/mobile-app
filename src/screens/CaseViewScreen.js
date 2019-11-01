@@ -128,7 +128,7 @@ export function CaseViewScreen(props) {
                   Residence:{" "}
                   {caseData.address && caseData.address.formatted
                     ? caseData.address.formatted
-                    : "no address available"}
+                    : "No address provided."}
                 </Text>
                 <Text style={{ padding: 5 }}>
                   Initiation:{caseData.foster_care}
