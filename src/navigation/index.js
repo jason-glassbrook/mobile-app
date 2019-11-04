@@ -3,7 +3,7 @@ import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
-import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerActions, DrawerItems } from 'react-navigation-drawer';
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import {
   createStackNavigator,
@@ -108,19 +108,36 @@ const AccountNavigator = createStackNavigator({
 })
 
 const DrawerNavigator = createDrawerNavigator({
-  'Best Practices': {
-    screen: BestPracticeNavigator,
-  },
-  'My Account': {
+  'Edit Profile': {
     screen: AccountNavigator,
   },
+  'Impact Dashboard': {
+    screen: AccountNavigator,
+  },
+  'About': {
+    screen: AccountNavigator,
+  },
+  'Support': {
+    screen: AccountNavigator,
+  },
+  'Privacy Policy': {
+    screen: AccountNavigator,
+  },
+  'Terms of Service': {
+    screen: AccountNavigator,
+  },
+  'Log Out': {
+    screen: AccountNavigator,
+  }
 },
 {
   drawerPosition: 'right',
   drawerType: 'front',
   drawerWidth: 225,
   hideStatusBar: true,
-  contentOptions: { activeTintColor: constants.highlightColor }
+  contentOptions: { 
+    activeTintColor: constants.highlightColor,
+  },
 })
 
 const BottomNavigator = createBottomTabNavigator(
