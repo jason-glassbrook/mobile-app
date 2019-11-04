@@ -513,10 +513,10 @@ class FamilyConnectionsScreen extends Component {
                     title={result.full_name}
                     titleStyle={{ color: "#5A6064" }}
                     subtitle={`${
-                      result.gender && result.birthday && (!null || "")
-                        ? `Gender: ${result.gender} , ${result.birthday}`
-                        : "unspecified"
-                      }`}
+                      result.gender ?
+                         `Gender: ${result.gender}`
+                        : "Gender: unspecified"
+                      } ${result.birthday ? `Birthday: ${result.birthday}`: ''}`}
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
                     to pDivider={true}
