@@ -6,7 +6,6 @@ import {
   TouchableWithoutFeedback,
   StyleSheet
 } from 'react-native';
-import { Ionicons, Feather } from '@expo/vector-icons';
 import React from 'react';
 import { sendEvent } from '../helpers/createEvent';
 import constants from '../helpers/constants'
@@ -24,7 +23,7 @@ export default (headerConfig = (title, navigation, email) => {
       Platform.OS === 'ios' ? (
         <TouchableWithoutFeedback
           onPress={() => {
-            navigation.navigate('BestPractices');
+            navigation.navigate('FamilyConnections');
             sendEvent(email, 'click', 'logo');
           }}
         >
@@ -68,7 +67,7 @@ export default (headerConfig = (title, navigation, email) => {
 });
 
 const styles = StyleSheet.create({
-  imageStyles: { width: 225, height: 90, marginHorizontal: 0 },
+  imageStyles: { width: 225, height: 90 },
   iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 }
 });
 
