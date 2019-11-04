@@ -7,9 +7,8 @@ import {
   StyleSheet,
   TouchableWithoutFeedback
 } from 'react-native';
-import logoImg from '../../assets/simple-logo.png';
-import { Ionicons } from '@expo/vector-icons'
-import constants from '../helpers/constants';
+import logoImg from '../../assets/logo.png';
+// import constants from '../helpers/constants';
 import { sendEvent } from '../helpers/createEvent';
 import { connect } from 'react-redux';
 
@@ -20,29 +19,29 @@ const HeaderTitle = ({ title, navigation, email }) => (
     {Platform.OS === 'android' ? (
       <TouchableWithoutFeedback
         onPress={() => {
-          navigation.navigate('BestPractices');
+          navigation.navigate('FamilyConnections');
           sendEvent(email, 'click', 'logo');
         }}
       >
         <Image
           source={logoImg}
-          style={{ width: 40, height: 40, marginHorizontal: 10 }}
+          style={{ width: 225, height: 90 }}
           resizeMode="contain"
         />
       </TouchableWithoutFeedback>
     ) : null}
-        <Text style={styles.text}>{title}</Text> 
+        {/* <Text style={styles.text}>{title}</Text>  */}
         
   </View>
 );
 
-const styles = StyleSheet.create({
-  text: {
-    color: 'white',
-    fontSize: 25,
-    fontFamily: constants.headerFont
-  }
-});
+// const styles = StyleSheet.create({
+//   text: {
+//     color: 'white',
+//     fontSize: 25,
+//     fontFamily: constants.headerFont
+//   }
+// });
 
 const mapStateToProps = state => {
   return { email: state.auth.user ? state.auth.user.email : null };
