@@ -105,7 +105,6 @@ function ConnectionsView(props) {
             {connectionData.address !== null && connectionData.address.formatted !== null ? <Text>{connectionData.address.formatted}</Text>
               : <Text>No address provided.</Text>}
           </View>
-
           <View style={{ 
             flexDirection: 'row', 
             justifyContent: 'space-evenly', 
