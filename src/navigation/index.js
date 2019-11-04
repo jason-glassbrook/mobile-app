@@ -114,12 +114,6 @@ const DrawerNavigator = createDrawerNavigator({
   'My Account': {
     screen: AccountNavigator,
   },
-  'People Search': {
-    screen: PeopleSearchNavigator,
-  },
-  'Family Connections': {
-    screen: FamilyConnectionsNavigator,
-  }
 },
 {
   drawerPosition: 'right',
@@ -136,7 +130,10 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'SEARCH',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-search" size={30} color={tintColor} />
+          <Ionicons 
+            name="md-search" 
+            size={36} 
+            color={tintColor} />
         )
       },
     },
@@ -145,7 +142,10 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'CONNECTIONS',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-people" size={30} color={tintColor} />
+          <Ionicons 
+            name="md-people" 
+            size={36} 
+            color={tintColor} />
         )
       },
     },
@@ -156,7 +156,7 @@ const BottomNavigator = createBottomTabNavigator(
         tabBarIcon: ({ tintColor }) => (
           <Ionicons 
             name="ios-menu" 
-            size={30} 
+            size={36} 
             color={tintColor} 
           />
         ),
@@ -167,12 +167,14 @@ const BottomNavigator = createBottomTabNavigator(
   {
     initialRouteName: 'FamilyConnections',
     tabBarOptions: {
-      inactiveTintColor: 'white',
-      activeTintColor: 'black',
+      inactiveTintColor: '#FFFFFF',
+      activeTintColor: '#212529',
       style: {
         backgroundColor: constants.highlightColor,
-        height: 53,
-        padding: 3,
+        height: 55,
+        paddingTop: 3,
+        paddingBottom: 3,
+        justifyContent: 'space-between',
         width: '100%',
       }
     }
