@@ -123,25 +123,18 @@ const DrawerNavigator = createDrawerNavigator({
 },
 {
   drawerPosition: 'right',
-  // drawerType: 'slide',
+  drawerType: 'front',
+  drawerWidth: 225,
+  hideStatusBar: true,
   contentOptions: { activeTintColor: constants.highlightColor }
 })
 
 const BottomNavigator = createBottomTabNavigator(
   {
-    // Home: {
-    //   screen: BestPracticeNavigator,
-    //   navigationOptions: {
-    //     tabBarLabel: 'Home',
-    //     tabBarIcon: ({ tintColor }) => (
-    //       <Ionicons name="md-home" size={30} color={tintColor} />
-    //     )
-    //   },
-    // },
     PeopleSearchNavigator: {
       screen: PeopleSearchNavigator,
       navigationOptions: {
-        tabBarLabel: 'People Search',
+        tabBarLabel: 'SEARCH',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons name="md-search" size={30} color={tintColor} />
         )
@@ -150,7 +143,7 @@ const BottomNavigator = createBottomTabNavigator(
     FamilyConnections: {
       screen: FamilyConnectionsNavigator,
       navigationOptions: {
-        tabBarLabel: 'Connections',
+        tabBarLabel: 'CONNECTIONS',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons name="md-people" size={30} color={tintColor} />
         )
@@ -159,7 +152,7 @@ const BottomNavigator = createBottomTabNavigator(
     MoreNavigator: {
       screen: DrawerNavigator,
       navigationOptions: {
-        tabBarLabel: 'More',
+        tabBarLabel: 'MORE',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons 
             name="ios-menu" 
@@ -167,10 +160,12 @@ const BottomNavigator = createBottomTabNavigator(
             color={tintColor} 
           />
         ),
+        tabBarOnPress: (props) => props.navigation.toggleDrawer()
       },
     },
   },
   {
+    initialRouteName: 'FamilyConnections',
     tabBarOptions: {
       inactiveTintColor: 'white',
       activeTintColor: 'black',

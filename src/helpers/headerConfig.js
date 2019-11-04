@@ -1,5 +1,5 @@
 import HeaderTitle from './../components/HeaderTitle';
-import logoImg from '../../assets/simple-logo.png';
+import logoImg from '../../assets/logo.png';
 import {
   Image,
   Platform,
@@ -15,9 +15,9 @@ export default (headerConfig = (title, navigation, email) => {
 
 
   return {
-    headerTitle: <HeaderTitle title={title} navigation={navigation} />,
+    // headerTitle: <HeaderTitle title={title} navigation={navigation} />,
     headerStyle: {
-      backgroundColor: constants.highlightColor,
+      backgroundColor: 'white',
       height: 52
     },
     headerLeft:
@@ -35,40 +35,40 @@ export default (headerConfig = (title, navigation, email) => {
           />
         </TouchableWithoutFeedback>
       ) : null,
-    headerRight: 
-    (navigation.state.routeName !== 'MyAccount') ?
-    (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          navigation.navigate('MyAccount')
-        }}
-      >
-      <Ionicons 
-        name="ios-menu" 
-        size={32} color='white' 
-        style={{ width: 32, height: 32, marginHorizontal: 10 }}
-        resizeMode="contain"
-      />
-      </TouchableWithoutFeedback>
-    ) : (
-      <TouchableWithoutFeedback
-        onPress={() => {
-          navigation.goBack()
-        }}
-      >
-      <Feather 
-        name="x" 
-        size={32} color='white' 
-        style={{ width: 32, height: 32, marginHorizontal: 10 }}
-        resizeMode="contain"
-      />
-      </TouchableWithoutFeedback>
-    )
+    // headerRight: 
+    // (navigation.state.routeName !== 'MyAccount') ?
+    // (
+    //   <TouchableWithoutFeedback
+    //     onPress={() => {
+    //       navigation.navigate('MyAccount')
+    //     }}
+    //   >
+    //   <Ionicons 
+    //     name="ios-menu" 
+    //     size={32} color='white' 
+    //     style={{ width: 32, height: 32, marginHorizontal: 10 }}
+    //     resizeMode="contain"
+    //   />
+    //   </TouchableWithoutFeedback>
+    // ) : (
+    //   <TouchableWithoutFeedback
+    //     onPress={() => {
+    //       navigation.goBack()
+    //     }}
+    //   >
+    //   <Feather 
+    //     name="x" 
+    //     size={32} color='white' 
+    //     style={{ width: 32, height: 32, marginHorizontal: 10 }}
+    //     resizeMode="contain"
+    //   />
+    //   </TouchableWithoutFeedback>
+    // )
   };
 });
 
 const styles = StyleSheet.create({
-  imageStyles: { width: 40, height: 40, marginHorizontal: 20 },
+  imageStyles: { width: 225, height: 90, marginHorizontal: 0 },
   iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 }
 });
 
