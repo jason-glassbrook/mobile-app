@@ -14,7 +14,7 @@ const initialState = {
 export const getUserCasesReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_USER_CASES_START:
-            console.log('hey yo, this is starting!', state.isLoading)
+            // console.log('hey yo, this is starting!', state.isLoading)
             return {
                 ...state,
                 isLoading: true,
@@ -22,7 +22,7 @@ export const getUserCasesReducer = (state = initialState, action) => {
             };
 
         case GET_USER_CASES_SUCCESS:
-            console.log("user cases payload", action.payload, 'this state is loading', state.isLoading);
+            // console.log("user cases payload", action.payload, 'this state is loading', state.isLoading);
             return {
                 ...state,
                 isLoading: false,

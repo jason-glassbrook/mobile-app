@@ -526,15 +526,15 @@ class FamilyConnectionsScreen extends Component {
                       
                     }}
                     // Case badges for document value/count
-                    badge={{
-                      value: result.count_documents,
-                      textStyle: {
-                        fontSize: 14,
-                        color: "white",
-                        backgroundColor: constants.highlightColor
-                      },
-                      containerStyle: { marginTop: -10 }
-                    }}
+                    // badge={{
+                    //   value: result.count_documents,
+                    //   textStyle: {
+                    //     fontSize: 14,
+                    //     color: "white",
+                    //     backgroundColor: constants.highlightColor
+                    //   },
+                    //   containerStyle: { marginTop: -10 }
+                    // }}
                   />
                 ))
               )}

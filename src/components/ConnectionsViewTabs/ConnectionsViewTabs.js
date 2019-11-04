@@ -16,6 +16,7 @@ import {
   Linking,
 } from 'react-native';
 import { ListItem, Button } from "react-native-elements";
+import { AntDesign } from '@expo/vector-icons';
 
 export const Engagement = (props) => {
 
@@ -36,15 +37,15 @@ export const Engagement = (props) => {
   }
 
   return (
-    <View>
-      
+    <View >
+
       <ListItem
         title={props.engagement.created_by.full_name + ' - ' + getDataType()}
         titleStyle={{ color: "#5A6064" }}
         leftAvatar={{ source: { uri: props.engagement.created_by.picture } }}
         to pDivider={true}
         subtitle={props.engagement.data.note}
-       
+
       />
     </View>
   )
@@ -56,14 +57,14 @@ export const Documents = (props) => {
   return (
     <View>
       {/* <ion-icon name="document"></ion-icon> */}
-          <ListItem
+
+      <ListItem
         title={props.document.original_file_name}
         titleStyle={{ color: "#5A6064" }}
         // leftAvatar={{ source: { uri: props.engagement.created_by.picture } }}
         to pDivider={true}
         onPress={() => Linking.openURL(props.document.attachment)}
-        subtitle={props.document.created_by.full_name + ' - ' + props.document.created_at.substring(0,11)}
-       
+        subtitle={props.document.created_by.full_name + ' - ' + props.document.created_at.substring(0, 10)}
       />
       {/* <Button title='log document' onPress={() => console.log('****************', props.document)} /> */}
     </View>

@@ -23,7 +23,7 @@ export const getEngagements = (id) => dispatch => {
                     }
                 })
                 .then(res => {
-                    console.log('GET ENGAGEMENTS RESPONSE', res.data.results);
+                    // console.log('GET ENGAGEMENTS RESPONSE', res.data.results);
                     dispatch({
                         type: GET_ENGAGEMENTS_SUCCESS,
                         payload: res.data.results
@@ -56,7 +56,7 @@ export const getDocuments = (id) => dispatch => {
                     }
                 })
                 .then(res => {
-                    console.log('res getDocs', res.data.results);
+                    // console.log('res getDocs', res.data.results);
                     dispatch({
                         type: GET_DOCUMENTS_SUCCESS,
                         payload: res.data.results

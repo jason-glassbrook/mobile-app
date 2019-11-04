@@ -88,8 +88,33 @@ export function CaseViewScreen(props) {
 
   }
 
+  const leftArrow = '\u2190';
+
   return (
     <View style={{ height: '100%' }}>
+      <TouchableHighlight
+        underlayColor="lightgray"
+        style={{ marginTop: 40 }}
+        onPress={() => {
+          props.clearCaseData();
+          props.clearCaseConnections();
+          props.setCaseVisible();
+        }}
+      >
+        <Text
+          style={{
+            marginLeft: 5,
+            fontSize: 17
+          //   padding: 10,
+          //   borderRadius: 4,
+          //   borderWidth: 1,
+          //   borderColor: `${constants.highlightColor}`,
+          //   color: `${constants.highlightColor}`
+          }}
+        >
+          {leftArrow} All Cases
+        </Text>
+      </TouchableHighlight>
       <View
         style={{
           justifyContent: "center",
@@ -103,7 +128,7 @@ export function CaseViewScreen(props) {
               style={{
                 flexDirection: "row",
                 justifyContent: "space-between",
-                marginTop: 55,
+                marginTop: 15,
                 width: "85%"
               }}
             >
@@ -121,12 +146,9 @@ export function CaseViewScreen(props) {
               </View>
               <View style={{ maxWidth: "60%" }}>
                 <Text style={{ padding: 5 }}>Gender: {caseData.gender}</Text>
-                <Text style={{ padding: 5 }}>
-                  Date of Birth: {caseData.birthday}
-                </Text>
-                <Text style={{ padding: 5 }}>
-                  Residence:{" "}
-                  {caseData.address && caseData.address.formatted
+                <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text>
+                <Text style={{ padding: 5 }}>Residence:{" "}
+                {caseData.address && caseData.address.formatted
                     ? caseData.address.formatted
                     : "No address provided."}
                 </Text>
@@ -176,8 +198,8 @@ export function CaseViewScreen(props) {
               return (
                 <CaseListComponent
                   pressed={() => {
-                    console.log('Please Work!********************************************')
-                    console.log(connection)
+                    // console.log('**************connection****************')
+                    // console.log(connection)
                     setConnectionSelected({
                       connectionOpen: true,
                       connectionData: connection
@@ -197,6 +219,7 @@ export function CaseViewScreen(props) {
         >
           <ConnectionsView
             connectionData={connectionSelected}
+            childName={caseData.full_name}
             closeCase={() => {
               setConnectionSelected({ connectionOpen: false, connectionData: {} });
             }}
@@ -221,28 +244,7 @@ export function CaseViewScreen(props) {
       </View>
 
 
-      <TouchableHighlight
-        underlayColor="lightgray"
-        style={{ alignItems: "center" }}
-        onPress={() => {
-          props.clearCaseData();
-          props.clearCaseConnections();
-          props.setCaseVisible();
-        }}
-      >
-        <Text
-          style={{
-            marginVertical: 30,
-            padding: 10,
-            borderRadius: 4,
-            borderWidth: 1,
-            borderColor: `${constants.highlightColor}`,
-            color: `${constants.highlightColor}`
-          }}
-        >
-          Close Case
-        </Text>
-      </TouchableHighlight>
+      
     </View>
   );
 }

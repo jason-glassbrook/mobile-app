@@ -21,11 +21,14 @@ import {
   clearEngagements
 } from "../store/actions/connectionData";
 // import { Engagement, Documents } from '../CaseViewTabs'
-import { Ionicons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import {
+  Ionicons, AntDesign, MaterialCommunityIcons, Feather,
+  MaterialIcons
+} from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
 
 function ConnectionsView(props) {
-  
+
   const connectionData = props.connectionData.connectionData.person
   const [tabs, setTabs] = useState({
     engagement: true,
@@ -63,95 +66,110 @@ function ConnectionsView(props) {
     },
 
     iconStyles: {
-      fontSize: 32, 
-      color: constants.highlightColor, 
-      width: 32, 
-      height: 32, 
+      fontSize: 32,
+      color: constants.highlightColor,
+      width: 32,
+      height: 32,
       marginHorizontal: 10
     }
   })
 
+  const leftArrow = '\u2190';
+
   return (
-    <View>
+    <View style={{maxHeight: '100%'}}>
+      <TouchableHighlight
+        underlayColor="lightgray"
+        style={{ marginTop: 40, marginLeft: 5 }}
+        onPress={() => {
+          props.closeCase()
+        }}
+      >
+        <Text style={{ fontSize: 17 }}>{leftArrow} {props.childName}</Text>
+
+      </TouchableHighlight>
       <View
         style={{
           justifyContent: "center",
-          alignItems: "center"
+          alignItems: "center",
         }}
       >
-        <View 
+
+        <View
           style={{
             flexDirection: "column",
             justifyContent: "center",
-            marginTop: 55,
-            width: "85%"
+            marginTop: 20,
+            width: "85%",
           }}
         >
+
+
           <View>
-            <View>
-              <Text style={{fontSize: 20}}>{connectionData.full_name}</Text>
+            {/* <View style={{
+              flexDirection: "row",
+              // justifyContent: "space-between",
+              // width: "85%"
+            }}>
+              <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
               <ListItem
                 leftAvatar={{
                   source: {
                     uri:
-                    connectionData.picture ||
+                      connectionData.picture ||
                       "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
                   }
                 }}
               >{}</ListItem>
+              <View style={{ maxWidth: "60%" }}>
+                {connectionData.Email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
+                <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text>
+                <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text>
+              </View>
+            </View> */}
+
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 15,
+                width: "85%"
+              }}
+            >
+              <View>
+                <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
+                <ListItem
+                  leftAvatar={{
+                    source: {
+                      uri:
+                        connectionData.picture ||
+                        "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+                    }
+                  }}
+                />
+              </View>
+              <View style={{ maxWidth: "60%" }}>
+                {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
+                {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
+                {connectionData.address ? <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text> : null}
+              </View>
             </View>
-            
-            <Text>{connectionData.telephone}</Text>
-            {connectionData.address !== null && connectionData.address.formatted !== null ? <Text>{connectionData.address.formatted}</Text>
-              : <Text>No address provided.</Text>}
-          </View>
-          <View style={{ 
-            flexDirection: 'row', 
-            justifyContent: 'space-evenly', 
-            alignItems: 'center'}}
-          >
-            <TouchableWithoutFeedback
-              onPress={() => {
-                navigation.navigate('MyAccount')
-              }}
-            >
-              <Ionicons 
-                name='md-mail' 
-                style={styles.iconStyles}
-              />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                navigation.navigate('MyAccount')
-              }}
-            >
-              <AntDesign
-                name='file1'
-                style={styles.iconStyles}
-              />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                navigation.navigate('MyAccount')
-              }}
-            >
-              <MaterialCommunityIcons
-                name='clock'
-                style={styles.iconStyles}
-              />
-            </TouchableWithoutFeedback>
+
           </View>
         </View>
       </View>
-
-      <Divider
-        style={{
-          height: 1,
-          backgroundColor: "lightgrey",
-          width: "85%",
-          marginTop: 15
-        }}
-      />
+      <View style={{ alignItems: 'center' }}>
+        <Divider
+          style={{
+            height: 1,
+            backgroundColor: "lightgrey",
+            width: "85%",
+            margin: 'auto',
+            marginTop: 15,
+          }}
+        />
+      </View>
 
       <View style={styles.tabs}>
         <Text
@@ -177,55 +195,145 @@ function ConnectionsView(props) {
           Documents
         </Text>
       </View>
-      <ScrollView>
+      <View style={{ alignItems: 'center' }}>
+        <Divider
+          style={{
+            height: 1,
+            backgroundColor: "lightgrey",
+            width: "85%",
+            margin: 'auto',
+
+          }}
+        />
+      </View>
+
       {
         tabs.engagement ?
           <View>
-            {
-              props.engagements.map((engagement) => {
-                return (
-                  <Engagement key={engagement.pk} engagement={engagement} />)
-              })}
-            </View>: null
-  
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              margin: 5
+            }}
+            >
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+
+                <Ionicons
+                  name='ios-document'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <AntDesign
+                  name='file1'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <Feather
+                  name='phone'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <MaterialIcons
+                  name='email'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+
+
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <MaterialCommunityIcons
+                  name='clock'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+
+
+            <ScrollView style={{ maxHeight: '80%' }}>
+              <View>
+                {
+                  props.engagements.map((engagement) => {
+                    return (
+                      <Engagement key={engagement.pk} engagement={engagement} />)
+                  })}
+
+              </View>
+            </ScrollView>
+            <View style={{ alignItems: 'center' }}>
+              <Divider
+                style={{
+                  height: 1,
+                  backgroundColor: "lightgrey",
+                  width: "85%",
+                  margin: 'auto',
+
+                }}
+              />
+            </View>
+          </View>
+          : null
+
       }
-      </ScrollView>
 
-
-
-      <ScrollView>
       {
         tabs.docs ?
           <View>
-            {
-              props.documents.map((document) => {
-                return (
-                  <Documents key={document.pk} document={document} />)
-              })}
-             
-            </View>: null
-  
+            <ScrollView style={{ maxHeight: '100%' }}>
+              <View>
+                {
+                  props.documents.map((document) => {
+                    return (
+                      <Documents key={document.pk} document={document} />)
+                  })}
+
+              </View>
+            </ScrollView>
+            <View style={{ alignItems: 'center' }}>
+              <Divider
+                style={{
+                  height: 1,
+                  backgroundColor: "lightgrey",
+                  width: "85%",
+                  margin: 'auto',
+
+                }}
+              />
+            </View>
+          </View> : null
+
       }
-      </ScrollView>
 
 
 
-      {/* {
-        tabs.docs ? <Text>docs tab</Text> : null
-      } */}
 
 
 
-      <TouchableHighlight
-        underlayColor="lightgray"
-        style={{ alignItems: "center" }}
-        onPress={() => {
-          props.closeCase()
-        }}
-      >
-        <Text>This Is The Back Button</Text>
-
-      </TouchableHighlight>
     </View>
   );
 }
