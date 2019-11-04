@@ -56,7 +56,7 @@ export const connectionReducer = (state = initialState, action) => {
             };
 
         case GET_DOCUMENTS_SUCCESS:
-            console.log("getDocs payload", action.payload);
+            // console.log("getDocs payload", action.payload);
             return {
                 ...state,
                 isLoadingDocuments: false,

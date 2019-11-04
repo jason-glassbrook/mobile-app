@@ -3,10 +3,15 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableWithoutFeedback,
   StyleSheet,
   ScrollView,
   Button
 } from 'react-native';
+import {
+  Divider,
+  ListItem
+} from 'react-native-elements';
 import constants from "../helpers/constants";
 import { connect } from "react-redux";
 import {
@@ -16,37 +21,23 @@ import {
   clearEngagements
 } from "../store/actions/connectionData";
 // import { Engagement, Documents } from '../CaseViewTabs'
-import { Ionicons } from '@expo/vector-icons';
+import {
+  Ionicons, AntDesign, MaterialCommunityIcons, Feather,
+  MaterialIcons
+} from '@expo/vector-icons';
+import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
 
 function ConnectionsView(props) {
-  console.log('PROPS.CONNECTIONDATA', props.connectionData)
+
+  const connectionData = props.connectionData.connectionData.person
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false
   })
-
+  // Can we do this in ONE useEffect?
   useEffect(() => {
-    props.getEngagements(93)
-    // console.log('ENGAGEMENTS****', props.engagements)
-    // .then((res) => {
-    //   console.log('getEngagements************************************************')
-    //   console.log(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
-  }, [false])
-
-  useEffect(() => {
-    props.getDocuments(93)
-    // console.log('documents*******', props.documents)
-    // .then((res) => {
-    //   console.log('getDocs*************************************************')
-    //   console.log(res.data)
-    // })
-    // .catch((err) => {
-    //   console.log(err)
-    // })
+    props.getEngagements(props.connectionData.connectionData.person.pk)
+    props.getDocuments(props.connectionData.connectionData.person.pk)
   }, [false])
 
   const styles = StyleSheet.create({
@@ -72,12 +63,114 @@ function ConnectionsView(props) {
       fontSize: 16,
       textAlign: 'center',
       paddingTop: 8
+    },
+
+    iconStyles: {
+      fontSize: 32,
+      color: constants.highlightColor,
+      width: 32,
+      height: 32,
+      marginHorizontal: 10
     }
   })
 
+  const leftArrow = '\u2190';
+
   return (
-    <View>
-      <Text style={{ margin: 50 }}>Connection  Screen</Text>
+    <View style={{maxHeight: '100%'}}>
+      <TouchableHighlight
+        underlayColor="lightgray"
+        style={{ marginTop: 40, marginLeft: 5 }}
+        onPress={() => {
+          props.closeCase()
+        }}
+      >
+        <Text style={{ fontSize: 17 }}>{leftArrow} {props.childName}</Text>
+
+      </TouchableHighlight>
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+
+        <View
+          style={{
+            flexDirection: "column",
+            justifyContent: "center",
+            marginTop: 20,
+            width: "85%",
+          }}
+        >
+
+
+          <View>
+            {/* <View style={{
+              flexDirection: "row",
+              // justifyContent: "space-between",
+              // width: "85%"
+            }}>
+              <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
+              <ListItem
+                leftAvatar={{
+                  source: {
+                    uri:
+                      connectionData.picture ||
+                      "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+                  }
+                }}
+              >{}</ListItem>
+              <View style={{ maxWidth: "60%" }}>
+                {connectionData.Email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
+                <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text>
+                <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text>
+              </View>
+            </View> */}
+
+
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginTop: 15,
+                width: "85%"
+              }}
+            >
+              <View>
+                <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
+                <ListItem
+                  leftAvatar={{
+                    source: {
+                      uri:
+                        connectionData.picture ||
+                        "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+                    }
+                  }}
+                />
+              </View>
+              <View style={{ maxWidth: "60%" }}>
+                {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
+                {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
+                {connectionData.address ? <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text> : null}
+              </View>
+            </View>
+
+          </View>
+        </View>
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <Divider
+          style={{
+            height: 1,
+            backgroundColor: "lightgrey",
+            width: "85%",
+            margin: 'auto',
+            marginTop: 15,
+          }}
+        />
+      </View>
+
       <View style={styles.tabs}>
         <Text
           style={[styles.tab, tabs.engagement ? styles.selected : null]}
@@ -88,7 +181,7 @@ function ConnectionsView(props) {
             });
           }}
         >
-          Engagement
+          Engagements
         </Text>
         <Text
           style={[styles.tab, tabs.docs ? styles.selected : null]}
@@ -99,46 +192,148 @@ function ConnectionsView(props) {
             });
           }}
         >
-          Docs
+          Documents
         </Text>
       </View>
-      {/* {
-        tabs.engagement ? <Engagement connectionData={props.connectionData} /> : null
-      }
-      {
-        tabs.docs ? <Documents connectionData={props.connectionData} /> : null
-      } */}
+      <View style={{ alignItems: 'center' }}>
+        <Divider
+          style={{
+            height: 1,
+            backgroundColor: "lightgrey",
+            width: "85%",
+            margin: 'auto',
+
+          }}
+        />
+      </View>
 
       {
-        tabs.engagement ? <Text>engagements tab</Text> : null
-      }
-      {
-        tabs.docs ? <Text>docs tab</Text> : null
-      }
-      <Button title='log' onPress={() => {
-        console.log('**********************************************************')
-        console.log('props.engagement', props.engagements)
-      }} />
+        tabs.engagement ?
+          <View>
+            <View style={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              margin: 5
+            }}
+            >
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
 
-      <TouchableHighlight
-        underlayColor="lightgray"
-        style={{ alignItems: "center" }}
-        onPress={() => {
-          props.closeCase()
-        }}
-      >
-        <Text>This Is The Back Button</Text>
-              
-      </TouchableHighlight>
-      {
-        props.engagements? 
-          props.engagements.map((engagement) => {
-            // console.log(props.engagement)
-            return (
-              <Text key={engagement.pk} >{engagement.action_name}</Text>
-            )
-          }) : console.log('props.engagement = undefined', props.engagements)
+                <Ionicons
+                  name='ios-document'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <AntDesign
+                  name='file1'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <Feather
+                  name='phone'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <MaterialIcons
+                  name='email'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+
+
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  navigation.navigate('MyAccount')
+                }}
+              >
+                <MaterialCommunityIcons
+                  name='clock'
+                  style={styles.iconStyles}
+                />
+              </TouchableWithoutFeedback>
+            </View>
+
+
+            <ScrollView style={{ maxHeight: '80%' }}>
+              <View>
+                {
+                  props.engagements.map((engagement) => {
+                    return (
+                      <Engagement key={engagement.pk} engagement={engagement} />)
+                  })}
+
+              </View>
+            </ScrollView>
+            <View style={{ alignItems: 'center' }}>
+              <Divider
+                style={{
+                  height: 1,
+                  backgroundColor: "lightgrey",
+                  width: "85%",
+                  margin: 'auto',
+
+                }}
+              />
+            </View>
+          </View>
+          : null
+
       }
+
+      {
+        tabs.docs ?
+          <View>
+            <ScrollView style={{ maxHeight: '100%' }}>
+              <View>
+                {
+                  props.documents.map((document) => {
+                    return (
+                      <Documents key={document.pk} document={document} />)
+                  })}
+
+              </View>
+            </ScrollView>
+            <View style={{ alignItems: 'center' }}>
+              <Divider
+                style={{
+                  height: 1,
+                  backgroundColor: "lightgrey",
+                  width: "85%",
+                  margin: 'auto',
+
+                }}
+              />
+            </View>
+          </View> : null
+
+      }
+
+
+
+
+
+
     </View>
   );
 }

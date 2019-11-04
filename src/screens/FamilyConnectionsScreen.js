@@ -513,10 +513,10 @@ class FamilyConnectionsScreen extends Component {
                     title={result.full_name}
                     titleStyle={{ color: "#5A6064" }}
                     subtitle={`${
-                      result.gender && result.birthday && (!null || "")
-                        ? `Gender: ${result.gender} , ${result.birthday}`
-                        : "unspecified"
-                      }`}
+                      result.gender ?
+                         `Gender: ${result.gender}`
+                        : "Gender: unspecified"
+                      } ${result.birthday ? `Birthday: ${result.birthday}`: ''}`}
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
                     to pDivider={true}
@@ -526,15 +526,15 @@ class FamilyConnectionsScreen extends Component {
                       
                     }}
                     // Case badges for document value/count
-                    badge={{
-                      value: result.count_documents,
-                      textStyle: {
-                        fontSize: 14,
-                        color: "white",
-                        backgroundColor: constants.highlightColor
-                      },
-                      containerStyle: { marginTop: -10 }
-                    }}
+                    // badge={{
+                    //   value: result.count_documents,
+                    //   textStyle: {
+                    //     fontSize: 14,
+                    //     color: "white",
+                    //     backgroundColor: constants.highlightColor
+                    //   },
+                    //   containerStyle: { marginTop: -10 }
+                    // }}
                   />
                 ))
               )}
