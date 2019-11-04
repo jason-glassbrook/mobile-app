@@ -3,7 +3,7 @@ import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
-// import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createDrawerNavigator, DrawerActions } from 'react-navigation-drawer';
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import {
   createStackNavigator,
@@ -29,16 +29,6 @@ const BestPracticeNavigator = createStackNavigator(
           backgroundColor: constants.highlightColor
         }
       }
-    },
-    MyAccount: {
-      screen: AuthenticationView,
-      initialRouteName: 'MyAccount',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor,
-        }
-      },
     },
   }
 );
@@ -75,16 +65,6 @@ const FamilyConnectionsNavigator = createStackNavigator(
         }
       }
     },
-    MyAccount: {
-      screen: AuthenticationView,
-      initialRouteName: 'MyAccount',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor,
-        }
-      },
-    },
   },
   
 );
@@ -111,47 +91,83 @@ const PeopleSearchNavigator = createStackNavigator(
         }
       }
     },
-    MyAccount: {
-      screen: AuthenticationView,
-      initialRouteName: 'MyAccount',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor,
-        }
-      },
-    },
   },
 );
 
+const AccountNavigator = createStackNavigator({
+  MyAccount: {
+    screen: AuthenticationView,
+    initialRouteName: 'MyAccount',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+  },
+})
+
+const DrawerNavigator = createDrawerNavigator({
+  'Best Practices': {
+    screen: BestPracticeNavigator,
+  },
+  'My Account': {
+    screen: AccountNavigator,
+  },
+  'People Search': {
+    screen: PeopleSearchNavigator,
+  },
+  'Family Connections': {
+    screen: FamilyConnectionsNavigator,
+  }
+},
+{
+  drawerPosition: 'right',
+  // drawerType: 'slide',
+  contentOptions: { activeTintColor: constants.highlightColor }
+})
+
 const BottomNavigator = createBottomTabNavigator(
   {
-    Home: {
-      screen: BestPracticeNavigator,
+    // Home: {
+    //   screen: BestPracticeNavigator,
+    //   navigationOptions: {
+    //     tabBarLabel: 'Home',
+    //     tabBarIcon: ({ tintColor }) => (
+    //       <Ionicons name="md-home" size={30} color={tintColor} />
+    //     )
+    //   },
+    // },
+    PeopleSearchNavigator: {
+      screen: PeopleSearchNavigator,
       navigationOptions: {
-        tabBarLabel: 'Home',
+        tabBarLabel: 'People Search',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-home" size={30} color='white' />
+          <Ionicons name="md-search" size={30} color={tintColor} />
         )
-      }
+      },
     },
     FamilyConnections: {
       screen: FamilyConnectionsNavigator,
       navigationOptions: {
         tabBarLabel: 'Connections',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-people" size={30} color='white' />
+          <Ionicons name="md-people" size={30} color={tintColor} />
         )
-      }
+      },
     },
-    PeopleSearchNavigator: {
-      screen: PeopleSearchNavigator,
+    MoreNavigator: {
+      screen: DrawerNavigator,
       navigationOptions: {
-        tabBarLabel: 'People Search',
+        tabBarLabel: 'More',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons name="md-search" size={30} color='white' />
-        )
-      }
+          <Ionicons 
+            name="ios-menu" 
+            size={30} 
+            color={tintColor} 
+          />
+        ),
+      },
     },
   },
   {
@@ -162,7 +178,7 @@ const BottomNavigator = createBottomTabNavigator(
         backgroundColor: constants.highlightColor,
         height: 53,
         padding: 3,
-        width: '100%'
+        width: '100%',
       }
     }
   })
@@ -172,7 +188,7 @@ const AppBottomSwitchNavigator = createSwitchNavigator({
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
   Authentication: { screen: BottomNavigator },
-  // Authentication2: { screen: BottomNavigator },
+  More: { screen: DrawerNavigator },
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);

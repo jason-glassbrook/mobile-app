@@ -44,7 +44,7 @@ export default (headerConfig = (title, navigation, email) => {
         }}
       >
       <Ionicons 
-        name="ios-settings" 
+        name="ios-menu" 
         size={32} color='white' 
         style={{ width: 32, height: 32, marginHorizontal: 10 }}
         resizeMode="contain"
