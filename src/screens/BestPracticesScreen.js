@@ -61,25 +61,6 @@ class BestPracticesScreen extends Component {
               
 
             <Video uri={constants.bestPracticesURI}/>
-            
-            {/* <NavigationButton
-              titleText="People Search"
-              subTitleText="Find Contact Information for Anyone"
-              handlePress={() => this.props.navigation.navigate('PeopleSearch')}
-            />
-            <NavigationButton
-              titleText="Family Connections"
-              subTitleText="Family Trees for Permanency"
-              handlePress={() =>
-                this.props.navigation.navigate('FamilyConnections')
-              }
-            /> */}
-            {/* <NavigationButton
-              titleText="Resources"
-              subTitleText="Useful Materials and Information"
-              handlePress={() => Linking.openURL('https://connectourkids.org')}
-              style={{ marginBottom: 20 }}
-            /> */}
           </ScrollView>
         </SafeAreaView>
       </ScreenContainer>
