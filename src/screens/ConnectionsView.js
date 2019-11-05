@@ -28,16 +28,15 @@ import {
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
 
 function ConnectionsView(props) {
-
-  const connectionData = props.connectionData.connectionData.person
+  const connectionData = props.navigation.getParam('connectionData').person
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false
   })
   // Can we do this in ONE useEffect?
   useEffect(() => {
-    props.getEngagements(props.connectionData.connectionData.person.pk)
-    props.getDocuments(props.connectionData.connectionData.person.pk)
+    props.getEngagements(props.navigation.getParam('connectionData').person.pk)
+    props.getDocuments(props.navigation.getParam('connectionData').person.pk)
   }, [false])
 
   const styles = StyleSheet.create({
@@ -58,7 +57,7 @@ function ConnectionsView(props) {
     },
 
     tab: {
-      width: 120,
+      width: "42%",
       height: 40,
       fontSize: 16,
       textAlign: 'center',
@@ -74,18 +73,13 @@ function ConnectionsView(props) {
     }
   })
 
-  const leftArrow = '\u2190';
-
   return (
     <View style={{maxHeight: '100%'}}>
       <TouchableHighlight
         underlayColor="lightgray"
-        style={{ marginTop: 40, marginLeft: 5 }}
-        onPress={() => {
-          props.closeCase()
-        }}
+        style={{margin: 'auto', marginTop: 20, marginLeft: 10, marginRight: 10}}
       >
-        <Text style={{ fontSize: 17 }}>{leftArrow} {props.childName}</Text>
+        <Text style={{ fontSize: 17 }}>{props.navigation.getParam('childName')}</Text>
 
       </TouchableHighlight>
       <View
@@ -94,7 +88,6 @@ function ConnectionsView(props) {
           alignItems: "center",
         }}
       >
-
         <View
           style={{
             flexDirection: "column",
@@ -103,8 +96,6 @@ function ConnectionsView(props) {
             width: "85%",
           }}
         >
-
-
           <View>
             {/* <View style={{
               flexDirection: "row",
@@ -127,7 +118,6 @@ function ConnectionsView(props) {
                 <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text>
               </View>
             </View> */}
-
 
             <View
               style={{
@@ -152,10 +142,9 @@ function ConnectionsView(props) {
               <View style={{ maxWidth: "60%" }}>
                 {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
                 {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
-                {connectionData.address ? <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text> : null}
+                {connectionData.address && connectionData.address.formatted ? <Text style={{ padding: 5 }}>Residence: {connectionData.address.formatted}</Text> : null}
               </View>
             </View>
-
           </View>
         </View>
       </View>
@@ -328,11 +317,6 @@ function ConnectionsView(props) {
           </View> : null
 
       }
-
-
-
-
-
 
     </View>
   );
