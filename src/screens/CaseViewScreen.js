@@ -29,6 +29,8 @@ import CaseListComponent from "../components/CaseListComponent";
 import ConnectionsView from "./ConnectionsView";
 
 export function CaseViewScreen(props) {
+  // static navigationOptions = ({ navigation }) =>
+  // headerConfig("Connections", navigation);
 
   const [searchKeywords, setSearchKeywords] = useState('')
 
@@ -66,33 +68,28 @@ export function CaseViewScreen(props) {
   });
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
-  let SearchedConnections = props.caseConnections.filter(result => {
-    return result.person.full_name.indexOf(searchKeywords) != -1;
+  let SearchedConnections = props.caseConnections && props.caseConnections.filter(result => {
+    return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
   });
-
-
 
   // on load get case data and case connections through redux
   useEffect(() => {
-    props.getCaseData(props.pk);
-    props.getCaseConnections(props.pk);
+    props.getCaseData(props.navigation.getParam('pk'));
+    props.getCaseConnections(props.navigation.getParam('pk'));
   }, [false]);
-
 
   let caseData = props.caseData;
   // console.log(props.caseData);
 
   const handleKeywordChange = (e) => {
-
     setSearchKeywords(e)
-
   }
 
-  const leftArrow = '\u2190';
+  // const leftArrow = '\u2190';
 
   return (
     <View style={{ height: '100%' }}>
-      <TouchableHighlight
+      {/* <TouchableHighlight
         underlayColor="lightgray"
         style={{ marginTop: 40 }}
         onPress={() => {
@@ -114,7 +111,7 @@ export function CaseViewScreen(props) {
         >
           {leftArrow} All Cases
         </Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
       <View
         style={{
           justifyContent: "center",
@@ -159,9 +156,7 @@ export function CaseViewScreen(props) {
             </View>
           )}
 
-
         {/* search Functionality */}
-
         <View style={{ flexDirection: "columb" }}>
           <Text style={{ margin: 10, fontSize: 20 }}>Connections:</Text>
           <SearchBar
@@ -188,13 +183,11 @@ export function CaseViewScreen(props) {
         />
       </View>
 
-
       <ScrollView style={{ height: '55%' }}>
         {props.isLoadingConnections ? (
           <Loader />
         ) : (
-
-            SearchedConnections.map((connection, index) => {
+          SearchedConnections && SearchedConnections.map((connection, index) => {
               return (
                 <CaseListComponent
                   pressed={() => {
@@ -227,7 +220,6 @@ export function CaseViewScreen(props) {
 
         </Modal>
 
-
       </ScrollView>
 
       <View style={{
@@ -241,10 +233,7 @@ export function CaseViewScreen(props) {
             width: "85%",
           }}
         />
-      </View>
-
-
-      
+      </View>      
     </View>
   );
 }
