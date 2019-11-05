@@ -36,7 +36,7 @@ import {
 const CaseListComponent = (props) => {
 
     return (
-        <View>
+        <View style={{paddingLeft: 2, paddingRight: 2}}>
             {props.connection.person.status ?
             <View>
               

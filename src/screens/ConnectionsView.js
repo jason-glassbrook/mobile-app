@@ -79,7 +79,7 @@ function ConnectionsView(props) {
     <View style={{maxHeight: '100%'}}>
       <TouchableHighlight
         underlayColor="lightgray"
-        style={{margin: 'auto', marginTop: 20,}}
+        style={{margin: 'auto', marginTop: 20, marginLeft: 10, marginRight: 10}}
 
       >
         <Text style={{ fontSize: 17 }}>{props.navigation.getParam('childName')}</Text>
@@ -148,7 +148,7 @@ function ConnectionsView(props) {
               <View style={{ maxWidth: "60%" }}>
                 {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
                 {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
-                {connectionData.address ? <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text> : null}
+                {connectionData.address && connectionData.address.formatted ? <Text style={{ padding: 5 }}>Residence: {connectionData.address.formatted}</Text> : null}
               </View>
             </View>
 

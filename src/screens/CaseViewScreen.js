@@ -143,13 +143,13 @@ export function CaseViewScreen (props) {
               <View style={{ maxWidth: "60%" }}>
                 <Text style={{ padding: 5 }}>Gender: {caseData.gender}</Text>
                 <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text>
-                <Text style={{ padding: 5 }}>Residence:{" "}
+                <Text style={{ padding: 5 }}>Residence: {" "}
                 {caseData.address && caseData.address.formatted
                     ? caseData.address.formatted
                     : "No address provided."}
                 </Text>
                 <Text style={{ padding: 5 }}>
-                  Initiation:{caseData.foster_care}
+                  Initiation: {caseData.foster_care}
                 </Text>
               </View>
             </View>
@@ -161,10 +161,11 @@ export function CaseViewScreen (props) {
             flexDirection: "column",
             borderRadius: 4,
             borderWidth: 0.5,
-            borderColor: 'gray' 
+            borderColor: '#c4c4c4',
+            height: '74%',
           }}
         >
-          <Text style={{ margin: 10, fontSize: 20 }}>Connections:</Text>
+          <Text style={{ margin: 8, padding: 5, fontSize: 17.5 }}>Connections:</Text>
           <SearchBar
             placeholder="Search Name..."
             placeholderTextColor="black"
@@ -177,19 +178,7 @@ export function CaseViewScreen (props) {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-        </View>
-
-        <Divider
-          style={{
-            height: 1,
-            backgroundColor: "lightgrey",
-            width: "100%",
-            marginTop: 15
-          }}
-        />
-      </View>
-
-      <ScrollView style={{ height: '55%' }}>
+          <ScrollView style={{ height: '80%' }}>
         {props.isLoadingConnections ? (
           <Loader />
         ) : (
@@ -229,18 +218,31 @@ export function CaseViewScreen (props) {
         </Modal> */}
 
       </ScrollView>
+        </View>
+
+        {/* <Divider
+          style={{
+            height: 1,
+            backgroundColor: "lightgrey",
+            width: "100%",
+            marginTop: 15
+          }}
+        /> */}
+      </View>
+
+      
 
       <View style={{
         justifyContent: "center",
         alignItems: "center"
       }}>
-        <Divider
+        {/* <Divider
           style={{
             height: 1,
             backgroundColor: "lightgrey",
             width: "85%",
           }}
-        />
+        /> */}
       </View>      
     </View>
   );
