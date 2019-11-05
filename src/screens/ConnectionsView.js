@@ -57,7 +57,7 @@ function ConnectionsView(props) {
     },
 
     tab: {
-      width: 120,
+      width: "42%",
       height: 40,
       fontSize: 16,
       textAlign: 'center',
@@ -73,14 +73,11 @@ function ConnectionsView(props) {
     }
   })
 
-  // const leftArrow = '\u2190';
-
   return (
     <View style={{maxHeight: '100%'}}>
       <TouchableHighlight
         underlayColor="lightgray"
         style={{margin: 'auto', marginTop: 20, marginLeft: 10, marginRight: 10}}
-
       >
         <Text style={{ fontSize: 17 }}>{props.navigation.getParam('childName')}</Text>
 
@@ -91,7 +88,6 @@ function ConnectionsView(props) {
           alignItems: "center",
         }}
       >
-
         <View
           style={{
             flexDirection: "column",
@@ -100,7 +96,6 @@ function ConnectionsView(props) {
             width: "85%",
           }}
         >
-
           <View>
             {/* <View style={{
               flexDirection: "row",
@@ -123,7 +118,6 @@ function ConnectionsView(props) {
                 <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text>
               </View>
             </View> */}
-
 
             <View
               style={{
@@ -151,7 +145,6 @@ function ConnectionsView(props) {
                 {connectionData.address && connectionData.address.formatted ? <Text style={{ padding: 5 }}>Residence: {connectionData.address.formatted}</Text> : null}
               </View>
             </View>
-
           </View>
         </View>
       </View>
