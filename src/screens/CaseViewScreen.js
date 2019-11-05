@@ -26,11 +26,10 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
-import ConnectionsView from "./ConnectionsView";
+import ConnectionsView from "./ConnectionsView"; 
+import {NavigationActions} from 'react-navigation';
 
-export function CaseViewScreen(props) {
-  // static navigationOptions = ({ navigation }) =>
-  // headerConfig("Connections", navigation);
+export function CaseViewScreen (props) {
 
   const [searchKeywords, setSearchKeywords] = useState('')
 
@@ -62,7 +61,7 @@ export function CaseViewScreen(props) {
 
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-      width: Platform.OS === "ios" ? 285 : 320,
+      width: Platform.OS === "ios" ? '95%' : '95%',
       backgroundColor: Platform.OS === "ios" ? "white" : "white"
     },
   });
@@ -116,8 +115,8 @@ export function CaseViewScreen(props) {
         style={{
           justifyContent: "center",
           alignItems: "center"
-        }}
-      >
+    }}
+  >
         {props.isLoadingCaseData ? (
           <Loader />
         ) : (
@@ -155,9 +154,16 @@ export function CaseViewScreen(props) {
               </View>
             </View>
           )}
-
+          
         {/* search Functionality */}
-        <View style={{ flexDirection: "columb" }}>
+        <View 
+          style={{ 
+            flexDirection: "column",
+            borderRadius: 4,
+            borderWidth: 0.5,
+            borderColor: 'gray' 
+          }}
+        >
           <Text style={{ margin: 10, fontSize: 20 }}>Connections:</Text>
           <SearchBar
             placeholder="Search Name..."
@@ -177,7 +183,7 @@ export function CaseViewScreen(props) {
           style={{
             height: 1,
             backgroundColor: "lightgrey",
-            width: "85%",
+            width: "100%",
             marginTop: 15
           }}
         />
@@ -193,10 +199,12 @@ export function CaseViewScreen(props) {
                   pressed={() => {
                     // console.log('**************connection****************')
                     // console.log(connection)
-                    setConnectionSelected({
-                      connectionOpen: true,
-                      connectionData: connection
-                    })
+                    // setConnectionSelected(
+                    //   {
+                    //   connectionOpen: true,
+                    //   connectionData: connection
+                    // })
+                    props.navigation.navigate('ConnectionsView', {connectionData: connection , childName: caseData.full_name})
                   }}
                   key={index}
                   connection={connection} />
@@ -205,7 +213,7 @@ export function CaseViewScreen(props) {
           )}
 
         {/* CASE onPress MODAL */}
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={false}
           visible={connectionSelected.connectionOpen}
@@ -218,7 +226,7 @@ export function CaseViewScreen(props) {
             }}
           />
 
-        </Modal>
+        </Modal> */}
 
       </ScrollView>
 
@@ -237,6 +245,10 @@ export function CaseViewScreen(props) {
     </View>
   );
 }
+
+{/* // CaseViewScreen.navigationOptions = () => { */}
+{/* //   headerConfig("Connections", navigation);
+} */}
 
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;

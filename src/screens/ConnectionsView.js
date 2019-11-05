@@ -28,16 +28,15 @@ import {
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
 
 function ConnectionsView(props) {
-
-  const connectionData = props.connectionData.connectionData.person
+  const connectionData = props.navigation.getParam('connectionData').person
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false
   })
   // Can we do this in ONE useEffect?
   useEffect(() => {
-    props.getEngagements(props.connectionData.connectionData.person.pk)
-    props.getDocuments(props.connectionData.connectionData.person.pk)
+    props.getEngagements(props.navigation.getParam('connectionData').person.pk)
+    props.getDocuments(props.navigation.getParam('connectionData').person.pk)
   }, [false])
 
   const styles = StyleSheet.create({
@@ -74,18 +73,16 @@ function ConnectionsView(props) {
     }
   })
 
-  const leftArrow = '\u2190';
+  // const leftArrow = '\u2190';
 
   return (
     <View style={{maxHeight: '100%'}}>
       <TouchableHighlight
         underlayColor="lightgray"
-        style={{ marginTop: 40, marginLeft: 5 }}
-        onPress={() => {
-          props.closeCase()
-        }}
+        style={{margin: 'auto', marginTop: 20,}}
+
       >
-        <Text style={{ fontSize: 17 }}>{leftArrow} {props.childName}</Text>
+        <Text style={{ fontSize: 17 }}>{props.navigation.getParam('childName')}</Text>
 
       </TouchableHighlight>
       <View
@@ -103,7 +100,6 @@ function ConnectionsView(props) {
             width: "85%",
           }}
         >
-
 
           <View>
             {/* <View style={{
@@ -328,11 +324,6 @@ function ConnectionsView(props) {
           </View> : null
 
       }
-
-
-
-
-
 
     </View>
   );

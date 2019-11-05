@@ -66,7 +66,6 @@ const FamilyConnectionsNavigator = createStackNavigator(
       }
     },
   },
-  
 );
 
 const PeopleSearchNavigator = createStackNavigator(

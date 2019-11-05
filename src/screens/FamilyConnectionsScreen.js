@@ -521,9 +521,9 @@ class FamilyConnectionsScreen extends Component {
                     leftAvatar={{ source: { uri: result.picture } }}
                     to pDivider={true}
                     onPress={async () => {
-                      this.setState({pk : result.pk});
+                      // this.setState({pk : result.pk});
                       // this.setCaseVisible(true);
-                      this.props.navigation.navigate('CaseView', {pk: result.pk})
+                      this.props.navigation.navigate('CaseView', {pk: result.pk, caseData: result})
                       
                     }}
                     // Case badges for document value/count
@@ -594,7 +594,7 @@ const styles = StyleSheet.create({
   searchBar: {
     marginHorizontal: Platform.OS === "ios" ? 5 : 5,
     width: Platform.OS === "ios" ? 285 : 320,
-    backgroundColor: Platform.OS === "ios" ? "white" : "white"
+    backgroundColor: Platform.OS === "ios" ? "white" : "white",
   },
   // addCaseButton: {
   //   marginHorizontal: Platform.OS === "ios" ? 5 : 5,
@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
   filterButton: {
     width: Platform.OS === "ios" ? 70 : 70,
     marginVertical: Platform.OS === "ios" ? 20 : 20,
-    maxHeight: Platform.OS === "ios" ? 40 : 40
+    maxHeight: Platform.OS === "ios" ? 40 : 40,
   },
   isLoading: {
     textAlign: "center",

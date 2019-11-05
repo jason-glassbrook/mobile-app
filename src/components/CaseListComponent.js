@@ -35,8 +35,6 @@ import {
 
 const CaseListComponent = (props) => {
 
-
-
     return (
         <View>
             {props.connection.person.status ?
