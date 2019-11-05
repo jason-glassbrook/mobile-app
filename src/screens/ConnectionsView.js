@@ -26,6 +26,7 @@ import {
   MaterialIcons
 } from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
+import { AuthSession } from 'expo';
 
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
@@ -57,7 +58,7 @@ function ConnectionsView(props) {
     },
 
     tab: {
-      width: "42%",
+      width: "47%",
       height: 40,
       fontSize: 16,
       textAlign: 'center',
@@ -74,26 +75,26 @@ function ConnectionsView(props) {
   })
 
   return (
-    <View style={{maxHeight: '100%'}}>
-      <TouchableHighlight
-        underlayColor="lightgray"
-        style={{margin: 'auto', marginTop: 20, marginLeft: 10, marginRight: 10}}
-      >
-        <Text style={{ fontSize: 17 }}>{props.navigation.getParam('childName')}</Text>
-
-      </TouchableHighlight>
+    <View style={{ maxHeight: '100%'}}>
+      <View style={{width: '100%', justifyContent: 'space-around'}}>
+        <Text style={{ fontSize: 16, textAlign: 'center', paddingTop: 3}}>Case: {props.navigation.getParam('childName')}</Text>
+      </View>
       <View
         style={{
           justifyContent: "center",
           alignItems: "center",
+          // borderColor: 'yellow',
+          // borderWidth: 1
         }}
       >
         <View
           style={{
             flexDirection: "column",
             justifyContent: "center",
-            marginTop: 20,
+            marginTop: 5,
             width: "85%",
+            // borderColor: 'green',
+            // borderWidth: 1
           }}
         >
           <View>
@@ -124,7 +125,9 @@ function ConnectionsView(props) {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 marginTop: 15,
-                width: "85%"
+                width: "85%",
+                // borderColor: 'blue',
+                // borderWidth: 1
               }}
             >
               <View>
@@ -148,18 +151,24 @@ function ConnectionsView(props) {
           </View>
         </View>
       </View>
-      <View style={{ alignItems: 'center' }}>
-        <Divider
-          style={{
-            height: 1,
-            backgroundColor: "lightgrey",
-            width: "85%",
-            margin: 'auto',
-            marginTop: 15,
-          }}
-        />
+      <View
+        style={{
+          width: "95%",
+          alignItems: 'center',
+        }}
+      >
       </View>
-
+      <View 
+        style={{
+          borderRadius: 4,
+          borderColor: '#c4c4c4',
+          borderWidth: 0.5,
+          width: '95%',
+          marginLeft: '2%',
+          alignItems: 'center',
+          alignContent: "center"
+        }}
+      >
       <View style={styles.tabs}>
         <Text
           style={[styles.tab, tabs.engagement ? styles.selected : null]}
@@ -184,34 +193,37 @@ function ConnectionsView(props) {
           Documents
         </Text>
       </View>
-      <View style={{ alignItems: 'center' }}>
-        <Divider
-          style={{
-            height: 1,
-            backgroundColor: "lightgrey",
-            width: "85%",
-            margin: 'auto',
-
-          }}
-        />
+      <View 
+        style={{ 
+          alignItems: 'center',
+          borderRadius: 4,
+          borderColor: '#c4c4c4',
+          borderWidth: 0.5,
+          width: '95%',
+          margin: '2%',
+          alignItems: 'center',
+      }}
+    >
       </View>
 
       {
         tabs.engagement ?
           <View>
-            <View style={{
-              flexDirection: 'row',
-              justifyContent: 'space-evenly',
-              alignItems: 'center',
-              margin: 5
-            }}
+            <View 
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-evenly',
+                alignItems: 'center',
+                margin: 5,
+                // borderColor: 'orange',
+                // borderWidth: 1
+              }}
             >
               <TouchableWithoutFeedback
                 onPress={() => {
                   navigation.navigate('MyAccount')
                 }}
               >
-
                 <Ionicons
                   name='ios-document'
                   style={styles.iconStyles}
@@ -250,7 +262,6 @@ function ConnectionsView(props) {
                 />
               </TouchableWithoutFeedback>
 
-
               <TouchableWithoutFeedback
                 onPress={() => {
                   navigation.navigate('MyAccount')
@@ -263,7 +274,6 @@ function ConnectionsView(props) {
               </TouchableWithoutFeedback>
             </View>
 
-
             <ScrollView style={{ maxHeight: '80%' }}>
               <View>
                 {
@@ -271,23 +281,10 @@ function ConnectionsView(props) {
                     return (
                       <Engagement key={engagement.pk} engagement={engagement} />)
                   })}
-
               </View>
             </ScrollView>
-            <View style={{ alignItems: 'center' }}>
-              <Divider
-                style={{
-                  height: 1,
-                  backgroundColor: "lightgrey",
-                  width: "85%",
-                  margin: 'auto',
-
-                }}
-              />
-            </View>
           </View>
           : null
-
       }
 
       {
@@ -300,24 +297,11 @@ function ConnectionsView(props) {
                     return (
                       <Documents key={document.pk} document={document} />)
                   })}
-
               </View>
             </ScrollView>
-            <View style={{ alignItems: 'center' }}>
-              <Divider
-                style={{
-                  height: 1,
-                  backgroundColor: "lightgrey",
-                  width: "85%",
-                  margin: 'auto',
-
-                }}
-              />
-            </View>
           </View> : null
-
       }
-
+      </View>
     </View>
   );
 }

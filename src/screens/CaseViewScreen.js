@@ -214,7 +214,6 @@ export function CaseViewScreen (props) {
               setConnectionSelected({ connectionOpen: false, connectionData: {} });
             }}
           />
-
         </Modal> */}
 
       </ScrollView>
@@ -229,8 +228,6 @@ export function CaseViewScreen (props) {
           }}
         /> */}
       </View>
-
-      
 
       <View style={{
         justifyContent: "center",
