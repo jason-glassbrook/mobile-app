@@ -4,6 +4,7 @@ import { store } from './src/store/store';
 import * as Font from 'expo-font';
 import constants from './src/helpers/constants';
 import Navigator from './src/navigation';
+import BestPracticesModal from './src/screens/BestPracticesModal'
 
 export default class App extends Component {
   state = { fontLoaded: false };
@@ -28,6 +29,7 @@ export default class App extends Component {
     return this.state.fontLoaded ? (
       <Provider store={store}>
         <Navigator />
+        <BestPracticesModal />
       </Provider>
     ) : null;
   }
