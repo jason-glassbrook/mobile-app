@@ -3,6 +3,8 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableWithoutFeedback,
+  Image,
   StyleSheet,
   Platform,
   ScrollView,
@@ -26,11 +28,12 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
-import ConnectionsView from "./ConnectionsView"; 
-import {NavigationActions} from 'react-navigation';
+import headerConfig from '../helpers/headerConfig';
+import logoImg from '../../assets/logo.png';
+
 
 export function CaseViewScreen (props) {
-
+  
   const [searchKeywords, setSearchKeywords] = useState('')
 
   const [connectionSelected, setConnectionSelected] = useState({
@@ -64,6 +67,11 @@ export function CaseViewScreen (props) {
       width: Platform.OS === "ios" ? '95%' : '95%',
       backgroundColor: Platform.OS === "ios" ? "white" : "white"
     },
+
+    imageStyles: { width: 225, height: 90 },
+
+    iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 }
+  
   });
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
@@ -248,9 +256,30 @@ export function CaseViewScreen (props) {
   );
 }
 
-{/* // CaseViewScreen.navigationOptions = () => { */}
-{/* //   headerConfig("Connections", navigation);
-} */}
+// CaseViewScreen.navigationOptions = ({navigation}) => ({
+//   headerStyle: {
+//     backgroundColor: 'white',
+//     height: 52
+//   },
+//   headerLeft: 
+//     (<TouchableWithoutFeedback
+//       onPress={() => {
+//         navigation.navigate('FamilyConnections');
+//         sendEvent(email, 'click', 'logo');
+//       }}
+//     >
+//       <Image
+//         source={logoImg}
+//         style={styles.imageStyles}
+//         resizeMode="contain"
+//       />
+//     </TouchableWithoutFeedback>)
+//   });
+// = ({ navigation }) =>
+// Comp.navigationOptions = ({ navigation }) => ({
+//   title: navigation.getParam('title', /* your default title */)
+// });
+
 
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;
