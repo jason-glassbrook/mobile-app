@@ -26,9 +26,10 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
-import ConnectionsView from "./ConnectionsView";
+import ConnectionsView from "./ConnectionsView"; 
+import {NavigationActions} from 'react-navigation';
 
-export function CaseViewScreen(props) {
+export function CaseViewScreen (props) {
 
   const [searchKeywords, setSearchKeywords] = useState('')
 
@@ -60,39 +61,46 @@ export function CaseViewScreen(props) {
 
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-      width: Platform.OS === "ios" ? 285 : 320,
-      backgroundColor: Platform.OS === "ios" ? "white" : "white"
+      width: Platform.OS === "ios" ? '95%' : '95%',
+      backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
   });
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
-  let SearchedConnections = props.caseConnections.filter(result => {
-    return result.person.full_name.indexOf(searchKeywords) != -1;
+  let SearchedConnections = props.caseConnections && props.caseConnections.filter(result => {
+    return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
   });
-
-
 
   // on load get case data and case connections through redux
   useEffect(() => {
-    props.getCaseData(props.pk);
-    props.getCaseConnections(props.pk);
+    props.getCaseData(props.navigation.getParam('pk'));
+    props.getCaseConnections(props.navigation.getParam('pk'));
   }, [false]);
-
 
   let caseData = props.caseData;
   // console.log(props.caseData);
 
   const handleKeywordChange = (e) => {
-
     setSearchKeywords(e)
-
   }
 
-  const leftArrow = '\u2190';
+  const genderAssignment = (gender) => {
+    if (gender === 'M') {
+      return 'Male'
+    } else if (gender === 'F') {
+      return 'Female'
+    } else if (gender === 'O') {
+      return 'Other'
+    } else {
+      return null
+    }
+  }
+
+  // const leftArrow = '\u2190';
 
   return (
-    <View style={{ height: '100%' }}>
-      <TouchableHighlight
+    <ScrollView>
+      {/* <TouchableHighlight
         underlayColor="lightgray"
         style={{ marginTop: 40 }}
         onPress={() => {
@@ -114,13 +122,13 @@ export function CaseViewScreen(props) {
         >
           {leftArrow} All Cases
         </Text>
-      </TouchableHighlight>
+      </TouchableHighlight> */}
       <View
         style={{
           justifyContent: "center",
           alignItems: "center"
-        }}
-      >
+    }}
+  >
         {props.isLoadingCaseData ? (
           <Loader />
         ) : (
@@ -132,10 +140,16 @@ export function CaseViewScreen(props) {
                 width: "85%"
               }}
             >
-              <View>
+              <View style={{justifyContent: 'center'}}>
                 <Text style={{ fontSize: 20 }}>{caseData.full_name}</Text>
                 <ListItem
                   leftAvatar={{
+                    size: "large",
+                    avatarStyle: {
+                      borderRadius: 100,
+                      borderWidth: 2,
+                      borderColor: '#dbdbdb'
+                    },
                     source: {
                       uri:
                         caseData.picture ||
@@ -145,29 +159,30 @@ export function CaseViewScreen(props) {
                 />
               </View>
               <View style={{ maxWidth: "60%" }}>
-                <Text style={{ padding: 5 }}>Gender: {caseData.gender}</Text>
-                <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text>
-                <Text style={{ padding: 5 }}>Residence:{" "}
-                {caseData.address && caseData.address.formatted
-                    ? caseData.address.formatted
-                    : "No address provided."}
-                </Text>
-                <Text style={{ padding: 5 }}>
-                  Initiation:{caseData.foster_care}
-                </Text>
+                {caseData.gender? <Text style={{ padding: 5 }}>Gender: {genderAssignment(caseData.gender)}</Text>: null}
+                {caseData.birthday? <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text>: null}
+                {caseData.address && caseData.address.formatted?<Text style={{ padding: 5 }}>{`Residence:\n${caseData.address.formatted}`}</Text> : null}
+                {caseData.foster_care? <Text style={{ padding: 5 }}>Initiation: {caseData.foster_care}</Text>: null}
               </View>
             </View>
           )}
-
-
+          
         {/* search Functionality */}
-
-        <View style={{ flexDirection: "columb" }}>
-          <Text style={{ margin: 10, fontSize: 20 }}>Connections:</Text>
+        <View 
+          style={{ 
+            flexDirection: "column",
+            borderRadius: 4,
+            borderWidth: 0.5,
+            borderColor: '#c4c4c4',
+          }}
+        >
+          <Text style={{ margin: 8, padding: 5, fontSize: 17.5 }}>Connections:</Text>
           <SearchBar
+            inputStyle={{fontSize: 12}}
+            inputContainerStyle={{backgroundColor: '#FAFAFA', height: 45.62}}
             placeholder="Search Name..."
-            placeholderTextColor="black"
-            lightTheme
+            placeholderTextColor="#8D8383"
+            // lightTheme
             round
             name="searchKeywords"
             value={searchKeywords}
@@ -176,34 +191,22 @@ export function CaseViewScreen(props) {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-        </View>
-
-        <Divider
-          style={{
-            height: 1,
-            backgroundColor: "lightgrey",
-            width: "85%",
-            marginTop: 15
-          }}
-        />
-      </View>
-
-
-      <ScrollView style={{ height: '55%' }}>
+          {/* <ScrollView style={{ height: '80%' }}> */}
         {props.isLoadingConnections ? (
           <Loader />
         ) : (
-
-            SearchedConnections.map((connection, index) => {
+          SearchedConnections && SearchedConnections.map((connection, index) => {
               return (
                 <CaseListComponent
                   pressed={() => {
                     // console.log('**************connection****************')
                     // console.log(connection)
-                    setConnectionSelected({
-                      connectionOpen: true,
-                      connectionData: connection
-                    })
+                    // setConnectionSelected(
+                    //   {
+                    //   connectionOpen: true,
+                    //   connectionData: connection
+                    // })
+                    props.navigation.navigate('ConnectionsView', {connectionData: connection , childName: caseData.full_name})
                   }}
                   key={index}
                   connection={connection} />
@@ -212,7 +215,7 @@ export function CaseViewScreen(props) {
           )}
 
         {/* CASE onPress MODAL */}
-        <Modal
+        {/* <Modal
           animationType="slide"
           transparent={false}
           visible={connectionSelected.connectionOpen}
@@ -224,30 +227,40 @@ export function CaseViewScreen(props) {
               setConnectionSelected({ connectionOpen: false, connectionData: {} });
             }}
           />
+        </Modal> */}
 
-        </Modal>
+      {/* </ScrollView> */}
+        </View>
 
-
-      </ScrollView>
+        {/* <Divider
+          style={{
+            height: 1,
+            backgroundColor: "lightgrey",
+            width: "100%",
+            marginTop: 15
+          }}
+        /> */}
+      </View>
 
       <View style={{
         justifyContent: "center",
         alignItems: "center"
       }}>
-        <Divider
+        {/* <Divider
           style={{
             height: 1,
             backgroundColor: "lightgrey",
             width: "85%",
           }}
-        />
-      </View>
-
-
-      
-    </View>
+        /> */}
+      </View>      
+    </ScrollView>
   );
 }
+
+{/* // CaseViewScreen.navigationOptions = () => { */}
+{/* //   headerConfig("Connections", navigation);
+} */}
 
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;

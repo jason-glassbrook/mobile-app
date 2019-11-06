@@ -28,6 +28,8 @@ import {
   Divider
 } from "react-native-elements";
 import * as SecureStore from 'expo-secure-store';
+import { MaterialIcons } from '@expo/vector-icons';
+
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from "../helpers/constants";
 
@@ -88,6 +90,18 @@ class FamilyConnectionsScreen extends Component {
 
   componentDidMount() {
     this.props.getUserCases();
+  }
+
+  genderAssignment = (gender) => {
+    if (gender === 'M') {
+      return 'Male'
+    } else if (gender === 'F') {
+      return 'Female'
+    } else if (gender === 'O') {
+      return 'Other'
+    } else {
+      return null
+    }
   }
 
   render() {
@@ -229,7 +243,7 @@ class FamilyConnectionsScreen extends Component {
 
     // ------SEARCHBAR functionality - filters by case first_name or last_name---------
     let SearchedCases = filteredCases.filter(result => {
-      return result.full_name.indexOf(this.state.searchKeywords) != -1;
+      return result.full_name.toLowerCase().indexOf(this.state.searchKeywords.toLowerCase()) != -1;
     });
 
     // const { navigate } = this.props.navigation;
@@ -245,11 +259,13 @@ class FamilyConnectionsScreen extends Component {
             this.setState({ addCaseModalVisible: true });
           }}
         /> */}
-        <View style={{ flexDirection: "row" }}>
-          <SearchBar
-            placeholder="Search Keywords..."
-            placeholderTextColor="black"
-            lightTheme
+        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-around' }}>
+        <SearchBar
+            inputStyle={{fontSize: 12}}
+            inputContainerStyle={{backgroundColor: '#FAFAFA', height: 45.62}}
+            placeholder="Search Name..."
+            placeholderTextColor="#8D8383"
+            // lightTheme
             round
             name="searchKeywords"
             value={this.state.searchKeywords}
@@ -258,10 +274,11 @@ class FamilyConnectionsScreen extends Component {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-          <Button
-            title="Filters"
-            buttonStyle={{ backgroundColor: constants.highlightColor }}
-            containerStyle={styles.filterButton}
+          <MaterialIcons
+            name="filter-list"
+            color={constants.highlightColor}
+            size={32}
+
             onPress={() => {
               this.setModalVisible(true);
             }}
@@ -514,15 +531,16 @@ class FamilyConnectionsScreen extends Component {
                     titleStyle={{ color: "#5A6064" }}
                     subtitle={`${
                       result.gender ?
-                         `Gender: ${result.gender}`
+                        `Gender: ${this.genderAssignment(result.gender)}`
                         : "Gender: unspecified"
                       } ${result.birthday ? `Birthday: ${result.birthday}`: ''}`}
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
                     to pDivider={true}
                     onPress={async () => {
-                      this.setState({pk : result.pk});
-                      this.setCaseVisible(true);
+                      // this.setState({pk : result.pk});
+                      // this.setCaseVisible(true);
+                      this.props.navigation.navigate('CaseView', {pk: result.pk, caseData: result})
                       
                     }}
                     // Case badges for document value/count
@@ -540,7 +558,7 @@ class FamilyConnectionsScreen extends Component {
               )}
 
             {/* CASE onPress MODAL */}
-            <Modal
+            {/* <View
               animationType="slide"
               transparent={false}
               visible={this.state.caseVisible}
@@ -552,8 +570,7 @@ class FamilyConnectionsScreen extends Component {
                   this.setCaseVisible(false);
                 }}
               />
-
-            </Modal>
+            </View> */}
           </ScrollView>
 
           {/* AddCase - onPress MODAL - leaving out for now */}
@@ -594,7 +611,7 @@ const styles = StyleSheet.create({
   searchBar: {
     marginHorizontal: Platform.OS === "ios" ? 5 : 5,
     width: Platform.OS === "ios" ? 285 : 320,
-    backgroundColor: Platform.OS === "ios" ? "white" : "white"
+    backgroundColor: Platform.OS === "ios" ? "white" : "white",
   },
   // addCaseButton: {
   //   marginHorizontal: Platform.OS === "ios" ? 5 : 5,
@@ -605,7 +622,7 @@ const styles = StyleSheet.create({
   filterButton: {
     width: Platform.OS === "ios" ? 70 : 70,
     marginVertical: Platform.OS === "ios" ? 20 : 20,
-    maxHeight: Platform.OS === "ios" ? 40 : 40
+    maxHeight: Platform.OS === "ios" ? 40 : 40,
   },
   isLoading: {
     textAlign: "center",
