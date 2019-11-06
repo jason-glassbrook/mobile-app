@@ -62,7 +62,7 @@ export function CaseViewScreen (props) {
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
       width: Platform.OS === "ios" ? '95%' : '95%',
-      backgroundColor: Platform.OS === "ios" ? "white" : "white"
+      backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
   });
 
@@ -84,10 +84,22 @@ export function CaseViewScreen (props) {
     setSearchKeywords(e)
   }
 
+  const genderAssignment = (gender) => {
+    if (gender === 'M') {
+      return 'Male'
+    } else if (gender === 'F') {
+      return 'Female'
+    } else if (gender === 'O') {
+      return 'Other'
+    } else {
+      return null
+    }
+  }
+
   // const leftArrow = '\u2190';
 
   return (
-    <View style={{ height: '100%' }}>
+    <ScrollView>
       {/* <TouchableHighlight
         underlayColor="lightgray"
         style={{ marginTop: 40 }}
@@ -128,10 +140,16 @@ export function CaseViewScreen (props) {
                 width: "85%"
               }}
             >
-              <View>
+              <View style={{justifyContent: 'center'}}>
                 <Text style={{ fontSize: 20 }}>{caseData.full_name}</Text>
                 <ListItem
                   leftAvatar={{
+                    size: "large",
+                    avatarStyle: {
+                      borderRadius: 100,
+                      borderWidth: 2,
+                      borderColor: '#dbdbdb'
+                    },
                     source: {
                       uri:
                         caseData.picture ||
@@ -141,16 +159,10 @@ export function CaseViewScreen (props) {
                 />
               </View>
               <View style={{ maxWidth: "60%" }}>
-                <Text style={{ padding: 5 }}>Gender: {caseData.gender}</Text>
-                <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text>
-                <Text style={{ padding: 5 }}>Residence: {" "}
-                {caseData.address && caseData.address.formatted
-                    ? caseData.address.formatted
-                    : "No address provided."}
-                </Text>
-                <Text style={{ padding: 5 }}>
-                  Initiation: {caseData.foster_care}
-                </Text>
+                {caseData.gender? <Text style={{ padding: 5 }}>Gender: {genderAssignment(caseData.gender)}</Text>: null}
+                {caseData.birthday? <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text>: null}
+                {caseData.address && caseData.address.formatted?<Text style={{ padding: 5 }}>{`Residence:\n${caseData.address.formatted}`}</Text> : null}
+                {caseData.foster_care? <Text style={{ padding: 5 }}>Initiation: {caseData.foster_care}</Text>: null}
               </View>
             </View>
           )}
@@ -162,14 +174,15 @@ export function CaseViewScreen (props) {
             borderRadius: 4,
             borderWidth: 0.5,
             borderColor: '#c4c4c4',
-            height: '74%',
           }}
         >
           <Text style={{ margin: 8, padding: 5, fontSize: 17.5 }}>Connections:</Text>
           <SearchBar
+            inputStyle={{fontSize: 12}}
+            inputContainerStyle={{backgroundColor: '#FAFAFA', height: 45.62}}
             placeholder="Search Name..."
-            placeholderTextColor="black"
-            lightTheme
+            placeholderTextColor="#8D8383"
+            // lightTheme
             round
             name="searchKeywords"
             value={searchKeywords}
@@ -178,7 +191,7 @@ export function CaseViewScreen (props) {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-          <ScrollView style={{ height: '80%' }}>
+          {/* <ScrollView style={{ height: '80%' }}> */}
         {props.isLoadingConnections ? (
           <Loader />
         ) : (
@@ -216,7 +229,7 @@ export function CaseViewScreen (props) {
           />
         </Modal> */}
 
-      </ScrollView>
+      {/* </ScrollView> */}
         </View>
 
         {/* <Divider
@@ -241,7 +254,7 @@ export function CaseViewScreen (props) {
           }}
         /> */}
       </View>      
-    </View>
+    </ScrollView>
   );
 }
 

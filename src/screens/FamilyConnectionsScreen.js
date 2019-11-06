@@ -28,6 +28,8 @@ import {
   Divider
 } from "react-native-elements";
 import * as SecureStore from 'expo-secure-store';
+import { MaterialIcons } from '@expo/vector-icons';
+
 // import { Picker } from 'react-native-picker-dropdown';
 import constants from "../helpers/constants";
 
@@ -88,6 +90,18 @@ class FamilyConnectionsScreen extends Component {
 
   componentDidMount() {
     this.props.getUserCases();
+  }
+
+  genderAssignment = (gender) => {
+    if (gender === 'M') {
+      return 'Male'
+    } else if (gender === 'F') {
+      return 'Female'
+    } else if (gender === 'O') {
+      return 'Other'
+    } else {
+      return null
+    }
   }
 
   render() {
@@ -245,11 +259,13 @@ class FamilyConnectionsScreen extends Component {
             this.setState({ addCaseModalVisible: true });
           }}
         /> */}
-        <View style={{ flexDirection: "row" }}>
-          <SearchBar
-            placeholder="Search Keywords..."
-            placeholderTextColor="black"
-            lightTheme
+        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-around' }}>
+        <SearchBar
+            inputStyle={{fontSize: 12}}
+            inputContainerStyle={{backgroundColor: '#FAFAFA', height: 45.62}}
+            placeholder="Search Name..."
+            placeholderTextColor="#8D8383"
+            // lightTheme
             round
             name="searchKeywords"
             value={this.state.searchKeywords}
@@ -258,10 +274,11 @@ class FamilyConnectionsScreen extends Component {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-          <Button
-            title="Filters"
-            buttonStyle={{ backgroundColor: constants.highlightColor }}
-            containerStyle={styles.filterButton}
+          <MaterialIcons
+            name="filter-list"
+            color={constants.highlightColor}
+            size={32}
+
             onPress={() => {
               this.setModalVisible(true);
             }}
@@ -514,7 +531,7 @@ class FamilyConnectionsScreen extends Component {
                     titleStyle={{ color: "#5A6064" }}
                     subtitle={`${
                       result.gender ?
-                        `Gender: ${result.gender}`
+                        `Gender: ${this.genderAssignment(result.gender)}`
                         : "Gender: unspecified"
                       } ${result.birthday ? `Birthday: ${result.birthday}`: ''}`}
                     subtitleStyle={{ color: "#9FABB3" }}
