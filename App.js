@@ -29,7 +29,7 @@ export default class App extends Component {
     return this.state.fontLoaded ? (
       <Provider store={store}>
         <Navigator />
-        <BestPracticesModal />
+        {/* <BestPracticesModal /> */}
       </Provider>
     ) : null;
   }

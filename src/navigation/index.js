@@ -88,6 +88,25 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: constants.headerHeight,
           backgroundColor: constants.highlightColor
         }
+      },
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: 'white',
+          height: 52
+        },
+        headerLeft: 
+          (<TouchableWithoutFeedback
+            onPress={() => {
+              navigation.navigate('FamilyConnections');
+              sendEvent(email, 'click', 'logo');
+            }}
+          >
+            <Image
+              source={logoImg}
+              style={{width: 225, height: 90}}
+              resizeMode="contain"
+            />
+          </TouchableWithoutFeedback>)
       }
     },
   },

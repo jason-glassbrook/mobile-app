@@ -157,23 +157,21 @@ export function CaseViewScreen (props) {
     return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
   });
 
-  // const leftArrow = '\u2190';
+  const leftArrow = '\u2190';
 
   return (
     <ScrollView>
-      {/* <TouchableHighlight
+      <TouchableHighlight
         underlayColor="lightgray"
-        style={{ marginTop: 40 }}
+        style={{ marginTop: 5 }}
         onPress={() => {
-          props.clearCaseData();
-          props.clearCaseConnections();
-          props.setCaseVisible();
+          props.navigation.goBack()
         }}
       >
         <Text
           style={{
             marginLeft: 5,
-            fontSize: 17
+            fontSize: 15
           //   padding: 10,
           //   borderRadius: 4,
           //   borderWidth: 1,
@@ -181,9 +179,9 @@ export function CaseViewScreen (props) {
           //   color: `${constants.highlightColor}`
           }}
         >
-          {leftArrow} All Cases
+          {leftArrow} ALL CASES
         </Text>
-      </TouchableHighlight> */}
+      </TouchableHighlight>
       <View
         style={{
           justifyContent: "center",
