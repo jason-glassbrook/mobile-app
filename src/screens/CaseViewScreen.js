@@ -28,17 +28,17 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
-import headerConfig from '../helpers/headerConfig';
-import logoImg from '../../assets/logo.png';
-
 
 export function CaseViewScreen (props) {
   
   const [searchKeywords, setSearchKeywords] = useState('')
 
-  const [connectionSelected, setConnectionSelected] = useState({
-    connectionOpen: false,
-    connectionData: {},
+  const [filtersSelected, setFiletersSelected] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false
   })
 
   const styles = StyleSheet.create({
@@ -61,23 +61,32 @@ export function CaseViewScreen (props) {
       padding: 10,
       fontSize: 16
     },
-
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
       width: Platform.OS === "ios" ? '95%' : '95%',
-      backgroundColor: Platform.OS === "ios" ? "white" : "white"
+      backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
-
     imageStyles: { width: 225, height: 90 },
-
-    iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 }
-  
+    iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 },
+    filters: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      alignSelf: "stretch"
+    },
+    filter: {
+      height: 35,
+      width: 35,
+      borderRadius: 18,
+      overflow: 'hidden',
+      marginLeft: 10,
+      marginRight: 10
+    },
+    selected: {
+      borderWidth: 2,
+    }
   });
 
-  // ------SEARCHBAR functionality - filters by case first_name or last_name---------
-  let SearchedConnections = props.caseConnections && props.caseConnections.filter(result => {
-    return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
-  });
 
   // on load get case data and case connections through redux
   useEffect(() => {
@@ -92,10 +101,66 @@ export function CaseViewScreen (props) {
     setSearchKeywords(e)
   }
 
+  const genderAssignment = (gender) => {
+    if (gender === 'M') {
+      return 'Male'
+    } else if (gender === 'F') {
+      return 'Female'
+    } else if (gender === 'O') {
+      return 'Other'
+    } else {
+      return null
+    }
+  }
+
+
+  //filter functionality
+  const filteredConnections = () => {
+  //if no filters are set, do nothing
+  if (!filtersSelected[1] && !filtersSelected[2] && !filtersSelected[3] && !filtersSelected[4] && !filtersSelected[5]) {
+    return props.caseConnections
+  } else {
+    //remove everyone without a status
+    let filteredList = props.caseConnections.filter((connection) => connection.person.status)
+    console.log('person   +   color')
+    for (i in filteredList) {
+      console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
+    }
+    if (!filtersSelected[1]) {
+      //if filter1 not selected, remove everyone with filter1
+      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6AA84F')
+      // console.log('length***************************', filteredList.length)
+    } 
+    if (!filtersSelected[2]) {
+      //if filter1 not selected, remove everyone with filter1
+      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#FFFF00')
+    } 
+    if (!filtersSelected[3]) {
+      //if filter1 not selected, remove everyone with filter1
+      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#CC0000')
+    }
+    if (!filtersSelected[4]) {
+      //if filter1 not selected, remove everyone with filter1
+      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#9900FF')
+    } 
+    if (!filtersSelected[5]) {
+      //if filter1 not selected, remove everyone with filter1
+      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6FA8DC')
+    }
+
+    return filteredList 
+  }}
+
+
+  // ------SEARCHBAR functionality - filters by case first_name or last_name---------
+  let SearchedConnections = filteredConnections().filter(result => {
+    return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
+  });
+
   // const leftArrow = '\u2190';
 
   return (
-    <View style={{ height: '100%' }}>
+    <ScrollView>
       {/* <TouchableHighlight
         underlayColor="lightgray"
         style={{ marginTop: 40 }}
@@ -123,8 +188,8 @@ export function CaseViewScreen (props) {
         style={{
           justifyContent: "center",
           alignItems: "center"
-    }}
-  >
+        }}
+      >
         {props.isLoadingCaseData ? (
           <Loader />
         ) : (
@@ -136,10 +201,16 @@ export function CaseViewScreen (props) {
                 width: "85%"
               }}
             >
-              <View>
+              <View style={{ justifyContent: 'center' }}>
                 <Text style={{ fontSize: 20 }}>{caseData.full_name}</Text>
                 <ListItem
                   leftAvatar={{
+                    size: "large",
+                    avatarStyle: {
+                      borderRadius: 100,
+                      borderWidth: 2,
+                      borderColor: '#dbdbdb'
+                    },
                     source: {
                       uri:
                         caseData.picture ||
@@ -149,35 +220,30 @@ export function CaseViewScreen (props) {
                 />
               </View>
               <View style={{ maxWidth: "60%" }}>
-                <Text style={{ padding: 5 }}>Gender: {caseData.gender}</Text>
-                <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text>
-                <Text style={{ padding: 5 }}>Residence: {" "}
-                {caseData.address && caseData.address.formatted
-                    ? caseData.address.formatted
-                    : "No address provided."}
-                </Text>
-                <Text style={{ padding: 5 }}>
-                  Initiation: {caseData.foster_care}
-                </Text>
+                {caseData.gender ? <Text style={{ padding: 5 }}>Gender: {genderAssignment(caseData.gender)}</Text> : null}
+                {caseData.birthday ? <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text> : null}
+                {caseData.address && caseData.address.formatted ? <Text style={{ padding: 5 }}>{`Residence:\n${caseData.address.formatted}`}</Text> : null}
+                {caseData.foster_care ? <Text style={{ padding: 5 }}>Initiation: {caseData.foster_care}</Text> : null}
               </View>
             </View>
           )}
-          
+
         {/* search Functionality */}
-        <View 
-          style={{ 
+        <View
+          style={{
             flexDirection: "column",
             borderRadius: 4,
             borderWidth: 0.5,
             borderColor: '#c4c4c4',
-            height: '74%',
           }}
         >
           <Text style={{ margin: 8, padding: 5, fontSize: 17.5 }}>Connections:</Text>
           <SearchBar
+            inputStyle={{ fontSize: 12 }}
+            inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
             placeholder="Search Name..."
-            placeholderTextColor="black"
-            lightTheme
+            placeholderTextColor="#8D8383"
+            // lightTheme
             round
             name="searchKeywords"
             value={searchKeywords}
@@ -186,31 +252,37 @@ export function CaseViewScreen (props) {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-          <ScrollView style={{ height: '80%' }}>
-        {props.isLoadingConnections ? (
-          <Loader />
-        ) : (
-          SearchedConnections && SearchedConnections.map((connection, index) => {
-              return (
-                <CaseListComponent
-                  pressed={() => {
-                    // console.log('**************connection****************')
-                    // console.log(connection)
-                    // setConnectionSelected(
-                    //   {
-                    //   connectionOpen: true,
-                    //   connectionData: connection
-                    // })
-                    props.navigation.navigate('ConnectionsView', {connectionData: connection , childName: caseData.full_name})
-                  }}
-                  key={index}
-                  connection={connection} />
-              );
-            })
-          )}
+          <View style={styles.filters}>
+            <Text style={[styles.filter, { backgroundColor: '#6AA84F' }, [filtersSelected[1] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 1: !filtersSelected[1] })}></Text>
+            <Text style={[styles.filter, { backgroundColor: '#FFFF00' }, [filtersSelected[2] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 2: !filtersSelected[2] })}></Text>
+            <Text style={[styles.filter, { backgroundColor: '#CC0000' }, [filtersSelected[3] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 3: !filtersSelected[3] })}></Text>
+            <Text style={[styles.filter, { backgroundColor: '#9900FF' }, [filtersSelected[4] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 4: !filtersSelected[4] })}></Text>
+            <Text style={[styles.filter, { backgroundColor: '#6FA8DC' }, [filtersSelected[5] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 5: !filtersSelected[5] })}></Text>
+          </View>
+          {props.isLoadingConnections ? (
+            <Loader />
+          ) : (
+              SearchedConnections && SearchedConnections.map((connection, index) => {
+                return (
+                  <CaseListComponent
+                    pressed={() => {
+                      // console.log('**************connection****************')
+                      // console.log(connection)
+                      // setConnectionSelected(
+                      //   {
+                      //   connectionOpen: true,
+                      //   connectionData: connection
+                      // })
+                      props.navigation.navigate('ConnectionsView', { connectionData: connection, childName: caseData.full_name })
+                    }}
+                    key={index}
+                    connection={connection} />
+                );
+              })
+            )}
 
-        {/* CASE onPress MODAL */}
-        {/* <Modal
+          {/* CASE onPress MODAL */}
+          {/* <Modal
           animationType="slide"
           transparent={false}
           visible={connectionSelected.connectionOpen}
@@ -222,10 +294,9 @@ export function CaseViewScreen (props) {
               setConnectionSelected({ connectionOpen: false, connectionData: {} });
             }}
           />
-
         </Modal> */}
 
-      </ScrollView>
+          {/* </ScrollView> */}
         </View>
 
         {/* <Divider
@@ -238,8 +309,6 @@ export function CaseViewScreen (props) {
         /> */}
       </View>
 
-      
-
       <View style={{
         justifyContent: "center",
         alignItems: "center"
@@ -251,34 +320,11 @@ export function CaseViewScreen (props) {
             width: "85%",
           }}
         /> */}
-      </View>      
-    </View>
+      </View>
+    </ScrollView>
   );
 }
 
-// CaseViewScreen.navigationOptions = ({navigation}) => ({
-//   headerStyle: {
-//     backgroundColor: 'white',
-//     height: 52
-//   },
-//   headerLeft: 
-//     (<TouchableWithoutFeedback
-//       onPress={() => {
-//         navigation.navigate('FamilyConnections');
-//         sendEvent(email, 'click', 'logo');
-//       }}
-//     >
-//       <Image
-//         source={logoImg}
-//         style={styles.imageStyles}
-//         resizeMode="contain"
-//       />
-//     </TouchableWithoutFeedback>)
-//   });
-// = ({ navigation }) =>
-// Comp.navigationOptions = ({ navigation }) => ({
-//   title: navigation.getParam('title', /* your default title */)
-// });
 
 
 const mapStateToProps = state => {

@@ -7,6 +7,7 @@ import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
+import { Text } from 'react-native';
 import { createDrawerNavigator, DrawerActions, DrawerItems } from 'react-navigation-drawer';
 import {createBottomTabNavigator} from 'react-navigation-tabs'
 import {
