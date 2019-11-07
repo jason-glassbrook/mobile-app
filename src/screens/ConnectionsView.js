@@ -5,7 +5,8 @@ import {
   TouchableHighlight,
   StyleSheet,
   ScrollView,
-  Button
+  Button,
+  Linking
 } from 'react-native';
 import {
   Divider,
@@ -24,7 +25,7 @@ import {
   MaterialIcons
 } from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
-import { AuthSession } from 'expo';
+import formatTelephone from '../helpers/formatTelephone.js'
 
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
@@ -149,8 +150,30 @@ function ConnectionsView(props) {
       <View>
         <ListItem
           title={connectionData.full_name}
-          titleStyle={{fontSize: 17.5}}
-          subtitle="test"
+          titleStyle={{fontSize: 18}}
+          subtitle={
+            <View>
+              {connectionData.telephone ? 
+                <TouchableHighlight 
+                  onPress={() => Linking.openURL(`tel:${connectionData.telephone}`)}
+                >
+                  <Text style={{color: '#434245'}}>
+                    {formatTelephone(connectionData.telephone)}
+                  </Text>
+                </TouchableHighlight>
+              : null}
+              {connectionData.email ? 
+                <TouchableHighlight
+                  onPress={() => Linking.openURL(`mailto:${connectionData.email}`)}
+                >
+                  <Text style={{color: '#434245'}}>
+                    {connectionData.email}
+                  </Text>
+                </TouchableHighlight> 
+              : null}
+              {connectionData.address && connectionData.address.formatted ? <Text style={{color: '#434245'}}>{connectionData.address.formatted}</Text> : null}
+            </View>
+          }
           leftAvatar={{
             size: "large",
             source: {
