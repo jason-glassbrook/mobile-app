@@ -9,12 +9,17 @@ import {
 } from 'react-navigation';
 import { Text } from 'react-native';
 import { createDrawerNavigator, DrawerActions, DrawerItems } from 'react-navigation-drawer';
-import {createBottomTabNavigator} from 'react-navigation-tabs'
+import { createBottomTabNavigator } from 'react-navigation-tabs'
 import {
   createStackNavigator,
 } from 'react-navigation-stack';
 import { Ionicons } from '@expo/vector-icons';
 import BestPracticesScreen from '../screens/BestPracticesScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
+import SupportScreen from '../screens/SupportScreen';
+import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
+import TermsOfServiceScreen from '../screens/TermsOfServiceScreen';
+import ImpactScreen from '../screens/ImpactScreen';
 import FamilyConnectionsScreen from '../screens/FamilyConnectionsScreen';
 import PeopleSearchScreen from '../screens/PeopleSearchScreen';
 import SearchResultScreen from '../screens/SearchResultScreen';
@@ -65,13 +70,13 @@ const FamilyConnectionsNavigator = createStackNavigator(
           backgroundColor: 'white',
           height: 52
         },
-        headerLeft: 
+        headerLeft:
           (<Image
-              source={logoImg}
-              style={{width: 225, height: 90}}
-              resizeMode="contain"
-            />)
-          }
+            source={logoImg}
+            style={{ width: 225, height: 90 }}
+            resizeMode="contain"
+          />)
+      }
     },
     ConnectionsView: {
       screen: ConnectionsView,
@@ -87,13 +92,13 @@ const FamilyConnectionsNavigator = createStackNavigator(
           backgroundColor: 'white',
           height: 52
         },
-        headerLeft: 
+        headerLeft:
           (<Image
-              source={logoImg}
-              style={{width: 225, height: 90}}
-              resizeMode="contain"
-            />)
-          }
+            source={logoImg}
+            style={{ width: 225, height: 90 }}
+            resizeMode="contain"
+          />)
+      }
     },
   },
 );
@@ -136,38 +141,104 @@ const AccountNavigator = createStackNavigator({
   },
 })
 
+const EditProfileNavigator = createStackNavigator({
+  EditProfile: {
+    screen: EditProfileScreen,
+    initialRouteName: 'EditProfile',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+  },
+})
+
+const SupportNavigator = createStackNavigator({
+  Support: {
+    screen: SupportScreen,
+    initialRouteName: 'Support',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+  },
+})
+
+const ImpactNavigator = createStackNavigator({
+  Impact: {
+    screen: ImpactScreen,
+    initialRouteName: 'Impact',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+  },
+})
+
+const PrivacyPolicyNavigator = createStackNavigator({
+  PrivacyPolicy: {
+    screen: PrivacyPolicyScreen,
+    initialRouteName: 'PrivacyPolicy',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+  },
+})
+
+const TermsOfServiceNavigator = createStackNavigator({
+  Terms: {
+    screen: TermsOfServiceScreen,
+    initialRouteName: 'TermsOfService',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+  },
+})
+
+
 const DrawerNavigator = createDrawerNavigator({
   'Edit Profile': {
-    screen: AccountNavigator,
+    screen: EditProfileNavigator,
   },
   'Impact Dashboard': {
-    screen: AccountNavigator,
+    screen: ImpactNavigator,
   },
   'About': {
-    screen: AccountNavigator,
+    screen: BestPracticeNavigator,
   },
   'Support': {
-    screen: AccountNavigator,
+    screen: SupportNavigator,
   },
   'Privacy Policy': {
-    screen: AccountNavigator,
+    screen: PrivacyPolicyNavigator,
   },
   'Terms of Service': {
-    screen: AccountNavigator,
+    screen: TermsOfServiceNavigator,
   },
   'Log Out': {
     screen: AccountNavigator,
   }
 },
-{
-  drawerPosition: 'right',
-  drawerType: 'front',
-  drawerWidth: 225,
-  hideStatusBar: true,
-  contentOptions: { 
-    activeTintColor: constants.highlightColor,
-  },
-})
+  {
+    drawerPosition: 'right',
+    drawerType: 'front',
+    drawerWidth: 225,
+    hideStatusBar: true,
+    contentOptions: {
+      activeTintColor: constants.highlightColor,
+    },
+  })
 
 const BottomNavigator = createBottomTabNavigator(
   {
@@ -176,9 +247,9 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'SEARCH',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons 
-            name="md-search" 
-            size={36} 
+          <Ionicons
+            name="md-search"
+            size={36}
             color={tintColor} />
         )
       },
@@ -188,9 +259,9 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'CONNECTIONS',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons 
-            name="md-people" 
-            size={36} 
+          <Ionicons
+            name="md-people"
+            size={36}
             color={tintColor} />
         )
       },
@@ -200,10 +271,10 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'MORE',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons 
-            name="ios-menu" 
-            size={36} 
-            color={tintColor} 
+          <Ionicons
+            name="ios-menu"
+            size={36}
+            color={tintColor}
           />
         ),
         tabBarOnPress: (props) => props.navigation.toggleDrawer()
@@ -232,6 +303,12 @@ const AppBottomSwitchNavigator = createSwitchNavigator({
   PeopleSearch: { screen: BottomNavigator },
   Authentication: { screen: BottomNavigator },
   More: { screen: DrawerNavigator },
+  About: { screen: DrawerNavigator },
+  Impact: { screen: DrawerNavigator },
+  EditProfile: { screen: DrawerNavigator },
+  Support: { screen: DrawerNavigator },
+  PrivacyPolicy: { screen: DrawerNavigator },
+  TermsOfService: { screen: DrawerNavigator }
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);
