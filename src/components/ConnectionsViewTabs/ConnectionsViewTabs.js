@@ -56,23 +56,16 @@ export const Documents = (props) => {
 
   return (
     <View>
-      {/* <ion-icon name="document"></ion-icon> */}
-
       <ListItem
         title={props.document.original_file_name}
         titleStyle={{ color: "#5A6064" }}
-        // leftAvatar={{ source: { uri: props.engagement.created_by.picture } }}
+
         to pDivider={true}
         onPress={() => Linking.openURL(props.document.attachment)}
         subtitle={props.document.created_by.full_name + ' - ' + props.document.created_at.substring(0, 10)}
       />
-      {/* <Button title='log document' onPress={() => console.log('****************', props.document)} /> */}
     </View>
   )
 }
 
 
-{/* <Text style={{color: 'blue'}}
-      onPress={() => Linking.openURL('http://google.com')}>
-  Google
-</Text> */}
