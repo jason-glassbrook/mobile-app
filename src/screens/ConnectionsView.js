@@ -20,7 +20,6 @@ import {
   clearDocuments,
   clearEngagements
 } from "../store/actions/connectionData";
-// import { Engagement, Documents } from '../CaseViewTabs'
 import {
   Ionicons, AntDesign, MaterialCommunityIcons, Feather,
   MaterialIcons
@@ -34,7 +33,8 @@ function ConnectionsView(props) {
     engagement: true,
     docs: false
   })
-  // Can we do this in ONE useEffect?
+
+
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
@@ -45,24 +45,27 @@ function ConnectionsView(props) {
       width: "100%",
       flexDirection: "row",
       justifyContent: "center",
-      alignItems: 'center'
+      alignItems: 'center',
+      overflow: "hidden",
+      borderWidth: 1,
+      borderColor: constants.highlightColor,
+      borderTopRightRadius: 4,
+      borderTopLeftRadius: 4,
     },
 
     selected: {
       backgroundColor: constants.highlightColor,
       color: "white",
-      borderWidth: 1,
-      borderColor: constants.highlightColor,
-      borderRadius: 4,
       overflow: "hidden"
     },
 
     tab: {
-      width: "47%",
+      width: "50%",
       height: 40,
       fontSize: 16,
       textAlign: 'center',
-      paddingTop: 8
+      paddingTop: 8,
+
     },
 
     iconStyles: {
@@ -74,11 +77,34 @@ function ConnectionsView(props) {
     }
   })
 
+  const leftArrow = '\u2190';
+
   return (
+
+
+      
     <View style={{ maxHeight: '100%'}}>
-      <View style={{width: '100%', justifyContent: 'space-around'}}>
-        <Text style={{ fontSize: 16, textAlign: 'center', paddingTop: 3}}>Case: {props.navigation.getParam('childName')}</Text>
-      </View>
+          <TouchableHighlight
+        underlayColor="lightgray"
+        style={{ padding: 7.5 }}
+        onPressIn={() => {
+          props.navigation.goBack()
+        }}
+      >
+        <Text
+          style={{
+            marginLeft: 5,
+            fontSize: 15
+          //   padding: 10,
+          //   borderRadius: 4,
+          //   borderWidth: 1,
+          //   borderColor: `${constants.highlightColor}`,
+          //   color: `${constants.highlightColor}`
+          }}
+        >
+          {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
+        </Text>
+      </TouchableHighlight>
       <View
         style={{
           justifyContent: "center",
@@ -171,7 +197,7 @@ function ConnectionsView(props) {
       >
       <View style={styles.tabs}>
         <Text
-          style={[styles.tab, tabs.engagement ? styles.selected : null]}
+          style={[styles.tab, tabs.engagement ? styles.selected : null, {borderTopRightRadius: 10, borderTopLeftRadius: 10}]}
           onPress={() => {
             setTabs({
               engagement: true,
@@ -182,7 +208,7 @@ function ConnectionsView(props) {
           Engagements
         </Text>
         <Text
-          style={[styles.tab, tabs.docs ? styles.selected : null]}
+          style={[styles.tab, tabs.docs ? styles.selected : null, {borderTopRightRadius: 10, borderTopLeftRadius: 10}]}
           onPress={() => {
             setTabs({
               engagement: false,
@@ -193,18 +219,7 @@ function ConnectionsView(props) {
           Documents
         </Text>
       </View>
-      <View 
-        style={{ 
-          alignItems: 'center',
-          borderRadius: 4,
-          borderColor: '#c4c4c4',
-          borderWidth: 0.5,
-          width: '95%',
-          margin: '2%',
-          alignItems: 'center',
-      }}
-    >
-      </View>
+
 
       {
         tabs.engagement ?
@@ -289,17 +304,19 @@ function ConnectionsView(props) {
 
       {
         tabs.docs ?
-          <View>
-            <ScrollView style={{ maxHeight: '100%' }}>
-              <View>
+          // <View style={{borderWidth: 2}}>
+            <ScrollView style={{maxHeight: '100%', width: '80%'}} >
+              {/* <View> */}
                 {
                   props.documents.map((document) => {
+                    console.log('pk' + ' ' + document.pk)
                     return (
                       <Documents key={document.pk} document={document} />)
                   })}
-              </View>
+              {/* </View> */}
             </ScrollView>
-          </View> : null
+          // </View> 
+          : null
       }
       </View>
     </View>

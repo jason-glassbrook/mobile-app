@@ -3,6 +3,8 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableWithoutFeedback,
+  Image,
   StyleSheet,
   Platform,
   ScrollView,
@@ -26,11 +28,9 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
-import ConnectionsView from "./ConnectionsView";
-import { NavigationActions } from 'react-navigation';
 
-export function CaseViewScreen(props) {
-
+export function CaseViewScreen (props) {
+  
   const [searchKeywords, setSearchKeywords] = useState('')
 
   const [filtersSelected, setFiletersSelected] = useState({
@@ -61,12 +61,13 @@ export function CaseViewScreen(props) {
       padding: 10,
       fontSize: 16
     },
-
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-      width: Platform.OS === "ios" ? '95%' : '95%',
+      width: '98%',
       backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
+    imageStyles: { width: 225, height: 90 },
+    iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 },
     filters: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -74,9 +75,9 @@ export function CaseViewScreen(props) {
       alignSelf: "stretch"
     },
     filter: {
-      height: 35,
-      width: 35,
-      borderRadius: 18,
+      height: 26,
+      width: 26,
+      borderRadius: 13,
       overflow: 'hidden',
       marginLeft: 10,
       marginRight: 10
@@ -84,7 +85,6 @@ export function CaseViewScreen(props) {
     selected: {
       borderWidth: 2,
     }
-
   });
 
 
@@ -108,7 +108,7 @@ export function CaseViewScreen(props) {
     } else if (gender === 'F') {
       return 'Female'
     } else if (gender === 'O') {
-      return 'Other'
+      return 'Unspecified Gender'
     } else {
       return null
     }
@@ -123,10 +123,10 @@ export function CaseViewScreen(props) {
   } else {
     //remove everyone without a status
     let filteredList = props.caseConnections.filter((connection) => connection.person.status)
-    console.log('person   +   color')
-    for (i in filteredList) {
-      console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
-    }
+    // console.log('person   +   color')
+    // for (i in filteredList) {
+    //   console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
+    // }
     if (!filtersSelected[1]) {
       //if filter1 not selected, remove everyone with filter1
       filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6AA84F')
@@ -158,23 +158,21 @@ export function CaseViewScreen(props) {
     return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
   });
 
-  // const leftArrow = '\u2190';
+  const leftArrow = '\u2190';
 
   return (
     <ScrollView>
-      {/* <TouchableHighlight
+      <TouchableHighlight
         underlayColor="lightgray"
-        style={{ marginTop: 40 }}
-        onPress={() => {
-          props.clearCaseData();
-          props.clearCaseConnections();
-          props.setCaseVisible();
+        style={{ padding: 7.5 }}
+        onPressIn={() => {
+          props.navigation.goBack()
         }}
       >
         <Text
           style={{
             marginLeft: 5,
-            fontSize: 17
+            fontSize: 15
           //   padding: 10,
           //   borderRadius: 4,
           //   borderWidth: 1,
@@ -182,9 +180,9 @@ export function CaseViewScreen(props) {
           //   color: `${constants.highlightColor}`
           }}
         >
-          {leftArrow} All Cases
+          {leftArrow} ALL CASES
         </Text>
-      </TouchableHighlight> */}
+      </TouchableHighlight>
       <View
         style={{
           justifyContent: "center",
@@ -221,7 +219,7 @@ export function CaseViewScreen(props) {
                 />
               </View>
               <View style={{ maxWidth: "60%" }}>
-                {caseData.gender ? <Text style={{ padding: 5 }}>Gender: {genderAssignment(caseData.gender)}</Text> : null}
+                {caseData.gender ? <Text style={{ padding: 5 }}>{genderAssignment(caseData.gender)}</Text> : null}
                 {caseData.birthday ? <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text> : null}
                 {caseData.address && caseData.address.formatted ? <Text style={{ padding: 5 }}>{`Residence:\n${caseData.address.formatted}`}</Text> : null}
                 {caseData.foster_care ? <Text style={{ padding: 5 }}>Initiation: {caseData.foster_care}</Text> : null}
@@ -233,12 +231,18 @@ export function CaseViewScreen(props) {
         <View
           style={{
             flexDirection: "column",
-            borderRadius: 4,
+            width: '95%',
+            minHeight: 350,
+            borderTopLeftRadius: 4,
+            borderTopRightRadius: 4,
             borderWidth: 0.5,
             borderColor: '#c4c4c4',
           }}
         >
-          <Text style={{ margin: 8, padding: 5, fontSize: 17.5 }}>Connections:</Text>
+          <View style={{width: '100%', height: 36, borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: '#0F6580', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+            <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text></View>
+            {/* <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: 'white' }}>Engagement</Text></View> */}
+          </View>
           <SearchBar
             inputStyle={{ fontSize: 12 }}
             inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
@@ -326,9 +330,7 @@ export function CaseViewScreen(props) {
   );
 }
 
-{/* // CaseViewScreen.navigationOptions = () => { */ }
-{/* //   headerConfig("Connections", navigation);
-} */}
+
 
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;
