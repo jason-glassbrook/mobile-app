@@ -259,10 +259,10 @@ class FamilyConnectionsScreen extends Component {
             this.setState({ addCaseModalVisible: true });
           }}
         /> */}
-        <View style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'space-around' }}>
+        <View style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <SearchBar
             inputStyle={{fontSize: 12}}
-            inputContainerStyle={{backgroundColor: '#FAFAFA', height: 45.62}}
+            inputContainerStyle={{backgroundColor: '#FAFAFA', height: 45.62 }}
             placeholder="Search Name..."
             placeholderTextColor="#8D8383"
             // lightTheme
@@ -274,15 +274,20 @@ class FamilyConnectionsScreen extends Component {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-          <MaterialIcons
-            name="filter-list"
-            color={constants.highlightColor}
-            size={32}
-
-            onPress={() => {
-              this.setModalVisible(true);
-            }}
-          />
+          <TouchableHighlight 
+            onPressIn={() => {
+                this.setModalVisible(true);
+              }}>
+            <View             
+              style={{flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingRight: 10}} 
+            >
+              <MaterialIcons
+                name="filter-list"
+                color='black'
+                size={32}
+              /><Text style={{fontSize: 16}}>Filter</Text>
+            </View>
+          </TouchableHighlight>
         </View>
 
         {/* FILTERS BUTTON - onPress Modal */}
@@ -609,8 +614,9 @@ class FamilyConnectionsScreen extends Component {
 // Create styles that target both platforms
 const styles = StyleSheet.create({
   searchBar: {
-    marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-    width: Platform.OS === "ios" ? 285 : 320,
+    marginRight: 5,
+    marginLeft: 5,
+    width: '97%',
     backgroundColor: Platform.OS === "ios" ? "white" : "white",
   },
   // addCaseButton: {

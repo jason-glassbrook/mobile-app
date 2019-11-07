@@ -63,7 +63,7 @@ export function CaseViewScreen (props) {
     },
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-      width: Platform.OS === "ios" ? '95%' : '95%',
+      width: '100%',
       backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
     imageStyles: { width: 225, height: 90 },
