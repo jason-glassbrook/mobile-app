@@ -63,7 +63,7 @@ export function CaseViewScreen (props) {
     },
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-      width: Platform.OS === "ios" ? '95%' : '95%',
+      width: '98%',
       backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
     imageStyles: { width: 225, height: 90 },
@@ -75,9 +75,9 @@ export function CaseViewScreen (props) {
       alignSelf: "stretch"
     },
     filter: {
-      height: 35,
-      width: 35,
-      borderRadius: 18,
+      height: 26,
+      width: 26,
+      borderRadius: 13,
       overflow: 'hidden',
       marginLeft: 10,
       marginRight: 10
@@ -107,7 +107,7 @@ export function CaseViewScreen (props) {
     } else if (gender === 'F') {
       return 'Female'
     } else if (gender === 'O') {
-      return 'Other'
+      return 'Unspecified Gender'
     } else {
       return null
     }
@@ -218,7 +218,7 @@ export function CaseViewScreen (props) {
                 />
               </View>
               <View style={{ maxWidth: "60%" }}>
-                {caseData.gender ? <Text style={{ padding: 5 }}>Gender: {genderAssignment(caseData.gender)}</Text> : null}
+                {caseData.gender ? <Text style={{ padding: 5 }}>{genderAssignment(caseData.gender)}</Text> : null}
                 {caseData.birthday ? <Text style={{ padding: 5 }}>Date of Birth: {caseData.birthday}</Text> : null}
                 {caseData.address && caseData.address.formatted ? <Text style={{ padding: 5 }}>{`Residence:\n${caseData.address.formatted}`}</Text> : null}
                 {caseData.foster_care ? <Text style={{ padding: 5 }}>Initiation: {caseData.foster_care}</Text> : null}
@@ -230,12 +230,18 @@ export function CaseViewScreen (props) {
         <View
           style={{
             flexDirection: "column",
-            borderRadius: 4,
+            width: '95%',
+            minHeight: 350,
+            borderTopLeftRadius: 4,
+            borderTopRightRadius: 4,
             borderWidth: 0.5,
             borderColor: '#c4c4c4',
           }}
         >
-          <Text style={{ margin: 8, padding: 5, fontSize: 17.5 }}>Connections:</Text>
+          <View style={{width: '100%', height: 36, borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: '#0F6580', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+            <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text></View>
+            {/* <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: 'white' }}>Engagement</Text></View> */}
+          </View>
           <SearchBar
             inputStyle={{ fontSize: 12 }}
             inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}

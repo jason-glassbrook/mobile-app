@@ -32,9 +32,20 @@ import {
     SocialIcon
 } from "react-native-elements";
 
+const formatTelephone = (telephone) => {
+    if (telephone !== null) {
+        let removed = telephone.slice(2)
+        let areaCode = removed.slice(0, 3)
+        let prefix = removed.slice(3, 6)
+        let lineNumber = removed.slice(6, 10)
+        return `(${areaCode}) ${prefix}-${lineNumber}`
+    } else {
+        return ''
+    }
+    
+}
 
 const CaseListComponent = (props) => {
-
     return (
         <View style={{paddingLeft: 2, paddingRight: 2}}>
             {props.connection.person.status ?
@@ -43,6 +54,8 @@ const CaseListComponent = (props) => {
                 <ListItem
                     title={props.connection.person.full_name}
                     titleStyle={{ color: "#5A6064" }}
+                    subtitle={formatTelephone(props.connection.person.telephone)}
+                    subtitleStyle={{color: "#5A6064"}}
                     leftAvatar={{ source: { uri: props.connection.person.picture } }}
                     to pDivider={true}
                     onPress={async () => {
@@ -58,6 +71,8 @@ const CaseListComponent = (props) => {
                 <ListItem
                     title={props.connection.person.full_name}
                     titleStyle={{ color: "#5A6064" }}
+                    subtitle={formatTelephone(props.connection.person.telephone)}
+                    subtitleStyle={{color: "#5A6064"}}
                     leftAvatar={{ source: { uri: props.connection.person.picture } }}
                     to pDivider={true}
                     onPress={async () => {
