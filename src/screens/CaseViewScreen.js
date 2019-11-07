@@ -29,11 +29,12 @@ import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
 
-export function CaseViewScreen (props) {
-  
+export function CaseViewScreen(props) {
+
   const [searchKeywords, setSearchKeywords] = useState('')
 
   const [filtersSelected, setFiletersSelected] = useState({
+    0: false,
     1: false,
     2: false,
     3: false,
@@ -92,6 +93,7 @@ export function CaseViewScreen (props) {
   useEffect(() => {
     props.getCaseData(props.navigation.getParam('pk'));
     props.getCaseConnections(props.navigation.getParam('pk'));
+    console.log('useEffect')
   }, [false]);
 
   let caseData = props.caseData;
@@ -116,40 +118,46 @@ export function CaseViewScreen (props) {
 
   //filter functionality
   const filteredConnections = () => {
-  //if no filters are set, do nothing
-  if (!filtersSelected[1] && !filtersSelected[2] && !filtersSelected[3] && !filtersSelected[4] && !filtersSelected[5]) {
-    return props.caseConnections
-  } else {
-    //remove everyone without a status
-    let filteredList = props.caseConnections.filter((connection) => connection.person.status)
-    // console.log('person   +   color')
-    // for (i in filteredList) {
-    //   console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
-    // }
-    if (!filtersSelected[1]) {
-      //if filter1 not selected, remove everyone with filter1
-      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6AA84F')
-      // console.log('length***************************', filteredList.length)
-    } 
-    if (!filtersSelected[2]) {
-      //if filter1 not selected, remove everyone with filter1
-      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#FFFF00')
-    } 
-    if (!filtersSelected[3]) {
-      //if filter1 not selected, remove everyone with filter1
-      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#CC0000')
-    }
-    if (!filtersSelected[4]) {
-      //if filter1 not selected, remove everyone with filter1
-      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#9900FF')
-    } 
-    if (!filtersSelected[5]) {
-      //if filter1 not selected, remove everyone with filter1
-      filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6FA8DC')
-    }
+    //if no filters are set, do nothing
+    if (!filtersSelected[0] && !filtersSelected[1] && !filtersSelected[2] && !filtersSelected[3] && !filtersSelected[4] && !filtersSelected[5]) {
+      return props.caseConnections
+    } else {
+      //remove everyone without a status
+      let filteredList = props.caseConnections.filter((connection) => connection.person.status)
+      // console.log('person   +   color')
+      // for (i in filteredList) {
+      //   console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
+      // }
+      if (!filtersSelected[0]) {
+        //if filter1 not selected, remove everyone with filter1
+        filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#C0C0C0')
+        // console.log('length***************************', filteredList.length)
+      }
+      if (!filtersSelected[1]) {
+        //if filter1 not selected, remove everyone with filter1
+        filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6AA84F')
+        // console.log('length***************************', filteredList.length)
+      }
+      if (!filtersSelected[2]) {
+        //if filter1 not selected, remove everyone with filter1
+        filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#FFFF00')
+      }
+      if (!filtersSelected[3]) {
+        //if filter1 not selected, remove everyone with filter1
+        filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#CC0000')
+      }
+      if (!filtersSelected[4]) {
+        //if filter1 not selected, remove everyone with filter1
+        filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#9900FF')
+      }
+      if (!filtersSelected[5]) {
+        //if filter1 not selected, remove everyone with filter1
+        filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6FA8DC')
+      }
 
-    return filteredList 
-  }}
+      return filteredList
+    }
+  }
 
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
@@ -172,11 +180,11 @@ export function CaseViewScreen (props) {
           style={{
             marginLeft: 5,
             fontSize: 15
-          //   padding: 10,
-          //   borderRadius: 4,
-          //   borderWidth: 1,
-          //   borderColor: `${constants.highlightColor}`,
-          //   color: `${constants.highlightColor}`
+            //   padding: 10,
+            //   borderRadius: 4,
+            //   borderWidth: 1,
+            //   borderColor: `${constants.highlightColor}`,
+            //   color: `${constants.highlightColor}`
           }}
         >
           {leftArrow} ALL CASES
@@ -238,7 +246,7 @@ export function CaseViewScreen (props) {
             borderColor: '#c4c4c4',
           }}
         >
-          <View style={{width: '100%', height: 36, borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: '#0F6580', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
+          <View style={{ width: '100%', height: 36, borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: '#0F6580', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
             <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text></View>
             {/* <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: 'white' }}>Engagement</Text></View> */}
           </View>
@@ -256,7 +264,9 @@ export function CaseViewScreen (props) {
             platform="ios"
             containerStyle={styles.searchBar}
           />
+          <Text style={{width:'100%', textAlign: 'center', color: constants.highlightColor, marginBottom: 5}}>DESCRIPTION</Text>
           <View style={styles.filters}>
+            <Text style={[styles.filter, { backgroundColor: '#C0C0C0' }, [filtersSelected[0] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 0: !filtersSelected[0] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#6AA84F' }, [filtersSelected[1] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 1: !filtersSelected[1] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#FFFF00' }, [filtersSelected[2] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 2: !filtersSelected[2] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#CC0000' }, [filtersSelected[3] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 3: !filtersSelected[3] })}></Text>
