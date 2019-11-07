@@ -3,7 +3,6 @@ import {
   Text,
   View,
   TouchableHighlight,
-  TouchableWithoutFeedback,
   StyleSheet,
   ScrollView,
   Button
@@ -98,12 +97,35 @@ function ConnectionsView(props) {
       overflow: "hidden"
     },
 
+    iconLabelContainer: {
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
+    iconContainer: {
+      backgroundColor: '#E5E4E2',
+      height: 45,
+      width: 45,
+      borderRadius: 22.5,
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
     iconStyles: {
-      fontSize: 32,
-      color: constants.highlightColor,
-      width: 32,
-      height: 32,
+      fontSize: 28,
+      // borderWidth: 1,
+      // borderColor: '#E5E4E2',
+      // borderRadius: 16,
+      backgroundColor: '#E5E4E2',
+      color: '#0F6580',
+      width: 28,
+      height: 28,
       marginHorizontal: 10
+    }, 
+
+    iconLabel: {
+      color: '#0F6580', 
+      fontSize: 12
     }
   })
 
@@ -135,86 +157,26 @@ function ConnectionsView(props) {
           {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
         </Text>
       </TouchableHighlight>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          // borderColor: 'yellow',
-          // borderWidth: 1
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            marginTop: 5,
-            width: "85%",
-            // borderColor: 'green',
-            // borderWidth: 1
+      <View>
+        <ListItem
+          title={connectionData.full_name}
+          // titleStyle={{color: '#000'}}
+          leftAvatar={{
+            size: "large",
+            source: {
+              uri:
+                connectionData.picture ||
+                "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+            }
           }}
-        >
-          <View>
-            {/* <View style={{
-              flexDirection: "row",
-              // justifyContent: "space-between",
-              // width: "85%"
-            }}>
-              <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
-              <ListItem
-                leftAvatar={{
-                  source: {
-                    uri:
-                      connectionData.picture ||
-                      "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
-                  }
-                }}
-              >{}</ListItem>
-              <View style={{ maxWidth: "60%" }}>
-                {connectionData.Email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
-                <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text>
-                <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text>
-              </View>
-            </View> */}
+        />
+        {/* {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
+        {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
+        {connectionData.address && connectionData.address.formatted ? <Text style={{ padding: 5 }}>Residence: {connectionData.address.formatted}</Text> : null} */}
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: 15,
-                width: "85%",
-                // borderColor: 'blue',
-                // borderWidth: 1
-              }}
-            >
-              <View>
-                <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
-                <ListItem
-                  leftAvatar={{
-                    size: "large",
-                    source: {
-                      uri:
-                        connectionData.picture ||
-                        "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
-                    }
-                  }}
-                />
-              </View>
-              <View style={{ maxWidth: "60%" }}>
-                {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
-                {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
-                {connectionData.address && connectionData.address.formatted ? <Text style={{ padding: 5 }}>Residence: {connectionData.address.formatted}</Text> : null}
-              </View>
-            </View>
-          </View>
-        </View>
       </View>
-      <View
-        style={{
-          width: "95%",
-          alignItems: 'center',
-        }}
-      >
-      </View>
+      
+     
       <View 
         style={{
           borderRadius: 4,
@@ -258,70 +220,80 @@ function ConnectionsView(props) {
 
       {
         tabs.engagement ?
-          <View>
+          <View style={{width: '100%'}}>
             <View 
               style={{
                 flexDirection: 'row',
                 justifyContent: 'space-evenly',
                 alignItems: 'center',
-                margin: 5,
-                // borderColor: 'orange',
-                // borderWidth: 1
+                marginTop: 12,
+                // marginBottom: 12
               }}
             >
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <Ionicons
-                  name='ios-document'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
+              <View style={styles.iconLabelContainer}>
+                <View style={styles.iconContainer}>
+                  <TouchableHighlight
+                    // onPress={() => {
+                    //   navigation.navigate('MyAccount')
+                    // }}
+                  >
+                    <AntDesign
+                      name='file1'
+                      style={styles.iconStyles}
+                    />
+                  </TouchableHighlight>
+                </View>
+                <Text style={styles.iconLabel}>ADD NOTE</Text>
+              </View>
 
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <AntDesign
-                  name='file1'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
+              <View style={styles.iconLabelContainer}>
+                <View style={styles.iconContainer}>
+                  <TouchableHighlight
+                    // onPress={() => {
+                    //   navigation.navigate('MyAccount')
+                    // }}
+                  >
+                    <MaterialIcons
+                      name='phone'
+                      style={styles.iconStyles}
+                      // iconStyles={{}}
+                    />
+                  </TouchableHighlight>
+                </View>
+                <Text style={styles.iconLabel}>LOG CALL</Text>
+              </View>
 
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <Feather
-                  name='phone'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <MaterialIcons
-                  name='email'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
+              <View style={styles.iconLabelContainer}>
+                <View style={styles.iconContainer}>
+                  <TouchableHighlight
+                    // onPress={() => {
+                    //   navigation.navigate('MyAccount')
+                    // }}
+                  >
+                    <MaterialIcons
+                      name='email'
+                      style={styles.iconStyles}
+                    />
+                  </TouchableHighlight>
+                </View>
+                <Text style={styles.iconLabel}>LOG EMAIL</Text>
+              </View>
 
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <MaterialCommunityIcons
-                  name='clock'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
+              <View style={styles.iconLabelContainer}>
+                <View style={styles.iconContainer}>
+                  <TouchableHighlight
+                    // onPress={() => {
+                    //   navigation.navigate('MyAccount')
+                    // }}
+                  >
+                    <MaterialCommunityIcons
+                      name='clock-outline'
+                      style={styles.iconStyles}
+                    />
+                  </TouchableHighlight>
+                </View>
+                <Text style={styles.iconLabel}>REMINDER</Text>
+              </View>
             </View>
 
             <ScrollView style={{ maxHeight: '80%' }}>
