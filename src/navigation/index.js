@@ -66,19 +66,12 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: 52
         },
         headerLeft: 
-          (<TouchableWithoutFeedback
-            onPress={() => {
-              navigation.navigate('FamilyConnections');
-              sendEvent(email, 'click', 'logo');
-            }}
-          >
-            <Image
+          (<Image
               source={logoImg}
               style={{width: 225, height: 90}}
               resizeMode="contain"
-            />
-          </TouchableWithoutFeedback>)
-      }
+            />)
+          }
     },
     ConnectionsView: {
       screen: ConnectionsView,
@@ -95,19 +88,12 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: 52
         },
         headerLeft: 
-          (<TouchableWithoutFeedback
-            onPress={() => {
-              navigation.navigate('FamilyConnections');
-              sendEvent(email, 'click', 'logo');
-            }}
-          >
-            <Image
+          (<Image
               source={logoImg}
               style={{width: 225, height: 90}}
               resizeMode="contain"
-            />
-          </TouchableWithoutFeedback>)
-      }
+            />)
+          }
     },
   },
 );

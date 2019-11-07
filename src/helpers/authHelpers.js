@@ -32,54 +32,61 @@ const setItem = async (key, value, options) => {
 
 const handleLogin = async (AuthSession, setUserCreds) => {
 
-  await LocalAuthentication.hasHardwareAsync()
-    .then(res =>
-      console.log(res),
-      await LocalAuthentication.supportedAuthenticationTypesAsync()
-        .then(res =>
-          console.log(res),
-          await LocalAuthentication.isEnrolledAsync()
-            .then(res =>
-              console.log(res),
-              await LocalAuthentication.authenticateAsync({
-                promptMessage: 'Authenticate',
-                fallbackLabel: 'Use Passcode'
-              })
-                .then(async res => {
-                  console.log(res);
-                  const refresh = await SecureStore.getItemAsync('cok_refresh_token');
-                  console.log('refreshhhhh', refresh)
-                  if (refresh) {
-                    await getNewAccessToken();
-                    // const idToken = await SecureStore.getItemAsync('cok_id_token');
-                    // const decoded = jwtDecode(idToken);
-                    // const { name, email } = decoded;
-                    // setUserCreds(decoded, idToken);
-                    console.log('getNewAccessToken')
-                  } else {
-                    await initialLogin();
-                    // await getRefreshToken();
-                    console.log('initialLogin')
-                  }
-                  const id_token = await SecureStore.getItemAsync('cok_id_token');
-                  const decoded = jwtDecode(id_token);
-                  const { name, email } = decoded;
-                  setUserCreds(decoded, id_token);
-                }
-                )
-                .catch(err =>
-                  console.log(err)
-                )
-            )
-            .catch(err =>
-              console.log(err)
-            )
-        )
-        .catch(err =>
-          console.log(err)
-        )
-    )
-    .catch(err => console.log(err));
+  await initialLogin();
+    
+    const id_token = await SecureStore.getItemAsync('cok_id_token');
+    const decoded = jwtDecode(id_token);
+    const { name, email } = decoded;
+    setUserCreds(decoded, id_token);
+
+  // await LocalAuthentication.hasHardwareAsync()
+  //   .then(res =>
+  //     console.log(res),
+  //     await LocalAuthentication.supportedAuthenticationTypesAsync()
+  //       .then(res =>
+  //         console.log(res),
+  //         await LocalAuthentication.isEnrolledAsync()
+  //           .then(res =>
+  //             console.log(res),
+  //             await LocalAuthentication.authenticateAsync({
+  //               promptMessage: 'Authenticate',
+  //               fallbackLabel: 'Use Passcode'
+  //             })
+  //               .then(async res => {
+  //                 console.log(res);
+  //                 const refresh = await SecureStore.getItemAsync('cok_refresh_token');
+  //                 console.log('refreshhhhh', refresh)
+  //                 if (refresh) {
+  //                   await getNewAccessToken();
+  //                   // const idToken = await SecureStore.getItemAsync('cok_id_token');
+  //                   // const decoded = jwtDecode(idToken);
+  //                   // const { name, email } = decoded;
+  //                   // setUserCreds(decoded, idToken);
+  //                   console.log('getNewAccessToken')
+  //                 } else {
+  //                   await initialLogin();
+  //                   // await getRefreshToken();
+  //                   console.log('initialLogin')
+  //                 }
+  //                 const id_token = await SecureStore.getItemAsync('cok_id_token');
+  //                 const decoded = jwtDecode(id_token);
+  //                 const { name, email } = decoded;
+  //                 setUserCreds(decoded, id_token);
+  //               }
+  //               )
+  //               .catch(err =>
+  //                 console.log(err)
+  //               )
+  //           )
+  //           .catch(err =>
+  //             console.log(err)
+  //           )
+  //       )
+  //       .catch(err =>
+  //         console.log(err)
+  //       )
+  //   )
+  //   .catch(err => console.log(err));
 
 
 

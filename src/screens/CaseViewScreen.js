@@ -163,8 +163,8 @@ export function CaseViewScreen (props) {
     <ScrollView>
       <TouchableHighlight
         underlayColor="lightgray"
-        style={{ marginTop: 5 }}
-        onPress={() => {
+        style={{ padding: 7.5 }}
+        onPressIn={() => {
           props.navigation.goBack()
         }}
       >

@@ -74,6 +74,8 @@ function ConnectionsView(props) {
     }
   })
 
+  const leftArrow = '\u2190';
+
   return (
 
 
@@ -81,8 +83,8 @@ function ConnectionsView(props) {
     <View style={{ maxHeight: '100%'}}>
           <TouchableHighlight
         underlayColor="lightgray"
-        style={{ marginTop: 5 }}
-        onPress={() => {
+        style={{ padding: 7.5 }}
+        onPressIn={() => {
           props.navigation.goBack()
         }}
       >
@@ -97,7 +99,7 @@ function ConnectionsView(props) {
           //   color: `${constants.highlightColor}`
           }}
         >
-          {leftArrow} {props.navigation.getParam('childName')}
+          {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
         </Text>
       </TouchableHighlight>
       <View
