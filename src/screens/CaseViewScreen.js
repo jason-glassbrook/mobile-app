@@ -92,6 +92,7 @@ export function CaseViewScreen(props) {
   useEffect(() => {
     props.getCaseData(props.navigation.getParam('pk'));
     props.getCaseConnections(props.navigation.getParam('pk'));
+    console.log('useEffect')
   }, [false]);
 
   let caseData = props.caseData;
