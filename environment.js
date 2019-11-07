@@ -4,9 +4,9 @@
  ******************************/
 
 import Constants from 'expo-constants';
-// import { Platform } from 'react-native';
-
-// const localhost = Platform.OS === 'ios' ? 'localhost:8080' : '10.0.2.2:8080';
+import { Platform } from 'react-native';
+console.log(Constants.manifest.packagerOpts.dev)
+const localhost = Platform.OS === 'ios' ? 'localhost:8080' : '10.0.2.2:8080';
 
 const ENV = {
   dev: {
@@ -26,14 +26,16 @@ const ENV = {
   },
   prod: {
     auth0Domain: `login.connectourkids.org`,
-    auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
-    peopleSearchURL: 'https://search.connectourkids.org/api/search-v2',
-    eventTrackingURL: 'https://search.connectourkids.org/api/sendEvent'
+    // auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
+    auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
+    peopleSearchURL: 'https://dev.search.connectourkids.org/api/search-v2',
+    eventTrackingURL: 'https://dev.search.connectourkids.org/api/sendEvent'
     // Add other keys you want here
   }
 };
 
 const getEnvVars = (env = Constants.manifest.releaseChannel) => {
+  // console.log('ENV ===> ', env, ENV)
   // What is __DEV__ ?
   // This variable is set to true when react-native is running in Dev mode.
   // __DEV__ is true when run locally, but false when published.
@@ -47,3 +49,11 @@ const getEnvVars = (env = Constants.manifest.releaseChannel) => {
 };
 
 export default getEnvVars;
+
+// const getEnvVars = (env = Constants.manifest.packagerOpts.dev) => {
+//   if (env === true) return ENV.dev
+//   // if (env.indexOf('dev') !== -1) return ENV.dev
+//   // if (env.indexOf('staging') !== -1) return ENV.staging
+//   if (env === false) return ENV.prod
+// }
+// export default getEnvVars;

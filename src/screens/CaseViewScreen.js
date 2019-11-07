@@ -3,6 +3,8 @@ import {
   Text,
   View,
   TouchableHighlight,
+  TouchableWithoutFeedback,
+  Image,
   StyleSheet,
   Platform,
   ScrollView,
@@ -26,11 +28,9 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
-import ConnectionsView from "./ConnectionsView";
-import { NavigationActions } from 'react-navigation';
 
-export function CaseViewScreen(props) {
-
+export function CaseViewScreen (props) {
+  
   const [searchKeywords, setSearchKeywords] = useState('')
 
   const [filtersSelected, setFiletersSelected] = useState({
@@ -61,12 +61,13 @@ export function CaseViewScreen(props) {
       padding: 10,
       fontSize: 16
     },
-
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
       width: Platform.OS === "ios" ? '95%' : '95%',
       backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
+    imageStyles: { width: 225, height: 90 },
+    iconStyles: { fontSize: 40, color: '#000', paddingRight: 20 },
     filters: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -84,7 +85,6 @@ export function CaseViewScreen(props) {
     selected: {
       borderWidth: 2,
     }
-
   });
 
 
@@ -157,23 +157,21 @@ export function CaseViewScreen(props) {
     return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
   });
 
-  // const leftArrow = '\u2190';
+  const leftArrow = '\u2190';
 
   return (
     <ScrollView>
-      {/* <TouchableHighlight
+      <TouchableHighlight
         underlayColor="lightgray"
-        style={{ marginTop: 40 }}
-        onPress={() => {
-          props.clearCaseData();
-          props.clearCaseConnections();
-          props.setCaseVisible();
+        style={{ padding: 7.5 }}
+        onPressIn={() => {
+          props.navigation.goBack()
         }}
       >
         <Text
           style={{
             marginLeft: 5,
-            fontSize: 17
+            fontSize: 15
           //   padding: 10,
           //   borderRadius: 4,
           //   borderWidth: 1,
@@ -181,9 +179,9 @@ export function CaseViewScreen(props) {
           //   color: `${constants.highlightColor}`
           }}
         >
-          {leftArrow} All Cases
+          {leftArrow} ALL CASES
         </Text>
-      </TouchableHighlight> */}
+      </TouchableHighlight>
       <View
         style={{
           justifyContent: "center",
@@ -325,9 +323,7 @@ export function CaseViewScreen(props) {
   );
 }
 
-{/* // CaseViewScreen.navigationOptions = () => { */ }
-{/* //   headerConfig("Connections", navigation);
-} */}
+
 
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;

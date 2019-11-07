@@ -74,11 +74,34 @@ function ConnectionsView(props) {
     }
   })
 
+  const leftArrow = '\u2190';
+
   return (
+
+
+      
     <View style={{ maxHeight: '100%'}}>
-      <View style={{width: '100%', justifyContent: 'space-around'}}>
-        <Text style={{ fontSize: 16, textAlign: 'center', paddingTop: 3}}>Case: {props.navigation.getParam('childName')}</Text>
-      </View>
+          <TouchableHighlight
+        underlayColor="lightgray"
+        style={{ padding: 7.5 }}
+        onPressIn={() => {
+          props.navigation.goBack()
+        }}
+      >
+        <Text
+          style={{
+            marginLeft: 5,
+            fontSize: 15
+          //   padding: 10,
+          //   borderRadius: 4,
+          //   borderWidth: 1,
+          //   borderColor: `${constants.highlightColor}`,
+          //   color: `${constants.highlightColor}`
+          }}
+        >
+          {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
+        </Text>
+      </TouchableHighlight>
       <View
         style={{
           justifyContent: "center",

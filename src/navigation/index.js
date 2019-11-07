@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 import {
+  TouchableWithoutFeedback,
+  Image
+} from 'react-native'
+import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
@@ -18,6 +22,7 @@ import constants from '../helpers/constants';
 import AuthenticationView from '../screens/AuthenticationScreen';
 import CaseViewScreen from '../screens/CaseViewScreen';
 import ConnectionsView from '../screens/ConnectionsView';
+import logoImg from '../../assets/logo.png'
 
 const BestPracticeNavigator = createStackNavigator(
   {
@@ -54,7 +59,19 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: constants.headerHeight,
           backgroundColor: constants.highlightColor
         }
-      }
+      },
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: 'white',
+          height: 52
+        },
+        headerLeft: 
+          (<Image
+              source={logoImg}
+              style={{width: 225, height: 90}}
+              resizeMode="contain"
+            />)
+          }
     },
     ConnectionsView: {
       screen: ConnectionsView,
@@ -64,7 +81,19 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: constants.headerHeight,
           backgroundColor: constants.highlightColor
         }
-      }
+      },
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: 'white',
+          height: 52
+        },
+        headerLeft: 
+          (<Image
+              source={logoImg}
+              style={{width: 225, height: 90}}
+              resizeMode="contain"
+            />)
+          }
     },
   },
 );
