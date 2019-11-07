@@ -113,9 +113,6 @@ function ConnectionsView(props) {
 
     iconStyles: {
       fontSize: 28,
-      // borderWidth: 1,
-      // borderColor: '#E5E4E2',
-      // borderRadius: 16,
       backgroundColor: '#E5E4E2',
       color: '#0F6580',
       width: 28,
@@ -132,11 +129,8 @@ function ConnectionsView(props) {
   const leftArrow = '\u2190';
 
   return (
-
-
-      
     <View style={{ maxHeight: '100%'}}>
-          <TouchableHighlight
+      <TouchableHighlight
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
         onPressIn={() => {
@@ -145,14 +139,9 @@ function ConnectionsView(props) {
       >
         <Text
           style={{
-            marginLeft: 5,
-            fontSize: 15
-          //   padding: 10,
-          //   borderRadius: 4,
-          //   borderWidth: 1,
-          //   borderColor: `${constants.highlightColor}`,
-          //   color: `${constants.highlightColor}`
-          }}
+          marginLeft: 5,
+          fontSize: 15
+        }}
         >
           {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
         </Text>
@@ -160,7 +149,8 @@ function ConnectionsView(props) {
       <View>
         <ListItem
           title={connectionData.full_name}
-          // titleStyle={{color: '#000'}}
+          titleStyle={{fontSize: 17.5}}
+          subtitle="test"
           leftAvatar={{
             size: "large",
             source: {
@@ -255,7 +245,15 @@ function ConnectionsView(props) {
                   >
                     <MaterialIcons
                       name='phone'
-                      style={styles.iconStyles}
+                      style={{
+                        fontSize: 28,
+                        backgroundColor: '#E5E4E2',
+                        color: '#0F6580',
+                        width: 28,
+                        height: 28,
+                        marginHorizontal: 10,
+                        transform: [{rotate: '-90deg'}]
+                      }}
                       // iconStyles={{}}
                     />
                   </TouchableHighlight>
