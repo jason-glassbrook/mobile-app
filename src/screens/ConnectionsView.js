@@ -20,7 +20,6 @@ import {
   clearDocuments,
   clearEngagements
 } from "../store/actions/connectionData";
-// import { Engagement, Documents } from '../CaseViewTabs'
 import {
   Ionicons, AntDesign, MaterialCommunityIcons, Feather,
   MaterialIcons
@@ -34,7 +33,8 @@ function ConnectionsView(props) {
     engagement: true,
     docs: false
   })
-  // Can we do this in ONE useEffect?
+
+
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
@@ -254,18 +254,7 @@ function ConnectionsView(props) {
           </Text>
         </View>
       </View>
-      <View 
-        style={{ 
-          alignItems: 'center',
-          borderRadius: 4,
-          borderColor: '#c4c4c4',
-          borderWidth: 0.5,
-          width: '95%',
-          margin: '2%',
-          alignItems: 'center',
-      }}
-    >
-      </View>
+
 
       {
         tabs.engagement ?
@@ -350,17 +339,19 @@ function ConnectionsView(props) {
 
       {
         tabs.docs ?
-          <View>
-            <ScrollView style={{ maxHeight: '100%' }}>
-              <View>
+          // <View style={{borderWidth: 2}}>
+            <ScrollView style={{maxHeight: '100%', width: '80%'}} >
+              {/* <View> */}
                 {
                   props.documents.map((document) => {
+                    console.log('pk' + ' ' + document.pk)
                     return (
                       <Documents key={document.pk} document={document} />)
                   })}
-              </View>
+              {/* </View> */}
             </ScrollView>
-          </View> : null
+          // </View> 
+          : null
       }
       </View>
     </View>

@@ -122,10 +122,10 @@ export function CaseViewScreen (props) {
   } else {
     //remove everyone without a status
     let filteredList = props.caseConnections.filter((connection) => connection.person.status)
-    console.log('person   +   color')
-    for (i in filteredList) {
-      console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
-    }
+    // console.log('person   +   color')
+    // for (i in filteredList) {
+    //   console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
+    // }
     if (!filtersSelected[1]) {
       //if filter1 not selected, remove everyone with filter1
       filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6AA84F')
