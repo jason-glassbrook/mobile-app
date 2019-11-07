@@ -45,24 +45,57 @@ function ConnectionsView(props) {
       width: "100%",
       flexDirection: "row",
       justifyContent: "center",
-      alignItems: 'center'
+      alignItems: 'center',
+      // borderWidth: 1,
+      // borderColor: '#E5E4E2',
+      // borderTopLeftRadius: 4,
+      // borderTopRightRadius: 4,
     },
 
-    selected: {
-      backgroundColor: constants.highlightColor,
-      color: "white",
+    engagementTab: {
+      width: "50%",
+      justifyContent: 'center',
+      alignItems: 'center',
       borderWidth: 1,
-      borderColor: constants.highlightColor,
-      borderRadius: 4,
+      borderTopLeftRadius: 4,
+      borderColor: '#E5E4E2',
+      height: 36,
+      fontSize: 17.5,
+      textAlign: 'center',
+      // paddingTop: 8,
+      backgroundColor: '#E5E4E2'
+    },
+
+    documentsTab: {
+      width: "50%",
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderTopRightRadius: 4,
+      borderColor: '#E5E4E2',
+      height: 36,
+      fontSize: 17.5,
+      textAlign: 'center',
+      // paddingTop: 8,
+      backgroundColor: '#E5E4E2'
+    },
+
+    engagementSelected: {
+      backgroundColor: "#0F6580",
+      color: '#E5E4E2',
+      borderWidth: 1,
+      borderColor: "#0F6580",
+      borderTopLeftRadius: 4,
       overflow: "hidden"
     },
 
-    tab: {
-      width: "47%",
-      height: 40,
-      fontSize: 16,
-      textAlign: 'center',
-      paddingTop: 8
+    documentsSelected: {
+      backgroundColor: "#0F6580",
+      color: '#E5E4E2',
+      borderWidth: 1,
+      borderColor: "#0F6580",
+      borderTopRightRadius: 4,
+      overflow: "hidden"
     },
 
     iconStyles: {
@@ -157,6 +190,7 @@ function ConnectionsView(props) {
                 <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
                 <ListItem
                   leftAvatar={{
+                    size: "large",
                     source: {
                       uri:
                         connectionData.picture ||
@@ -184,8 +218,8 @@ function ConnectionsView(props) {
       <View 
         style={{
           borderRadius: 4,
-          borderColor: '#c4c4c4',
-          borderWidth: 0.5,
+          // borderColor: '#0F6580',
+          // borderWidth: 0.5,
           width: '95%',
           marginLeft: '2%',
           alignItems: 'center',
@@ -193,28 +227,32 @@ function ConnectionsView(props) {
         }}
       >
       <View style={styles.tabs}>
-        <Text
-          style={[styles.tab, tabs.engagement ? styles.selected : null]}
-          onPress={() => {
-            setTabs({
-              engagement: true,
-              docs: false,
-            });
-          }}
-        >
-          Engagements
-        </Text>
-        <Text
-          style={[styles.tab, tabs.docs ? styles.selected : null]}
-          onPress={() => {
-            setTabs({
-              engagement: false,
-              docs: true,
-            });
-          }}
-        >
-          Documents
-        </Text>
+        <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
+          <Text
+            style={[{color: '#E5E4E2', fontSize: 17.5}, tabs.engagement ? {color: '#E5E4E2'} : {color: '#000'}]}
+            onPress={() => {
+              setTabs({
+                engagement: true,
+                docs: false,
+              });
+            }}
+          >
+            Engagement
+          </Text>
+        </View>
+        <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
+          <Text
+            style={[{color: '#E5E4E2', fontSize: 17.5}, tabs.docs ? {color: '#E5E4E2'} : {color: '#000'}]}
+            onPress={() => {
+              setTabs({
+                engagement: false,
+                docs: true,
+              });
+            }}
+          >
+            Documents
+          </Text>
+        </View>
       </View>
       <View 
         style={{ 

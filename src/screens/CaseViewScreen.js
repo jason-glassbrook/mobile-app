@@ -235,11 +235,23 @@ export function CaseViewScreen (props) {
             borderTopLeftRadius: 4,
             borderTopRightRadius: 4,
             borderWidth: 0.5,
-            borderColor: '#c4c4c4',
+            borderColor: '#0F6580',
           }}
         >
-          <View style={{width: '100%', height: 36, borderTopLeftRadius: 4, borderTopRightRadius: 4, backgroundColor: '#0F6580', justifyContent: 'center', alignItems: 'center', flexDirection: 'row'}}>
-            <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text></View>
+          <View style={{
+            width: '100%', 
+            height: 36, 
+            borderTopLeftRadius: 4, 
+            borderTopRightRadius: 4, 
+            backgroundColor: '#0F6580', 
+            borderWidth: 0.5, 
+            borderColor: '#0F6580', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            flexDirection: 'row'}}>
+            <View>
+              <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text>
+            </View>
             {/* <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: 'white' }}>Engagement</Text></View> */}
           </View>
           <SearchBar
