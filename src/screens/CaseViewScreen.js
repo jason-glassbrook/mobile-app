@@ -231,6 +231,7 @@ export function CaseViewScreen (props) {
           style={{
             flexDirection: "column",
             width: '95%',
+            minHeight: 350,
             borderTopLeftRadius: 4,
             borderTopRightRadius: 4,
             borderWidth: 0.5,

@@ -46,7 +46,6 @@ const formatTelephone = (telephone) => {
 }
 
 const CaseListComponent = (props) => {
-    {console.log(props.connection)}
     return (
         <View style={{paddingLeft: 2, paddingRight: 2}}>
             {props.connection.person.status ?
