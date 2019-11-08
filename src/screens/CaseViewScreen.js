@@ -115,6 +115,19 @@ export function CaseViewScreen(props) {
     }
   }
 
+  //sort by name
+  const name = (a, b) => {
+    const A = a.person.last_name.toUpperCase();
+    const B = b.person.last_name.toUpperCase();
+    let comparison = 0;
+    if (A > B) {
+      comparison = 1;
+    } else {
+      comparison = -1;
+    }
+    return comparison;
+  };
+
 
   //filter functionality
   const filteredConnections = () => {
@@ -123,16 +136,13 @@ export function CaseViewScreen(props) {
       return props.caseConnections
     } else {
       //remove everyone without a status
+      let noStatus = props.caseConnections.filter((connection) => !connection.person.status)
       let filteredList = props.caseConnections.filter((connection) => connection.person.status)
       // console.log('person   +   color')
       // for (i in filteredList) {
       //   console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
       // }
-      if (!filtersSelected[0]) {
-        //if filter1 not selected, remove everyone with filter1
-        filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#C0C0C0')
-        // console.log('length***************************', filteredList.length)
-      }
+
       if (!filtersSelected[1]) {
         //if filter1 not selected, remove everyone with filter1
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6AA84F')
@@ -153,6 +163,10 @@ export function CaseViewScreen(props) {
       if (!filtersSelected[5]) {
         //if filter1 not selected, remove everyone with filter1
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6FA8DC')
+      }
+      if (filtersSelected[0]) {
+        filteredList = filteredList.concat(noStatus)
+        filteredList.sort(name)
       }
 
       return filteredList
