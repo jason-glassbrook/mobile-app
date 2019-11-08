@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
   ScrollView,
   Button,
@@ -131,7 +131,7 @@ function ConnectionsView(props) {
 
   return (
     <View style={{ maxHeight: '100%'}}>
-      <TouchableHighlight
+      <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
         onPressIn={() => {
@@ -146,7 +146,7 @@ function ConnectionsView(props) {
         >
           {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
         </Text>
-      </TouchableHighlight>
+      </TouchableOpacity>
       <View>
         <ListItem
           title={connectionData.full_name}
@@ -154,22 +154,22 @@ function ConnectionsView(props) {
           subtitle={
             <View>
               {connectionData.telephone ? 
-                <TouchableHighlight 
+                <TouchableOpacity 
                   onPress={() => Linking.openURL(`tel:${connectionData.telephone}`)}
                 >
                   <Text style={{color: '#434245'}}>
                     {formatTelephone(connectionData.telephone)}
                   </Text>
-                </TouchableHighlight>
+                </TouchableOpacity>
               : null}
               {connectionData.email ? 
-                <TouchableHighlight
+                <TouchableOpacity
                   onPress={() => Linking.openURL(`mailto:${connectionData.email}`)}
                 >
                   <Text style={{color: '#434245'}}>
                     {connectionData.email}
                   </Text>
-                </TouchableHighlight> 
+                </TouchableOpacity> 
               : null}
               {connectionData.address && connectionData.address.formatted ? <Text style={{color: '#434245'}}>{connectionData.address.formatted}</Text> : null}
             </View>
@@ -245,7 +245,7 @@ function ConnectionsView(props) {
             >
               <View style={styles.iconLabelContainer}>
                 <View style={styles.iconContainer}>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     // onPress={() => {
                     //   navigation.navigate('MyAccount')
                     // }}
@@ -254,14 +254,14 @@ function ConnectionsView(props) {
                       name='file1'
                       style={styles.iconStyles}
                     />
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
                 <Text style={styles.iconLabel}>ADD NOTE</Text>
               </View>
 
               <View style={styles.iconLabelContainer}>
                 <View style={styles.iconContainer}>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     // onPress={() => {
                     //   navigation.navigate('MyAccount')
                     // }}
@@ -279,14 +279,14 @@ function ConnectionsView(props) {
                       }}
                       // iconStyles={{}}
                     />
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
                 <Text style={styles.iconLabel}>LOG CALL</Text>
               </View>
 
               <View style={styles.iconLabelContainer}>
                 <View style={styles.iconContainer}>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     // onPress={() => {
                     //   navigation.navigate('MyAccount')
                     // }}
@@ -295,14 +295,14 @@ function ConnectionsView(props) {
                       name='email'
                       style={styles.iconStyles}
                     />
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
                 <Text style={styles.iconLabel}>LOG EMAIL</Text>
               </View>
 
               <View style={styles.iconLabelContainer}>
                 <View style={styles.iconContainer}>
-                  <TouchableHighlight
+                  <TouchableOpacity
                     // onPress={() => {
                     //   navigation.navigate('MyAccount')
                     // }}
@@ -311,7 +311,7 @@ function ConnectionsView(props) {
                       name='clock-outline'
                       style={styles.iconStyles}
                     />
-                  </TouchableHighlight>
+                  </TouchableOpacity>
                 </View>
                 <Text style={styles.iconLabel}>REMINDER</Text>
               </View>
