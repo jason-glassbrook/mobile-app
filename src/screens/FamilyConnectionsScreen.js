@@ -98,7 +98,7 @@ class FamilyConnectionsScreen extends Component {
     } else if (gender === 'F') {
       return 'Female'
     } else if (gender === 'O') {
-      return 'Other'
+      return 'Unspecified Gender'
     } else {
       return null
     }
@@ -261,7 +261,7 @@ class FamilyConnectionsScreen extends Component {
         /> */}
         <View style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <SearchBar
-            inputStyle={{fontSize: 12}}
+            inputStyle={{fontSize: 16}}
             inputContainerStyle={{backgroundColor: '#FAFAFA', height: 45.62 }}
             placeholder="Search Name..."
             placeholderTextColor="#8D8383"
@@ -536,8 +536,8 @@ class FamilyConnectionsScreen extends Component {
                     titleStyle={{ color: "#5A6064" }}
                     subtitle={`${
                       result.gender ?
-                        `Gender: ${this.genderAssignment(result.gender)}`
-                        : "Gender: unspecified"
+                        this.genderAssignment(result.gender)
+                        : "Unspecified Gender"
                       } ${result.birthday ? `Birthday: ${result.birthday}`: ''}`}
                     subtitleStyle={{ color: "#9FABB3" }}
                     leftAvatar={{ source: { uri: result.picture } }}
