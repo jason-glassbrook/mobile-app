@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import {
   Text,
   View,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Button
+  Button,
+  Linking
 } from 'react-native';
 import {
   Divider,
@@ -25,7 +25,7 @@ import {
   MaterialIcons
 } from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs'
-import { AuthSession } from 'expo';
+import formatTelephone from '../helpers/formatTelephone.js'
 
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
@@ -46,45 +46,88 @@ function ConnectionsView(props) {
       flexDirection: "row",
       justifyContent: "center",
       alignItems: 'center',
-      overflow: "hidden",
-      borderWidth: 1,
-      borderColor: constants.highlightColor,
-      borderTopRightRadius: 4,
-      borderTopLeftRadius: 4,
     },
 
-    selected: {
-      backgroundColor: constants.highlightColor,
-      color: "white",
+    engagementTab: {
+      width: "50%",
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderTopLeftRadius: 4,
+      borderColor: '#E5E4E2',
+      height: 36,
+      fontSize: 17.5,
+      textAlign: 'center',
+      // paddingTop: 8,
+      backgroundColor: '#E5E4E2'
+    },
+
+    documentsTab: {
+      width: "50%",
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderTopRightRadius: 4,
+      borderColor: '#E5E4E2',
+      height: 36,
+      fontSize: 17.5,
+      textAlign: 'center',
+      // paddingTop: 8,
+      backgroundColor: '#E5E4E2'
+    },
+
+    engagementSelected: {
+      backgroundColor: "#0F6580",
+      color: '#E5E4E2',
+      borderWidth: 1,
+      borderColor: "#0F6580",
+      borderTopLeftRadius: 4,
       overflow: "hidden"
     },
 
-    tab: {
-      width: "50%",
-      height: 40,
-      fontSize: 16,
-      textAlign: 'center',
-      paddingTop: 8,
+    documentsSelected: {
+      backgroundColor: "#0F6580",
+      color: '#E5E4E2',
+      borderWidth: 1,
+      borderColor: "#0F6580",
+      borderTopRightRadius: 4,
+      overflow: "hidden"
+    },
 
+    iconLabelContainer: {
+      justifyContent: 'center',
+      alignItems: 'center'
+    },
+
+    iconContainer: {
+      backgroundColor: '#E5E4E2',
+      height: 45,
+      width: 45,
+      borderRadius: 22.5,
+      justifyContent: 'center',
+      alignItems: 'center'
     },
 
     iconStyles: {
-      fontSize: 32,
-      color: constants.highlightColor,
-      width: 32,
-      height: 32,
+      fontSize: 28,
+      backgroundColor: '#E5E4E2',
+      color: '#0F6580',
+      width: 28,
+      height: 28,
       marginHorizontal: 10
+    }, 
+
+    iconLabel: {
+      color: '#0F6580', 
+      fontSize: 12
     }
   })
 
   const leftArrow = '\u2190';
 
   return (
-
-
-      
-    <View style={{ maxHeight: '100%'}}>
-          <TouchableHighlight
+    <View style={{ maxHeight: '100%', width: '100%'}}>
+      <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
         onPressIn={() => {
@@ -93,232 +136,220 @@ function ConnectionsView(props) {
       >
         <Text
           style={{
-            marginLeft: 5,
-            fontSize: 15
-          //   padding: 10,
-          //   borderRadius: 4,
-          //   borderWidth: 1,
-          //   borderColor: `${constants.highlightColor}`,
-          //   color: `${constants.highlightColor}`
-          }}
+          marginLeft: 5,
+          fontSize: 15
+        }}
         >
           {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
         </Text>
-      </TouchableHighlight>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          // borderColor: 'yellow',
-          // borderWidth: 1
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            marginTop: 5,
-            width: "85%",
-            // borderColor: 'green',
-            // borderWidth: 1
-          }}
-        >
-          <View>
-            {/* <View style={{
-              flexDirection: "row",
-              // justifyContent: "space-between",
-              // width: "85%"
-            }}>
-              <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
-              <ListItem
-                leftAvatar={{
-                  source: {
-                    uri:
-                      connectionData.picture ||
-                      "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
-                  }
-                }}
-              >{}</ListItem>
-              <View style={{ maxWidth: "60%" }}>
-                {connectionData.Email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
-                <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text>
-                <Text style={{ padding: 5 }}>Residence: {connectionData.address}</Text>
-              </View>
-            </View> */}
+      </TouchableOpacity>
 
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginTop: 15,
-                width: "85%",
-                // borderColor: 'blue',
-                // borderWidth: 1
-              }}
-            >
+        <View>
+          <ListItem
+            title={connectionData.full_name}
+            titleStyle={{fontSize: 18}}
+            subtitle={
               <View>
-                <Text style={{ fontSize: 20 }}>{connectionData.full_name}</Text>
-                <ListItem
-                  leftAvatar={{
-                    source: {
-                      uri:
-                        connectionData.picture ||
-                        "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
-                    }
-                  }}
-                />
+                {connectionData.telephone ? 
+                  <TouchableOpacity 
+                    onPress={() => Linking.openURL(`tel:${connectionData.telephone}`)}
+                  >
+                    <Text style={{color: '#434245'}}>
+                      {formatTelephone(connectionData.telephone)}
+                    </Text>
+                  </TouchableOpacity>
+                : null}
+                {connectionData.email ? 
+                  <TouchableOpacity
+                    onPress={() => Linking.openURL(`mailto:${connectionData.email}`)}
+                  >
+                    <Text style={{color: '#434245'}}>
+                      {connectionData.email}
+                    </Text>
+                  </TouchableOpacity> 
+                : null}
+                {connectionData.address && connectionData.address.formatted ? <Text style={{color: '#434245'}}>{connectionData.address.formatted}</Text> : null}
               </View>
-              <View style={{ maxWidth: "60%" }}>
-                {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
-                {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
-                {connectionData.address && connectionData.address.formatted ? <Text style={{ padding: 5 }}>Residence: {connectionData.address.formatted}</Text> : null}
-              </View>
-            </View>
-          </View>
+            }
+            leftAvatar={{
+              size: "large",
+              source: {
+                uri:
+                  connectionData.picture ||
+                  "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+              }
+            }}
+          />
         </View>
-      </View>
-      <View
-        style={{
-          width: "95%",
-          alignItems: 'center',
-        }}
-      >
-      </View>
-      <View 
-        style={{
-          borderRadius: 4,
-          borderColor: '#c4c4c4',
-          borderWidth: 0.5,
-          width: '95%',
-          marginLeft: '2%',
-          alignItems: 'center',
-          alignContent: "center"
-        }}
-      >
-      <View style={styles.tabs}>
-        <Text
-          style={[styles.tab, tabs.engagement ? styles.selected : null, {borderTopRightRadius: 10, borderTopLeftRadius: 10}]}
-          onPress={() => {
-            setTabs({
-              engagement: true,
-              docs: false,
-            });
-          }}
-        >
-          Engagements
-        </Text>
-        <Text
-          style={[styles.tab, tabs.docs ? styles.selected : null, {borderTopRightRadius: 10, borderTopLeftRadius: 10}]}
-          onPress={() => {
-            setTabs({
-              engagement: false,
-              docs: true,
-            });
-          }}
-        >
-          Documents
-        </Text>
-      </View>
-
-
-      {
-        tabs.engagement ?
-          <View>
-            <View 
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-                alignItems: 'center',
-                margin: 5,
-                // borderColor: 'orange',
-                // borderWidth: 1
-              }}
-            >
-              <TouchableWithoutFeedback
+        
+        <View style={{justifyContent: 'center', width: '100%', alignItems: 'center'}}>
+          <View 
+            style={{
+              borderRadius: 4,
+              // borderColor: '#0F6580',
+              // borderWidth: 0.5,
+              width: '95%',
+              alignItems: 'center',
+              justifyContent: "center"
+            }}
+          >
+          <View style={styles.tabs}>
+            <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
+              <Text
+                style={[{color: '#E5E4E2', fontSize: 17.5}, tabs.engagement ? {color: '#E5E4E2'} : {color: '#000'}]}
                 onPress={() => {
-                  navigation.navigate('MyAccount')
+                  setTabs({
+                    engagement: true,
+                    docs: false,
+                  });
                 }}
               >
-                <Ionicons
-                  name='ios-document'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
-
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <AntDesign
-                  name='file1'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
-
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <Feather
-                  name='phone'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <MaterialIcons
-                  name='email'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
-
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  navigation.navigate('MyAccount')
-                }}
-              >
-                <MaterialCommunityIcons
-                  name='clock'
-                  style={styles.iconStyles}
-                />
-              </TouchableWithoutFeedback>
+                Engagement
+              </Text>
             </View>
 
-            <ScrollView style={{ maxHeight: '80%' }}>
-              <View>
-                {
-                  props.engagements.map((engagement) => {
-                    return (
-                      <Engagement key={engagement.pk} engagement={engagement} />)
-                  })}
-              </View>
-            </ScrollView>
+            <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
+              <Text
+                style={[{color: '#E5E4E2', fontSize: 17.5}, tabs.docs ? {color: '#E5E4E2'} : {color: '#000'}]}
+                onPress={() => {
+                  setTabs({
+                    engagement: false,
+                    docs: true,
+                  });
+                }}
+              >
+                Documents
+              </Text>
+            </View>
           </View>
-          : null
-      }
-
-      {
-        tabs.docs ?
-          // <View style={{borderWidth: 2}}>
-            <ScrollView style={{maxHeight: '100%', width: '80%'}} >
-              {/* <View> */}
-                {
-                  props.documents.map((document) => {
-                    console.log('pk' + ' ' + document.pk)
-                    return (
-                      <Documents key={document.pk} document={document} />)
-                  })}
-              {/* </View> */}
-            </ScrollView>
-          // </View> 
-          : null
-      }
-      </View>
+    
+    
+          {
+            tabs.engagement ?
+              <View style={{width: '100%', borderWidth: 0.5, borderColor: '#E5E4E2', minHeight: 350}}>
+                <View 
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-evenly',
+                    alignItems: 'center',
+                    marginTop: 12,
+                    // marginBottom: 12
+                  }}
+                >
+                  <View style={styles.iconLabelContainer}>
+                    <View style={styles.iconContainer}>
+                      <TouchableOpacity
+                        // onPress={() => {
+                        //   navigation.navigate('MyAccount')
+                        // }}
+                      >
+                        <AntDesign
+                          name='file1'
+                          style={styles.iconStyles}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={styles.iconLabel}>ADD NOTE</Text>
+                  </View>
+    
+                  <View style={styles.iconLabelContainer}>
+                    <View style={styles.iconContainer}>
+                      <TouchableOpacity
+                        // onPress={() => {
+                        //   navigation.navigate('MyAccount')
+                        // }}
+                      >
+                        <MaterialIcons
+                          name='phone'
+                          style={{
+                            fontSize: 28,
+                            backgroundColor: '#E5E4E2',
+                            color: '#0F6580',
+                            width: 28,
+                            height: 28,
+                            marginHorizontal: 10,
+                            transform: [{rotate: '-90deg'}]
+                          }}
+                          // iconStyles={{}}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={styles.iconLabel}>LOG CALL</Text>
+                  </View>
+    
+                  <View style={styles.iconLabelContainer}>
+                    <View style={styles.iconContainer}>
+                      <TouchableOpacity
+                        // onPress={() => {
+                        //   navigation.navigate('MyAccount')
+                        // }}
+                      >
+                        <MaterialIcons
+                          name='email'
+                          style={styles.iconStyles}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={styles.iconLabel}>LOG EMAIL</Text>
+                  </View>
+    
+                  <View style={styles.iconLabelContainer}>
+                    <View style={styles.iconContainer}>
+                      <TouchableOpacity
+                        // onPress={() => {
+                        //   navigation.navigate('MyAccount')
+                        // }}
+                      >
+                        <MaterialCommunityIcons
+                          name='clock-outline'
+                          style={styles.iconStyles}
+                        />
+                      </TouchableOpacity>
+                    </View>
+                    <Text style={styles.iconLabel}>REMINDER</Text>
+                  </View>
+                </View>
+    
+                <ScrollView style={{ maxHeight: '80%' }}>
+                  <View>
+                    {
+                      props.engagements.map((engagement) => {
+                        return (
+                          <Engagement key={engagement.pk} engagement={engagement} />)
+                      })}
+                  </View>
+                </ScrollView>
+              </View>
+              : null
+          }
+    
+          {
+            tabs.docs ?
+              // <View style={{borderWidth: 2}}>
+                <View style={{minHeight: 350, borderWidth: 0.5, borderColor: '#E5E4E2', width: '100%'}}>
+                  <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <TouchableOpacity
+                      style={{width: 162, height: 40, backgroundColor: constants.highlightColor, borderRadius: 4, justifyContent: 'center', alignItems: 'center', marginTop: 18, marginBottom: 10 }}
+                    >
+                      <Text style={{color: "#FFFFFF", fontSize: 18}}>Add Document</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <ScrollView style={{width: '100%', maxHeight: '100%' }} >
+                    {/* <View> */}
+                      {
+                        props.documents.map((document) => {
+                          console.log('pk' + ' ' + document.pk)
+                          return (
+                            <Documents key={document.pk} document={document} />)
+                        })}
+                    {/* </View> */}
+                  </ScrollView>
+                </View>
+              // </View> 
+              : null
+          }
+          </View>
+        </View>    
     </View>
   );
 }
