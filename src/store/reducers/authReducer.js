@@ -6,6 +6,7 @@ import {
   SET_VIDEO_PLAYER_VISIBLE
 } from './../actions/actionTypes';
 import * as SecureStore from 'expo-secure-store';
+import {clearUserCases} from './userCasesReducer';
 
 const initialState = {
   user: null,

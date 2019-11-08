@@ -21,7 +21,10 @@ const Login = props => {
             <View style={{ width: '100%' }}>
               <Button
                 style={[styles.button, { backgroundColor: 'red' }]}
-                onPress={() => props.logOut(props.email)}
+                onPress={() => {
+                  props.logOut(props.email)
+                  props.clearUserCases()
+                  }}
                 block
               >
                 <Text style={styles.logOutText}>Log Out</Text>
