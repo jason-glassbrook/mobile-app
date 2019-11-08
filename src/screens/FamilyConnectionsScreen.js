@@ -192,7 +192,9 @@ class FamilyConnectionsScreen extends Component {
 
     // const { navigate } = this.props.navigation;
     const fullYear = new Date();
+    console.log('restuls************************', this.props.results)
     return (
+      this.props.results[0] ?
       <SafeAreaView>
         <View style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}>
         <SearchBar
@@ -433,6 +435,7 @@ class FamilyConnectionsScreen extends Component {
           </ScrollView>
         </View>
       </SafeAreaView>
+      : <Button title='Log In' onPress={() => this.props.navigation.navigate('MyAccount')} />
     );
   }
 }
