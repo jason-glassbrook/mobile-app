@@ -14,9 +14,9 @@ import NavigationButton from '../UI/NavigationButton';
 import ScreenContainer from '../UI/ScreenContainer';
 import authHelpers from '../helpers/authHelpers';
 
-class BestPracticesScreen extends Component {
+class AboutScreen extends Component {
   static navigationOptions = ({ navigation }) =>
-    headerConfig('Best Practices', navigation);
+    headerConfig('About', navigation);
 
   async componentDidMount() {
     let idToken = await SecureStore.getItemAsync('cok_id_token');
@@ -57,10 +57,10 @@ class BestPracticesScreen extends Component {
               }}
             >
               Watch the video below to learn more about the free tools and
-              resources in this app. Video not loading? <Text style={{textDecorationLine: 'underline'}}>Tap here.</Text> </Text>
-              
+              resources in this app. Video not loading? <Text style={{ textDecorationLine: 'underline' }}>Tap here.</Text> </Text>
 
-            <Video uri={constants.bestPracticesURI}/>
+
+            <Video uri={constants.aboutURI} />
           </ScrollView>
         </SafeAreaView>
       </ScreenContainer>
@@ -78,4 +78,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { setUserCreds, logOut }
-)(BestPracticesScreen);
+)(AboutScreen);

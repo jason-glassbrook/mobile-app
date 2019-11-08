@@ -1,20 +1,21 @@
 import React, { Component } from 'react'
 import {
   TouchableWithoutFeedback,
-  Image
+  Image,
+  Linking,
+  Text
 } from 'react-native'
 import {
   createAppContainer,
   createSwitchNavigator
 } from 'react-navigation';
-import { Text } from 'react-native';
 import { createDrawerNavigator, DrawerActions, DrawerItems } from 'react-navigation-drawer';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import {
   createStackNavigator,
 } from 'react-navigation-stack';
 import { Ionicons } from '@expo/vector-icons';
-import BestPracticesScreen from '../screens/BestPracticesScreen';
+import AboutScreen from '../screens/AboutScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import SupportScreen from '../screens/SupportScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
@@ -27,23 +28,11 @@ import constants from '../helpers/constants';
 import AuthenticationView from '../screens/AuthenticationScreen';
 import CaseViewScreen from '../screens/CaseViewScreen';
 import ConnectionsView from '../screens/ConnectionsView';
-import logoImg from '../../assets/logo.png'
+import logoImg from '../../assets/logo.png';
 
-const BestPracticeNavigator = createStackNavigator(
-  {
-    BestPractices: {
-      screen: BestPracticesScreen,
-      initialRouteName: 'BestPractices',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      }
-    },
-  }
-);
+// When Privacy Policy is selected in drawer menu, redirect to Privacy Policy on website
 
+//Following StackNavigators are in BottomNav:
 const FamilyConnectionsNavigator = createStackNavigator(
   {
     FamilyConnections: {
@@ -128,6 +117,22 @@ const PeopleSearchNavigator = createStackNavigator(
   },
 );
 
+// Following StackNavigators are inside "More" drawer:
+const AboutNavigator = createStackNavigator(
+  {
+    About: {
+      screen: AboutScreen,
+      initialRouteName: 'About',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
+      }
+    },
+  }
+);
+
 const AccountNavigator = createStackNavigator({
   MyAccount: {
     screen: AuthenticationView,
@@ -208,14 +213,14 @@ const TermsOfServiceNavigator = createStackNavigator({
 
 
 const DrawerNavigator = createDrawerNavigator({
+  'About': {
+    screen: AboutNavigator,
+  },
   'Edit Profile': {
     screen: EditProfileNavigator,
   },
   'Impact Dashboard': {
     screen: ImpactNavigator,
-  },
-  'About': {
-    screen: BestPracticeNavigator,
   },
   'Support': {
     screen: SupportNavigator,
@@ -254,6 +259,7 @@ const BottomNavigator = createBottomTabNavigator(
         )
       },
     },
+
     FamilyConnections: {
       screen: FamilyConnectionsNavigator,
       navigationOptions: {
@@ -266,6 +272,7 @@ const BottomNavigator = createBottomTabNavigator(
         )
       },
     },
+
     MoreNavigator: {
       screen: DrawerNavigator,
       navigationOptions: {
@@ -281,6 +288,7 @@ const BottomNavigator = createBottomTabNavigator(
       },
     },
   },
+
   {
     initialRouteName: 'FamilyConnections',
     tabBarOptions: {
@@ -297,18 +305,19 @@ const BottomNavigator = createBottomTabNavigator(
     }
   })
 
+
 const AppBottomSwitchNavigator = createSwitchNavigator({
-  BestPractices: { screen: BottomNavigator },
-  FamilyConnections: { screen: BottomNavigator },
-  PeopleSearch: { screen: BottomNavigator },
-  Authentication: { screen: BottomNavigator },
   More: { screen: DrawerNavigator },
   About: { screen: DrawerNavigator },
   Impact: { screen: DrawerNavigator },
   EditProfile: { screen: DrawerNavigator },
   Support: { screen: DrawerNavigator },
   PrivacyPolicy: { screen: DrawerNavigator },
-  TermsOfService: { screen: DrawerNavigator }
+  TermsOfService: { screen: DrawerNavigator },
+  About: { screen: BottomNavigator },
+  FamilyConnections: { screen: BottomNavigator },
+  PeopleSearch: { screen: BottomNavigator },
+  Authentication: { screen: BottomNavigator },
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, Linking, StatusBar } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { SafeAreaView, Text, Linking, StatusBar, ScrollView, TouchableHighlight } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { setUserCreds, logOut } from '../store/actions';
 import { connect } from 'react-redux';
@@ -40,18 +39,33 @@ class PrivacyPolicyScreen extends Component {
     }
 
     render() {
+        const leftArrow = '\u2190';
         return (
             <ScreenContainer>
                 <SafeAreaView>
                     <StatusBar barStyle="dark-content" />
                     <ScrollView>
-                        <MainText>
-                            This is the Privacy Policy Screen!
-                        </MainText>
+                        <Text onPress={() => Linking.openURL('http://google.com')}>Click Here to view Privacy Policy.</Text>
+                        <TouchableHighlight
+                            underlayColor="lightgray"
+                            style={{ padding: 7.5 }}
+                            onPressIn={() => {
+                                props.navigation.goBack()
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    marginLeft: 5,
+                                    fontSize: 15
+                                }}
+                            >
+                                {leftArrow} Back to MENU
+                            </Text>
+                        </TouchableHighlight>
                     </ScrollView>
                 </SafeAreaView>
             </ScreenContainer>
-        );
+        )
     }
 }
 
