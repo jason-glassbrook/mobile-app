@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Stylesheet,
     View,
@@ -12,14 +12,8 @@ import { Container, Button } from 'native-base';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
 import {
-    eventTrack,
-    fetchPerson,
-    resetPerson,
-    setModalVisible,
-    setAgreeModalVisible,
-    setUserCreds,
-    showModal,
-    getInfo
+    getInfo,
+    getUserProfile
 } from '../store/actions';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
@@ -29,45 +23,76 @@ import authHelpers from '../helpers/authHelpers';
 import headerConfig from '../helpers/headerConfig';
 import constants from '../helpers/constants';
 
-export const MyProfile = (props) => {
+const MyProfile = ({ props }) => {
+    const [profile, setProfile] = useState([]);
+    useEffect(() => {
+        if (profile) {
+            setProfile([...profile]);
+        }
+    }, []);
 
+
+    return (
+        <View>
+            <ListItem
+                title={profile.full_name}
+                titleStyle={{ fontSize: 18 }}
+                subtitle={
+                    <View>
+                        {profile.telephone ?
+                            <TouchableOpacity
+                                onPress={() => Linking.openURL(`tel:${profile.telephone}`)}
+                            >
+                                <Text style={{ color: '#434245' }}>
+                                    {formatTelephone(profile.telephone)}
+                                </Text>
+                            </TouchableOpacity>
+                            : null}
+                        {profile.email ?
+                            <TouchableOpacity
+                                onPress={() => Linking.openURL(`mailto:${profile.email}`)}
+                            >
+                                <Text style={{ color: '#434245' }}>
+                                    {profile.email}
+                                </Text>
+                            </TouchableOpacity>
+                            : null}
+                        {profile.address && profile.address.formatted ? <Text style={{ color: '#434245' }}>{profile.address.formatted}</Text> : null}
+                    </View>
+                }
+                leftAvatar={{
+                    size: "large",
+                    source: {
+                        uri:
+                            profile.picture ||
+                            "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
+                    }
+                }}
+            />
+        </View>
+    )
 }
+{/* {profile.map(({ response.data }, i) => ()
+            
+{values.userProfile.map(userProfile => console.log("each user", user))}
+{users
+  ? users.map(user => (
+      <p key={user.id} className="users">
+       {user.name} */}
 
 
 const mapStateToProps = state => {
     // console.log(state);
-    const { error, isFetching, person, possiblePersons } = state.people;
-    const {
-        accessToken,
-        idToken,
-        isLoggedIn,
-        user,
-        modalVisible,
-    } = state.auth;
+    const { error, isLoading } = state.profile;
     return {
-        accessToken,
-        error,
-        idToken,
         isFetching,
-        isLoggedIn,
-        person,
-        possiblePersons,
-        user,
-        modalVisible,
-        getInfo: state.confirmationModal.info
+        error
     };
 };
 
 export default connect(
     mapStateToProps,
     {
-        eventTrack,
-        fetchPerson,
-        setModalVisible,
-        setUserCreds,
-        showModal,
-        getInfo
+        getUserProfile
     }
 )(MyProfileScreen);
-
-
