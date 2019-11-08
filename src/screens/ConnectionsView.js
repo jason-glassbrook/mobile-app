@@ -46,10 +46,6 @@ function ConnectionsView(props) {
       flexDirection: "row",
       justifyContent: "center",
       alignItems: 'center',
-      // borderWidth: 1,
-      // borderColor: '#E5E4E2',
-      // borderTopLeftRadius: 4,
-      // borderTopRightRadius: 4,
     },
 
     engagementTab: {
@@ -183,10 +179,6 @@ function ConnectionsView(props) {
             }
           }}
         />
-        {/* {connectionData.email ? <Text style={{ padding: 5 }}>Email: {connectionData.email}</Text> : null}
-        {connectionData.telephone ? <Text style={{ padding: 5 }}>Phone: {connectionData.telephone}</Text> : null}
-        {connectionData.address && connectionData.address.formatted ? <Text style={{ padding: 5 }}>Residence: {connectionData.address.formatted}</Text> : null} */}
-
       </View>
       
      

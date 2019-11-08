@@ -6,7 +6,7 @@ const formatTelephone = (telephone) => {
       let lineNumber = removed.slice(6, 10)
       return `(${areaCode}) ${prefix}-${lineNumber}`
   } else {
-      return ''
+      return null
   }
 }
 

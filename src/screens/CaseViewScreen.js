@@ -245,7 +245,7 @@ export function CaseViewScreen(props) {
               {/* <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: 'white' }}>Engagement</Text></View> */}
             </View>
             <SearchBar
-              inputStyle={{ fontSize: 12 }}
+              inputStyle={{ fontSize: 16 }}
               inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
               placeholder="Search Name..."
               placeholderTextColor="#8D8383"
