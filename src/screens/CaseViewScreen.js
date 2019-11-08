@@ -225,7 +225,7 @@ export function CaseViewScreen(props) {
               borderTopLeftRadius: 4,
               borderTopRightRadius: 4,
               borderWidth: 0.5,
-              borderColor: '#0F6580',
+              borderColor: '#E5E4E2',
             }}
           >
             <View style={{

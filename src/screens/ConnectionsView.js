@@ -225,7 +225,7 @@ function ConnectionsView(props) {
 
       {
         tabs.engagement ?
-          <View style={{width: '100%'}}>
+          <View style={{width: '100%', borderWidth: 0.5, borderColor: '#E5E4E2', minHeight: 350}}>
             <View 
               style={{
                 flexDirection: 'row',
@@ -325,16 +325,25 @@ function ConnectionsView(props) {
       {
         tabs.docs ?
           // <View style={{borderWidth: 2}}>
-            <ScrollView style={{maxHeight: '100%', width: '80%'}} >
-              {/* <View> */}
-                {
-                  props.documents.map((document) => {
-                    console.log('pk' + ' ' + document.pk)
-                    return (
-                      <Documents key={document.pk} document={document} />)
-                  })}
-              {/* </View> */}
-            </ScrollView>
+            <View style={{minHeight: 350, borderWidth: 0.5, borderColor: '#E5E4E2', width: '100%'}}>
+              <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                <TouchableOpacity
+                  style={{width: 162, height: 40, backgroundColor: constants.highlightColor, borderRadius: 4, justifyContent: 'center', alignItems: 'center', marginTop: 18, marginBottom: 10 }}
+                >
+                  <Text style={{color: "#FFFFFF", fontSize: 18}}>Add Document</Text>
+                </TouchableOpacity>
+              </View>
+              <ScrollView style={{width: '100%', maxHeight: '100%' }} >
+                {/* <View> */}
+                  {
+                    props.documents.map((document) => {
+                      console.log('pk' + ' ' + document.pk)
+                      return (
+                        <Documents key={document.pk} document={document} />)
+                    })}
+                {/* </View> */}
+              </ScrollView>
+            </View>
           // </View> 
           : null
       }
