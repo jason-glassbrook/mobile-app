@@ -1,138 +1,71 @@
 
 import React from "react";
-import { Button, Text, ScrollView } from "react-native";
-import { Formik } from "formik";
+import { Button, Text, ScrollView, View } from "react-native";
 import { compose } from "recompose";
 import {
   handleTextInput,
-  withNextInputAutoFocusForm,
-  withNextInputAutoFocusInput,
-  withFormikControl
+  withNextInputAutoFocusInput
 } from "react-native-formik";
 import { TextField } from "react-native-material-textfield";
-import * as Yup from "yup";
-import DatePicker from "./DatePicker";
-import Switch from "./Switch";
+// import SwitchBtn from "./SwitchBtn";
+import ToggleSwitch from 'toggle-switch-react-native'
+import axios from "axios";
 
-// import React from "react";
-// import { Button, Text, ScrollView } from "react-native";
-// import { Formik } from "formik";
-// import { compose } from "recompose";
-// import {
-//     handleTextInput,
-//     withNextInputAutoFocusForm,
-//     withNextInputAutoFocusInput,
-//     withFormikControl
-// } from "react-native-formik";
-// import { TextField } from "react-native-material-textfield";
-// // import * as Yup from "yup";
-// import SwitchBtn from "../src/components/SwitchBtn"
 
-const MyInput = compose(
-    handleTextInput,
-    withNextInputAutoFocusInput
-  )(TextField);
-  const Form = withNextInputAutoFocusForm(ScrollView, {
-    submitAfterLastInput: false
-  });
-  const FocusedDatePicker = compose(
-    withFormikControl,
-    withNextInputAutoFocusInput
-  )(DatePicker);
-  
-  const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .required()
-      .email(),
-    password: Yup.string()
-      .required()
-      .min(6, "Too short"),
-    star: Yup.boolean()
-      .required()
-      .oneOf([true])
-  });
-  
-  // export default () => (
-  //   <Formik
-  //     onSubmit={values => alert(JSON.stringify(values, null, 2))}
-  //     validationSchema={validationSchema}
-  //     initialValues={{ star: true }}
-  //   >
-  //     {props => {
-  //       return (
-  //         <Form style={{ padding: 10 }}>
-  //           <MyInput label="Email" name="email" type="email" />
-  //           <MyInput label="Password" name="password" type="password" />
-  //           <Switch
-  //             label="If you like the repo, have you starred it 😁?"
-  //             name="star"
-  //           />
-  //           <FocusedDatePicker label="Birthday" name="birthday" />
-  
-  //           <Button onPress={props.handleSubmit} title="SUBMIT" />
-  //           <Text>{JSON.stringify(props, null, 2)}</Text>
-  //         </Form>
-  //       );
-  //     }}
-  //   </Formik>
-  // );//
+const AddNotesInput = compose(
+  handleTextInput,
+  withNextInputAutoFocusInput
+) (TextField);
 
-// const DocsInput = compose(
-//     handleTextInput,
-//     withNextInputAutoFocusInput
-// )(TextField);
-// const DocsForm = withNextInputAutoFocusForm(ScrollView, {
-//     submitAfterLastInput: false
-// });
+const NotesForm = withNextInputAutoFocusInputForm(View);
+const [notes, setNotes] = useState([]);
 
-// export default () => (
-//     <Formik
-//     onSubmit={values => alert(JSON.stringify(values, null, 2))}
-//     initialValues={{ classified: true }}
-//   >
+useEffect(() => {
+ axios.post('https://family-staging.connectourkids.org/api/v1/documents/')
+ .then(res => {
+   console.log(response);
+ }, (error) => {
+   console.error('Please try again', error);
+ })
+}, []);
+function NotesForm(Notes) {
+  axios.post('https://family-staging.connectourkids.org/api/v1/person/356/histories/')
+  .then(res => {
+    console.log(response);
+  },(error) => {
+    console.error('Note failed to save please try again', error);
+  })
+}
 
-//         {props => {
-//             return (
-//                 <DocsForm style={{ padding: 10 }}>
-//                     <DocsInput label="Notes" name="notes" type="textinput" />
-//                     <Switch
-//                         label="This Information Is Sensitive."
-//                         name="classified"
-//                     />
-
-//                     <Button onPress={props.handleSubmit} title="Save" />
-//                     <Text>{JSON.stringify(props, null, 2)}</Text>
-//                     </DocsForm>
-//       );
-//     }}
-//   </Formik>
-// );
+const handleChange = event => {
+  setNotes({...notes, [event.target.SAVE]: event.target.value});
+}
 
 
 
-// import {
-//     Text,
-//     View,
-//     StyleSheet,
-//     Alert,
-//     TouchableHighlight,
-//     TouchableOpacity,
-//     TextInput,
-//     Keyboard
-// } from 'react-native';
-
-
-// export default function AddDocs(props) {
-//     const styles =
-// }
-
-
-
-
-
-
-
-
+export default props => (
+  <Formik
+  onsubmit={values => console.log(values)}
+  validationSchema={validationSchema}
+  render={props => {
+    return (
+      <NotesForm>
+        <MyInput label="Notes" name="Add a Note" type="inputfield" />
+        <ToggleSwitch
+  isOn={false}
+  onColor="sky blue"
+  offColor="grey"
+  label="This information is Sensitive(2FA Required to view)"
+  labelStyle={{ color: "blue", fontWeight: "790" }}
+  size="large"
+  onToggle={isOn => console.log("changed to : ", isOn)}
+/>
+        <Button onPress={props.handleSubmit} title="SAVE" />
+      </NotesForm>
+    )
+  }}
+/>
+);
 
 
 
