@@ -5,8 +5,9 @@ import { confirmationModalReducer as confirmationModal } from './confirmationMod
 import { recentSearchesReducer as recentSearches } from './recentSearchesReducer';
 import { getUserCasesReducer as userCases } from './userCasesReducer';
 import { getCaseDataReducer as caseData } from './caseDataReducer';
-import { getCaseConnectionsReducer as caseConnections } from './caseConnectionsReducer'
-import { connectionReducer as connection } from './connectionReducer'
+import { getCaseConnectionsReducer as caseConnections } from './caseConnectionsReducer';
+import { connectionReducer as connection } from './connectionReducer';
+import { userProfileReducer as profile } from './userProfileReducer';
 
 export default combineReducers({
   auth,
@@ -16,5 +17,6 @@ export default combineReducers({
   userCases,
   caseData,
   caseConnections,
-  connection
+  connection,
+  profile
 });

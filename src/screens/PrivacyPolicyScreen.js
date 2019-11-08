@@ -7,7 +7,6 @@ import jwtDecode from 'jwt-decode';
 import { withNavigation, NavigationActions } from 'react-navigation';
 import headerConfig from '../helpers/headerConfig';
 import constants from '../helpers/constants';
-import Video from '../components/Video/Video';
 import MainText from '../UI/MainText';
 import NavigationButton from '../UI/NavigationButton';
 import ScreenContainer from '../UI/ScreenContainer';
@@ -23,6 +22,7 @@ class PrivacyPolicyScreen extends Component {
 
     render() {
         const leftArrow = '\u2190';
+
         return (
             <ScreenContainer>
                 <SafeAreaView>
@@ -33,7 +33,7 @@ class PrivacyPolicyScreen extends Component {
                             underlayColor="lightgray"
                             style={{ padding: 7.5 }}
                             onPressIn={() => {
-                                navigation.navigate(FamilyConnectionsScreen)
+                                navigation.goback(FamilyConnectionsScreen)
                             }}
                         >
                             <Text

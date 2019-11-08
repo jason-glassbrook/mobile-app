@@ -16,7 +16,7 @@ import {
 } from 'react-navigation-stack';
 import { Ionicons } from '@expo/vector-icons';
 import AboutScreen from '../screens/AboutScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
+import MyProfileScreen from '../screens/MyProfileScreen';
 import SupportScreen from '../screens/SupportScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 import TermsOfServiceScreen from '../screens/TermsOfServiceScreen';
@@ -145,10 +145,10 @@ const AccountNavigator = createStackNavigator({
   },
 })
 
-const EditProfileNavigator = createStackNavigator({
-  EditProfile: {
-    screen: EditProfileScreen,
-    initialRouteName: 'EditProfile',
+const MyProfileNavigator = createStackNavigator({
+  MyProfile: {
+    screen: MyProfileScreen,
+    initialRouteName: 'MyProfile',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -215,8 +215,8 @@ const DrawerNavigator = createDrawerNavigator({
   'About': {
     screen: AboutNavigator,
   },
-  'Edit Profile': {
-    screen: EditProfileNavigator,
+  'My Profile': {
+    screen: MyProfileNavigator,
   },
   'Impact Dashboard': {
     screen: ImpactNavigator,
@@ -309,7 +309,7 @@ const AppBottomSwitchNavigator = createSwitchNavigator({
   More: { screen: DrawerNavigator },
   About: { screen: DrawerNavigator },
   Impact: { screen: DrawerNavigator },
-  EditProfile: { screen: DrawerNavigator },
+  MyProfile: { screen: DrawerNavigator },
   Support: { screen: DrawerNavigator },
   PrivacyPolicy: { screen: DrawerNavigator },
   TermsOfService: { screen: DrawerNavigator },
