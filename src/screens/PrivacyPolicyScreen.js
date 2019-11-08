@@ -33,7 +33,7 @@ class PrivacyPolicyScreen extends Component {
                             underlayColor="lightgray"
                             style={{ padding: 7.5 }}
                             onPressIn={() => {
-                                withNavigation.navigate(FamilyConnectionsScreen)
+                                navigation.navigate(FamilyConnectionsScreen)
                             }}
                         >
                             <Text

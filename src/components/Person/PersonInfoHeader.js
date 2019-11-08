@@ -9,8 +9,8 @@ const PersonInfoHeader = ({ item, listItem = false }) => {
   let secondLine = '';
   let uri = item.images
     ? `https://dev.search.connectourkids.org/api/thumbnail?tokens=${
-        item.images[0].thumbnail_token
-      }`
+    item.images[0].thumbnail_token
+    }`
     : constants.defaultImageUri;
 
   if (item.dob && item.gender) {
