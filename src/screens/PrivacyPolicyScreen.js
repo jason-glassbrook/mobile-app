@@ -28,7 +28,7 @@ class PrivacyPolicyScreen extends Component {
                 <SafeAreaView>
                     <StatusBar barStyle="dark-content" />
                     <ScrollView>
-                        <Text onPress={() => Linking.openURL('http://google.com')}>Click Here to view Privacy Policy.</Text>
+                        <Text onPress={() => Linking.openURL('https://www.connectourkids.org/privacy')}>Click Here to view Privacy Policy.</Text>
                         <TouchableHighlight
                             underlayColor="lightgray"
                             style={{ padding: 7.5 }}

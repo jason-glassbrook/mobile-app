@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, Linking, StatusBar } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import {
+    SafeAreaView,
+    Text,
+    Linking,
+    StatusBar,
+    ScrollView,
+    TouchableHighlight,
+    Button
+} from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { setUserCreds, logOut } from '../store/actions';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
-
+import { withNavigation, NavigationActions } from 'react-navigation';
 import headerConfig from '../helpers/headerConfig';
 import constants from '../helpers/constants';
 import Video from '../components/Video/Video';
@@ -17,41 +24,39 @@ import authHelpers from '../helpers/authHelpers';
 //can this be renamed to about?
 class TermsOfServiceScreen extends Component {
     static navigationOptions = ({ navigation }) =>
-        headerConfig('Terms of Service', navigation);
+        headerConfig('Terms Of Service', navigation);
 
     async componentDidMount() {
-        // let idToken = await SecureStore.getItemAsync('cok_id_token');
-        // if (idToken) {
-        //     // confirmedUser = JSON.parse(confirmedUser);
-        //     const expiresAt = await SecureStore.getItemAsync('expiresAt');
-        //     const isAuthenticated = new Date().getTime() < JSON.parse(expiresAt);
-        //     if (isAuthenticated) {
-        //         const jwtToken = idToken;
-        //         const decoded = jwtDecode(jwtToken);
-        //         this.props.setUserCreds(decoded, idToken);
-        //     } else {
-        //         // re-login
-        //         authHelpers.handleLogin(
-        //             authHelpers._loginWithAuth0,
-        //             this.props.setUserCreds
-        //         );
-        //     }
-        // }
     }
 
     render() {
+        const leftArrow = '\u2190';
         return (
             <ScreenContainer>
                 <SafeAreaView>
                     <StatusBar barStyle="dark-content" />
                     <ScrollView>
-                        <MainText>
-                            This is the Terms of Service Screen!
-                        </MainText>
+                        <Text onPress={() => Linking.openURL('https://www.connectourkids.org/terms')}>Click Here to view the Terms of Service.</Text>
+                        <TouchableHighlight
+                            underlayColor="lightgray"
+                            style={{ padding: 7.5 }}
+                            onPressIn={() => {
+                                navigation.navigate(FamilyConnectionsScreen)
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    marginLeft: 5,
+                                    fontSize: 15
+                                }}
+                            >
+                                {leftArrow} Back to MENU
+                            </Text>
+                        </TouchableHighlight>
                     </ScrollView>
                 </SafeAreaView>
             </ScreenContainer>
-        );
+        )
     }
 }
 
@@ -66,3 +71,5 @@ export default connect(
     mapStateToProps,
     { setUserCreds, logOut }
 )(TermsOfServiceScreen);
+
+
