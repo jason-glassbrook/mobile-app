@@ -66,6 +66,7 @@ class FamilyConnectionsScreen extends Component {
       caseVisible: false,
       addCaseModalVisible: true,
       pk: '',
+      isLoggedIn: false
     };
   }
 
@@ -92,6 +93,17 @@ class FamilyConnectionsScreen extends Component {
     this.props.getUserCases();
   }
 
+  async componentDidUpdate(prevProps, prevState) {
+    console.log('prevProps', prevProps.results)
+    console.log('prevState', prevState)
+    
+    if (!this.props.results[0]) {
+      // if (prevProps.results !== this.props.results) {
+        this.props.getUserCases()
+      }
+    // }
+  }
+// await SecureStore.getItemAsync('cok_access_token') && this.props.results === [] 
   genderAssignment = (gender) => {
     if (gender === 'M') {
       return 'Male'
@@ -192,7 +204,6 @@ class FamilyConnectionsScreen extends Component {
 
     // const { navigate } = this.props.navigation;
     const fullYear = new Date();
-    console.log('restuls************************', this.props.results)
     return (
       this.props.results[0] ?
       <SafeAreaView>
