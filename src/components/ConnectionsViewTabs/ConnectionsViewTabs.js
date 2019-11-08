@@ -16,7 +16,7 @@ import {
   Linking,
 } from 'react-native';
 import { ListItem, Button } from "react-native-elements";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 
 export const Engagement = (props) => {
 
@@ -54,15 +54,28 @@ export const Engagement = (props) => {
 
 export const Documents = (props) => {
 
+  const docIcon = (name) => {
+    if (name.slice(-3) === 'pdf') {
+      return <AntDesign name="pdffile1" size={30} />
+    } else if (name.slice(-3) === 'jpg') {
+      return <AntDesign name="picture" size={30} />
+    } else if (name.slice(-4) === 'jpeg') {
+      return <AntDesign name="picture" size={30} />
+    } else {
+      return <Entypo name="attachment" size={30} />
+    }
+  }
+
   return (
     <View>
       <ListItem
         title={props.document.original_file_name}
         titleStyle={{ color: "#5A6064" }}
-
+        leftIcon={docIcon(props.document.original_file_name)}
         to pDivider={true}
         onPress={() => Linking.openURL(props.document.attachment)}
         subtitle={props.document.created_by.full_name + ' - ' + props.document.created_at.substring(0, 10)}
+        chevron
       />
     </View>
   )
