@@ -30,7 +30,6 @@ import CaseViewScreen from '../screens/CaseViewScreen';
 import ConnectionsView from '../screens/ConnectionsView';
 import logoImg from '../../assets/logo.png';
 
-// When Privacy Policy is selected in drawer menu, redirect to Privacy Policy on website
 
 //Following StackNavigators are in BottomNav:
 const FamilyConnectionsNavigator = createStackNavigator(
