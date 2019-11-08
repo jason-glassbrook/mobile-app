@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { SafeAreaView, Text, Linking, StatusBar, ScrollView, TouchableHighlight } from 'react-native';
+import { SafeAreaView, Text, Linking, StatusBar, ScrollView, TouchableHighlight, Button } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
 import { setUserCreds, logOut } from '../store/actions';
 import { connect } from 'react-redux';
 import jwtDecode from 'jwt-decode';
-
+import { withNavigation, NavigationActions } from 'react-navigation';
 import headerConfig from '../helpers/headerConfig';
 import constants from '../helpers/constants';
 import Video from '../components/Video/Video';
@@ -16,26 +16,9 @@ import authHelpers from '../helpers/authHelpers';
 //can this be renamed to about?
 class PrivacyPolicyScreen extends Component {
     static navigationOptions = ({ navigation }) =>
-        headerConfig('Best Practices', navigation);
+        headerConfig('PrivacyPolicy', navigation);
 
     async componentDidMount() {
-        // let idToken = await SecureStore.getItemAsync('cok_id_token');
-        // if (idToken) {
-        //     // confirmedUser = JSON.parse(confirmedUser);
-        //     const expiresAt = await SecureStore.getItemAsync('expiresAt');
-        //     const isAuthenticated = new Date().getTime() < JSON.parse(expiresAt);
-        //     if (isAuthenticated) {
-        //         const jwtToken = idToken;
-        //         const decoded = jwtDecode(jwtToken);
-        //         this.props.setUserCreds(decoded, idToken);
-        //     } else {
-        //         // re-login
-        //         authHelpers.handleLogin(
-        //             authHelpers._loginWithAuth0,
-        //             this.props.setUserCreds
-        //         );
-        //     }
-        // }
     }
 
     render() {
@@ -50,7 +33,7 @@ class PrivacyPolicyScreen extends Component {
                             underlayColor="lightgray"
                             style={{ padding: 7.5 }}
                             onPressIn={() => {
-                                props.navigation.goBack()
+                                withNavigation.navigate(FamilyConnectionsScreen)
                             }}
                         >
                             <Text
@@ -80,3 +63,19 @@ export default connect(
     mapStateToProps,
     { setUserCreds, logOut }
 )(PrivacyPolicyScreen);
+
+
+
+
+
+// ***withNavigation***
+//return (<Button title='Back' onPress{() => {navigation.goBack()}}/>)
+//export default withNavigation(PrivacyPolicyScreen)
+
+// ***NavigationActions.back***        
+// const backAction = NavigationActions.back({
+//     key: 'FamilyConnectionsScreen'
+// });
+// return (
+//     navigation.dispatch(backAction)
+// );

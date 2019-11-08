@@ -16,26 +16,9 @@ import ScreenContainer from '../UI/ScreenContainer';
 //can this be renamed to about?
 class EditProfileScreen extends Component {
     static navigationOptions = ({ navigation }) =>
-        headerConfig('Edit Profile', navigation);
+        headerConfig('EditProfile', navigation);
 
     async componentDidMount() {
-        // let idToken = await SecureStore.getItemAsync('cok_id_token');
-        // if (idToken) {
-        //     // confirmedUser = JSON.parse(confirmedUser);
-        //     const expiresAt = await SecureStore.getItemAsync('expiresAt');
-        //     const isAuthenticated = new Date().getTime() < JSON.parse(expiresAt);
-        //     if (isAuthenticated) {
-        //         const jwtToken = idToken;
-        //         const decoded = jwtDecode(jwtToken);
-        //         this.props.setUserCreds(decoded, idToken);
-        //     } else {
-        //         // re-login
-        //         authHelpers.handleLogin(
-        //             authHelpers._loginWithAuth0,
-        //             this.props.setUserCreds
-        //         );
-        //     }
-        // }
     }
 
     render() {

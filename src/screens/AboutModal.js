@@ -7,7 +7,6 @@ import MainText from '../UI/MainText'
 import Video from '../components/Video/Video';
 import { Feather } from '@expo/vector-icons'
 
-
 class AboutModal extends Component {
   constructor(props) {
     super(props)
@@ -15,7 +14,6 @@ class AboutModal extends Component {
       modalVisible: false,
     };
   }
-
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible })
@@ -52,7 +50,6 @@ class AboutModal extends Component {
             <View>
               <SafeAreaView>
                 <StatusBar barStyle="dark-content" />
-                {/* <ScrollView> */}
                 <MainText>
                   Connect Our Kids makes free tools for social workers engaged in
                   permanency searches for foster kids.
@@ -68,7 +65,6 @@ class AboutModal extends Component {
                   resources in this app.
                   </Text>
                 <Video uri={constants.aboutURI} />
-                {/* </ScrollView> */}
               </SafeAreaView>
             </View>
           </View>
