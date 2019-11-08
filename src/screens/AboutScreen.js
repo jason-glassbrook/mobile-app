@@ -61,6 +61,11 @@ class AboutScreen extends Component {
 
 
             <Video uri={constants.aboutURI} />
+
+            {/* Links to Terms of Service and Privacy Policy */}
+            {/* <Text onPress={() => Linking.openURL('https://www.connectourkids.org/terms')}>Click Here to view the Terms of Service.</Text>
+            <Text onPress={() => Linking.openURL('https://www.connectourkids.org/privacy')}>Click Here to view Privacy Policy.</Text> */}
+
           </ScrollView>
         </SafeAreaView>
       </ScreenContainer>
