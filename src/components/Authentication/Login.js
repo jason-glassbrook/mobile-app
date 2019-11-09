@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Linking } from 'react-native';
 import { Button } from 'native-base';
+import { Avatar } from 'react-native-elements';
 import constants from '../../helpers/constants';
 import { sendEvent } from '../../helpers/createEvent';
 import NavigationButton from '../../UI/NavigationButton';
@@ -10,6 +11,16 @@ import MainText from '../../UI/MainText';
 const Login = props => {
   return (
     <ScreenContainer style={{ padding: 10 }}>
+      {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
+        {props.idToken && props.idToken.picture ? 
+        <Avatar 
+          rounded
+          size="large"
+          source={{
+            uri: props.idToken.picture
+          }}
+        /> : null}
+      </View> */}
       <MainText>
         {props.isLoggedIn && props.idToken && props.idToken.email
           ? 'Welcome back ' + props.idToken.email + '!'

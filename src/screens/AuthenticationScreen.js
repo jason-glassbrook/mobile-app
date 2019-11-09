@@ -18,9 +18,11 @@ const AuthenticationView = (props) => {
 
   useEffect(() => {
     props.authChecker()
+    console.log('firing')
   }, [props.idToken])
 
   return (
+    !props.loadingUser &&
     <View style={styles.registerContainer}>
       <StatusBar barStyle="dark-content" />
       <RegisterModalsContainer
@@ -56,8 +58,20 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { modalVisible, videoAgree, videoVisible, idToken } = state.auth;
-  return { modalVisible, videoAgree, videoVisible, idToken };
+  const { 
+    modalVisible, 
+    videoAgree, 
+    videoVisible,  
+  } = state.auth;
+  const {idToken, loadingUser} = state.auth
+  
+  return { 
+    modalVisible, 
+    videoAgree, 
+    videoVisible, 
+    idToken,
+    loadingUser
+  };
 };
 
 export default connect(

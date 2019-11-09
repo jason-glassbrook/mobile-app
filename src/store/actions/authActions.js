@@ -25,9 +25,9 @@ export const authChecker = () => dispatch => {
   SecureStore.getItemAsync('cok_id_token')
   .then(res => {
     if (res) {
-      let decodedIdToken = jwtDecode(res)
+      const decodedIdToken = jwtDecode(res)
       dispatch({ type: SET_LOGGED_IN_TRUE, payload: decodedIdToken })
-    } 
+    }
   })
   .catch(err => 'error')
 }
