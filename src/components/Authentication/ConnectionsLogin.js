@@ -5,35 +5,40 @@ import constants from '../../helpers/constants';
 import { sendEvent } from '../../helpers/createEvent';
 import NavigationButton from '../../UI/NavigationButton';
 import MainText from '../../UI/MainText';
+import ScreenContainer from '../../UI/ScreenContainer';
 import authHelpers from '../../helpers/authHelpers';
-
 
 const ConnectionsLogin = (props) => {
 
   return (
-    <View style={styles.linkContainer}>
-      <View style={styles.logInBtns}>
-        <Button
-          style={styles.buttonStyle} 
-          block 
-          onPress={() =>
-            authHelpers.handleLogin(
-              authHelpers._loginWithAuth0,
-              props.setUserCreds
-            )}>
-          <Text style={styles.btnText}>Login</Text>
-        </Button>
-        <Button
-          style={styles.buttonStyle}
-          block
-          onPress={() => {
-            props.setModalVisible(true); {/* {props.setModalVisible} */}
-            sendEvent(null, 'click', 'sign-up');
-          }}
-        ><Text style={styles.btnText}>Sign Up</Text>
-        </Button>
+    <ScreenContainer>
+        <MainText>
+          {'Welcome to Connect Our Kids!\n\nFamily Connections is a smart technology tool that will help you identify and engage extended family members. We like to think of Family Connections as a mind-mapping tool—giving you the power to build a supportive network for every child you serve including blood relatives, neighbors, teachers, and members of their religious community.\n\nLogin or Sign Up below to access these powerful connection tools.'}
+        </MainText>
+        <View style={styles.linkContainer}>
+        <View style={styles.logInBtns}>
+          <Button
+            style={styles.buttonStyle} 
+            block 
+            onPress={() =>
+              authHelpers.handleLogin(
+                authHelpers._loginWithAuth0,
+                props.setUserCreds
+              )}>
+            <Text style={styles.btnText}>Login</Text>
+          </Button>
+          <Button
+            style={styles.buttonStyle}
+            block
+            onPress={() => {
+              props.setModalVisible(true); {/* {props.setModalVisible} */}
+              sendEvent(null, 'click', 'sign-up');
+            }}
+          ><Text style={styles.btnText}>Sign Up</Text>
+          </Button>
+        </View>
       </View>
-    </View>
+    </ScreenContainer>
   )}
 
   const styles = StyleSheet.create({
