@@ -17,12 +17,14 @@ import headerConfig from '../helpers/headerConfig';
 const AuthenticationView = (props) => {
 
   useEffect(() => {
-    props.authChecker()
+    // if (props.loadingUser) {
+      props.authChecker()
+    // }
     console.log('firing')
-  }, [props.idToken])
+  }, [props.loadingUser])
 
   return (
-    !props.loadingUser &&
+    // !props.loadingUser &&
     <View style={styles.registerContainer}>
       <StatusBar barStyle="dark-content" />
       <RegisterModalsContainer

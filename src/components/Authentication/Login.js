@@ -11,7 +11,7 @@ import MainText from '../../UI/MainText';
 const Login = props => {
   return (
     <ScreenContainer style={{ padding: 10 }}>
-      {/* <View style={{justifyContent: 'center', alignItems: 'center'}}>
+      <View style={{justifyContent: 'center', alignItems: 'center'}}>
         {props.idToken && props.idToken.picture ? 
         <Avatar 
           rounded
@@ -20,7 +20,7 @@ const Login = props => {
             uri: props.idToken.picture
           }}
         /> : null}
-      </View> */}
+      </View>
       <MainText>
         {props.isLoggedIn && props.idToken && props.idToken.email
           ? 'Welcome back ' + props.idToken.email + '!'

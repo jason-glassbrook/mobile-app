@@ -16,7 +16,7 @@ const initialState = {
   loadingUser: false,
   accessToken: null,
   expiresIn: null,
-  idToken: {},
+  idToken: null,
   modalVisible: false,
   videoAgree: false,
   videoVisible: false
@@ -33,13 +33,14 @@ export const authReducer = (state = initialState, action) => {
         idToken: action.auth0Data.id_token,
         expiresIn: action.auth0Data.expires_in,
         error: null,
-        loadingUser: false
+        loadingUser: true
       };
     case SET_LOGGED_IN_TRUE: 
       return {
         ...state,
         isLoggedIn: true,
-        idToken: action.payload
+        idToken: action.payload,
+        loadingUser: true
       }
     case SET_MODAL_VISIBLE:
       return {
