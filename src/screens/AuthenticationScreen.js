@@ -7,13 +7,18 @@ import {
   setModalVisible,
   setAgreeModalVisible,
   setVideoPlayerModalVisible,
-  setUserCreds
+  setUserCreds,
+  authChecker
 } from '../store/actions';
 import authHelpers from '../helpers/authHelpers';
 import headerConfig from '../helpers/headerConfig';
 class AuthenticationView extends Component {
   static navigationOptions = ({ navigation }) =>
     headerConfig('MyAccount', navigation);
+
+  componentDidMount() {
+    this.props.authChecker()
+  }
 
   render() {
     return (
@@ -35,6 +40,7 @@ class AuthenticationView extends Component {
         />
         {!this.props.modalVisible && (
           <LoginWithAuth0
+            idToken={this.props.idToken}
             navigation={this.props.navigation}
             setModalVisible={this.props.setModalVisible}
           />
@@ -54,8 +60,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  const { modalVisible, videoAgree, videoVisible } = state.auth;
-  return { modalVisible, videoAgree, videoVisible };
+  const { modalVisible, videoAgree, videoVisible, idToken } = state.auth;
+  return { modalVisible, videoAgree, videoVisible, idToken };
 };
 
 export default connect(
@@ -64,6 +70,7 @@ export default connect(
     setModalVisible,
     setAgreeModalVisible,
     setVideoPlayerModalVisible,
-    setUserCreds
+    setUserCreds,
+    authChecker
   }
 )(AuthenticationView);

@@ -11,7 +11,8 @@ class LoginWithAuth0 extends Component {
     // console.log('login props: ', this.props);
     return (
       <Login
-        navigation={this.props.navigation}
+      idToken={this.props.idToken}  
+      navigation={this.props.navigation}
         onLogin={() =>
           authHelpers.handleLogin(
             authHelpers._loginWithAuth0,

@@ -11,8 +11,8 @@ const Login = props => {
   return (
     <ScreenContainer style={{ padding: 10 }}>
       <MainText>
-        {props.isLoggedIn
-          ? 'Welcome back ' + props.email + '!'
+        {props.isLoggedIn && props.idToken.email
+          ? 'Welcome back ' + props.idToken.email + '!'
           : 'Welcome to Connect Our Kids!'}
       </MainText>
       <View style={styles.linkContainer}>
@@ -22,7 +22,7 @@ const Login = props => {
               <Button
                 style={[styles.button, { backgroundColor: 'red' }]}
                 onPress={() => {
-                  props.logOut(props.email)
+                  props.logOut(props.idToken.email)
                   props.clearUserCases()
                   }}
                 block
