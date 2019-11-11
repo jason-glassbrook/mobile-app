@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import authHelpers from '../../helpers/authHelpers';
 import { connect } from 'react-redux';
-import { setUserCreds, logOut } from '../../store/actions';
+import { setUserCreds, logOut, clearUserCases } from '../../store/actions';
 import Login from './Login';
 
 class LoginWithAuth0 extends Component {
@@ -11,7 +11,8 @@ class LoginWithAuth0 extends Component {
     // console.log('login props: ', this.props);
     return (
       <Login
-        navigation={this.props.navigation}
+      idToken={this.props.idToken ? this.props.idToken : null}  
+      navigation={this.props.navigation}
         onLogin={() =>
           authHelpers.handleLogin(
             authHelpers._loginWithAuth0,
@@ -27,6 +28,7 @@ class LoginWithAuth0 extends Component {
         email={this.props.user ? this.props.user.email : null}
         isLoggedIn={this.props.isLoggedIn}
         logOut={this.props.logOut}
+        clearUserCases={this.props.clearUserCases}
         setModalVisible={this.props.setModalVisible}
       />
     );
@@ -40,5 +42,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { setUserCreds, logOut }
+  { setUserCreds, logOut, clearUserCases }
 )(LoginWithAuth0);

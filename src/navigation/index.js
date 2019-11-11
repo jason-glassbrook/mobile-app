@@ -42,6 +42,18 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: constants.headerHeight,
           backgroundColor: constants.highlightColor
         }
+      },
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: 'white',
+          height: 52
+        },
+        headerLeft:
+          (<Image
+            source={logoImg}
+            style={{ width: 225, height: 90 }}
+            resizeMode="contain"
+          />)
       }
     },
     CaseView: {
@@ -142,6 +154,18 @@ const AccountNavigator = createStackNavigator({
         backgroundColor: constants.highlightColor,
       }
     },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 52
+      },
+      headerLeft:
+        (<Image
+          source={logoImg}
+          style={{ width: 225, height: 90 }}
+          resizeMode="contain"
+        />)
+    }
   },
 })
 

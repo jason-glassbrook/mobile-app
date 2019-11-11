@@ -16,5 +16,5 @@ export default combineReducers({
   userCases,
   caseData,
   caseConnections,
-  connection
+  connection,
 });

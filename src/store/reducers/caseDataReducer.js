@@ -37,6 +37,7 @@ export const getCaseDataReducer = (state = initialState, action) => {
         
         case CLEAR_CASE_DATA:
             return {
+                ...state,
                 caseData: {}
             }
 
