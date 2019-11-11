@@ -1,13 +1,14 @@
 import {
     GET_USER_CASES_START,
     GET_USER_CASES_SUCCESS,
-    GET_USER_CASES_FAILURE
+    GET_USER_CASES_FAILURE,
+    CLEAR_USER_CASES
 } from "../actions/userCases";
 
 
 const initialState = {
     results: [],
-    isLoading: false,
+    isLoading: true,
     error: ""
 };
 
@@ -34,6 +35,12 @@ export const getUserCasesReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 error: "Error loading case data. Please try again later."
+            };
+        
+        case CLEAR_USER_CASES:
+            return {
+                ...state,
+                results: []
             };
 
         default:

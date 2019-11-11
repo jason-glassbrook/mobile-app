@@ -3,6 +3,7 @@ import axios from 'axios'
 export const GET_USER_CASES_START = "GET_USER_CASES_START";
 export const GET_USER_CASES_SUCCESS = "GET_USER_CASES_SUCCESS";
 export const GET_USER_CASES_FAILURE = "GET_USER_CASES_FAILURE";
+export const CLEAR_USER_CASES = "CLEAR_USER_CASES";
 
 export const getUserCases = () => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
@@ -31,3 +32,7 @@ export const getUserCases = () => dispatch => {
     })
 
 };
+
+export const clearUserCases = () => dispatch => {
+    dispatch({ type: CLEAR_USER_CASES });
+}

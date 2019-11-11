@@ -37,6 +37,7 @@ export const getCaseConnectionsReducer = (state = initialState, action) => {
 
         case CLEAR_CASE_CONNECTIONS:
             return {
+                ...state,
                 caseConnections: []
             }
 

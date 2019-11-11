@@ -141,7 +141,7 @@ const initialLogin = async (AuthSession, setUserCreds) => {
 
   // await SecureStore.setItemAsync('cok_auth_code', JSON.stringify(response.params.code))
   // await SecureStore.setItemAsync('cok_id_token', JSON.stringify(response.params.id_token))
-  console.log('AUTH response', await response);
+  console.log('AUTH response', response);
 
   // assume success
 
