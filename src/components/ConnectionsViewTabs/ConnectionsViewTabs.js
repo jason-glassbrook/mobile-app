@@ -36,16 +36,18 @@ export const Engagement = (props) => {
     }
   }
 
+  
+
   return (
     <View >
+      <Button title='log' onPress={() => {console.log(props.engagement)}} />
 
       <ListItem
-        title={props.engagement.created_by.full_name + ' - ' + getDataType()}
+        title={props.engagement.created_by.full_name + ' - ' + getDataType() + '\n' + props.engagement.created_at}
         titleStyle={{ color: "#5A6064" }}
         leftAvatar={{ source: { uri: props.engagement.created_by.picture } }}
         to pDivider={true}
         subtitle={props.engagement.data.note}
-
       />
     </View>
   )

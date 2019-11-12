@@ -94,16 +94,18 @@ const AddEngagementModal = props => {
         />
 
         {/* Items below here don't change */}
-        <View style={{width: '100%', marginTop: 15, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
-          <ToggleSwitch
-            switchOn={!isPublic}
-            onColor="sky blue"
-            offColor="grey"
-            label="This information is Sensitive(2FA Required to view)"
-            labelStyle={{ color: "blue", fontWeight: "790" }}
-            size="large"
-            onPress={() => setIsPublic(!isPublic)}
-          />
+        <View style={{width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Text>This information is Sensitive(2FA Required to view)</Text>
+            <ToggleSwitch
+              switchOn={!isPublic}
+              onColor={constants.highlightColor}
+              offColor="grey"
+              labelStyle={{ color: "blue", fontWeight: "790" }}
+              size="large"
+              onPress={() => setIsPublic(!isPublic)}
+            />
+          </View>
           <TouchableOpacity 
             style={styles.saveButton}
             onPress={() => {
