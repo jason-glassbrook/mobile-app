@@ -16,7 +16,6 @@ import {
 } from 'react-navigation-stack';
 import { Ionicons } from '@expo/vector-icons';
 import AboutScreen from '../screens/AboutScreen';
-import MyProfileScreen from '../screens/MyProfileScreen';
 import SupportScreen from '../screens/SupportScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 import TermsOfServiceScreen from '../screens/TermsOfServiceScreen';
@@ -133,7 +132,7 @@ const AboutNavigator = createStackNavigator(
   {
     About: {
       screen: AboutScreen,
-      initialRouteName: 'About',
+      // initialRouteName: 'About',
       defaultNavigationOptions: {
         headerStyle: {
           height: constants.headerHeight,
@@ -144,10 +143,10 @@ const AboutNavigator = createStackNavigator(
   }
 );
 
-const AccountNavigator = createStackNavigator({
+const MyAccountNavigator = createStackNavigator({
   MyAccount: {
     screen: AuthenticationView,
-    initialRouteName: 'MyAccount',
+    // initialRouteName: 'MyAccount',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -169,23 +168,10 @@ const AccountNavigator = createStackNavigator({
   },
 })
 
-const MyProfileNavigator = createStackNavigator({
-  MyProfile: {
-    screen: MyProfileScreen,
-    initialRouteName: 'MyProfile',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    },
-  },
-})
-
 const SupportNavigator = createStackNavigator({
   Support: {
     screen: SupportScreen,
-    initialRouteName: 'Support',
+    // initialRouteName: 'Support',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -198,7 +184,7 @@ const SupportNavigator = createStackNavigator({
 const ImpactNavigator = createStackNavigator({
   Impact: {
     screen: ImpactScreen,
-    initialRouteName: 'Impact',
+    // initialRouteName: 'Impact',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -211,7 +197,7 @@ const ImpactNavigator = createStackNavigator({
 const PrivacyPolicyNavigator = createStackNavigator({
   PrivacyPolicy: {
     screen: PrivacyPolicyScreen,
-    initialRouteName: 'PrivacyPolicy',
+    // initialRouteName: 'PrivacyPolicy',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -224,7 +210,7 @@ const PrivacyPolicyNavigator = createStackNavigator({
 const TermsOfServiceNavigator = createStackNavigator({
   Terms: {
     screen: TermsOfServiceScreen,
-    initialRouteName: 'TermsOfService',
+    // initialRouteName: 'TermsOfService',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -234,13 +220,12 @@ const TermsOfServiceNavigator = createStackNavigator({
   },
 })
 
-
 const DrawerNavigator = createDrawerNavigator({
-  'Account': {
+  'About': {
     screen: AboutNavigator,
   },
-  'My Profile': {
-    screen: MyProfileNavigator,
+  'My Account': {
+    screen: MyAccountNavigator,
   },
   'Impact Dashboard': {
     screen: ImpactNavigator,
@@ -255,7 +240,7 @@ const DrawerNavigator = createDrawerNavigator({
     screen: TermsOfServiceNavigator,
   },
   'Log Out': {
-    screen: AccountNavigator,
+    screen: MyAccountNavigator,
   }
 },
   {

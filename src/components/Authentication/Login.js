@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Linking } from 'react-native';
+import { View, Text, StyleSheet, Linking, ScrollView } from 'react-native';
 import { Button } from 'native-base';
 import { Avatar } from 'react-native-elements';
 import constants from '../../helpers/constants';
@@ -11,21 +11,44 @@ import MainText from '../../UI/MainText';
 const Login = props => {
   return (
     <ScreenContainer style={{ padding: 10 }}>
-      <View style={{justifyContent: 'center', alignItems: 'center'}}>
-        {props.idToken && props.idToken.picture ? 
-        <Avatar 
-          rounded
-          size="large"
-          source={{
-            uri: props.idToken.picture
-          }}
-        /> : null}
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        {props.idToken && props.idToken.picture ?
+          <Avatar
+            rounded
+            size="large"
+            source={{
+              uri: props.idToken.picture
+            }}
+          /> : null}
       </View>
-      <MainText>
+      {/* <Button title='log' onPress={() => { console.log('Login props.idToken', props.idToken) }} /> */}
+      <MainText >
         {props.isLoggedIn && props.idToken && props.idToken.email
           ? 'Welcome back ' + props.idToken.email + '!'
           : 'Welcome to Connect Our Kids!'}
       </MainText>
+      <ScrollView >
+        <Text>
+          {props.isLoggedIn && props.idToken && props.idToken.given_name
+            ? 'First Name: ' + props.idToken.given_name
+            : null}
+        </Text>
+        <Text>
+          {props.isLoggedIn && props.idToken && props.idToken.family_name
+            ? 'Last Name: ' + props.idToken.family_name
+            : null}
+        </Text>
+        <Text>
+          {props.isLoggedIn && props.idToken && props.idToken.nickname
+            ? 'Username: ' + props.idToken.nickname
+            : null}
+        </Text>
+        <Text>
+          {props.isLoggedIn && props.idToken && props.idToken.name
+            ? 'Email: ' + props.idToken.name
+            : null}
+        </Text>
+      </ScrollView>
       <View style={styles.linkContainer}>
         <View style={styles.logInBtns}>
           {props.isLoggedIn ? (
@@ -35,38 +58,38 @@ const Login = props => {
                 onPress={() => {
                   props.idToken && props.idToken.email ? props.logOut(props.idToken.email) : props.logOut()
                   props.clearUserCases()
-                  }}
+                }}
                 block
               >
                 <Text style={styles.logOutText}>Log Out</Text>
               </Button>
             </View>
           ) : (
-            <View style={styles.logInBtns}>
-              <Button style={styles.buttonStyle} block onPress={props.onLogin}>
-                <Text style={styles.btnText}>Login </Text>
-              </Button>
-              <Button
-                style={styles.buttonStyle}
-                block
-                onPress={() => {
-                  props.setModalVisible(true);
-                  sendEvent(null, 'click', 'sign-up');
-                }}
-              >
-                <Text style={styles.btnText}>Sign Up</Text>
-              </Button>
-            </View>
-          )}
+              <View style={styles.logInBtns}>
+                <Button style={styles.buttonStyle} block onPress={props.onLogin}>
+                  <Text style={styles.btnText}>Login </Text>
+                </Button>
+                <Button
+                  style={styles.buttonStyle}
+                  block
+                  onPress={() => {
+                    props.setModalVisible(true);
+                    sendEvent(null, 'click', 'sign-up');
+                  }}
+                >
+                  <Text style={styles.btnText}>Sign Up</Text>
+                </Button>
+              </View>
+            )}
         </View>
-        <View>
+        {/* <View>
           <NavigationButton
             titleText="Resources"
             subTitleText="Useful Materials and Information"
             handlePress={() => Linking.openURL('https://connectourkids.org')}
             style={{ marginBottom: 20 }}
           />
-        </View>
+        </View> */}
       </View>
     </ScreenContainer>
   );
@@ -102,6 +125,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     marginBottom: 10
+  },
+  text: {
+    flex: 1,
+    marginHorizontal: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column'
   }
 });
 
