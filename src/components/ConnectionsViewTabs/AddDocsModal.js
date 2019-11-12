@@ -53,8 +53,7 @@ const AddEngagementModal = props => {
   }, [false])
   
   return (
-    <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-      {console.log('dataType', dataType)}      
+    <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>     
       <View style={{width: '100%', justifyContent: 'flex-end', marginTop: 20}}>
         <TouchableOpacity style={{width: 64, height: 64}}>
           <Feather
