@@ -209,7 +209,7 @@ function ConnectionsView(props) {
                   });
                 }}
               >
-                Engagement
+                Engagements
               </Text>
             </View>
 
@@ -362,7 +362,7 @@ function ConnectionsView(props) {
       <Modal
         visible={formVisible}
       >
-        <EngagementsWithFormik closeForm={() => {setFormVisible(false)}} data_type={engagementType} />
+        <EngagementsWithFormik closeForm={() => {setFormVisible(false)}} data_type={engagementType} id={connectionData.pk} />
       </Modal>
     </View>
   );
