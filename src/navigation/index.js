@@ -236,7 +236,7 @@ const TermsOfServiceNavigator = createStackNavigator({
 
 
 const DrawerNavigator = createDrawerNavigator({
-  'About': {
+  'Account': {
     screen: AboutNavigator,
   },
   'My Profile': {
@@ -330,17 +330,17 @@ const BottomNavigator = createBottomTabNavigator(
 
 
 const AppBottomSwitchNavigator = createSwitchNavigator({
-  More: { screen: DrawerNavigator },
+  More: { screen: BottomNavigator },
   About: { screen: DrawerNavigator },
   Impact: { screen: DrawerNavigator },
   MyProfile: { screen: DrawerNavigator },
   Support: { screen: DrawerNavigator },
   PrivacyPolicy: { screen: DrawerNavigator },
   TermsOfService: { screen: DrawerNavigator },
-  About: { screen: BottomNavigator },
+  About: { screen: DrawerNavigator },
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
-  Authentication: { screen: BottomNavigator },
+  Authentication: { screen: DrawerNavigator },
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);
