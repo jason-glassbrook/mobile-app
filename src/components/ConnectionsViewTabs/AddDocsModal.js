@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { Button, Text, ScrollView, View, TouchableOpacity, StyleSheet, TextInput } from "react-native";
+import { Button, Text, ScrollView, View, TouchableOpacity, StyleSheet, TextInput, DatePickerIOS } from "react-native";
 import ToggleSwitch from 'react-native-switch-toggle';
 import axios from "axios";
 import { Feather } from '@expo/vector-icons';
@@ -24,6 +24,7 @@ const AddEngagementModal = props => {
   const [subject, setSubject] = useState(null)
   const [isPublic, setIsPublic] = useState(true)
   const [person, setPerson] = useState(null)
+  const [dueDate, setDueDate] = useState(new Date())
 
   const [dataType, setDataType] = useState('') 
 
@@ -53,6 +54,7 @@ const AddEngagementModal = props => {
   
   return (
     <View>
+      {console.log('dataType', dataType)}      
       <View style={{width: '100%', justifyContent: 'flex-end', marginTop: 20}}>
         <TouchableOpacity style={{width: 64, height: 64}}>
           <Feather
@@ -66,14 +68,32 @@ const AddEngagementModal = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.formContainer}>
+      {dataType === 'REMINDER' ?
+        <View style={{width: '100%'}}>
+          <DatePickerIOS mode="date" date={dueDate} onDateChange={(e) => setDueDate(e)} />
+        </View>
+         : null}
+      {dataType === 'EMAIL' ?
+        <Input
+          onChangeText={(text) => {
+            setSubject(text)
+          }}
+          placeholder='Subject'
+          name="subject"
+          value={subject}
+        /> : null}
         <Input
           onChangeText={(text) => {
             setNote(text)
           }}
           placeholder={`ADD ${dataType}`}
           name="note"
+          multiline
+          numberOfLines={4}
           value={note}
         />
+
+        {/* Items below here don't change */}
         <View style={{width: '100%', marginTop: 15, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
           <ToggleSwitch
             switchOn={!isPublic}
@@ -88,7 +108,7 @@ const AddEngagementModal = props => {
             style={styles.saveButton}
             onPress={() => {
               console.log('the id is referring to', props.id)
-              props.postConnectionEngagements(props.id, note, subject, props.data_type, isPublic)
+              props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
               props.closeForm(props.getEngagements(props.id))
             }}
           >

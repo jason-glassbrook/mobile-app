@@ -261,10 +261,10 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   setFormVisible(true)
-                        //   setEngagementType('C')
-                        // }}
+                        onPress={() => {
+                          setFormVisible(true)
+                          setEngagementType('C')
+                        }}
                       >
                         <MaterialIcons
                           name='phone'
@@ -287,10 +287,10 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   setFormVisible(true)
-                        //   setEngagementType('E')
-                        // }}
+                        onPress={() => {
+                          setFormVisible(true)
+                          setEngagementType('E')
+                        }}
                       >
                         <MaterialIcons
                           name='email'
@@ -304,10 +304,10 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   setFormVisible(true)
-                        //   setEngagementType('R')
-                        // }}
+                        onPress={() => {
+                          setFormVisible(true)
+                          setEngagementType('R')
+                        }}
                       >
                         <MaterialCommunityIcons
                           name='clock-outline'
