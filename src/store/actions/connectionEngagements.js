@@ -5,7 +5,7 @@ export const POST_CONNECTION_ENGAGEMENTS_SUCCESS = "POST_CONNECTION_ENGAGEMENTS_
 export const POST_CONNECTION_ENGAGEMENTS_FAILURE = "POST_CONNECTION_ENGAGEMENTS_FAILURE";
 export const CLEAR_CONNECTION_ENGAGEMENTS = "CLEAR_CONNECTION_ENGAGEMENTS";
 
-export const postConnectionEngagements = (id, note, subject, dataType, isPublic) => dispatch => {
+export const postConnectionEngagements = (id, note, subject, dataType, dueDate, isPublic) => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
     .then((accessToken) => {
         console.log('accessToken', accessToken)
@@ -16,7 +16,7 @@ export const postConnectionEngagements = (id, note, subject, dataType, isPublic)
                 subject: subject,
             },
             data_type: dataType,
-            // due_date: due_date,
+            due_date: dueDate,
             is_public: isPublic,
             person: id,
         }
