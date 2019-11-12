@@ -18,8 +18,5 @@ export default combineReducers({
   caseData,
   caseConnections,
   connection,
-<<<<<<< HEAD
   profile
-=======
->>>>>>> 674c963f96279699420798f2299857184e201403
 });
