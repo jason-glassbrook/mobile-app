@@ -132,7 +132,7 @@ function ConnectionsView(props) {
   const leftArrow = '\u2190';
 
   return (
-    <View style={{ maxHeight: '100%', width: '100%' }}>
+    <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
       <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
@@ -322,8 +322,8 @@ function ConnectionsView(props) {
                   </View>
                 </View>
 
-                <ScrollView style={{ maxHeight: '70%' }}>
-                  {/* <View> */}
+                {/* <ScrollView style={{ maxHeight: '70%' }}> */}
+                  <View>
                     {
                       props.engagements.map((engagement) => {
                         return (
@@ -332,8 +332,8 @@ function ConnectionsView(props) {
                           </View>)
 
                       })}
-                  {/* </View> */}
-                </ScrollView>
+                  </View>
+                {/* </ScrollView> */}
               </View>
               : null
           }
@@ -349,14 +349,14 @@ function ConnectionsView(props) {
                     <Text style={{ color: "#FFFFFF", fontSize: 18 }}>Add Document</Text>
                   </TouchableOpacity>
                 </View>
-                <ScrollView style={{ width: '100%', maxHeight: '100%' }} >
+                <View style={{ width: '100%', maxHeight: '100%' }} >
                   {
                     props.documents.map((document) => {
-                      console.log('pk' + ' ' + document.pk)
+                      // console.log('pk' + ' ' + document.pk)
                       return (
                         <Documents key={document.pk} document={document} />)
                     })}
-                </ScrollView>
+                </View>
               </View>
               // </View> 
               : null
@@ -368,7 +368,7 @@ function ConnectionsView(props) {
       >
         <EngagementsWithFormik closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
       </Modal>
-    </View>
+    </ScrollView>
   );
 }
 
