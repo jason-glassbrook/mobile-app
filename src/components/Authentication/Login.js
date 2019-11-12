@@ -22,28 +22,28 @@ const Login = props => {
           /> : null}
       </View>
       {/* <Button title='log' onPress={() => { console.log('Login props.idToken', props.idToken) }} /> */}
-      <MainText >
-        {props.isLoggedIn && props.idToken && props.idToken.email
-          ? 'Welcome back ' + props.idToken.email + '!'
-          : 'Welcome to Connect Our Kids!'}
-      </MainText>
       <ScrollView >
-        <Text>
+        <MainText >
+          {props.isLoggedIn && props.idToken && props.idToken.email
+            ? 'Welcome back ' + props.idToken.email + '!'
+            : 'Welcome to Connect Our Kids!'}
+        </MainText>
+        <Text style={styles.text}>
           {props.isLoggedIn && props.idToken && props.idToken.given_name
             ? 'First Name: ' + props.idToken.given_name
             : null}
         </Text>
-        <Text>
+        <Text style={styles.text}>
           {props.isLoggedIn && props.idToken && props.idToken.family_name
             ? 'Last Name: ' + props.idToken.family_name
             : null}
         </Text>
-        <Text>
+        <Text style={styles.text}>
           {props.isLoggedIn && props.idToken && props.idToken.nickname
             ? 'Username: ' + props.idToken.nickname
             : null}
         </Text>
-        <Text>
+        <Text style={styles.text}>
           {props.isLoggedIn && props.idToken && props.idToken.name
             ? 'Email: ' + props.idToken.name
             : null}
@@ -127,11 +127,9 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   text: {
-    flex: 1,
     marginHorizontal: 5,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'column'
   }
 });
 
