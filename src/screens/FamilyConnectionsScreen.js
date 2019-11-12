@@ -85,6 +85,7 @@ const FamilyConnectionsScreen = (props) => {
 
   useEffect(() => {
     props.getUserCases()
+    console.log('FamilyConnectionsAccessToken', props.accessToken)
   }, [props.accessToken])
  
   const setModalVisible = (visible) => {
