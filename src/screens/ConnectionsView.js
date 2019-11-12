@@ -101,7 +101,8 @@ function ConnectionsView(props) {
 
     iconLabelContainer: {
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      marginBottom: 20
     },
 
     iconContainer: {
@@ -110,7 +111,7 @@ function ConnectionsView(props) {
       width: 45,
       borderRadius: 22.5,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
 
     iconStyles: {
