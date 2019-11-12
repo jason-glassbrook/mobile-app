@@ -53,7 +53,7 @@ const AddEngagementModal = props => {
   }, [false])
   
   return (
-    <View>
+    <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
       {console.log('dataType', dataType)}      
       <View style={{width: '100%', justifyContent: 'flex-end', marginTop: 20}}>
         <TouchableOpacity style={{width: 64, height: 64}}>
@@ -74,35 +74,49 @@ const AddEngagementModal = props => {
         </View>
          : null}
       {dataType === 'EMAIL' ?
-        <Input
-          onChangeText={(text) => {
-            setSubject(text)
-          }}
-          placeholder='Subject'
-          name="subject"
-          value={subject}
-        /> : null}
-        <Input
-          onChangeText={(text) => {
-            setNote(text)
-          }}
-          placeholder={`ADD ${dataType}`}
-          name="note"
-          multiline
-          numberOfLines={4}
-          value={note}
-        />
+        <View 
+          style={{minHeight: 24, marginTop: 10, marginBottom: 5, width: '100%', backgroundColor: '#E5E4E2', borderRadius: 4}}
+        >
+          <TextInput
+            onChangeText={(text) => {
+              setSubject(text)
+            }}
+            placeholder='SUBJECT'
+            placeholderTextColor={'#000'}
+            style={{padding: 4, fontSize: 15}}
+            textAlignVertical='top'
+            name="subject"
+            value={subject}
+          /> 
+        </View> : null}
+        <View 
+          style={{minHeight: 61, marginTop: 5, marginBottom: 10, width: '100%', backgroundColor: '#E5E4E2', borderRadius: 4}}
+        >
+          <TextInput
+            multiline
+            numberOfLines={4}
+            onChangeText={(text) => {
+              setNote(text)
+            }}
+            placeholder={`ADD ${dataType}`}
+            placeholderTextColor={'#000'}
+            name="note"
+            style={{padding: 4, fontSize: 15}}
+            textAlignVertical='top'
+            value={note}
+          />
+        </View>
 
         {/* Items below here don't change */}
-        <View style={{width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center'}}>
+        <View style={{width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start'}}>
           <View style={{flexDirection: 'row'}}>
-            <Text>This information is Sensitive(2FA Required to view)</Text>
+            <Text style={{width: '75%', fontSize: 15}}>{`THIS INFORMATION IS SENSITIVE\n(2FA REQUIRED TO VIEW)`}</Text>
             <ToggleSwitch
               switchOn={!isPublic}
-              onColor={constants.highlightColor}
-              offColor="grey"
-              labelStyle={{ color: "blue", fontWeight: "790" }}
-              size="large"
+              circleColorOn={constants.highlightColor}
+              // circleColorOff="lightgrey"
+              // labelStyle={{ color: "blue", fontWeight: "790" }}
+              size="medium"
               onPress={() => setIsPublic(!isPublic)}
             />
           </View>
@@ -124,28 +138,31 @@ const AddEngagementModal = props => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    width: '100%',
-    // margin: 20,
+    width: '95%',
+    padding: 4,
     marginTop: 35,
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   saveButton: {
     justifyContent: 'center',
+    width: '100%',
+    height: 50,
     alignItems: 'center',
-    flexDirection: 'column',
     justifyContent: 'center',
-    marginBottom: 10,
+    borderRadius: 8,
     borderWidth: 1,
+    marginTop: 20,
+    backgroundColor: constants.highlightColor,
     borderColor: constants.highlightColor
   },
   buttonText: {
-    fontSize: 12,
-    textTransform: 'uppercase',
-    fontWeight: 'bold',
-    color: constants.highlightColor,
-    flex: 1
+    fontSize: 24,
+    textTransform: 'uppercase', 
+    color: '#fff',
+    // flex: 1
   }
 })
 
