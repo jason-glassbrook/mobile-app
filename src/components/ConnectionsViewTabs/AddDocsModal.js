@@ -26,14 +26,6 @@ const AddEngagementModal = props => {
   const [person, setPerson] = useState(null)
 
   const [dataType, setDataType] = useState('') 
-  
-  // const [accessToken, setAccessToken] = useState('')
-  // //pull access token from SecureStore
-  // SecureStore.getItemAsync('cok_access_token')
-  // .then(res => {
-  //   setAccessToken(res.data)
-// console.log(props.accessToken)
-  // })
 
   //set type of engagement
   useEffect(() => {
@@ -58,48 +50,6 @@ const AddEngagementModal = props => {
     }
     setDataType(dataTypeHelper(props.data_type))
   }, [false])
-
-  // determine which endpoint to use (if its a doc, use the doc endpoint, else use the other one)
-  // const endpointPicker = () => {
-  //   if (props.data_type === 'D') {
-  //     return `https://family-staging.connectourkids.org/api/v1/person/${props.id}/documents/`
-  //   } else if (props.data_type === 'N') {
-  //     return `https://family-staging.connectourkids.org/api/v1/person/${props.id}/histories/`
-  //   } 
-  // }
-
-  // const submitHandler = () => {
-  //   console.log('props.accessToken', props.accessToken)
-  //   axios.post(`https://family-staging.connectourkids.org/api/v1/person/104/histories/`, {
-  //     headers: {Authorization: `Bearer ${props.accessToken}`},
-  //     body: JSON.stringify({
-  //       data: {
-  //         note: 'Blaine Test',
-  //         subject: 'subject Blaine'
-  //       },
-  //       data_type: 'N',
-  //       is_public: true,
-  //       person: 104
-  //     })
-  //   })
-  //   .then(res => {
-  //     console.log('response', res);
-  //   })
-  //   .catch(error => {
-  //     console.error('Please try again', error);
-  //   })
-  // }
-
-  // const handleChange = (event) => {
-  //   setFormState({ 
-  //     ...formState, 
-  //     data: {
-  //       note: event.value , 
-  //       // subject: ''
-  //     } 
-  //   });
-  //   console.log(formState.data.note)
-  // }
   
   return (
     <View>
@@ -124,15 +74,6 @@ const AddEngagementModal = props => {
           name="note"
           value={note}
         />
-        {/* {formState.data_type === 'R' && 
-          <Input
-          onChange={handleChange}
-          placeholder={`ADD ${dataType}`}
-          // value={query.Add}
-          name="due_date"
-          value={formState.due_date}
-        />
-        } */}
         <View style={{width: '100%', marginTop: 15, flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center'}}>
           <ToggleSwitch
             switchOn={!isPublic}
@@ -188,15 +129,9 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const {accessToken} = state.auth
-  // const {note, subject} = state.engagements.data
+
   return {
     accessToken,
-    // note,
-    // subject,
-    // data_type: state.engagements.data_type,
-    // due_date: state.engagements.due_date,
-    // is_public: state.engagements.is_public,
-    // person: state.engagements.person,
     isLoadingEngagements: state.engagements.isLoadingEngagements,
     engagementsError: state.engagements.engagementsError
   }
