@@ -193,6 +193,8 @@ export function CaseViewScreen(props) {
       >
         <Text
           style={{
+            paddingTop: 10,
+            paddingBottom: 10,
             marginLeft: 5,
             fontSize: 15
           }}
@@ -234,7 +236,7 @@ export function CaseViewScreen(props) {
         <View
           style={{
             flexDirection: "column",
-            width: '95%',
+            width: '100%',
             minHeight: 350,
             borderTopLeftRadius: 4,
             borderTopRightRadius: 4,

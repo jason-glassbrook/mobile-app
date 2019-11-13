@@ -101,7 +101,8 @@ function ConnectionsView(props) {
 
     iconLabelContainer: {
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      marginBottom: 20
     },
 
     iconContainer: {
@@ -110,7 +111,7 @@ function ConnectionsView(props) {
       width: 45,
       borderRadius: 22.5,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
 
     iconStyles: {
@@ -131,7 +132,7 @@ function ConnectionsView(props) {
   const leftArrow = '\u2190';
 
   return (
-    <View style={{ maxHeight: '100%', width: '100%' }}>
+    <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
       <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
@@ -141,6 +142,8 @@ function ConnectionsView(props) {
       >
         <Text
           style={{
+            paddingTop: 10,
+            paddingBottom: 10,
             marginLeft: 5,
             fontSize: 15
           }}
@@ -187,18 +190,18 @@ function ConnectionsView(props) {
         />
       </View>
 
-      <View style={{ justifyContent: 'center', width: '100%', alignItems: 'center' }}>
+      <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
         <View
           style={{
             borderRadius: 4,
             // borderColor: '#0F6580',
             // borderWidth: 0.5,
-            width: '95%',
-            alignItems: 'center',
-            justifyContent: "center"
+            width: '100%',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
           }}
         >
-          <View style={styles.tabs}>
+          <View style={[styles.tabs]}>
             <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
               <Text
                 style={[{ color: '#E5E4E2', fontSize: 17.5 }, tabs.engagement ? { color: '#E5E4E2' } : { color: '#000' }]}
@@ -319,15 +322,18 @@ function ConnectionsView(props) {
                   </View>
                 </View>
 
-                <ScrollView style={{ maxHeight: '80%' }}>
+                {/* <ScrollView style={{ maxHeight: '70%' }}> */}
                   <View>
                     {
                       props.engagements.map((engagement) => {
                         return (
-                          <Engagement key={engagement.pk} engagement={engagement} />)
+                          <View key={engagement.pk} style={{ width: '70%' }}>
+                            <Engagement engagement={engagement} />
+                          </View>)
+
                       })}
                   </View>
-                </ScrollView>
+                {/* </ScrollView> */}
               </View>
               : null
           }
@@ -343,16 +349,14 @@ function ConnectionsView(props) {
                     <Text style={{ color: "#FFFFFF", fontSize: 18 }}>Add Document</Text>
                   </TouchableOpacity>
                 </View>
-                <ScrollView style={{ width: '100%', maxHeight: '100%' }} >
-                  {/* <View> */}
+                <View style={{ width: '100%', maxHeight: '100%' }} >
                   {
                     props.documents.map((document) => {
-                      console.log('pk' + ' ' + document.pk)
+                      // console.log('pk' + ' ' + document.pk)
                       return (
                         <Documents key={document.pk} document={document} />)
                     })}
-                  {/* </View> */}
-                </ScrollView>
+                </View>
               </View>
               // </View> 
               : null
@@ -362,9 +366,9 @@ function ConnectionsView(props) {
       <Modal
         visible={formVisible}
       >
-        <EngagementsWithFormik closeForm={() => {setFormVisible(false)}} data_type={engagementType} id={connectionData.pk} />
+        <EngagementsWithFormik closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
       </Modal>
-    </View>
+    </ScrollView>
   );
 }
 

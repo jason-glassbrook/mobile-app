@@ -15,20 +15,36 @@ import {
   Alert,
   Linking,
 } from 'react-native';
-import { ListItem, Button } from "react-native-elements";
-import { AntDesign, Entypo } from '@expo/vector-icons';
+import { ListItem, Button, Avatar } from "react-native-elements";
+import { AntDesign, Entypo, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 export const Engagement = (props) => {
 
-  const getDataType = () => {
+  // const getDataType = () => {
+  //   if (props.engagement.data_type === 'N') {
+  //     return 'Note'
+  //   } else if (props.engagement.data_type === 'E') {
+  //     return 'Email'
+  //   } else if (props.engagement.data_type === 'C') {
+  //     return 'Call'
+  //   } else if (props.engagement.data_type === 'R') {
+  //     return 'Reminder'
+  //   } else if (props.engagement.data_type === 'D') {
+  //     return 'Document'
+  //   } else {
+  //     return props.engagement.data_type
+  //   }
+  // }
+
+  const getDataIcon = () => {
     if (props.engagement.data_type === 'N') {
-      return 'Note'
+      return <AntDesign name='file1' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'E') {
-      return 'Email'
+      return <MaterialIcons name='email' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'C') {
-      return 'Call'
+      return <MaterialIcons name='phone' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'R') {
-      return 'Reminder'
+      return <MaterialCommunityIcons name='clock-outline' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'D') {
       return 'Document'
     } else {
@@ -36,20 +52,32 @@ export const Engagement = (props) => {
     }
   }
 
-  
+
 
   return (
-    <View >
-      <Button title='log' onPress={() => {console.log(props.engagement)}} />
-
-      <ListItem
-        title={props.engagement.created_by.full_name + ' - ' + getDataType() + '\n' + props.engagement.created_at}
-        titleStyle={{ color: "#5A6064" }}
-        leftAvatar={{ source: { uri: props.engagement.created_by.picture } }}
-        to pDivider={true}
-        subtitle={props.engagement.data.note}
-      />
+    <View style={{ flexDirection: 'row', alignItems: "flex-start", justifyContent: "flex-start", marginBottom:20 }}>
+      <Avatar
+        containerStyle={{ marginLeft: 15, marginRight: 15, marginTop: 5 }}
+        source={{ uri: props.engagement.created_by.picture }}
+        size="medium"
+        rounded />
+      <View>
+  <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? props.engagement.due_date.substring(0, 10) : null}</Text>
+        {props.engagement.data.subject ? <Text>Subject: {props.engagement.data.subject}</Text> : null}
+        <Text>{props.engagement.data.note}</Text>
+        <Text style={{color: 'gray'}}>{props.engagement.created_at.substring(0, 10)}</Text>
+      </View>
     </View>
+
+    // <View >
+    //   <ListItem
+    //     title={props.engagement.created_by.full_name + ' - ' + getDataType()}
+    //     titleStyle={{ color: "#5A6064" }}
+    //     leftAvatar={{ source: { uri: props.engagement.created_by.picture } }}
+    //     to pDivider={true}
+    //     subtitle={[props.engagement.data.subject ? 'Subject: ' + props.engagement.data.subject + '\n' : null] + props.engagement.data.note + '\n' + props.engagement.created_at.substring(0,10)}
+    //   />
+    // </View>
   )
 }
 
