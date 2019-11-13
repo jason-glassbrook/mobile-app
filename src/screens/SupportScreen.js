@@ -21,8 +21,8 @@ const SupportScreen = props => {
         <ScreenContainer>
             <SafeAreaView>
                 <StatusBar barStyle="dark-content" />
-                <ScrollView>
-                    <MainText style={styles.mainText}>
+                <ScrollView style={styles.style}>
+                    <MainText >
                         Get in touch!
                     </MainText>
                     <Text style={styles.text} >
@@ -36,7 +36,7 @@ const SupportScreen = props => {
 }
 
 const styles = StyleSheet.create({
-    mainText: {
+    style: {
         width: '100%',
         height: 100,
         backgroundColor: '#b2e3fb',

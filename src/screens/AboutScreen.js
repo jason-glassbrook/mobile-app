@@ -57,15 +57,37 @@ class AboutScreen extends Component {
               }}
             >
               Watch the video below to learn more about the free tools and
-              resources in this app. Video not loading? <Text style={{ textDecorationLine: 'underline' }}>Tap here.</Text> </Text>
-
+              resources in this app. Video not loading? <Text style={{ textDecorationLine: 'underline' }}>Tap here.</Text>
+            </Text>
 
             <Video uri={constants.aboutURI} />
-
-            {/* Links to Terms of Service and Privacy Policy */}
+            
             {/* <Text onPress={() => Linking.openURL('https://www.connectourkids.org/terms')}>Click Here to view the Terms of Service.</Text>
-            <Text onPress={() => Linking.openURL('https://www.connectourkids.org/privacy')}>Click Here to view Privacy Policy.</Text> */}
+            <Text onPress={() => Linking.openURL('https://www.connectourkids.org/privacy')}>Click Here to view Privacy Policy.</Text>
+            <Text onPress={() => Linking.openURL('https://www.connectourkids.org/contact')}>Click HERE to contact us!</Text> */}
 
+            <Text
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                textAlign: 'center',
+                marginBottom: 5
+              }}
+            >
+              V2.0
+            </Text>
+            <Text
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                justifyContent: 'center',
+                textAlign: 'center',
+                marginBottom: 5
+              }}
+            >
+              Copyright 2019 © Connect Our Kids. All Rights Reserved.
+            </Text>
           </ScrollView>
         </SafeAreaView>
       </ScreenContainer>

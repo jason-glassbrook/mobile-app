@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import {
   TouchableWithoutFeedback,
   Image,
-  Linking,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native'
+import { Linking } from 'expo';
 import {
   createAppContainer,
   createSwitchNavigator
@@ -28,6 +29,7 @@ import AuthenticationView from '../screens/AuthenticationScreen';
 import CaseViewScreen from '../screens/CaseViewScreen';
 import ConnectionsView from '../screens/ConnectionsView';
 import logoImg from '../../assets/logo.png';
+import CustomDrawer from './CustomDrawer'
 
 
 //Following StackNavigators are in BottomNav:
@@ -250,7 +252,9 @@ const DrawerNavigator = createDrawerNavigator({
     hideStatusBar: true,
     contentOptions: {
       activeTintColor: constants.highlightColor,
+      // DrawerItems: onItemPress('Terms', () => Linking.openUrl('https://www.connectourkids.org/terms'))
     },
+    contentComponent: (props) => <CustomDrawer {...props} />
   })
 
 const BottomNavigator = createBottomTabNavigator(
