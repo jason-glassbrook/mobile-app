@@ -10,15 +10,7 @@ import * as SecureStore from 'expo-secure-store'
 import { connect } from 'react-redux';
 import { postConnectionEngagements } from '../../store/actions/connectionEngagements';
 
-const AddEngagementModal = props => {
-
-  // const [formState, setFormState] = useState({
-  //     // subject: null,
-  //     data_type: 'N',
-  //     due_date: null,
-  //     is_public: true,
-  //     person: null
-  //   })
+const AddEngagementForm = props => {
 
   const [note, setNote] = useState('')
   const [subject, setSubject] = useState(null)
@@ -30,7 +22,6 @@ const AddEngagementModal = props => {
 
   //set type of engagement
   useEffect(() => {
-    // setFormState({ ...formState, data_type: props.data_type, person: props.id }) 
     
     setPerson(props.id)
 
@@ -113,8 +104,6 @@ const AddEngagementModal = props => {
             <ToggleSwitch
               switchOn={!isPublic}
               circleColorOn={constants.highlightColor}
-              // circleColorOff="lightgrey"
-              // labelStyle={{ color: "blue", fontWeight: "790" }}
               size="medium"
               onPress={() => setIsPublic(!isPublic)}
             />
@@ -122,7 +111,7 @@ const AddEngagementModal = props => {
           <TouchableOpacity 
             style={styles.saveButton}
             onPress={() => {
-              console.log('the id is referring to', props.id)
+              // console.log('the id is referring to', props.id)
               props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
               props.closeForm(props.getEngagements(props.id))
             }}
@@ -161,7 +150,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textTransform: 'uppercase', 
     color: '#fff',
-    // flex: 1
   }
 })
 
@@ -179,4 +167,4 @@ export default connect(
   mapStateToProps, {
     postConnectionEngagements,
     getEngagements
-  })(AddEngagementModal);
+  })(AddEngagementForm);

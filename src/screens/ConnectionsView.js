@@ -27,7 +27,12 @@ import {
 } from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs';
 import formatTelephone from '../helpers/formatTelephone.js';
-import EngagementsWithFormik from '../components/ConnectionsViewTabs/AddDocsModal';
+import AddEngagementForm from '../components/ConnectionsViewTabs/AddEngagementForm';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
+
 
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
@@ -37,7 +42,9 @@ function ConnectionsView(props) {
   })
 
   const [formVisible, setFormVisible] = useState(false)
+  const [addDocVisible, setAddDocVisible] = useState(false)
   const [engagementType, setEngagementType] = useState()
+  const [image, setImage] = useState({})
 
 
   useEffect(() => {
@@ -130,7 +137,7 @@ function ConnectionsView(props) {
   })
 
   const leftArrow = '\u2190';
-
+  
   return (
     <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
       <TouchableOpacity
@@ -230,7 +237,6 @@ function ConnectionsView(props) {
               </Text>
             </View>
           </View>
-
 
           {
             tabs.engagement ?
@@ -344,7 +350,18 @@ function ConnectionsView(props) {
               <View style={{ minHeight: 350, borderWidth: 0.5, borderColor: '#E5E4E2', width: '100%' }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <TouchableOpacity
-                    style={{ width: 162, height: 40, backgroundColor: constants.highlightColor, borderRadius: 4, justifyContent: 'center', alignItems: 'center', marginTop: 18, marginBottom: 10 }}
+                    onPress={() => {
+                      setAddDocVisible(true)
+                    }}
+                    style={{ 
+                      width: 162, 
+                      height: 40, 
+                      backgroundColor: constants.highlightColor, 
+                      borderRadius: 4, 
+                      justifyContent: 'center', 
+                      alignItems: 'center', 
+                      marginTop: 18, 
+                      marginBottom: 10 }}
                   >
                     <Text style={{ color: "#FFFFFF", fontSize: 18 }}>Add Document</Text>
                   </TouchableOpacity>
@@ -366,7 +383,12 @@ function ConnectionsView(props) {
       <Modal
         visible={formVisible}
       >
-        <EngagementsWithFormik closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
+        <AddEngagementForm closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
+      </Modal>
+      <Modal
+        visible={addDocVisible}
+      >
+        <AddDocForm closeForm={() => { setAddDocVisible(false) }} id={connectionData.pk} />
       </Modal>
     </ScrollView>
   );
