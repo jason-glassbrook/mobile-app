@@ -30,6 +30,7 @@ import {
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
+import { MaterialIcons } from '@expo/vector-icons';
 
 export function CaseViewScreen(props) {
 
@@ -92,10 +93,9 @@ export function CaseViewScreen(props) {
     },
     descriptionModalItems: {
       flexDirection: 'row',
-      height: 40,
-      padding: 'auto',
+      height: 50,
       alignItems: 'center',
-      
+
     }
   });
 
@@ -287,15 +287,29 @@ export function CaseViewScreen(props) {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-          <Text onPress={() => { setDescriptionVisible(true) }} style={{ width: '100%', textAlign: 'center', color: constants.highlightColor, marginBottom: 5 }}>DESCRIPTION</Text>
-          <View style={styles.filters}>
+          <TouchableHighlight
+            onPressIn={() => {
+              setDescriptionVisible(true)
+            }}>
+            <View
+              style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}
+            >
+              <MaterialIcons
+                name="filter-list"
+                color='black'
+                size={32}
+              /><Text style={{ fontSize: 16 }}>Filter</Text>
+            </View>
+          </TouchableHighlight>
+          {/* <Text onPress={() => { setDescriptionVisible(true) }} style={{ width: '100%', textAlign: 'center', color: constants.highlightColor, marginBottom: 5 }}>DESCRIPTION</Text> */}
+          {/* <View style={styles.filters}>
             <Text style={[styles.filter, { backgroundColor: '#C0C0C0' }, [filtersSelected[0] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 0: !filtersSelected[0] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#6AA84F' }, [filtersSelected[1] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 1: !filtersSelected[1] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#FFFF00' }, [filtersSelected[2] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 2: !filtersSelected[2] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#CC0000' }, [filtersSelected[3] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 3: !filtersSelected[3] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#9900FF' }, [filtersSelected[4] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 4: !filtersSelected[4] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#6FA8DC' }, [filtersSelected[5] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 5: !filtersSelected[5] })}></Text>
-          </View>
+          </View> */}
           {props.isLoadingConnections ? (
             <Loader />
           ) : (
@@ -321,22 +335,15 @@ export function CaseViewScreen(props) {
       </View>
       <Modal
         visible={descriptionVisible}
-        transparent
-        animationType="slide"
       >
-        <View style={{width: '50%', position: 'absolute', top: '30%', right: '25%', backgroundColor: 'white', borderWidth: 1, borderColor: 'black', borderRadius: 4}}>
+        <View style={{ margin: 30, marginTop: 80 }}>
 
-          <TouchableOpacity style={{ width: 40, height: 40 }}>
-            <Feather
-              name="x"
-              size={30}
-              color="#212529"
-              onPress={() => {
-                setDescriptionVisible(false)
-              }}
-            />
-          </TouchableOpacity>
-          <Text style={{fontSize: 16}}>Filter Description:</Text>
+
+          <Text
+            style={{ fontSize: 20, fontWeight: "800", textAlign: "left" }}
+          >
+            Status
+          </Text>
           <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 0: !filtersSelected[0] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#C0C0C0' }, [filtersSelected[0] ? styles.selected : null]]} ></Text><Text>N/A</Text></View></TouchableOpacity>
           <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 1: !filtersSelected[1] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#6AA84F' }, [filtersSelected[1] ? styles.selected : null]]} ></Text><Text>Family Candidate</Text></View></TouchableOpacity>
           <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 2: !filtersSelected[2] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#FFFF00' }, [filtersSelected[2] ? styles.selected : null]]} ></Text><Text>Highlight</Text></View></TouchableOpacity>
@@ -344,6 +351,28 @@ export function CaseViewScreen(props) {
           <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 4: !filtersSelected[4] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#9900FF' }, [filtersSelected[4] ? styles.selected : null]]} ></Text><Text>Of Interest</Text></View></TouchableOpacity>
           <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 5: !filtersSelected[5] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#6FA8DC' }, [filtersSelected[5] ? styles.selected : null]]} ></Text><Text>Support Candidate</Text></View></TouchableOpacity>
         </View>
+        <View
+            style={{
+              alignContent: "center",
+              alignSelf: 'center',
+              marginBottom: 200,
+              width: 100,
+              fontSize: 80,
+              fontWeight: "bold",
+            }}
+          >
+            <TouchableHighlight>
+              <Button
+                buttonStyle={{ backgroundColor: constants.highlightColor }}
+                title="Apply"
+                onPress={() => {
+                  setDescriptionVisible(false);
+                }}
+              />
+            </TouchableHighlight>
+          </View>
+
+
       </Modal>
 
     </ScrollView>
