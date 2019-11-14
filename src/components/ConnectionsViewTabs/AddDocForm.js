@@ -21,7 +21,6 @@ import Constants from 'expo-constants';
 import { AntDesign } from '@expo/vector-icons';
 
 const AddDocForm = props => {
-    // const [dataType, setDataType] = useState('D') 
     const [title, setTitle] = useState('this is the title')
     const [category, setCategory] = useState(3) // 1-Education, 2-Friends, 3-Network, 4-Other, 5-Relatives, 6-Sports
     const [tags, setTags] = useState([])
@@ -61,7 +60,7 @@ const AddDocForm = props => {
     };
 
     return (
-        <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
+        <View style={{width: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 4}}>
           <View style={{ width: '100%', justifyContent: 'flex-end', marginTop: 20 }}>
             <TouchableOpacity style={{ width: 64, height: 64 }}>
               <Feather
@@ -74,38 +73,78 @@ const AddDocForm = props => {
               />
             </TouchableOpacity>
           </View>
-          
-          <View style={{width: '95%'}}>
-            <View style={{width: '95%'}}>
-              <TouchableOpacity
-                onPress={() => {
-                  _pickImage()
+
+        <View style={{ width: '100%', backgroundColor: '#DEDEDE', justifyContent: 'center', borderRadius: 4}}>
+          <View style={{width: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 4}}>  
+            <View 
+              style={{minHeight: 24, marginTop: 10, marginBottom: 5, width: '95%', backgroundColor: 'white', borderRadius: 4}}
+            >
+              <TextInput
+                onChangeText={(text) => {
+                  setTitle(text)
                 }}
-              >
-                <Text>SELECT IMAGE</Text>
-                {attachment ? <Image source={{uri: attachment}} alt={title} style={{width: 150, height: 150}} /> : <AntDesign name="picture" size={125} />}
-              </TouchableOpacity>
+                placeholder='TITLE'
+                placeholderTextColor={'#000'}
+                style={{padding: 4, fontSize: 15}}
+                textAlignVertical='top'
+                name="title"
+                value={title}
+              /> 
             </View>
-            <View style={{ width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-              <View style={{ flexDirection: 'row' }}>
-                <Text style={{width: '75%', fontSize: 15}}>{'THIS INFORMATION IS SENSITIVE'}</Text>
-                <ToggleSwitch
-                  switchOn={!isPublic}
-                  circleColorOn={constants.highlightColor}
-                  size="medium"
-                  onPress={() => setIsPublic(!isPublic)}
-                />
-              </View>
-              <View style={{width: '100%'}}>
+            
+              <View style={{width: '95%'}}>
                 <TouchableOpacity
-                  style={styles.saveButton}
                   onPress={() => {
-                    props.postConnectionDocument(props.id, title, category, isPublic, notes, attachment)
-                    props.closeForm()
+                    _pickImage()
                   }}
                 >
-                  <Text style={styles.buttonText}>SAVE DOCUMENT</Text>
+                  <Text>SELECT IMAGE</Text>
+                  {attachment ? <Image source={{uri: attachment}} alt={title} style={{width: 150, height: 150}} /> : <AntDesign name="picture" size={125} />}
                 </TouchableOpacity>
+              </View>
+            <View
+              style={{ minHeight: 61, marginTop: 5, marginBottom: 10, width: '95%', backgroundColor: 'white', borderRadius: 4}}
+            >
+              <TextInput
+                onChangeText={(text) => {
+                  setNotes(text)
+                }}
+                placeholder='NOTES'
+                placeholderTextColor={'#000'}
+                style={{ padding: 4, fontSize: 15 }}
+                textAlignVertical='top'
+                name="notes"
+                value={notes}
+              /> 
+            </View>
+              <View style={{ width: '95%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text style={{width: '75%', fontSize: 15}}>{'THIS INFORMATION IS SENSITIVE'}</Text>
+                  <ToggleSwitch
+                    switchOn={!isPublic}
+                    containerStyle={{width: 108, height: 48}}
+                    circleStyle={{width: 38, height: 38}}
+                    backgroundColorOn='#158FB4'
+                    backgroundColorOff='#AAA9AD'
+                    circleColorOn='#0F6580'
+                    circleColorOff='#E5E4E2'
+                    size="small"
+                    onPress={() => setIsPublic(!isPublic)}
+                  />
+                </View>
+                <View style={{width: '100%', borderWidth: 1, borderColor: 'red'}}>
+                  <View style={{width: '100%', alignItems: 'flex-end'}}>
+                    <TouchableOpacity
+                      style={styles.saveButton}
+                      onPress={() => {
+                        props.postConnectionDocument(props.id, title, category, isPublic, notes, attachment)
+                        props.closeForm()
+                      }}
+                    >
+                      <Text style={styles.buttonText}>SAVE</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
               </View>
             </View>
           </View>
@@ -125,20 +164,18 @@ const styles = StyleSheet.create({
 
     saveButton: {
         justifyContent: 'center',
-        width: '100%',
-        height: 50,
-        backgroundColor: 'lightgray',
         alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 8,
+        width: 96,
+        height: 36,
+        backgroundColor: 'lightgray',
+        borderRadius: 50,
         borderWidth: 1,
         marginTop: 20,
         backgroundColor: constants.highlightColor,
         borderColor: constants.highlightColor
     },
     buttonText: {
-        fontSize: 18,
-        textTransform: 'uppercase',
+        fontSize: 14,
         color: '#fff',
     }
 })

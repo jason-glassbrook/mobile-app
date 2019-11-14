@@ -62,7 +62,7 @@ const AddEngagementForm = props => {
         <View style={{width: '100%'}}>
           <DatePickerIOS mode="date" date={dueDate} onDateChange={(e) => setDueDate(e)} />
         </View>
-         : null}
+        : null}
       {dataType === 'EMAIL' ?
         <View 
           style={{minHeight: 24, marginTop: 10, marginBottom: 5, width: '100%', backgroundColor: '#E5E4E2', borderRadius: 4}}

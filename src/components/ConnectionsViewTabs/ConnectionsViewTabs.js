@@ -101,7 +101,7 @@ export const Documents = (props) => {
   return (
     <View>
       <ListItem
-        title={props.document.original_file_name}
+        title={props.document.title}
         titleStyle={{ color: "#5A6064" }}
         leftIcon={docIcon(props.document.original_file_name)}
         to pDivider={true}
