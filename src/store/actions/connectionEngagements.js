@@ -71,7 +71,7 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
             dispatch({ type: POST_CONNECTION_DOCUMENT_START });
             console.log(createFormBody())
             axios
-                .post(`https://family-staging.connectourkids.org/api/v1/documents/`, createFormBody(), {
+                .post('https://family-staging.connectourkids.org/api/v1/documents/', createFormBody(), {
                     headers: {
                         Accept: 'application/json',
                         "Content-Type": 'multipart/form-data',

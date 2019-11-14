@@ -91,6 +91,8 @@ export const Documents = (props) => {
       return <AntDesign name="picture" size={30} />
     } else if (name.slice(-4) === 'jpeg') {
       return <AntDesign name="picture" size={30} />
+    } else if (name.slice(-3) === 'png') {
+      return <AntDesign name="picture" size={30} />
     } else {
       return <Entypo name="attachment" size={30} />
     }
@@ -99,7 +101,7 @@ export const Documents = (props) => {
   return (
     <View>
       <ListItem
-        title={props.document.original_file_name}
+        title={props.document.title}
         titleStyle={{ color: "#5A6064" }}
         leftIcon={docIcon(props.document.original_file_name)}
         to pDivider={true}
