@@ -98,7 +98,8 @@ const AddDocForm = props => {
                         onPress={() => {
                             // console.log('the id is referring to', props.id)
                             props.postConnectionDocument(props.id, title, category, isPublic, notes, attachment)
-                            props.closeForm(props.getEngagements(props.id))
+                            props.closeForm()
+                            props.getEngagements(props.id)
                         }}
                     >
                         <Text style={styles.buttonText}>SAVE DOCUMENT</Text>
@@ -140,11 +141,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
     const { accessToken } = state.auth
-
+    const { isLoadingDocs } = state.engagements
     return {
         accessToken,
         isLoadingEngagements: state.engagements.isLoadingEngagements,
-        engagementsError: state.engagements.engagementsError
+        engagementsError: state.engagements.engagementsError,
+        isLoadingDocs
     }
 }
 

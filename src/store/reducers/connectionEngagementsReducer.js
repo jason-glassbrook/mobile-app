@@ -9,16 +9,19 @@ import {
 } from "../actions/connectionEngagements";
 
 const initialState = {
-    data: {},
+    engagementsData: {},
     isLoadingEngagements: false,
-    engagementsError: ""
-};
-
-const initialDocState = {
-    data: {},
+    engagementsError: "",
+    docsData: {},
     isLoadingDocs: false,
     docsError: ''
-}
+};
+
+// const initialDocState = {
+//     data: {},
+//     isLoadingDocs: false,
+//     docsError: ''
+// }
 
 export const connectionEngagementsReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -33,7 +36,7 @@ export const connectionEngagementsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoadingEngagements: false,
-                data: {...action.payload}
+                engagementsData: {...action.payload}
             };
 
         case POST_CONNECTION_ENGAGEMENTS_FAILURE:
@@ -42,14 +45,7 @@ export const connectionEngagementsReducer = (state = initialState, action) => {
                 isLoadingEngagements: false,
                 engagementsError: "Error adding engagement. Please try again later."
             };
-
-        default:
-            return state;
-    }
-};
-
-export const connectionDocumentsReducer = (state = initialDocState, action) => {
-    switch (action.type) {
+        
         case POST_CONNECTION_DOCUMENT_START:
             return {
                 ...state,
@@ -61,7 +57,7 @@ export const connectionDocumentsReducer = (state = initialDocState, action) => {
             return {
                 ...state,
                 isLoadingDocs: false,
-                data: { ...action.payload }
+                docsData: { ...action.payload }
             };
 
         case POST_CONNECTION_DOCUMENT_FAILURE:
@@ -75,3 +71,31 @@ export const connectionDocumentsReducer = (state = initialDocState, action) => {
             return state;
     }
 };
+
+// export const connectionDocumentsReducer = (state = initialDocState, action) => {
+//     switch (action.type) {
+//         case POST_CONNECTION_DOCUMENT_START:
+//             return {
+//                 ...state,
+//                 isLoadingDocs: true,
+//                 docsError: ""
+//             };
+
+//         case POST_CONNECTION_DOCUMENT_SUCCESS:
+//             return {
+//                 ...state,
+//                 isLoadingDocs: false,
+//                 data: { ...action.payload }
+//             };
+
+//         case POST_CONNECTION_DOCUMENT_FAILURE:
+//             return {
+//                 ...state,
+//                 isLoadingDocs: false,
+//                 docsError: "Error adding document. Please try again later."
+//             };
+
+//         default:
+//             return state;
+//     }
+// };

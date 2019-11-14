@@ -32,7 +32,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
-
+import Loader from '../components/Loader/Loader';
 
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
@@ -50,7 +50,9 @@ function ConnectionsView(props) {
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
-  }, [false])
+    console.log('ConnectionsViewFiring')
+    console.log('props.isLoadingDocs', props.isLoadingDocs)
+  }, [props.isLoadingDocs])
 
   const styles = StyleSheet.create({
     tabs: {
@@ -367,7 +369,7 @@ function ConnectionsView(props) {
                   </TouchableOpacity>
                 </View>
                 <View style={{ width: '100%', maxHeight: '100%' }} >
-                  {
+                  {props.isLoadingDocs ? <Loader /> :
                     props.documents.map((document) => {
                       // console.log('pk' + ' ' + document.pk)
                       return (
@@ -401,6 +403,7 @@ const mapStateToProps = state => {
     engagementsError: state.connection.engagementsError,
     documents: state.connection.documents,
     isLoadingDocuments: state.connection.isLoadingDocuments,
+    isLoadingDocs: state.engagements.isLoadingDocs,
     documentsError: state.connection.documentsError
   }
 }

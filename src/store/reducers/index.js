@@ -7,7 +7,7 @@ import { getUserCasesReducer as userCases } from './userCasesReducer';
 import { getCaseDataReducer as caseData } from './caseDataReducer';
 import { getCaseConnectionsReducer as caseConnections } from './caseConnectionsReducer';
 import { connectionReducer as connection } from './connectionReducer';
-import { connectionEngagementsReducer as engagements, connectionDocumentsReducer as documents } from './connectionEngagementsReducer'; 
+import { connectionEngagementsReducer as engagements } from './connectionEngagementsReducer'; 
 
 export default combineReducers({
   auth,
@@ -19,5 +19,4 @@ export default combineReducers({
   caseConnections,
   connection,
   engagements,
-  documents
 });

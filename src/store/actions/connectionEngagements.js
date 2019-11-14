@@ -67,26 +67,7 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
     }
     
     SecureStore.getItemAsync('cok_access_token')
-        .then((accessToken) => {
-            // const fileReader = new FileReader()
-            // const buffer = fileReader.readAsArrayBuffer(attachment)
-            // console.log('buffer', buffer)
-
-            // const formBody = {
-            //     title: title,
-            //     category: category,
-            //     tags: [],
-            //     is_public: isPublic,
-            //     notes: notes,
-            //     person: id,
-            //     attachment: attachment
-            // }
-            // const config = {
-            //     headers: {
-            //         "content-type": `multipart/form-data; boundary=${formBody._boundary}`,
-            //         Authorization: `Bearer ${accessToken}`,
-            //     }
-            // }
+        .then((accessToken) => {          
             dispatch({ type: POST_CONNECTION_DOCUMENT_START });
             console.log(createFormBody())
             axios
@@ -97,59 +78,23 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
                         Authorization: `Bearer ${accessToken}`,
                     },
                 })
-            // mimeType: "multipart/form-data",
-            })
-            .then(res => {
-                console.log('res in actions', res);
-                dispatch({
-                    type: POST_CONNECTION_DOCUMENT_SUCCESS,
-                    payload: res,
+                .then(res => {
+                    console.log('res in actions', res.data);
+                    dispatch({
+                        type: POST_CONNECTION_DOCUMENT_SUCCESS,
+                        payload: res.data,
+                    });
+                })
+                .catch(error => {
+                    console.log('ERROR', error);
+                    dispatch({
+                        type: POST_CONNECTION_DOCUMENT_FAILURE,
+                        payload: error
+                    });
                 });
-            })
-            .catch(error => {
-                console.log('ERROR', error);
-                dispatch({
-                    type: POST_CONNECTION_DOCUMENT_FAILURE,
-                    payload: error
-                });
-            });
-
+        })
 }
 
 export const clearConnectionEngagements = () => dispatch => {
     dispatch({ type: CLEAR_CONNECTION_ENGAGEMENTS });
 }
-
-
-
-// const upload = (url, data) => {
-//     let options = {
-//         headers: {
-//             'Content-Type': 'multipart/form-data'
-//         },
-//         method: 'POST'
-//     };
-
-//     options.body = new FormData();
-//     for (let key in data) {
-//         options.body.append(key, data[key]);
-//     }
-
-//     return fetch('https://family-staging.connectourkids.org/api/v1/documents/', options)
-//         .then(response => {
-//             return response.json()
-//                 .then(responseJson => {
-//                     //You put some checks here
-//                     return responseJson;
-//                 });
-//         });
-// }
-// upload('https://family-staging.connectourkids.org/api/v1/documents/', {
-//     file: {
-//         uri: image.path,
-//         type: image.mime,
-//         name: image.name,
-//     }
-// }).then(r => {
-//     //do something with `r`
-// });
