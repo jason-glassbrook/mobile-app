@@ -142,6 +142,8 @@ function ConnectionsView(props) {
   })
 
   const leftArrow = '\u2190';
+
+  const engagementsNoDocuments = props.engagements.filter((engagement) => engagement.data_type !== 'D')
   
   return (
     <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
@@ -336,7 +338,7 @@ function ConnectionsView(props) {
                 {/* <ScrollView style={{ maxHeight: '70%' }}> */}
                   <View>
                     {
-                      props.engagements.map((engagement) => {
+                      engagementsNoDocuments.map((engagement) => {
                         return (
                           <View key={engagement.pk} style={{ width: '70%' }}>
                             <Engagement engagement={engagement} />
