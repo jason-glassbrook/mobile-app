@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Feather } from '@expo/vector-icons';
 import {
   Text,
   View,
@@ -43,6 +44,8 @@ export function CaseViewScreen(props) {
     5: false
   })
 
+  const [descriptionVisible, setDescriptionVisible] = useState(false)
+
   const styles = StyleSheet.create({
     tabs: {
       width: "100%",
@@ -86,6 +89,13 @@ export function CaseViewScreen(props) {
     },
     selected: {
       borderWidth: 2,
+    },
+    descriptionModalItems: {
+      flexDirection: 'row',
+      height: 40,
+      padding: 'auto',
+      alignItems: 'center',
+      
     }
   });
 
@@ -150,15 +160,15 @@ export function CaseViewScreen(props) {
         // console.log('length***************************', filteredList.length)
       }
       if (!filtersSelected[2]) {
-        //if filter1 not selected, remove everyone with filter1
+        //if filter2 not selected, remove everyone with filter2
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#FFFF00')
       }
       if (!filtersSelected[3]) {
-        //if filter1 not selected, remove everyone with filter1
+        //if filter3 not selected, remove everyone with filter3
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#CC0000')
       }
       if (!filtersSelected[4]) {
-        //if filter1 not selected, remove everyone with filter1
+
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#9900FF')
       }
       if (!filtersSelected[5]) {
@@ -166,9 +176,11 @@ export function CaseViewScreen(props) {
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6FA8DC')
       }
       if (filtersSelected[0]) {
+        //add back people without a status if no status filter is selected
         filteredList = filteredList.concat(noStatus)
-        filteredList.sort(name)
       }
+      //sort by name
+      filteredList.sort(name)
 
       return filteredList
     }
@@ -275,7 +287,7 @@ export function CaseViewScreen(props) {
             platform="ios"
             containerStyle={styles.searchBar}
           />
-          <Text style={{ width: '100%', textAlign: 'center', color: constants.highlightColor, marginBottom: 5 }}>DESCRIPTION</Text>
+          <Text onPress={() => { setDescriptionVisible(true) }} style={{ width: '100%', textAlign: 'center', color: constants.highlightColor, marginBottom: 5 }}>DESCRIPTION</Text>
           <View style={styles.filters}>
             <Text style={[styles.filter, { backgroundColor: '#C0C0C0' }, [filtersSelected[0] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 0: !filtersSelected[0] })}></Text>
             <Text style={[styles.filter, { backgroundColor: '#6AA84F' }, [filtersSelected[1] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 1: !filtersSelected[1] })}></Text>
@@ -307,6 +319,33 @@ export function CaseViewScreen(props) {
             )}
         </View>
       </View>
+      <Modal
+        visible={descriptionVisible}
+        transparent
+        animationType="slide"
+      >
+        <View style={{width: '50%', position: 'absolute', top: '30%', right: '25%', backgroundColor: 'white', borderWidth: 1, borderColor: 'black', borderRadius: 4}}>
+
+          <TouchableOpacity style={{ width: 40, height: 40 }}>
+            <Feather
+              name="x"
+              size={30}
+              color="#212529"
+              onPress={() => {
+                setDescriptionVisible(false)
+              }}
+            />
+          </TouchableOpacity>
+          <Text style={{fontSize: 16}}>Filter Description:</Text>
+          <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 0: !filtersSelected[0] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#C0C0C0' }, [filtersSelected[0] ? styles.selected : null]]} ></Text><Text>N/A</Text></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 1: !filtersSelected[1] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#6AA84F' }, [filtersSelected[1] ? styles.selected : null]]} ></Text><Text>Family Candidate</Text></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 2: !filtersSelected[2] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#FFFF00' }, [filtersSelected[2] ? styles.selected : null]]} ></Text><Text>Highlight</Text></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 3: !filtersSelected[3] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#CC0000' }, [filtersSelected[3] ? styles.selected : null]]} ></Text><Text>No-Go</Text></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 4: !filtersSelected[4] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#9900FF' }, [filtersSelected[4] ? styles.selected : null]]} ></Text><Text>Of Interest</Text></View></TouchableOpacity>
+          <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 5: !filtersSelected[5] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#6FA8DC' }, [filtersSelected[5] ? styles.selected : null]]} ></Text><Text>Support Candidate</Text></View></TouchableOpacity>
+        </View>
+      </Modal>
+
     </ScrollView>
   );
 }
