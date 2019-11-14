@@ -60,7 +60,7 @@ const AddDocForm = props => {
     };
 
     return (
-        <View style={{width: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 4}}>
+        <View style={{width: '100%', height: '100%', justifyContent: 'flex-start', borderRadius: 4}}>
           <View style={{ width: '100%', justifyContent: 'flex-end', marginTop: 20 }}>
             <TouchableOpacity style={{ width: 64, height: 64 }}>
               <Feather
@@ -74,7 +74,7 @@ const AddDocForm = props => {
             </TouchableOpacity>
           </View>
 
-        <View style={{ width: '100%', backgroundColor: '#DEDEDE', justifyContent: 'center', borderRadius: 4}}>
+        <View style={{ width: '100%', height: '100%', justifyContent: 'flex-start', backgroundColor: '#DEDEDE'}}>
           <View style={{width: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 4}}>  
             <View 
               style={{minHeight: 24, marginTop: 10, marginBottom: 5, width: '95%', backgroundColor: 'white', borderRadius: 4}}
@@ -124,16 +124,37 @@ const AddDocForm = props => {
                     <SwitchToggle
                       switchOn={!isPublic}
                       backgroundColorOn='#158FB4'
-                      // backgroundColorOff='#bdb8b8 '
+                      backgroundColorOff='#AAA9AD'
                       circleColorOn='#0F6580'
-                      circleColorOff='#cecece'
-                      containerStyle={{width: 40, height: 20, borderRadius: 16, padding: 1}}
-                      // circleStyle={{ width: 26, height: 26, borderRadius: 13, shadowColor: '#bdb8b8', shadowOffset: {width: 1, height: 3}, shadowRadius: 3}}
+                      circleColorOff='#E5E4E2'
+                      containerStyle={{ 
+                        width: 49, 
+                        height: 20, 
+                        borderRadius: 16, 
+                        // borderWidth: 0.4, 
+                        // borderColor: '#bab5b5', 
+                        padding: 0.1
+                      }}
+                      circleStyle={{ 
+                        width: 28, 
+                        height: 28, 
+                        borderRadius: 15, 
+                        // borderWidth: 1.2, 
+                        // borderColor: '#bab5b5', 
+                        shadowColor: "#000",
+                        shadowOffset: {
+                          width: 1,
+                          height: 3,
+                        },
+                        shadowOpacity: 0.23,
+                        shadowRadius: 2.62,
+                      
+                        elevation: 4,}}
                       onPress={() => setIsPublic(!isPublic)}
                     />
                   </View>
                 </View>
-                <View style={{width: '100%', borderWidth: 1, borderColor: 'red'}}>
+                <View style={{width: '100%'}}>
                   <View style={{width: '100%', alignItems: 'flex-end'}}>
                     <TouchableOpacity
                       style={styles.saveButton}
