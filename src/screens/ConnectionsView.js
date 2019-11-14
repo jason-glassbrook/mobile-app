@@ -22,7 +22,10 @@ import {
   clearEngagements
 } from "../store/actions/connectionData";
 import {
-  Ionicons, AntDesign, MaterialCommunityIcons, Feather,
+  Ionicons, 
+  AntDesign, 
+  MaterialCommunityIcons, 
+  Feather,
   MaterialIcons
 } from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs';

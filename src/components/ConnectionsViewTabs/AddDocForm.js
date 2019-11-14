@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
     Button,
+    Image,
     Text,
     ScrollView,
     View,
@@ -17,6 +18,7 @@ import { postConnectionDocument } from '../../store/actions/connectionEngagement
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
+import { AntDesign } from '@expo/vector-icons';
 
 const AddDocForm = props => {
     // const [dataType, setDataType] = useState('D') 
@@ -60,52 +62,53 @@ const AddDocForm = props => {
 
     return (
         <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{ width: '100%', justifyContent: 'flex-end', marginTop: 20 }}>
-                <TouchableOpacity style={{ width: 64, height: 64 }}>
-                    <Feather
-                        name="x"
-                        size={40}
-                        color="#212529"
-                        onPress={() => {
-                            props.closeForm()
-                        }}
-                    />
-                </TouchableOpacity>
+          <View style={{ width: '100%', justifyContent: 'flex-end', marginTop: 20 }}>
+            <TouchableOpacity style={{ width: 64, height: 64 }}>
+              <Feather
+                name="x"
+                size={40}
+                color="#212529"
+                onPress={() => {
+                    props.closeForm()
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          
+          <View style={{width: '95%'}}>
+            <View style={{width: '95%'}}>
+              <TouchableOpacity
+                onPress={() => {
+                  _pickImage()
+                }}
+              >
+                <Text>SELECT IMAGE</Text>
+                {attachment ? <Image source={{uri: attachment}} alt={title} style={{width: 150, height: 150}} /> : <AntDesign name="picture" size={125} />}
+              </TouchableOpacity>
             </View>
-
-            <View>
+            <View style={{ width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Text style={{width: '75%', fontSize: 15}}>{'THIS INFORMATION IS SENSITIVE'}</Text>
+                <ToggleSwitch
+                  switchOn={!isPublic}
+                  circleColorOn={constants.highlightColor}
+                  size="medium"
+                  onPress={() => setIsPublic(!isPublic)}
+                />
+              </View>
+              <View style={{width: '100%'}}>
                 <TouchableOpacity
-                    // title='SELECT IMAGE'
-                    onPress={() => {
-                        _pickImage()
-                    }}
+                  style={styles.saveButton}
+                  onPress={() => {
+                    props.postConnectionDocument(props.id, title, category, isPublic, notes, attachment)
+                    props.closeForm()
+                  }}
                 >
-                    <Text>SELECT IMAGE</Text>
+                  <Text style={styles.buttonText}>SAVE DOCUMENT</Text>
                 </TouchableOpacity>
-                {attachment ? <Text>{attachment}</Text> : null}
-                <View style={{ width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <View style={{ flexDirection: 'row' }}>
-                        {/* <Text style={{width: '75%', fontSize: 15}}>{`THIS INFORMATION IS SENSITIVE\n(2FA REQUIRED TO VIEW)`}</Text> */}
-                        <ToggleSwitch
-                            switchOn={!isPublic}
-                            circleColorOn={constants.highlightColor}
-                            size="medium"
-                            onPress={() => setIsPublic(!isPublic)}
-                        />
-                    </View>
-                    <TouchableOpacity
-                        style={styles.saveButton}
-                        onPress={() => {
-                            // console.log('the id is referring to', props.id)
-                            props.postConnectionDocument(props.id, title, category, isPublic, notes, attachment)
-                            props.closeForm()
-                            props.getEngagements(props.id)
-                        }}
-                    >
-                        <Text style={styles.buttonText}>SAVE DOCUMENT</Text>
-                    </TouchableOpacity>
-                </View>
+              </View>
             </View>
+          </View>
         </View>
     )
 }
@@ -124,6 +127,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         height: 50,
+        backgroundColor: 'lightgray',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 8,
@@ -133,7 +137,7 @@ const styles = StyleSheet.create({
         borderColor: constants.highlightColor
     },
     buttonText: {
-        fontSize: 24,
+        fontSize: 18,
         textTransform: 'uppercase',
         color: '#fff',
     }
