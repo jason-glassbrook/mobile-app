@@ -22,12 +22,20 @@ import {
   clearEngagements
 } from "../store/actions/connectionData";
 import {
-  Ionicons, AntDesign, MaterialCommunityIcons, Feather,
+  Ionicons, 
+  AntDesign, 
+  MaterialCommunityIcons, 
+  Feather,
   MaterialIcons
 } from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs';
 import formatTelephone from '../helpers/formatTelephone.js';
-import EngagementsWithFormik from '../components/ConnectionsViewTabs/AddDocsModal';
+import AddEngagementForm from '../components/ConnectionsViewTabs/AddEngagementForm';
+import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
+import Constants from 'expo-constants';
+import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
+import Loader from '../components/Loader/Loader';
 
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
@@ -37,13 +45,17 @@ function ConnectionsView(props) {
   })
 
   const [formVisible, setFormVisible] = useState(false)
+  const [addDocVisible, setAddDocVisible] = useState(false)
   const [engagementType, setEngagementType] = useState()
+  const [image, setImage] = useState({})
 
 
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
-  }, [false])
+    console.log('ConnectionsViewFiring')
+    console.log('props.isLoadingDocs', props.isLoadingDocs)
+  }, [props.isLoadingDocs])
 
   const styles = StyleSheet.create({
     tabs: {
@@ -101,7 +113,8 @@ function ConnectionsView(props) {
 
     iconLabelContainer: {
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      marginBottom: 20
     },
 
     iconContainer: {
@@ -110,7 +123,7 @@ function ConnectionsView(props) {
       width: 45,
       borderRadius: 22.5,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
 
     iconStyles: {
@@ -129,9 +142,9 @@ function ConnectionsView(props) {
   })
 
   const leftArrow = '\u2190';
-
+  
   return (
-    <View style={{ maxHeight: '100%', width: '100%' }}>
+    <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
       <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
@@ -141,6 +154,8 @@ function ConnectionsView(props) {
       >
         <Text
           style={{
+            paddingTop: 10,
+            paddingBottom: 10,
             marginLeft: 5,
             fontSize: 15
           }}
@@ -187,18 +202,18 @@ function ConnectionsView(props) {
         />
       </View>
 
-      <View style={{ justifyContent: 'center', width: '100%', alignItems: 'center' }}>
+      <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
         <View
           style={{
             borderRadius: 4,
             // borderColor: '#0F6580',
             // borderWidth: 0.5,
-            width: '95%',
-            alignItems: 'center',
-            justifyContent: "center"
+            width: '100%',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
           }}
         >
-          <View style={styles.tabs}>
+          <View style={[styles.tabs]}>
             <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
               <Text
                 style={[{ color: '#E5E4E2', fontSize: 17.5 }, tabs.engagement ? { color: '#E5E4E2' } : { color: '#000' }]}
@@ -227,7 +242,6 @@ function ConnectionsView(props) {
               </Text>
             </View>
           </View>
-
 
           {
             tabs.engagement ?
@@ -261,10 +275,10 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   setFormVisible(true)
-                        //   setEngagementType('C')
-                        // }}
+                        onPress={() => {
+                          setFormVisible(true)
+                          setEngagementType('C')
+                        }}
                       >
                         <MaterialIcons
                           name='phone'
@@ -287,10 +301,10 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   setFormVisible(true)
-                        //   setEngagementType('E')
-                        // }}
+                        onPress={() => {
+                          setFormVisible(true)
+                          setEngagementType('E')
+                        }}
                       >
                         <MaterialIcons
                           name='email'
@@ -304,10 +318,10 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        // onPress={() => {
-                        //   setFormVisible(true)
-                        //   setEngagementType('R')
-                        // }}
+                        onPress={() => {
+                          setFormVisible(true)
+                          setEngagementType('R')
+                        }}
                       >
                         <MaterialCommunityIcons
                           name='clock-outline'
@@ -319,15 +333,18 @@ function ConnectionsView(props) {
                   </View>
                 </View>
 
-                <ScrollView style={{ maxHeight: '80%' }}>
+                {/* <ScrollView style={{ maxHeight: '70%' }}> */}
                   <View>
                     {
                       props.engagements.map((engagement) => {
                         return (
-                          <Engagement key={engagement.pk} engagement={engagement} />)
+                          <View key={engagement.pk} style={{ width: '70%' }}>
+                            <Engagement engagement={engagement} />
+                          </View>)
+
                       })}
                   </View>
-                </ScrollView>
+                {/* </ScrollView> */}
               </View>
               : null
           }
@@ -338,21 +355,30 @@ function ConnectionsView(props) {
               <View style={{ minHeight: 350, borderWidth: 0.5, borderColor: '#E5E4E2', width: '100%' }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <TouchableOpacity
-                    style={{ width: 162, height: 40, backgroundColor: constants.highlightColor, borderRadius: 4, justifyContent: 'center', alignItems: 'center', marginTop: 18, marginBottom: 10 }}
+                    onPress={() => {
+                      setAddDocVisible(true)
+                    }}
+                    style={{ 
+                      width: 162, 
+                      height: 40, 
+                      backgroundColor: constants.highlightColor, 
+                      borderRadius: 4, 
+                      justifyContent: 'center', 
+                      alignItems: 'center', 
+                      marginTop: 18, 
+                      marginBottom: 10 }}
                   >
                     <Text style={{ color: "#FFFFFF", fontSize: 18 }}>Add Document</Text>
                   </TouchableOpacity>
                 </View>
-                <ScrollView style={{ width: '100%', maxHeight: '100%' }} >
-                  {/* <View> */}
-                  {
+                <View style={{ width: '100%', maxHeight: '100%' }} >
+                  {props.isLoadingDocs ? <Loader /> :
                     props.documents.map((document) => {
-                      console.log('pk' + ' ' + document.pk)
+                      // console.log('pk' + ' ' + document.pk)
                       return (
                         <Documents key={document.pk} document={document} />)
                     })}
-                  {/* </View> */}
-                </ScrollView>
+                </View>
               </View>
               // </View> 
               : null
@@ -362,9 +388,14 @@ function ConnectionsView(props) {
       <Modal
         visible={formVisible}
       >
-        <EngagementsWithFormik closeForm={() => {setFormVisible(false)}} data_type={engagementType} id={connectionData.pk} />
+        <AddEngagementForm closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
       </Modal>
-    </View>
+      <Modal
+        visible={addDocVisible}
+      >
+        <AddDocForm closeForm={() => { setAddDocVisible(false) }} id={connectionData.pk} />
+      </Modal>
+    </ScrollView>
   );
 }
 
@@ -375,6 +406,7 @@ const mapStateToProps = state => {
     engagementsError: state.connection.engagementsError,
     documents: state.connection.documents,
     isLoadingDocuments: state.connection.isLoadingDocuments,
+    isLoadingDocs: state.engagements.isLoadingDocs,
     documentsError: state.connection.documentsError
   }
 }
