@@ -240,13 +240,13 @@ const FamilyConnectionsScreen = (props) => {
           <ScrollView>
             <View
               style={{
-                marginVertical: 100,
-                justifyContent: "space-evenly",
-                alignSelf: "center"
+                marginTop: 100,
+                // justifyContent: "space-evenly",
+                alignSelf: "left"
               }}
             >
               <Text
-                style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}
+                style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
               >
                 Gender
               </Text>
@@ -309,12 +309,12 @@ const FamilyConnectionsScreen = (props) => {
                 }
               />
 
-              <Divider
+              {/* <Divider
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
-              />
+              /> */}
 
               <Text
-                style={{ fontSize: 20, fontWeight: "800", textAlign: "center" }}
+                style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
               >
                 Sort By
               </Text>
@@ -389,17 +389,17 @@ const FamilyConnectionsScreen = (props) => {
           <View
             style={{
               alignContent: "center",
-              marginVertical: 60,
-              marginHorizontal: 30,
+              alignSelf: 'center',
+              marginBottom: 200,
+              width: 100,
               fontSize: 80,
               fontWeight: "bold",
-              paddingTop: -10
             }}
           >
             <TouchableHighlight>
               <Button
                 buttonStyle={{ backgroundColor: constants.highlightColor }}
-                title="Apply Filters"
+                title="Apply"
                 onPress={() => {
                   setModalVisible(!state.modalVisible);
                 }}
