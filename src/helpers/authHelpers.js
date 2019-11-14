@@ -108,7 +108,7 @@ const initialLogin = async (AuthSession, setUserCreds) => {
   const queryParams = toQueryString({
     client_id: auth0ClientId,
     redirect_uri: redirectUrl,
-    audience: 'https://family-staging.connectourkids.org/api/v1/',
+    audience: 'https://api-staging.connectourkids.org/',
     response_type: 'code id_token token', // id_token will return a JWT token
     scope: 'offline_access openid profile email', // retrieve the user's profile
     device: Constants.deviceName,

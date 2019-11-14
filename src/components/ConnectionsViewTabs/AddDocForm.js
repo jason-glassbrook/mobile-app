@@ -9,7 +9,7 @@ import {
     StyleSheet,
     TextInput,
 } from "react-native";
-import ToggleSwitch from 'react-native-switch-toggle';
+import SwitchToggle from 'react-native-switch-toggle';
 import { Feather } from '@expo/vector-icons';
 import { getEngagements } from '../../store/actions/connectionData';
 import constants from '../../helpers/constants'
@@ -89,7 +89,7 @@ const AddDocForm = props => {
                 textAlignVertical='top'
                 name="title"
                 value={title}
-              /> 
+              />
             </View>
             
               <View style={{width: '95%'}}>
@@ -120,17 +120,18 @@ const AddDocForm = props => {
               <View style={{ width: '95%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <View style={{ flexDirection: 'row' }}>
                   <Text style={{width: '75%', fontSize: 15}}>{'THIS INFORMATION IS SENSITIVE'}</Text>
-                  <ToggleSwitch
-                    switchOn={!isPublic}
-                    containerStyle={{width: 108, height: 48}}
-                    circleStyle={{width: 38, height: 38}}
-                    backgroundColorOn='#158FB4'
-                    backgroundColorOff='#AAA9AD'
-                    circleColorOn='#0F6580'
-                    circleColorOff='#E5E4E2'
-                    size="small"
-                    onPress={() => setIsPublic(!isPublic)}
-                  />
+                  <View>
+                    <SwitchToggle
+                      switchOn={!isPublic}
+                      backgroundColorOn='#158FB4'
+                      // backgroundColorOff='#bdb8b8 '
+                      circleColorOn='#0F6580'
+                      circleColorOff='#cecece'
+                      containerStyle={{width: 40, height: 20, borderRadius: 16, padding: 1}}
+                      // circleStyle={{ width: 26, height: 26, borderRadius: 13, shadowColor: '#bdb8b8', shadowOffset: {width: 1, height: 3}, shadowRadius: 3}}
+                      onPress={() => setIsPublic(!isPublic)}
+                    />
+                  </View>
                 </View>
                 <View style={{width: '100%', borderWidth: 1, borderColor: 'red'}}>
                   <View style={{width: '100%', alignItems: 'flex-end'}}>
