@@ -2,7 +2,7 @@
 
 You can find the repo for the project at [connect our kids repo](https://github.com/connect-our-kids/mobile-app).
 
-# Please review and contribute to Changelog file
+
 
 ## Labs17 Contributors
 | <img src="https://avatars2.githubusercontent.com/u/32081816?s=460&v=4" width="200">| 
@@ -104,6 +104,8 @@ People Search API [development api](https://dev.search.connectourkids.org/)
 When contributing to this repository, please first discuss the change you wish to make via issue, email, or any other method with the owners of this repository before making a change.
 
 Please note we have a [code of conduct](./CODE_OF_CONDUCT.md). Please follow it in all your interactions with the project.
+
+
 
 ### Issue/Bug Request
 
