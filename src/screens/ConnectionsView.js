@@ -144,6 +144,10 @@ function ConnectionsView(props) {
   const leftArrow = '\u2190';
 
   const engagementsNoDocuments = props.engagements.filter((engagement) => engagement.data_type !== 'D')
+
+  const passEngagementType = (type) => {
+    return props.navigation.navigate('EngagementForm', { data_type: type, id: connectionData.pk })
+  }
   
   return (
     <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
@@ -260,9 +264,10 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('N')
+                        onPress={ () => {
+                          // setFormVisible(true)
+                          // await setEngagementType('N')
+                          passEngagementType('N')
                         }}
                       >
                         <AntDesign
@@ -277,9 +282,11 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('C')
+                        onPress={async() => {
+                          // setFormVisible(true)
+                          // await setEngagementType('C')
+                          // props.navigation.navigate('EngagementForm', { data_type: engagementType, id: connectionData.pk })
+                          passEngagementType('C')
                         }}
                       >
                         <MaterialIcons
@@ -303,9 +310,11 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('E')
+                        onPress={async () => {
+                          // setFormVisible(true)
+                          // await setEngagementType('E')
+                          // props.navigation.navigate('EngagementForm', { data_type: engagementType, id: connectionData.pk })
+                          passEngagementType('E')
                         }}
                       >
                         <MaterialIcons
@@ -320,9 +329,11 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('R')
+                        onPress={async () => {
+                          // setFormVisible(true)
+                          // await setEngagementType('R')
+                          // props.navigation.navigate('EngagementForm', { data_type: engagementType, id: connectionData.pk })
+                          passEngagementType('R')
                         }}
                       >
                         <MaterialCommunityIcons
@@ -358,7 +369,8 @@ function ConnectionsView(props) {
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={() => {
-                      setAddDocVisible(true)
+                      // setAddDocVisible(true)
+                      props.navigation.navigate('DocumentForm')
                     }}
                     style={{ 
                       width: 162, 
@@ -387,16 +399,16 @@ function ConnectionsView(props) {
           }
         </View>
       </View>
-      <Modal
+      {/* <Modal
         visible={formVisible}
       >
         <AddEngagementForm closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
-      </Modal>
-      <Modal
+      </Modal> */}
+      {/* <Modal
         visible={addDocVisible}
       >
         <AddDocForm closeForm={() => { setAddDocVisible(false) }} id={connectionData.pk} />
-      </Modal>
+      </Modal> */}
     </ScrollView>
   );
 }

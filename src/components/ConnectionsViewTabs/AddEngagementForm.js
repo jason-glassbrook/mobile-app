@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Button, Text, ScrollView, View, TouchableOpacity, StyleSheet, TextInput, DatePickerIOS } from "react-native";
-import ToggleSwitch from 'react-native-switch-toggle';
+import SwitchToggle from 'react-native-switch-toggle';
 import axios from "axios";
 import { Feather } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
@@ -20,6 +20,7 @@ const AddEngagementForm = props => {
 
   const [dataType, setDataType] = useState('') 
 
+  
   //set type of engagement
   useEffect(() => {
     
@@ -37,35 +38,40 @@ const AddEngagementForm = props => {
       } else if (type === 'E') {
       return 'EMAIL'
       } else {
-        return 'something else'
+        return 'OTHER'
       }
     }
-    setDataType(dataTypeHelper(props.data_type))
+    // console.log('props.navigation', props.navigation.getParam('data_type'))
+    // const newDataType = 
+    setDataType(dataTypeHelper(props.navigation.getParam('data_type')))
   }, [false])
   
   return (
-    <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>     
-      <View style={{width: '100%', justifyContent: 'flex-end', marginTop: 20}}>
-        <TouchableOpacity style={{width: 64, height: 64}}>
-          <Feather
-            name="x"
-            size={40}
-            color="#212529"
-            onPress={() => {
-              props.closeForm()
-            }}
-          />
-        </TouchableOpacity>
-      </View>
+    <View 
+      style={{
+        width: '100%', 
+        justifyContent: 'flex-start', 
+        alignItems: 'center',
+        backgroundColor: '#E5E4E2',
+        height: '100%',
+      }}
+    >     
       <View style={styles.formContainer}>
       {dataType === 'REMINDER' ?
-        <View style={{width: '100%'}}>
+        <View style={{width: '95%'}}>
           <DatePickerIOS mode="date" date={dueDate} onDateChange={(e) => setDueDate(e)} />
         </View>
         : null}
       {dataType === 'EMAIL' ?
         <View 
-          style={{minHeight: 24, marginTop: 10, marginBottom: 5, width: '100%', backgroundColor: '#E5E4E2', borderRadius: 4}}
+          style={{
+            minHeight: 165, 
+            marginTop: 10, 
+            marginBottom: 5, 
+            width: '95%', 
+            backgroundColor: 'white', 
+            borderRadius: 4
+          }}
         >
           <TextInput
             onChangeText={(text) => {
@@ -80,7 +86,14 @@ const AddEngagementForm = props => {
           /> 
         </View> : null}
         <View 
-          style={{minHeight: 61, marginTop: 5, marginBottom: 10, width: '100%', backgroundColor: '#E5E4E2', borderRadius: 4}}
+          style={{
+            minHeight: 165,
+            marginTop: 10,
+            marginBottom: 5,
+            width: '95%',
+            backgroundColor: 'white',
+            borderRadius: 4
+          }}
         >
           <TextInput
             multiline
@@ -98,26 +111,65 @@ const AddEngagementForm = props => {
         </View>
 
         {/* Items below here don't change */}
-        <View style={{width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{width: '75%', fontSize: 15}}>{`THIS INFORMATION IS SENSITIVE\n(2FA REQUIRED TO VIEW)`}</Text>
-            <ToggleSwitch
-              switchOn={!isPublic}
-              circleColorOn={constants.highlightColor}
-              size="medium"
-              onPress={() => setIsPublic(!isPublic)}
-            />
-          </View>
-          <TouchableOpacity 
-            style={styles.saveButton}
-            onPress={() => {
-              // console.log('the id is referring to', props.id)
-              props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
-              props.closeForm(props.getEngagements(props.id))
+        <View 
+          style={{
+            width: '95%', 
+            marginTop: 20, 
+            flexDirection: 'column', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-start'
+          }}
+        >
+          <View 
+            style={{
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'space-between'
             }}
           >
-            <Text style={styles.buttonText}>{`SAVE ${dataType}`}</Text>
-          </TouchableOpacity>
+            <Text style={{ width: '75%', fontSize: 15 }}>This Information is Sensitive</Text>
+            <View>
+              <SwitchToggle
+                switchOn={!isPublic}
+                backgroundColorOn='#158FB4'
+                backgroundColorOff='#AAA9AD'
+                circleColorOn='#0F6580'
+                circleColorOff='#E5E4E2'
+                containerStyle={{
+                  width: 49,
+                  height: 20,
+                  borderRadius: 16,
+                  padding: 0.1
+                }}
+                circleStyle={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 15,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 1,
+                    height: 3,
+                  },
+                  shadowOpacity: 0.23,
+                  shadowRadius: 2.62,
+                  elevation: 4,
+                }}
+                onPress={() => setIsPublic(!isPublic)}
+              />
+            </View>
+          </View>
+          <View style={{ width: '100%', alignItems: 'flex-end', marginTop: 20 }}>
+            <TouchableOpacity 
+              style={styles.saveButton}
+              onPress={() => {
+                // console.log('the id is referring to', props.id)
+                props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
+                props.closeForm(props.getEngagements(props.id))
+              }}
+            >
+              <Text style={styles.buttonText}>SAVE</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </View>
@@ -136,18 +188,18 @@ const styles = StyleSheet.create({
 
   saveButton: {
     justifyContent: 'center',
-    width: '100%',
-    height: 50,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
+    width: 96,
+    height: 36,
+    backgroundColor: 'lightgray',
+    borderRadius: 50,
     borderWidth: 1,
     marginTop: 20,
     backgroundColor: constants.highlightColor,
     borderColor: constants.highlightColor
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 14,
     textTransform: 'uppercase', 
     color: '#fff',
   }

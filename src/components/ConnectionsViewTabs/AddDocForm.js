@@ -18,7 +18,7 @@ import { postConnectionDocument } from '../../store/actions/connectionEngagement
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
-import { AntDesign, Ionicons } from '@expo/vector-icons';
+import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 const AddDocForm = props => {
     const [title, setTitle] = useState('')
@@ -58,29 +58,65 @@ const AddDocForm = props => {
     };
 
     return (
-        <View style={{width: '100%', height: '100%', justifyContent: 'flex-start', borderRadius: 4}}>
-          <View style={{ width: '95%', justifyContent: 'flex-end', marginTop: 12 }}>
-            <TouchableOpacity style={{ width: 64, height: 64, marginLeft: 15, justifyContent: 'flex-end' }}>
-              <Ionicons
-                name="md-arrow-back"
+        <View 
+          style={{
+            width: '100%', 
+            height: '100%', 
+            justifyContent: 'flex-start', 
+            borderRadius: 4
+          }}
+        >
+          {/* <View style={{ width: '95%', justifyContent: 'flex-end', marginTop: 12 }}> */}
+            {/* <TouchableOpacity style={{ width: 64, height: 64, marginLeft: 15, justifyContent: 'flex-end' }}>
+              <MaterialCommunityIcons
+                name="image-plus"
                 size={32}
                 color="#AAA9AD"
                 onPress={() => {
                     props.closeForm()
                 }}
               />
-            </TouchableOpacity>
-          </View>
+            </TouchableOpacity> */}
+          {/* </View> */}
 
-        <View style={{ width: '100%', height: '100%', justifyContent: 'flex-start', backgroundColor: '#DEDEDE'}}>
-          <View style={{width: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 4}}>
-            <View style={{width: '95%', alignItems: 'flex-start', marginTop: 30, marginBottom: 13}}>
+        <View 
+          style={{ 
+            width: '100%', 
+            height: '100%', 
+            justifyContent: 'flex-start', 
+            backgroundColor: '#DEDEDE'
+          }}
+        >
+          <View 
+            style={{
+              width: '100%', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              borderRadius: 4
+            }}
+          >
+            <View 
+              style={{
+                width: '95%', 
+                alignItems: 'flex-start', 
+                marginTop: 30, 
+                marginBottom: 13
+              }}
+            >
               <Text
                 style={{fontSize: 24, fontWeight: 'bold'}}
               >Add Document</Text>
             </View>  
             <View 
-              style={{minHeight: 25, marginTop: 10, marginBottom: 5, width: '95%', backgroundColor: 'white', borderRadius: 4, padding: 2}}
+              style={{
+                minHeight: 25, 
+                marginTop: 10, 
+                marginBottom: 5, 
+                width: '95%', 
+                backgroundColor: 'white', 
+                borderRadius: 4, 
+                padding: 2
+              }}
             >
               <TextInput
                 onChangeText={(text) => {
@@ -95,7 +131,15 @@ const AddDocForm = props => {
               />
             </View>
             <View
-              style={{ maxHeight: 120, marginTop: 5, marginBottom: 10, width: '95%', backgroundColor: 'white', borderRadius: 4, padding: 2, marginBottom: 30}}
+              style={{ 
+                maxHeight: 120, 
+                marginTop: 5, 
+                marginBottom: 30, 
+                width: '95%', 
+                backgroundColor: 'white', 
+                borderRadius: 4, 
+                padding: 2
+              }}
             >
               <TextInput
                 onChangeText={(text) => {
@@ -103,7 +147,12 @@ const AddDocForm = props => {
                 }}
                 placeholder='NOTES'
                 placeholderTextColor={'#AAA9AD'}
-                style={{ padding: 4, paddingRight: 80, paddingBottom: 80, fontSize: 15 }}
+                style={{ 
+                  padding: 4, 
+                  paddingRight: 80, 
+                  paddingBottom: 80, 
+                  fontSize: 15 
+                }}
                 textAlignVertical='top'
                 name="notes"
                 value={notes}
@@ -117,12 +166,45 @@ const AddDocForm = props => {
                 }}
               >
                 <Text style={{fontSize: 15}}>SELECT AN IMAGE</Text>
-                {attachment ? <Image source={{ uri: attachment }} alt={title} style={{ width: 125, height: 125, marginBottom: 12, marginTop: 12 }} /> : <Ionicons name="md-images" size={75} />}
+                {attachment ? 
+                  <Image 
+                    source={{ uri: attachment }} 
+                    alt={title} 
+                    style={{ 
+                      width: 125, 
+                      height: 125, 
+                      marginBottom: 12, 
+                      marginTop: 12 
+                    }} 
+                  /> : 
+                  <MaterialCommunityIcons
+                    name="image-plus"
+                    size={75}
+                    color={constants.highlightColor}
+                    onPress={() => {
+                      props.closeForm()
+                    }}
+                  />
+                }
               </TouchableOpacity>
             </View>
-              <View style={{ width: '95%', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }}>
-                  <Text style={{width: '75%', fontSize: 15}}>THIS INFORMATION IS SENSITIVE</Text>
+              <View 
+                style={{ 
+                  width: '95%', 
+                  flexDirection: 'column', 
+                  justifyContent: 'space-between', 
+                  alignItems: 'flex-start' 
+                }}
+              >
+                <View 
+                  style={{ 
+                    flexDirection: 'row', 
+                    width: '100%', 
+                    justifyContent: 'space-between',
+                    marginTop: 15 
+                  }}
+                >
+                  <Text style={{width: '75%', fontSize: 15,}}>This Information is Sensitive</Text>
                   <View>
                     <SwitchToggle
                       switchOn={!isPublic}
