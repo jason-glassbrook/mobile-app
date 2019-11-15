@@ -242,23 +242,16 @@ export function CaseViewScreen(props) {
         {/* search Functionality */}
         <View
           style={{
-            flexDirection: "column",
-            width: '100%',
+            width: '95%',
             minHeight: 350,
-            borderTopLeftRadius: 4,
-            borderTopRightRadius: 4,
-            borderWidth: 0.5,
-            borderColor: '#E5E4E2',
           }}
         >
           <View style={{
-            width: '95%',
+            width: '100%',
             height: 36,
             borderTopLeftRadius: 4,
             borderTopRightRadius: 4,
             backgroundColor: '#0F6580',
-            borderWidth: 0.5,
-            borderColor: '#0F6580',
             justifyContent: 'center',
             alignItems: 'center',
             flexDirection: 'row'
@@ -266,7 +259,6 @@ export function CaseViewScreen(props) {
             <View>
               <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text>
             </View>
-            {/* <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: 'white' }}>Engagement</Text></View> */}
           </View>
           <SearchBar
             inputStyle={{ fontSize: 16 }}
@@ -287,11 +279,11 @@ export function CaseViewScreen(props) {
               setDescriptionVisible(true)
             }}>
             <View
-              style={{ 
-                flexDirection: 'row', 
-                alignItems: 'center', 
-                paddingLeft: 10, 
-                paddingRight: 10 
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                paddingLeft: 10,
+                paddingRight: 10
               }}
             >
               <MaterialIcons
@@ -335,25 +327,25 @@ export function CaseViewScreen(props) {
           <TouchableOpacity onPress={() => setFiletersSelected({ ...filtersSelected, 5: !filtersSelected[5] })} ><View style={styles.descriptionModalItems}><Text style={[styles.filter, { backgroundColor: '#6FA8DC' }, [filtersSelected[5] ? styles.selected : null]]} ></Text><Text>Support Candidate</Text></View></TouchableOpacity>
         </View>
         <View
-            style={{
-              alignContent: "center",
-              alignSelf: 'center',
-              marginBottom: 200,
-              width: 100,
-              fontSize: 80,
-              fontWeight: "bold",
-            }}
-          >
-            <TouchableHighlight>
-              <Button
-                buttonStyle={{ backgroundColor: constants.highlightColor }}
-                title="Apply"
-                onPress={() => {
-                  setDescriptionVisible(false);
-                }}
-              />
-            </TouchableHighlight>
-          </View>
+          style={{
+            alignContent: "center",
+            alignSelf: 'center',
+            marginBottom: 200,
+            width: 100,
+            fontSize: 80,
+            fontWeight: "bold",
+          }}
+        >
+          <TouchableHighlight>
+            <Button
+              buttonStyle={{ backgroundColor: constants.highlightColor }}
+              title="Apply"
+              onPress={() => {
+                setDescriptionVisible(false);
+              }}
+            />
+          </TouchableHighlight>
+        </View>
       </Modal>
     </ScrollView>
   );
