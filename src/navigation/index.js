@@ -130,25 +130,11 @@ const PeopleSearchNavigator = createStackNavigator(
 );
 
 // Following StackNavigators are inside "More" drawer:
-const AboutNavigator = createStackNavigator(
-  {
-    About: {
-      screen: AboutScreen,
-      // initialRouteName: 'About',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      }
-    },
-  }
-);
 
 const MyAccountNavigator = createStackNavigator({
   MyAccount: {
     screen: AuthenticationView,
-    // initialRouteName: 'MyAccount',
+    initialRouteName: 'MyAccount',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -169,6 +155,21 @@ const MyAccountNavigator = createStackNavigator({
     }
   },
 })
+
+const AboutNavigator = createStackNavigator(
+  {
+    About: {
+      screen: AboutScreen,
+      // initialRouteName: 'About',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
+      }
+    },
+  }
+);
 
 const SupportNavigator = createStackNavigator({
   Support: {
@@ -223,11 +224,11 @@ const TermsOfServiceNavigator = createStackNavigator({
 })
 
 const DrawerNavigator = createDrawerNavigator({
-  'About': {
-    screen: AboutNavigator,
-  },
   'My Account': {
     screen: MyAccountNavigator,
+  },
+  'About': {
+    screen: AboutNavigator,
   },
   'Impact Dashboard': {
     screen: ImpactNavigator,
@@ -254,7 +255,7 @@ const DrawerNavigator = createDrawerNavigator({
       activeTintColor: constants.highlightColor,
       // DrawerItems: onItemPress('Terms', () => Linking.openUrl('https://www.connectourkids.org/terms'))
     },
-    contentComponent: (props) => <CustomDrawer {...props} />
+    // contentComponent: (props) => <CustomDrawer {...props} />
   })
 
 const BottomNavigator = createBottomTabNavigator(

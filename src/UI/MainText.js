@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     fontFamily: constants.fontFamily,
     fontSize: 18,
     lineHeight: 26,
-    marginBottom: 20
+    marginBottom: 4
   }
 });
 

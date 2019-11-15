@@ -55,7 +55,7 @@ const AuthenticationView = (props) => {
 const styles = StyleSheet.create({
   registerContainer: {
     flex: 1,
-    marginHorizontal: 5
+    // marginHorizontal: 5
   }
 });
 
