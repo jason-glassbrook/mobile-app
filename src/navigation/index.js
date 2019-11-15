@@ -184,18 +184,18 @@ const SupportNavigator = createStackNavigator({
   },
 })
 
-const ImpactNavigator = createStackNavigator({
-  Impact: {
-    screen: ImpactScreen,
-    // initialRouteName: 'Impact',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    },
-  },
-})
+// const ImpactNavigator = createStackNavigator({
+//   Impact: {
+//     screen: ImpactScreen,
+//     // initialRouteName: 'Impact',
+//     defaultNavigationOptions: {
+//       headerStyle: {
+//         height: constants.headerHeight,
+//         backgroundColor: constants.highlightColor,
+//       }
+//     },
+//   },
+// })
 
 const PrivacyPolicyNavigator = createStackNavigator({
   PrivacyPolicy: {
@@ -230,9 +230,9 @@ const DrawerNavigator = createDrawerNavigator({
   'About': {
     screen: AboutNavigator,
   },
-  'Impact Dashboard': {
-    screen: ImpactNavigator,
-  },
+  // 'Impact Dashboard': {
+  //   screen: ImpactNavigator,
+  // },
   'Support': {
     screen: SupportNavigator,
   },
@@ -322,7 +322,7 @@ const BottomNavigator = createBottomTabNavigator(
 const AppBottomSwitchNavigator = createSwitchNavigator({
   More: { screen: BottomNavigator },
   About: { screen: DrawerNavigator },
-  Impact: { screen: DrawerNavigator },
+  // Impact: { screen: DrawerNavigator },
   MyProfile: { screen: DrawerNavigator },
   Support: { screen: DrawerNavigator },
   PrivacyPolicy: { screen: DrawerNavigator },
