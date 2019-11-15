@@ -2,6 +2,8 @@
 
 You can find the repo for the project at [connect our kids repo](https://github.com/connect-our-kids/mobile-app).
 
+# Please review and contribute to Changelog file
+
 ## Labs17 Contributors
 
 
@@ -15,6 +17,8 @@ You can find the repo for the project at [connect our kids repo](https://github.
 
 [![React Native Version][rn-image]][rn-url]
 [![License][license-image]][license-url] 
+
+# Please review and contribute to Changelog
 
 
 ## Project Overview
@@ -147,3 +151,28 @@ See [People Search API](https://docs.google.com/document/d/1145R9-FcmA1NMXMAwbzF
 [rn-url]: https://facebook.github.io/react-native/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE
+
+# 
+# Labs13 Contributors
+
+|                                      [Asa Shalom](https://github.com/AsaOfDiamonds)                                      |                                                                                   [Ryan Walker](https://github.com/rytwalker)                                                                                    |                                              [Tyler Spaulding](https://github.com/NightlyD3V)                                              |                                          [Michael (Max) Gunter](https://github.com/maxgunter99)                                           |                                               [Pedro Montesinos](https://github.com/pedrolmr)                                               |                                             [Sean Pheneger](https://github.com/wcolts2000)                                              |
+| :----------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
+|      [<img src="https://avatars1.githubusercontent.com/u/36455310?s=460&v=4" width = "200" />](https://github.com/)      | [<img src="https://media.licdn.com/dms/image/C4E03AQFsiDBJExdQjA/profile-displayphoto-shrink_200_200/0?e=1565827200&v=beta&t=fiPrTzYTLJm0obKX6hzUXADFieDjy05f8bxmufvEYjc" width = "200" />](https://github.com/) |               [<img src="https://avatars0.githubusercontent.com/u/45692071?s=460&v=4" width = "200" />](https://github.com/)               |              [<img src="https://avatars2.githubusercontent.com/u/47502855?s=460&v=4" width = "200" />](https://github.com/)               |             [<img src="https://avatars2.githubusercontent.com/u/20940599?s=460&amp;v=4" width = "200" />](https://github.com/)              |             [<img src="https://avatars1.githubusercontent.com/u/41925787?s=460&v=4" width = "200" />](https://github.com/)              |
+|                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AsaOfDiamonds)                |                                                              [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/rytwalker)                                                              |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NightlyD3V)                           |                         [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/maxgunter99)                          |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/pedrolmr)                            |                         [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wcolts2000)                         |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/shalom1/) |                          [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/https://www.linkedin.com/in/ryan-walker-41082b47/)                          | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tyler-spaulding-58337b132/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/michael-gunter-5383a0181/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/pedro-montesinos-64a247127/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/sean-pheneger-5393a089/) |
+
+
+
+[![React Native Version][rn-image]][rn-url]
+[![License][license-image]][license-url] 
+
+
+## Project Overview
+
+You can find the project repo at [Connect Our Kids RN Repo](https://github.com/labs13-connect-kids/mobile).
+
+[Trello Board](https://trello.com/b/NUgsesAO/labs-13-connect-kids)
+
+[Product Canvas](https://docs.google.com/document/d/1deZi-ucUPVX1uKFpFDO8XlMUkK_RvsCPk5gzOhVPDbw/edit#)
+
+[UX Design files](https://balsamiq.cloud/snv27r3/p7n83ab/rEEED)
