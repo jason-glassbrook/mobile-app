@@ -1,8 +1,9 @@
 # Connect Our Kids
 
-You can find the repo for the project at [connect our kids repo](https://github.com/labs13-connect-kids/mobile).
+You can find the repo for the project at [connect our kids repo](https://github.com/connect-our-kids/mobile-app).
 
-## Contributors
+## Labs17 Contributors
+
 
 |                                      [Bryan Szendel](https://github.com/bryanszendel)                                      |                                                                                   [Blaine Blonquist](https://github.com/bquizza5)                                                                                    |                                              [Tania Keller](https://github.com/taniamichelle)                                              |                                          [Scott Beeker](https://github.com/dangolbeeker)                                           |                                               [Marques Johnson](https://github.com/MarquesJ8023)                                               |                                             [Bishop Lake](https://github.com/bishopsgithub)                                              |
 | :----------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
@@ -18,9 +19,9 @@ You can find the repo for the project at [connect our kids repo](https://github.
 
 ## Project Overview
 
-You can find the project repo at [Connect Our Kids RN Repo](https://github.com/labs13-connect-kids/mobile).
+You can find the project repo at [Connect Our Kids RN Repo](https://github.com/connect-our-kids/mobile-app).
 
-[Trello Board](https://trello.com/b/NUgsesAO/labs-13-connect-kids)
+[Trello Board](trello.com/b/svxEuquq/labs-17-connect-our-kids-social-worker-app)
 
 [Product Canvas](https://docs.google.com/document/d/1deZi-ucUPVX1uKFpFDO8XlMUkK_RvsCPk5gzOhVPDbw/edit#)
 
@@ -45,6 +46,10 @@ In the future, the registered user will have access to full features of Family C
 - People Search
 - Best Practices
 - Family Connections
+- Upload Documents
+- Bottom Navigation
+
+
 
 ### Authentication with Auth0
 
