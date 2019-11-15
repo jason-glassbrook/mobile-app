@@ -120,7 +120,15 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: 52
           },
           headerLeft:
-            (<TouchableOpacity style={{ width: 64, height: 64, marginLeft: 15, justifyContent: 'flex-end' }}>
+            (<TouchableOpacity 
+              style={{ 
+                width: 64, 
+                height: 64, 
+                marginLeft: 10, 
+                marginBottom: 15, 
+                justifyContent: 'flex-end' 
+              }}
+            >
               <Ionicons
                 name="md-arrow-back"
                 size={32}
@@ -149,7 +157,15 @@ const FamilyConnectionsNavigator = createStackNavigator(
           height: 52
         },
         headerLeft:
-          (<TouchableOpacity style={{ width: 64, height: 64, marginLeft: 15, justifyContent: 'flex-end' }}>
+          (<TouchableOpacity 
+            style={{ 
+              width: 64, 
+              height: 64, 
+              marginLeft: 10, 
+              marginBottom: 15, 
+              justifyContent: 'flex-end' 
+            }}
+          >
             <Ionicons
               name="md-arrow-back"
               size={32}

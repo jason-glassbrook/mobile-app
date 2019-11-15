@@ -58,26 +58,14 @@ const AddDocForm = props => {
     };
 
     return (
-        <View 
-          style={{
+        <ScrollView 
+          contentContainerStyle={{
             width: '100%', 
             height: '100%', 
             justifyContent: 'flex-start', 
             borderRadius: 4
           }}
         >
-          {/* <View style={{ width: '95%', justifyContent: 'flex-end', marginTop: 12 }}> */}
-            {/* <TouchableOpacity style={{ width: 64, height: 64, marginLeft: 15, justifyContent: 'flex-end' }}>
-              <MaterialCommunityIcons
-                name="image-plus"
-                size={32}
-                color="#AAA9AD"
-                onPress={() => {
-                    props.closeForm()
-                }}
-              />
-            </TouchableOpacity> */}
-          {/* </View> */}
 
         <View 
           style={{ 
@@ -151,7 +139,7 @@ const AddDocForm = props => {
                   padding: 4, 
                   paddingRight: 80, 
                   paddingBottom: 80, 
-                  fontSize: 15 
+                  fontSize: 15,
                 }}
                 textAlignVertical='top'
                 name="notes"
@@ -204,7 +192,7 @@ const AddDocForm = props => {
                     marginTop: 15 
                   }}
                 >
-                  <Text style={{width: '75%', fontSize: 15,}}>This Information is Sensitive</Text>
+                  <Text style={{width: '75%', fontSize: 15}}>This Information is Sensitive</Text>
                   <View>
                     <SwitchToggle
                       switchOn={!isPublic}
@@ -250,7 +238,7 @@ const AddDocForm = props => {
               </View>
             </View>
           </View>
-        </View>
+        </ScrollView>
     )
 }
 

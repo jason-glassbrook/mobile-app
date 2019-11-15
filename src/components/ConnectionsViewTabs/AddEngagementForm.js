@@ -75,8 +75,8 @@ const AddEngagementForm = props => {
   }, [false])
   
   return (
-    <View 
-      style={{
+    <ScrollView 
+      contentContainerStyle={{
         width: '100%', 
         justifyContent: 'flex-start', 
         alignItems: 'center',
@@ -145,7 +145,12 @@ const AddEngagementForm = props => {
             }
             placeholderTextColor={'#AAA9AD'}
             name="note"
-            style={{padding: 4, fontSize: 15}}
+            style={{ 
+              padding: 4, 
+              paddingRight: 80, 
+              paddingBottom: noteSizeHelper(dataType), 
+              fontSize: 15
+            }}
             textAlignVertical='top'
             value={note}
           />
@@ -213,7 +218,7 @@ const AddEngagementForm = props => {
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
