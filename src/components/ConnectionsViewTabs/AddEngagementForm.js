@@ -20,7 +20,36 @@ const AddEngagementForm = props => {
 
   const [dataType, setDataType] = useState('') 
 
-  
+  const dataTypeTitle = (dataType) => {
+    if (dataType === 'NOTE') {
+      return 'ADD NOTE'
+    } else if (dataType === 'REMINDER') {
+      return 'SET REMINDER'
+    } else if (dataType === 'CALL') {
+      return 'LOG CALL'
+    } else if (dataType === 'EMAIL') {
+      return 'LOG EMAIL'
+    } else {
+      return 'LOG ENGAGEMENT'
+    }
+  }
+
+  const dataTypePlaceholder = (dataType) => {
+    if (dataType === 'EMAIL') {
+      return 'ADD EMAIL'
+    } else {
+      return 'ADD NOTE'
+    }
+  }
+
+  const noteSizeHelper = (dataType) => {
+    if (dataType === 'REMINDER') {
+      return 100;
+    } else {
+      return 165;
+    }
+  }
+
   //set type of engagement
   useEffect(() => {
     
@@ -41,8 +70,7 @@ const AddEngagementForm = props => {
         return 'OTHER'
       }
     }
-    // console.log('props.navigation', props.navigation.getParam('data_type'))
-    // const newDataType = 
+    
     setDataType(dataTypeHelper(props.navigation.getParam('data_type')))
   }, [false])
   
@@ -55,20 +83,32 @@ const AddEngagementForm = props => {
         backgroundColor: '#E5E4E2',
         height: '100%',
       }}
-    >     
+    >
       <View style={styles.formContainer}>
+      <View 
+        style={{
+          width: '100%', 
+          alignItems: 'flex-start', 
+          marginTop: 7,
+          marginBottom: 13
+        }}
+      >
+        <Text style={{fontSize: 24, fontWeight: 'bold'}}>
+          {dataTypeTitle(dataType)}
+        </Text>
+      </View>    
+      
       {dataType === 'REMINDER' ?
-        <View style={{width: '95%'}}>
+        <View style={{width: '100%'}}>
           <DatePickerIOS mode="date" date={dueDate} onDateChange={(e) => setDueDate(e)} />
         </View>
         : null}
       {dataType === 'EMAIL' ?
         <View 
           style={{
-            minHeight: 165, 
-            marginTop: 10, 
+            minHeight: 25, 
             marginBottom: 5, 
-            width: '95%', 
+            width: '100%', 
             backgroundColor: 'white', 
             borderRadius: 4
           }}
@@ -78,7 +118,7 @@ const AddEngagementForm = props => {
               setSubject(text)
             }}
             placeholder='SUBJECT'
-            placeholderTextColor={'#000'}
+            placeholderTextColor={'#AAA9AD'}
             style={{padding: 4, fontSize: 15}}
             textAlignVertical='top'
             name="subject"
@@ -87,10 +127,9 @@ const AddEngagementForm = props => {
         </View> : null}
         <View 
           style={{
-            minHeight: 165,
-            marginTop: 10,
+            minHeight: noteSizeHelper(dataType),
             marginBottom: 5,
-            width: '95%',
+            width: '100%',
             backgroundColor: 'white',
             borderRadius: 4
           }}
@@ -101,8 +140,10 @@ const AddEngagementForm = props => {
             onChangeText={(text) => {
               setNote(text)
             }}
-            placeholder={`ADD ${dataType}`}
-            placeholderTextColor={'#000'}
+            placeholder={
+              dataTypePlaceholder(dataType)
+            }
+            placeholderTextColor={'#AAA9AD'}
             name="note"
             style={{padding: 4, fontSize: 15}}
             textAlignVertical='top'
@@ -113,7 +154,7 @@ const AddEngagementForm = props => {
         {/* Items below here don't change */}
         <View 
           style={{
-            width: '95%', 
+            width: '100%', 
             marginTop: 20, 
             flexDirection: 'column', 
             justifyContent: 'space-between', 
@@ -179,8 +220,8 @@ const AddEngagementForm = props => {
 const styles = StyleSheet.create({
   formContainer: {
     width: '95%',
-    padding: 4,
-    marginTop: 35,
+    // padding: 4,
+    marginTop: 10,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',

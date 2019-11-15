@@ -265,8 +265,6 @@ function ConnectionsView(props) {
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
                         onPress={ () => {
-                          // setFormVisible(true)
-                          // await setEngagementType('N')
                           passEngagementType('N')
                         }}
                       >
@@ -282,10 +280,7 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={async() => {
-                          // setFormVisible(true)
-                          // await setEngagementType('C')
-                          // props.navigation.navigate('EngagementForm', { data_type: engagementType, id: connectionData.pk })
+                        onPress={() => {
                           passEngagementType('C')
                         }}
                       >
@@ -311,9 +306,6 @@ function ConnectionsView(props) {
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
                         onPress={async () => {
-                          // setFormVisible(true)
-                          // await setEngagementType('E')
-                          // props.navigation.navigate('EngagementForm', { data_type: engagementType, id: connectionData.pk })
                           passEngagementType('E')
                         }}
                       >
@@ -330,9 +322,6 @@ function ConnectionsView(props) {
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
                         onPress={async () => {
-                          // setFormVisible(true)
-                          // await setEngagementType('R')
-                          // props.navigation.navigate('EngagementForm', { data_type: engagementType, id: connectionData.pk })
                           passEngagementType('R')
                         }}
                       >
