@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import {
   TouchableWithoutFeedback,
   Image,
-  Linking,
-  Text
+  Text,
+  TouchableOpacity
 } from 'react-native'
+import { Linking } from 'expo';
 import {
   createAppContainer,
   createSwitchNavigator
@@ -16,7 +17,6 @@ import {
 } from 'react-navigation-stack';
 import { Ionicons } from '@expo/vector-icons';
 import AboutScreen from '../screens/AboutScreen';
-import EditProfileScreen from '../screens/EditProfileScreen';
 import SupportScreen from '../screens/SupportScreen';
 import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
 import TermsOfServiceScreen from '../screens/TermsOfServiceScreen';
@@ -29,6 +29,7 @@ import AuthenticationView from '../screens/AuthenticationScreen';
 import CaseViewScreen from '../screens/CaseViewScreen';
 import ConnectionsView from '../screens/ConnectionsView';
 import logoImg from '../../assets/logo.png';
+import CustomDrawer from './CustomDrawer'
 
 
 //Following StackNavigators are in BottomNav:
@@ -129,22 +130,8 @@ const PeopleSearchNavigator = createStackNavigator(
 );
 
 // Following StackNavigators are inside "More" drawer:
-const AboutNavigator = createStackNavigator(
-  {
-    About: {
-      screen: AboutScreen,
-      initialRouteName: 'About',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      }
-    },
-  }
-);
 
-const AccountNavigator = createStackNavigator({
+const MyAccountNavigator = createStackNavigator({
   MyAccount: {
     screen: AuthenticationView,
     initialRouteName: 'MyAccount',
@@ -169,23 +156,25 @@ const AccountNavigator = createStackNavigator({
   },
 })
 
-const EditProfileNavigator = createStackNavigator({
-  EditProfile: {
-    screen: EditProfileScreen,
-    initialRouteName: 'EditProfile',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
+const AboutNavigator = createStackNavigator(
+  {
+    About: {
+      screen: AboutScreen,
+      // initialRouteName: 'About',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
       }
     },
-  },
-})
+  }
+);
 
 const SupportNavigator = createStackNavigator({
   Support: {
     screen: SupportScreen,
-    initialRouteName: 'Support',
+    // initialRouteName: 'Support',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -195,23 +184,23 @@ const SupportNavigator = createStackNavigator({
   },
 })
 
-const ImpactNavigator = createStackNavigator({
-  Impact: {
-    screen: ImpactScreen,
-    initialRouteName: 'Impact',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    },
-  },
-})
+// const ImpactNavigator = createStackNavigator({
+//   Impact: {
+//     screen: ImpactScreen,
+//     // initialRouteName: 'Impact',
+//     defaultNavigationOptions: {
+//       headerStyle: {
+//         height: constants.headerHeight,
+//         backgroundColor: constants.highlightColor,
+//       }
+//     },
+//   },
+// })
 
 const PrivacyPolicyNavigator = createStackNavigator({
   PrivacyPolicy: {
     screen: PrivacyPolicyScreen,
-    initialRouteName: 'PrivacyPolicy',
+    // initialRouteName: 'PrivacyPolicy',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -224,7 +213,7 @@ const PrivacyPolicyNavigator = createStackNavigator({
 const TermsOfServiceNavigator = createStackNavigator({
   Terms: {
     screen: TermsOfServiceScreen,
-    initialRouteName: 'TermsOfService',
+    // initialRouteName: 'TermsOfService',
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
@@ -234,17 +223,16 @@ const TermsOfServiceNavigator = createStackNavigator({
   },
 })
 
-
 const DrawerNavigator = createDrawerNavigator({
-  'Account': {
+  'My Account': {
+    screen: MyAccountNavigator,
+  },
+  'About': {
     screen: AboutNavigator,
   },
-  'Edit Profile': {
-    screen: EditProfileNavigator,
-  },
-  'Impact Dashboard': {
-    screen: ImpactNavigator,
-  },
+  // 'Impact Dashboard': {
+  //   screen: ImpactNavigator,
+  // },
   'Support': {
     screen: SupportNavigator,
   },
@@ -255,7 +243,7 @@ const DrawerNavigator = createDrawerNavigator({
     screen: TermsOfServiceNavigator,
   },
   'Log Out': {
-    screen: AccountNavigator,
+    screen: MyAccountNavigator,
   }
 },
   {
@@ -265,7 +253,9 @@ const DrawerNavigator = createDrawerNavigator({
     hideStatusBar: true,
     contentOptions: {
       activeTintColor: constants.highlightColor,
+      // DrawerItems: onItemPress('Terms', () => Linking.openUrl('https://www.connectourkids.org/terms'))
     },
+    // contentComponent: (props) => <CustomDrawer {...props} />
   })
 
 const BottomNavigator = createBottomTabNavigator(
@@ -332,8 +322,8 @@ const BottomNavigator = createBottomTabNavigator(
 const AppBottomSwitchNavigator = createSwitchNavigator({
   More: { screen: BottomNavigator },
   About: { screen: DrawerNavigator },
-  Impact: { screen: DrawerNavigator },
-  EditProfile: { screen: DrawerNavigator },
+  // Impact: { screen: DrawerNavigator },
+  MyProfile: { screen: DrawerNavigator },
   Support: { screen: DrawerNavigator },
   PrivacyPolicy: { screen: DrawerNavigator },
   TermsOfService: { screen: DrawerNavigator },

@@ -14,9 +14,9 @@ const CustomText = props => {
 const styles = StyleSheet.create({
   mainText: {
     fontFamily: constants.fontFamily,
-    fontSize: 18,
+    fontSize: 16,
     lineHeight: 26,
-    marginBottom: 20
+    marginBottom: 4
   }
 });
 
