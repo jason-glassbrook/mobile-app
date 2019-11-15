@@ -3,9 +3,9 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import constants from '../helpers/constants';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-const toTop = () => {
-  props.scrollTo({ x: 0, y: 0, animated: true })
-}
+// const toTop = () => {
+//   scrollTo({ x: 0, y: 0, animated: true })
+// }
 
 const ScrollToTop = (props) => {
   // by spreading props and styles in an array, we can pass it custom styles to override or add to these base styles when we use this component
@@ -14,16 +14,17 @@ const ScrollToTop = (props) => {
       {...props}
       style={{
         position: 'absolute',
+        zIndex: 1000,
         bottom: 0,
-        left: 0,
+        right: 0,
       }}
-      onPress={() => props.toTop()}
+      
     >
       <View style={{
         flexDirection: 'column',
         justifyContent: 'center'
       }}>
-        <MaterialCommunityIcons size={30} />
+        <MaterialCommunityIcons name="chevron-double-up" size={30} />
         <Text>TOP</Text>
       </View>
     </TouchableOpacity>

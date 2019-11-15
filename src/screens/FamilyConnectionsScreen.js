@@ -84,6 +84,10 @@ const FamilyConnectionsScreen = (props) => {
     }
   }
 
+  goToTop = () => {
+    scroll.scrollTo({x: 0, y: 0, animated: true});
+ } 
+
   useEffect(() => {
     props.getUserCases()
     console.log('FamilyConnectionsAccessToken', props.accessToken)
@@ -194,14 +198,14 @@ const FamilyConnectionsScreen = (props) => {
     return result.full_name.toLowerCase().indexOf(state.searchKeywords.toLowerCase()) != -1;
   });
 
-
-
   return (
     props.isLoading ?
       <Loader /> :
       props.results[0] ?
       <SafeAreaView>
-        <View style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+        <View 
+          style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}
+        >
           <SearchBar
             inputStyle={{ fontSize: 16 }}
             inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
@@ -413,7 +417,13 @@ const FamilyConnectionsScreen = (props) => {
        Cache case info from API for faster loading */}
         {/* Case List View Starts Here */}
         <View style={{ paddingBottom: 170 }}>
-          <ScrollView>
+          <ScrollView
+            ref={(a) => {scroll = a}}
+            contentInset={{bottom: constants.headerHeight}}
+          >
+            <ScrollToTop 
+              onPress={goToTop}
+            />
             {props.isLoading ? (
               <Loader />
             ) : (
@@ -437,7 +447,6 @@ const FamilyConnectionsScreen = (props) => {
                   />
                 ))
               )}
-              <ScrollToTop />
           </ScrollView>
         </View>
       </SafeAreaView>
