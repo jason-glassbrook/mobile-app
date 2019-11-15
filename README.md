@@ -5,9 +5,7 @@ You can find the repo for the project at [connect our kids repo](https://github.
 # Please review and contribute to Changelog file
 
 ## Labs17 Contributors
-|   ![Irving Duran](https://avatars2.githubusercontent.com/u/32081816?s=460&v=4 =400x400)       
-| |
- 
+| <img src="https://avatars2.githubusercontent.com/u/32081816?s=460&v=4" width="200">| 
 
 
 |                                      [Bryan Szendel](https://github.com/bryanszendel)                                      |                                                                                   [Blaine Blonquist](https://github.com/bquizza5)                                                                                    |                                              [Tania Keller](https://github.com/taniamichelle)                                              |                                          [Scott Beeker](https://github.com/dangolbeeker)                                           |                                               [Marques Johnson](https://github.com/MarquesJ8023)                                               |                                             [Bishop Lake](https://github.com/bishopsgithub)                                              |
@@ -21,7 +19,7 @@ You can find the repo for the project at [connect our kids repo](https://github.
 [![React Native Version][rn-image]][rn-url]
 [![License][license-image]][license-url] 
 
-# Please review and contribute to Changelog
+
 
 
 ## Project Overview
