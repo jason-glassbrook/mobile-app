@@ -41,6 +41,7 @@ import constants from "../helpers/constants";
 import CaseViewScreen from "./CaseViewScreen.js";
 import ConnectionsLogin from "../components/Authentication/ConnectionsLogin"
 import Loader from "../components/Loader/Loader";
+import ScrollToTop from '../UI/ScrollToTop';
 
 
 const FamilyConnectionsScreen = (props) => {
@@ -237,7 +238,7 @@ const FamilyConnectionsScreen = (props) => {
           transparent={false}
           visible={state.modalVisible}
         >
-          <ScrollView>
+          <ScrollView scrollsToTop>
             <View
               style={{
                 marginTop: 100,
@@ -436,6 +437,7 @@ const FamilyConnectionsScreen = (props) => {
                   />
                 ))
               )}
+              <ScrollToTop />
           </ScrollView>
         </View>
       </SafeAreaView>

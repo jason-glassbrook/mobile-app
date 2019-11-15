@@ -20,22 +20,6 @@ import { AntDesign, Entypo, MaterialCommunityIcons, MaterialIcons } from '@expo/
 
 export const Engagement = (props) => {
 
-  // const getDataType = () => {
-  //   if (props.engagement.data_type === 'N') {
-  //     return 'Note'
-  //   } else if (props.engagement.data_type === 'E') {
-  //     return 'Email'
-  //   } else if (props.engagement.data_type === 'C') {
-  //     return 'Call'
-  //   } else if (props.engagement.data_type === 'R') {
-  //     return 'Reminder'
-  //   } else if (props.engagement.data_type === 'D') {
-  //     return 'Document'
-  //   } else {
-  //     return props.engagement.data_type
-  //   }
-  // }
-
   const getDataIcon = () => {
     if (props.engagement.data_type === 'N') {
       return <AntDesign name='file1' size={16} color='#0F6580' />
@@ -52,10 +36,15 @@ export const Engagement = (props) => {
     }
   }
 
-
-
   return (
-    <View style={{ flexDirection: 'row', alignItems: "flex-start", justifyContent: "flex-start", marginBottom:20 }}>
+    <View 
+      style={{ 
+        flexDirection: 'row', 
+        alignItems: "flex-start", 
+        justifyContent: "flex-start", 
+        marginBottom:20 
+      }}
+    >
       <Avatar
         containerStyle={{ marginLeft: 15, marginRight: 15, marginTop: 5 }}
         source={{ uri: props.engagement.created_by.picture }}
@@ -80,7 +69,6 @@ export const Engagement = (props) => {
     // </View>
   )
 }
-
 
 export const Documents = (props) => {
 
@@ -112,5 +100,3 @@ export const Documents = (props) => {
     </View>
   )
 }
-
-

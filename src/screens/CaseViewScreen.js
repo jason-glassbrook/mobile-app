@@ -99,7 +99,6 @@ export function CaseViewScreen(props) {
     }
   });
 
-
   // on load get case data and case connections through redux
   useEffect(() => {
     props.getCaseData(props.navigation.getParam('pk'));
@@ -138,7 +137,6 @@ export function CaseViewScreen(props) {
     }
     return comparison;
   };
-
 
   //filter functionality
   const filteredConnections = () => {
@@ -186,7 +184,6 @@ export function CaseViewScreen(props) {
     }
   }
 
-
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
   let SearchedConnections = filteredConnections().filter(result => {
     return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
@@ -195,7 +192,7 @@ export function CaseViewScreen(props) {
   const leftArrow = '\u2190';
 
   return (
-    <ScrollView>
+    <ScrollView scrollsToTop>
       <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
@@ -214,7 +211,6 @@ export function CaseViewScreen(props) {
           {leftArrow} ALL CASES
           </Text>
       </TouchableOpacity>
-
       <View>
         <ListItem
           title={caseData.full_name}
@@ -242,7 +238,6 @@ export function CaseViewScreen(props) {
           }}
         />
       </View>
-
       <View style={{ justifyContent: 'center', flexDirection: 'column', width: '100%', alignItems: 'center' }}>
         {/* search Functionality */}
         <View
@@ -257,7 +252,7 @@ export function CaseViewScreen(props) {
           }}
         >
           <View style={{
-            width: '100%',
+            width: '95%',
             height: 36,
             borderTopLeftRadius: 4,
             borderTopRightRadius: 4,
@@ -292,7 +287,12 @@ export function CaseViewScreen(props) {
               setDescriptionVisible(true)
             }}>
             <View
-              style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}
+              style={{ 
+                flexDirection: 'row', 
+                alignItems: 'center', 
+                paddingLeft: 10, 
+                paddingRight: 10 
+              }}
             >
               <MaterialIcons
                 name="filter-list"
@@ -301,15 +301,6 @@ export function CaseViewScreen(props) {
               /><Text style={{ fontSize: 16 }}>Filter</Text>
             </View>
           </TouchableHighlight>
-          {/* <Text onPress={() => { setDescriptionVisible(true) }} style={{ width: '100%', textAlign: 'center', color: constants.highlightColor, marginBottom: 5 }}>DESCRIPTION</Text> */}
-          {/* <View style={styles.filters}>
-            <Text style={[styles.filter, { backgroundColor: '#C0C0C0' }, [filtersSelected[0] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 0: !filtersSelected[0] })}></Text>
-            <Text style={[styles.filter, { backgroundColor: '#6AA84F' }, [filtersSelected[1] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 1: !filtersSelected[1] })}></Text>
-            <Text style={[styles.filter, { backgroundColor: '#FFFF00' }, [filtersSelected[2] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 2: !filtersSelected[2] })}></Text>
-            <Text style={[styles.filter, { backgroundColor: '#CC0000' }, [filtersSelected[3] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 3: !filtersSelected[3] })}></Text>
-            <Text style={[styles.filter, { backgroundColor: '#9900FF' }, [filtersSelected[4] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 4: !filtersSelected[4] })}></Text>
-            <Text style={[styles.filter, { backgroundColor: '#6FA8DC' }, [filtersSelected[5] ? styles.selected : null]]} onPress={() => setFiletersSelected({ ...filtersSelected, 5: !filtersSelected[5] })}></Text>
-          </View> */}
           {props.isLoadingConnections ? (
             <Loader />
           ) : (
@@ -318,12 +309,6 @@ export function CaseViewScreen(props) {
                   <CaseListComponent
                     pressed={() => {
                       // console.log('**************connection****************')
-                      // console.log(connection)
-                      // setConnectionSelected(
-                      //   {
-                      //   connectionOpen: true,
-                      //   connectionData: connection
-                      // })
                       props.navigation.navigate('ConnectionsView', { connectionData: connection, childName: caseData.full_name })
                     }}
                     key={index}
@@ -337,8 +322,6 @@ export function CaseViewScreen(props) {
         visible={descriptionVisible}
       >
         <View style={{ margin: 30, marginTop: 80 }}>
-
-
           <Text
             style={{ fontSize: 20, fontWeight: "800", textAlign: "left" }}
           >
@@ -371,15 +354,10 @@ export function CaseViewScreen(props) {
               />
             </TouchableHighlight>
           </View>
-
-
       </Modal>
-
     </ScrollView>
   );
 }
-
-
 
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;

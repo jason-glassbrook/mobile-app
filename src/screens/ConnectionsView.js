@@ -66,7 +66,7 @@ function ConnectionsView(props) {
     },
 
     engagementTab: {
-      width: "50%",
+      width: "47.5%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -80,7 +80,7 @@ function ConnectionsView(props) {
     },
 
     documentsTab: {
-      width: "50%",
+      width: "47.5%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -123,7 +123,7 @@ function ConnectionsView(props) {
       width: 45,
       borderRadius: 22.5,
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     },
 
     iconStyles: {
@@ -150,7 +150,10 @@ function ConnectionsView(props) {
   }
   
   return (
-    <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
+    <ScrollView 
+      style={{ maxHeight: '100%', width: '100%' }}
+      scrollsToTop
+    >
       <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
@@ -251,7 +254,14 @@ function ConnectionsView(props) {
 
           {
             tabs.engagement ?
-              <View style={{ width: '100%', borderWidth: 0.5, borderColor: '#E5E4E2', minHeight: 350 }}>
+              <View 
+                style={{ 
+                  width: '100%', 
+                  // borderWidth: 0.5, 
+                  // borderColor: '#E5E4E2', 
+                  minHeight: 350 
+                }}
+              >
                 <View
                   style={{
                     flexDirection: 'row',
@@ -354,7 +364,14 @@ function ConnectionsView(props) {
           {
             tabs.docs ?
               // <View style={{borderWidth: 2}}>
-              <View style={{ minHeight: 350, borderWidth: 0.5, borderColor: '#E5E4E2', width: '100%' }}>
+              <View 
+                style={{ 
+                  minHeight: 350, 
+                  // borderWidth: 0.5, 
+                  // borderColor: '#E5E4E2', 
+                  width: '100%' 
+                  }}
+              >
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={() => {
