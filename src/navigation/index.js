@@ -28,6 +28,8 @@ import constants from '../helpers/constants';
 import AuthenticationView from '../screens/AuthenticationScreen';
 import CaseViewScreen from '../screens/CaseViewScreen';
 import ConnectionsView from '../screens/ConnectionsView';
+import AddEngagementForm from '../components/ConnectionsViewTabs/AddEngagementForm'
+import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm'
 import logoImg from '../../assets/logo.png';
 import CustomDrawer from './CustomDrawer'
 
@@ -100,6 +102,80 @@ const FamilyConnectionsNavigator = createStackNavigator(
             resizeMode="contain"
           />)
       }
+    },
+    EngagementForm: {
+      screen: AddEngagementForm,
+      initialRouteName: 'FamilyConnections',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
+      },
+      navigationOptions: ({navigation}) => {
+        
+        return {
+          headerStyle: {
+          backgroundColor: 'white',
+          height: 52
+          },
+          headerLeft:
+            (<TouchableOpacity 
+              style={{ 
+                width: 64, 
+                height: 64, 
+                marginLeft: 10, 
+                marginBottom: 15, 
+                justifyContent: 'flex-end' 
+              }}
+            >
+              <Ionicons
+                name="md-arrow-back"
+                size={32}
+                color="#AAA9AD"
+                onPress={() => {
+                  navigation.goBack()
+                }}
+              />
+            </TouchableOpacity>)
+      }}
+    },
+    DocumentForm: {
+      screen: AddDocForm,
+      initialRouteName: 'FamilyConnections',
+      defaultNavigationOptions: {
+        headerStyle: {
+          height: constants.headerHeight,
+          backgroundColor: constants.highlightColor
+        }
+      },
+      navigationOptions: ({navigation}) => {
+        
+        return {
+          headerStyle: {
+          backgroundColor: 'white',
+          height: 52
+        },
+        headerLeft:
+          (<TouchableOpacity 
+            style={{ 
+              width: 64, 
+              height: 64, 
+              marginLeft: 10, 
+              marginBottom: 15, 
+              justifyContent: 'flex-end' 
+            }}
+          >
+            <Ionicons
+              name="md-arrow-back"
+              size={32}
+              color="#AAA9AD"
+              onPress={() => {
+                navigation.goBack()
+              }}
+            />
+          </TouchableOpacity>)
+      }}
     },
   },
 );

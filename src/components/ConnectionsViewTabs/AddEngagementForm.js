@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { Button, Text, ScrollView, View, TouchableOpacity, StyleSheet, TextInput, DatePickerIOS } from "react-native";
-import ToggleSwitch from 'react-native-switch-toggle';
+import SwitchToggle from 'react-native-switch-toggle';
 import axios from "axios";
 import { Feather } from '@expo/vector-icons';
 import { Input } from 'react-native-elements';
@@ -20,6 +20,36 @@ const AddEngagementForm = props => {
 
   const [dataType, setDataType] = useState('') 
 
+  const dataTypeTitle = (dataType) => {
+    if (dataType === 'NOTE') {
+      return 'ADD NOTE'
+    } else if (dataType === 'REMINDER') {
+      return 'SET REMINDER'
+    } else if (dataType === 'CALL') {
+      return 'LOG CALL'
+    } else if (dataType === 'EMAIL') {
+      return 'LOG EMAIL'
+    } else {
+      return 'LOG ENGAGEMENT'
+    }
+  }
+
+  const dataTypePlaceholder = (dataType) => {
+    if (dataType === 'EMAIL') {
+      return 'ADD EMAIL'
+    } else {
+      return 'ADD NOTE'
+    }
+  }
+
+  const noteSizeHelper = (dataType) => {
+    if (dataType === 'REMINDER') {
+      return 100;
+    } else {
+      return 165;
+    }
+  }
+
   //set type of engagement
   useEffect(() => {
     
@@ -37,27 +67,37 @@ const AddEngagementForm = props => {
       } else if (type === 'E') {
       return 'EMAIL'
       } else {
-        return 'something else'
+        return 'OTHER'
       }
     }
-    setDataType(dataTypeHelper(props.data_type))
+    
+    setDataType(dataTypeHelper(props.navigation.getParam('data_type')))
   }, [false])
   
   return (
-    <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>     
-      <View style={{width: '100%', justifyContent: 'flex-end', marginTop: 20}}>
-        <TouchableOpacity style={{width: 64, height: 64}}>
-          <Feather
-            name="x"
-            size={40}
-            color="#212529"
-            onPress={() => {
-              props.closeForm()
-            }}
-          />
-        </TouchableOpacity>
-      </View>
+    <ScrollView 
+      contentContainerStyle={{
+        width: '100%', 
+        justifyContent: 'flex-start', 
+        alignItems: 'center',
+        backgroundColor: '#E5E4E2',
+        height: '100%',
+      }}
+    >
       <View style={styles.formContainer}>
+      <View 
+        style={{
+          width: '100%', 
+          alignItems: 'flex-start', 
+          marginTop: 7,
+          marginBottom: 13
+        }}
+      >
+        <Text style={{fontSize: 24, fontWeight: 'bold'}}>
+          {dataTypeTitle(dataType)}
+        </Text>
+      </View>    
+      
       {dataType === 'REMINDER' ?
         <View style={{width: '100%'}}>
           <DatePickerIOS mode="date" date={dueDate} onDateChange={(e) => setDueDate(e)} />
@@ -65,14 +105,20 @@ const AddEngagementForm = props => {
         : null}
       {dataType === 'EMAIL' ?
         <View 
-          style={{minHeight: 24, marginTop: 10, marginBottom: 5, width: '100%', backgroundColor: '#E5E4E2', borderRadius: 4}}
+          style={{
+            minHeight: 25, 
+            marginBottom: 5, 
+            width: '100%', 
+            backgroundColor: 'white', 
+            borderRadius: 4
+          }}
         >
           <TextInput
             onChangeText={(text) => {
               setSubject(text)
             }}
             placeholder='SUBJECT'
-            placeholderTextColor={'#000'}
+            placeholderTextColor={'#AAA9AD'}
             style={{padding: 4, fontSize: 15}}
             textAlignVertical='top'
             name="subject"
@@ -80,7 +126,13 @@ const AddEngagementForm = props => {
           /> 
         </View> : null}
         <View 
-          style={{minHeight: 61, marginTop: 5, marginBottom: 10, width: '100%', backgroundColor: '#E5E4E2', borderRadius: 4}}
+          style={{
+            minHeight: noteSizeHelper(dataType),
+            marginBottom: 5,
+            width: '100%',
+            backgroundColor: 'white',
+            borderRadius: 4
+          }}
         >
           <TextInput
             multiline
@@ -88,47 +140,93 @@ const AddEngagementForm = props => {
             onChangeText={(text) => {
               setNote(text)
             }}
-            placeholder={`ADD ${dataType}`}
-            placeholderTextColor={'#000'}
+            placeholder={
+              dataTypePlaceholder(dataType)
+            }
+            placeholderTextColor={'#AAA9AD'}
             name="note"
-            style={{padding: 4, fontSize: 15}}
+            style={{ 
+              padding: 4, 
+              paddingRight: 80, 
+              paddingBottom: noteSizeHelper(dataType), 
+              fontSize: 15
+            }}
             textAlignVertical='top'
             value={note}
           />
         </View>
 
         {/* Items below here don't change */}
-        <View style={{width: '100%', marginTop: 15, flexDirection: 'column', justifyContent: 'space-between', alignItems: 'flex-start'}}>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{width: '75%', fontSize: 15}}>{`THIS INFORMATION IS SENSITIVE\n(2FA REQUIRED TO VIEW)`}</Text>
-            <ToggleSwitch
-              switchOn={!isPublic}
-              circleColorOn={constants.highlightColor}
-              size="medium"
-              onPress={() => setIsPublic(!isPublic)}
-            />
-          </View>
-          <TouchableOpacity 
-            style={styles.saveButton}
-            onPress={() => {
-              // console.log('the id is referring to', props.id)
-              props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
-              props.closeForm(props.getEngagements(props.id))
+        <View 
+          style={{
+            width: '100%', 
+            marginTop: 20, 
+            flexDirection: 'column', 
+            justifyContent: 'space-between', 
+            alignItems: 'flex-start'
+          }}
+        >
+          <View 
+            style={{
+              flexDirection: 'row',
+              width: '100%',
+              justifyContent: 'space-between'
             }}
           >
-            <Text style={styles.buttonText}>{`SAVE ${dataType}`}</Text>
-          </TouchableOpacity>
+            <Text style={{ width: '75%', fontSize: 15 }}>This Information is Sensitive</Text>
+            <View>
+              <SwitchToggle
+                switchOn={!isPublic}
+                backgroundColorOn='#158FB4'
+                backgroundColorOff='#AAA9AD'
+                circleColorOn='#0F6580'
+                circleColorOff='#E5E4E2'
+                containerStyle={{
+                  width: 49,
+                  height: 20,
+                  borderRadius: 16,
+                  padding: 0.1
+                }}
+                circleStyle={{
+                  width: 28,
+                  height: 28,
+                  borderRadius: 15,
+                  shadowColor: "#000",
+                  shadowOffset: {
+                    width: 1,
+                    height: 3,
+                  },
+                  shadowOpacity: 0.23,
+                  shadowRadius: 2.62,
+                  elevation: 4,
+                }}
+                onPress={() => setIsPublic(!isPublic)}
+              />
+            </View>
+          </View>
+          <View style={{ width: '100%', alignItems: 'flex-end', marginTop: 20 }}>
+            <TouchableOpacity 
+              style={styles.saveButton}
+              onPress={() => {
+                // console.log('the id is referring to', props.id)
+                props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
+                props.closeForm(props.getEngagements(props.id))
+              }}
+            >
+              <Text style={styles.buttonText}>SAVE</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   formContainer: {
     width: '95%',
-    padding: 4,
-    marginTop: 35,
+    // padding: 4,
+    marginTop: 10,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -136,18 +234,18 @@ const styles = StyleSheet.create({
 
   saveButton: {
     justifyContent: 'center',
-    width: '100%',
-    height: 50,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
+    width: 96,
+    height: 36,
+    backgroundColor: 'lightgray',
+    borderRadius: 50,
     borderWidth: 1,
     marginTop: 20,
     backgroundColor: constants.highlightColor,
     borderColor: constants.highlightColor
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 14,
     textTransform: 'uppercase', 
     color: '#fff',
   }

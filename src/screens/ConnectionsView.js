@@ -7,7 +7,8 @@ import {
   ScrollView,
   Button,
   Linking,
-  Modal
+  Modal,
+  Image
 } from 'react-native';
 import {
   Divider,
@@ -66,7 +67,7 @@ function ConnectionsView(props) {
     },
 
     engagementTab: {
-      width: "50%",
+      width: "47.5%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -80,7 +81,7 @@ function ConnectionsView(props) {
     },
 
     documentsTab: {
-      width: "50%",
+      width: "47.5%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -123,7 +124,7 @@ function ConnectionsView(props) {
       width: 45,
       borderRadius: 22.5,
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center'
     },
 
     iconStyles: {
@@ -144,9 +145,16 @@ function ConnectionsView(props) {
   const leftArrow = '\u2190';
 
   const engagementsNoDocuments = props.engagements.filter((engagement) => engagement.data_type !== 'D')
+
+  const passEngagementType = (type) => {
+    return props.navigation.navigate('EngagementForm', { data_type: type, id: connectionData.pk })
+  }
   
   return (
-    <ScrollView style={{ maxHeight: '100%', width: '100%' }}>
+    <ScrollView 
+      style={{ maxHeight: '100%', width: '100%' }}
+      scrollsToTop
+    >
       <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
@@ -193,14 +201,24 @@ function ConnectionsView(props) {
               {connectionData.address && connectionData.address.formatted ? <Text style={{ color: '#434245' }}>{connectionData.address.formatted}</Text> : null}
             </View>
           }
-          leftAvatar={{
-            size: "large",
-            source: {
-              uri:
-                connectionData.picture ||
-                "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
-            }
-          }}
+          leftAvatar={
+            <View 
+                style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden'}}
+            >
+                <Image 
+                    source={{uri: connectionData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"}} 
+                    style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden'}} 
+                />
+            </View>
+        }
         />
       </View>
 
@@ -247,7 +265,14 @@ function ConnectionsView(props) {
 
           {
             tabs.engagement ?
-              <View style={{ width: '100%', borderWidth: 0.5, borderColor: '#E5E4E2', minHeight: 350 }}>
+              <View 
+                style={{ 
+                  width: '100%', 
+                  // borderWidth: 0.5, 
+                  // borderColor: '#E5E4E2', 
+                  minHeight: 350 
+                }}
+              >
                 <View
                   style={{
                     flexDirection: 'row',
@@ -260,9 +285,8 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('N')
+                        onPress={ () => {
+                          passEngagementType('N')
                         }}
                       >
                         <AntDesign
@@ -278,8 +302,7 @@ function ConnectionsView(props) {
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
                         onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('C')
+                          passEngagementType('C')
                         }}
                       >
                         <MaterialIcons
@@ -303,9 +326,8 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('E')
+                        onPress={async () => {
+                          passEngagementType('E')
                         }}
                       >
                         <MaterialIcons
@@ -320,9 +342,8 @@ function ConnectionsView(props) {
                   <View style={styles.iconLabelContainer}>
                     <View style={styles.iconContainer}>
                       <TouchableOpacity
-                        onPress={() => {
-                          setFormVisible(true)
-                          setEngagementType('R')
+                        onPress={async () => {
+                          passEngagementType('R')
                         }}
                       >
                         <MaterialCommunityIcons
@@ -354,11 +375,19 @@ function ConnectionsView(props) {
           {
             tabs.docs ?
               // <View style={{borderWidth: 2}}>
-              <View style={{ minHeight: 350, borderWidth: 0.5, borderColor: '#E5E4E2', width: '100%' }}>
+              <View 
+                style={{ 
+                  minHeight: 350, 
+                  // borderWidth: 0.5, 
+                  // borderColor: '#E5E4E2', 
+                  width: '100%' 
+                  }}
+              >
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={() => {
-                      setAddDocVisible(true)
+                      // setAddDocVisible(true)
+                      props.navigation.navigate('DocumentForm')
                     }}
                     style={{ 
                       width: 162, 
@@ -387,16 +416,16 @@ function ConnectionsView(props) {
           }
         </View>
       </View>
-      <Modal
+      {/* <Modal
         visible={formVisible}
       >
         <AddEngagementForm closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
-      </Modal>
-      <Modal
+      </Modal> */}
+      {/* <Modal
         visible={addDocVisible}
       >
         <AddDocForm closeForm={() => { setAddDocVisible(false) }} id={connectionData.pk} />
-      </Modal>
+      </Modal> */}
     </ScrollView>
   );
 }
