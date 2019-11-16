@@ -22,8 +22,8 @@ const ScrollToTop = (props) => {
         alignItems: 'center'
       }}>
         {/* <MaterialCommunityIcons name="chevron-double-up" size={30} color={constants.highlightColor} /> */}
-        <Image defaultSource={chevron} style={{ height: 15, width: 20, marginBottom: -5 }} />
-        <Image defaultSource={chevron} style={{ height: 15, width: 20, marginBottom: 2 }} />
+        <Image source={chevron} style={{ height: 15, width: 20, marginBottom: -5 }} />
+        <Image source={chevron} style={{ height: 15, width: 20, marginBottom: 2 }} />
         <Text style={{color: constants.highlightColor, fontSize: 18 }}>TOP</Text>
       </View>
     </TouchableOpacity>
