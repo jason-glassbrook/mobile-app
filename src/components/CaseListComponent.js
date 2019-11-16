@@ -44,7 +44,24 @@ const CaseListComponent = (props) => {
                     titleStyle={{ color: "#5A6064" }}
                     subtitle={formatTelephone(props.connection.person.telephone)}
                     subtitleStyle={{color: "#5A6064"}}
-                    leftAvatar={{ source: { uri: props.connection.person.picture } }}
+                    leftAvatar={
+                        <View 
+                            style={{
+                                height: 50, 
+                                width: 50, 
+                                borderRadius: 25, 
+                                overflow: 'hidden'}}
+                        >
+                            <Image 
+                                source={{uri: props.connection.person.picture}} 
+                                style={{
+                                height: 50, 
+                                width: 50, 
+                                borderRadius: 25, 
+                                overflow: 'hidden'}} 
+                            />
+                        </View>
+                      }
                     to pDivider={true}
                     onPress={async () => {
                         props.pressed()
@@ -61,7 +78,24 @@ const CaseListComponent = (props) => {
                     titleStyle={{ color: "#5A6064" }}
                     subtitle={formatTelephone(props.connection.person.telephone)}
                     subtitleStyle={{color: "#5A6064"}}
-                    leftAvatar={{ source: { uri: props.connection.person.picture } }}
+                    leftAvatar={
+                        <View 
+                            style={{
+                                height: 50, 
+                                width: 50, 
+                                borderRadius: 25, 
+                                overflow: 'hidden'}}
+                        >
+                            <Image 
+                                source={{uri: props.connection.person.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"}} 
+                                style={{
+                                height: 50, 
+                                width: 50, 
+                                borderRadius: 25, 
+                                overflow: 'hidden'}} 
+                            />
+                        </View>
+                    }
                     to pDivider={true}
                     onPress={async () => {
                         props.pressed()

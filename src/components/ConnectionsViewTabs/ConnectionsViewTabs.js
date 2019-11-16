@@ -51,7 +51,7 @@ export const Engagement = (props) => {
         size="medium"
         rounded />
       <View>
-  <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
+    <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
         {props.engagement.data.subject ? <Text>Subject: {props.engagement.data.subject}</Text> : null}
         <Text>{props.engagement.data.note}</Text>
         <Text style={{color: 'gray'}}>{props.engagement.created_at.substring(0, 10)}</Text>

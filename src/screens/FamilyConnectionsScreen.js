@@ -71,6 +71,7 @@ const FamilyConnectionsScreen = (props) => {
     isLoggedIn: false
   }
   const [state, setState] = useState(initialState)
+  const [isScrolling, setIsScrolling] = useState(false)
 
   const genderAssignment = (gender) => {
     if (gender === 'M') {
@@ -84,9 +85,19 @@ const FamilyConnectionsScreen = (props) => {
     }
   }
 
-  goToTop = () => {
+const goToTop = () => {
     scroll.scrollTo({x: 0, y: 0, animated: true});
- } 
+  } 
+
+  handleScroll = (e) => {
+    console.log(e.nativeEvent.contentOffset.y)
+  }
+
+  // useEffect(() => {
+  //   if (scrollLocation <= 100) {
+  //     setIsScrolling(false)
+  //   }
+  // }, [scrollLocation])
 
   useEffect(() => {
     props.getUserCases()
@@ -417,37 +428,71 @@ const FamilyConnectionsScreen = (props) => {
        Cache case info from API for faster loading */}
         {/* Case List View Starts Here */}
         <View style={{ paddingBottom: 170 }}>
-          <ScrollView
-            ref={(a) => {scroll = a}}
-            contentInset={{bottom: constants.headerHeight}}
-          >
-            <ScrollToTop 
-              onPress={goToTop}
-            />
-            {props.isLoading ? (
-              <Loader />
-            ) : (
-                SearchedCases.map((result, index) => (
-                  <ListItem
-                    key={index}
-                    title={result.full_name}
-                    titleStyle={{ color: "#5A6064" }}
-                    subtitle={`${
-                      result.gender ?
-                        genderAssignment(result.gender)
-                        : "Unspecified Gender"
-                      } ${result.birthday ? `Birthday: ${result.birthday}` : ''}`}
-                    subtitleStyle={{ color: "#9FABB3" }}
-                    leftAvatar={{ source: { uri: result.picture } }}
-                    to pDivider={true}
-                    onPress={async () => {
-                      props.navigation.navigate('CaseView', { pk: result.pk, caseData: result })
-
-                    }}
-                  />
-                ))
-              )}
-          </ScrollView>
+          <View>
+              { isScrolling ?
+              <ScrollToTop 
+                style={{
+                  position: 'absolute',
+                  zIndex: 1000,
+                  bottom: constants.headerHeight,
+                  right: 46,
+                }}
+                onPress={goToTop}
+              /> : null} 
+            <ScrollView
+              ref={(a) => {scroll = a}}
+              contentInset={{bottom: constants.headerHeight}}
+              onScroll={(e) => {
+                if (e.nativeEvent.contentOffset.y <= 250) {
+                  setIsScrolling(false)
+                } else if (e.nativeEvent.contentOffset.y >=250) {
+                  setIsScrolling(true)
+                }
+              }}
+              onScrollToTop={() => setIsScrolling(false)}
+              scrollEventThrottle={16}
+            >
+              {props.isLoading ? (
+                <Loader />
+              ) : (
+                  SearchedCases.map((result, index) => (
+                    <ListItem
+                      key={index}
+                      title={result.full_name}
+                      titleStyle={{ color: "#5A6064" }}
+                      subtitle={`${
+                        result.gender ?
+                          genderAssignment(result.gender)
+                          : "Unspecified Gender"
+                        } ${result.birthday ? `Birthday: ${result.birthday}` : ''}`}
+                      subtitleStyle={{ color: "#9FABB3" }}
+                      leftAvatar={
+                        <View style={{
+                          height: 50, 
+                          width: 50, 
+                          borderRadius: 25, 
+                          overflow: 'hidden'}}>
+                          <Image 
+                            source={{uri: result.picture}} 
+                            style={{
+                              height: 50, 
+                              width: 50, 
+                              borderRadius: 25, 
+                              overflow: 'hidden'}} 
+                          />
+                        </View>
+                      }
+                      // leftAvatar={{ defaultSource: { uri: result.picture } }}
+                      to pDivider={true}
+                      onPress={async () => {
+                        props.navigation.navigate('CaseView', { pk: result.pk, caseData: result })
+  
+                      }}
+                    />
+                  ))
+                )}
+            </ScrollView>
+          </View>
         </View>
       </SafeAreaView>
       : 

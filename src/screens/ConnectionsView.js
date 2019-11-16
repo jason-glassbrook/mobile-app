@@ -7,7 +7,8 @@ import {
   ScrollView,
   Button,
   Linking,
-  Modal
+  Modal,
+  Image
 } from 'react-native';
 import {
   Divider,
@@ -200,14 +201,24 @@ function ConnectionsView(props) {
               {connectionData.address && connectionData.address.formatted ? <Text style={{ color: '#434245' }}>{connectionData.address.formatted}</Text> : null}
             </View>
           }
-          leftAvatar={{
-            size: "large",
-            source: {
-              uri:
-                connectionData.picture ||
-                "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"
-            }
-          }}
+          leftAvatar={
+            <View 
+                style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden'}}
+            >
+                <Image 
+                    source={{uri: connectionData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"}} 
+                    style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden'}} 
+                />
+            </View>
+        }
         />
       </View>
 
