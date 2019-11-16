@@ -276,22 +276,22 @@ export function CaseViewScreen(props) {
           <View
             style={{
               flexDirection: "column",
-              width: '100%',
+              width: '95%',
               minHeight: 350,
-              borderTopLeftRadius: 4,
-              borderTopRightRadius: 4,
-              borderWidth: 0.5,
-              borderColor: '#E5E4E2',
+              // borderTopLeftRadius: 4,
+              // borderTopRightRadius: 4,
+              // borderWidth: 0.5,
+              // borderColor: '#E5E4E2',
             }}
           >
             <View style={{
-              width: '95%',
+              width: '100%',
               height: 36,
               borderTopLeftRadius: 4,
               borderTopRightRadius: 4,
               backgroundColor: '#0F6580',
-              borderWidth: 0.5,
-              borderColor: '#0F6580',
+              // borderWidth: 0.5,
+              // borderColor: '#0F6580',
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row'
@@ -299,7 +299,6 @@ export function CaseViewScreen(props) {
               <View>
                 <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text>
               </View>
-              {/* <View><Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: 'white' }}>Engagement</Text></View> */}
             </View>
             <SearchBar
               inputStyle={{ fontSize: 16 }}
