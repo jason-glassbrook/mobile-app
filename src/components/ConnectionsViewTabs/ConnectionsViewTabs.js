@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 import { ListItem, Button, Avatar } from "react-native-elements";
 import { AntDesign, Entypo, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import moment from "moment";
 
 export const Engagement = (props) => {
 
@@ -54,7 +55,7 @@ export const Engagement = (props) => {
     <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
         {props.engagement.data.subject ? <Text>Subject: {props.engagement.data.subject}</Text> : null}
         <Text>{props.engagement.data.note}</Text>
-        <Text style={{color: 'gray'}}>{props.engagement.created_at.substring(0, 10)}</Text>
+        <Text style={{color: 'gray'}}>{moment(props.engagement.created_at).format('MMMM Do YYYY, h:mm:ss a')}</Text>
       </View>
     </View>
 
