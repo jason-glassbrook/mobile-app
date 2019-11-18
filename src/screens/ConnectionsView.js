@@ -37,6 +37,7 @@ import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
 import Loader from '../components/Loader/Loader';
+import ScrollToTop from '../UI/ScrollToTop'
 
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
@@ -49,7 +50,7 @@ function ConnectionsView(props) {
   const [addDocVisible, setAddDocVisible] = useState(false)
   const [engagementType, setEngagementType] = useState()
   const [image, setImage] = useState({})
-
+  const [isScrolling, setIsScrolling] = useState(false)
 
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
@@ -149,11 +150,41 @@ function ConnectionsView(props) {
   const passEngagementType = (type) => {
     return props.navigation.navigate('EngagementForm', { data_type: type, id: connectionData.pk })
   }
+
+  const goToTop = () => {
+    scroll.scrollTo({x: 0, y: 0, animated: true});
+  } 
   
   return (
-    <ScrollView 
-      style={{ maxHeight: '100%', width: '100%' }}
-      scrollsToTop
+    <View>  
+      { isScrolling ?
+        <ScrollToTop 
+          style={{
+            position: 'absolute',
+            zIndex: 1000,
+            bottom: 15,
+            right: 38,
+            backgroundColor: 'white', 
+            // borderWidth: 1, 
+            // borderColor: 'lightgray',
+            padding: 8,
+            borderRadius: 35
+          }}
+          onPress={goToTop}
+        /> : null}
+      <ScrollView 
+        ref={(a) => {scroll = a}}
+        style={{ maxHeight: '100%', width: '100%' }}
+        scrollsToTop
+        onScroll={(e) => {
+          if (e.nativeEvent.contentOffset.y <= 250) {
+            setIsScrolling(false)
+          } else if (e.nativeEvent.contentOffset.y >=250) {
+            setIsScrolling(true)
+          }
+        }}
+      onScrollToTop={() => setIsScrolling(false)}
+      scrollEventThrottle={16}
     >
       <TouchableOpacity
         underlayColor="lightgray"
@@ -427,6 +458,7 @@ function ConnectionsView(props) {
         <AddDocForm closeForm={() => { setAddDocVisible(false) }} id={connectionData.pk} />
       </Modal> */}
     </ScrollView>
+    </View>
   );
 }
 

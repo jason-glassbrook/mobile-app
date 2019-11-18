@@ -89,10 +89,6 @@ const goToTop = () => {
     scroll.scrollTo({x: 0, y: 0, animated: true});
   } 
 
-  handleScroll = (e) => {
-    console.log(e.nativeEvent.contentOffset.y)
-  }
-
   // useEffect(() => {
   //   if (scrollLocation <= 100) {
   //     setIsScrolling(false)
@@ -442,6 +438,7 @@ const goToTop = () => {
             <ScrollView
               ref={(a) => {scroll = a}}
               contentInset={{bottom: constants.headerHeight}}
+              scrollsToTop
               onScroll={(e) => {
                 if (e.nativeEvent.contentOffset.y <= 250) {
                   setIsScrolling(false)
