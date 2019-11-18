@@ -238,18 +238,32 @@ const CustomDrawerNavigator = createStackNavigator({
         backgroundColor: constants.highlightColor,
       }
     },
-    navigationOptions: {
+    navigationOptions: ({navigation}) => {
+      return {
       headerStyle: {
         backgroundColor: 'white',
         height: 52
       },
       headerLeft:
-        (<Image
-          source={logoImg}
-          style={{ width: 225, height: 90 }}
-          resizeMode="contain"
-        />)
-    }
+        (<TouchableOpacity 
+          style={{ 
+            width: 64, 
+            height: 64, 
+            marginLeft: 10, 
+            marginBottom: 15, 
+            justifyContent: 'flex-end' 
+          }}
+        >
+          <Ionicons
+            name="md-arrow-back"
+            size={32}
+            color="#AAA9AD"
+            onPress={() => {
+              navigation.goBack()
+            }}
+          />
+        </TouchableOpacity>)
+    }}
   },
   About: {
     screen: AboutScreen,
@@ -260,18 +274,33 @@ const CustomDrawerNavigator = createStackNavigator({
         backgroundColor: constants.highlightColor
       }
     },
-    navigationOptions: {
+    navigationOptions: ({navigation}) => {
+
+      return {
       headerStyle: {
         backgroundColor: 'white',
         height: 52
       },
       headerLeft:
-        (<Image
-          source={logoImg}
-          style={{ width: 225, height: 90 }}
-          resizeMode="contain"
-        />)
-    }
+        (<TouchableOpacity 
+          style={{ 
+            width: 64, 
+            height: 64, 
+            marginLeft: 10, 
+            marginBottom: 15, 
+            justifyContent: 'flex-end' 
+          }}
+        >
+          <Ionicons
+            name="md-arrow-back"
+            size={32}
+            color="#AAA9AD"
+            onPress={() => {
+              navigation.goBack()
+            }}
+          />
+        </TouchableOpacity>)
+    }}
   },
 })
 
