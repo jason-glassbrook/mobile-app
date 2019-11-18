@@ -41,7 +41,7 @@ export const postConnectionEngagements = (id, note, subject, dataType, dueDate, 
                     // console.log(error, error.response, error.response.data);
                     dispatch({
                         type: POST_CONNECTION_ENGAGEMENTS_FAILURE,
-                        payload: error.res.data
+                        payload: error.data
                     });
                 });
         })

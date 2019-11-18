@@ -36,7 +36,7 @@ export const connectionEngagementsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoadingEngagements: false,
-                engagementsData: {...action.payload}
+                engagementsData: action.payload
             };
 
         case POST_CONNECTION_ENGAGEMENTS_FAILURE:

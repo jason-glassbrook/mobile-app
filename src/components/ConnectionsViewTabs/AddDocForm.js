@@ -169,9 +169,9 @@ const AddDocForm = props => {
                     name="image-plus"
                     size={75}
                     color={constants.highlightColor}
-                    onPress={() => {
-                      props.closeForm()
-                    }}
+                    // onPress={() => {
+                    //   props.closeForm()
+                    // }}
                   />
                 }
               </TouchableOpacity>
@@ -228,7 +228,7 @@ const AddDocForm = props => {
                       style={styles.saveButton}
                       onPress={() => {
                         props.postConnectionDocument(props.id, title, category, isPublic, notes, attachment)
-                        props.closeForm()
+                        props.navigation.goBack()
                       }}
                     >
                       <Text style={styles.buttonText}>SAVE</Text>

@@ -476,7 +476,7 @@ const BottomNavigator = createBottomTabNavigator(
     PeopleSearchNavigator: {
       screen: PeopleSearchNavigator,
       navigationOptions: {
-        tabBarLabel: 'SEARCH',
+        tabBarLabel: 'PEOPLE SEARCH',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
             name="md-search"
@@ -489,7 +489,7 @@ const BottomNavigator = createBottomTabNavigator(
     FamilyConnections: {
       screen: FamilyConnectionsNavigator,
       navigationOptions: {
-        tabBarLabel: 'CONNECTIONS',
+        tabBarLabel: 'FAMILY CONNECTIONS',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
             name="md-people"

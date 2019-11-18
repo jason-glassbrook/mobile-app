@@ -53,7 +53,7 @@ const AddEngagementForm = props => {
   //set type of engagement
   useEffect(() => {
     
-    setPerson(props.id)
+    setPerson(props.navigation.getParam('id'))
 
     const dataTypeHelper = (type) => {
       if (type === 'N') {
@@ -208,8 +208,9 @@ const AddEngagementForm = props => {
             <TouchableOpacity 
               style={styles.saveButton}
               onPress={() => {
-                // console.log('the id is referring to', props.id)
-                props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
+                console.log('the id is referring to', props.id, person)
+                props.postConnectionEngagements(person, note, subject, props.navigation.getParam('data_type'), dueDate, isPublic)
+                props.navigation.goBack()
               }}
             >
               <Text style={styles.buttonText}>SAVE</Text>
