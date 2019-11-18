@@ -33,7 +33,7 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm'
 import logoImg from '../../assets/logo.png';
 import CustomDrawer from './CustomDrawer'
 
-
+const leftArrow = '\u2190';
 //Following StackNavigators are in BottomNav:
 const FamilyConnectionsNavigator = createStackNavigator(
   {
@@ -62,46 +62,86 @@ const FamilyConnectionsNavigator = createStackNavigator(
     CaseView: {
       screen: CaseViewScreen,
       initialRouteName: 'FamilyConnections',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      },
-      navigationOptions: {
+      // defaultNavigationOptions: {
+      //   headerStyle: {
+      //     height: constants.headerHeight,
+      //     backgroundColor: constants.highlightColor
+      //   }
+      // },
+      
+      navigationOptions: ({navigation}) => {
+
+        return {
         headerStyle: {
           backgroundColor: 'white',
           height: 52
         },
         headerLeft:
-          (<Image
-            source={logoImg}
-            style={{ width: 225, height: 90 }}
-            resizeMode="contain"
-          />)
-      }
+          (<TouchableOpacity
+            underlayColor="lightgray"
+            style={{ padding: 7.5 }}
+            onPressIn={() => {
+              navigation.goBack()
+            }}
+          >
+            <Text
+              style={{
+                paddingTop: 10,
+                paddingBottom: 10,
+                marginLeft: 5,
+                fontSize: 20,
+                color: '#0F6580'
+              }}
+            >
+              {leftArrow} ALL CASES
+              </Text>
+          </TouchableOpacity>)
+      }}
+      
     },
     ConnectionsView: {
       screen: ConnectionsView,
       initialRouteName: 'FamilyConnections',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      },
-      navigationOptions: {
-        headerStyle: {
-          backgroundColor: 'white',
-          height: 52
-        },
-        headerLeft:
-          (<Image
-            source={logoImg}
-            style={{ width: 225, height: 90 }}
-            resizeMode="contain"
-          />)
-      }
+      // defaultNavigationOptions: {
+      //   headerStyle: {
+      //     height: constants.headerHeight,
+      //     backgroundColor: constants.highlightColor
+      //   }
+      // },
+      // navigationOptions: {
+      //   headerStyle: {
+      //     backgroundColor: 'white',
+      //     height: 52
+      //   },
+        navigationOptions: ({navigation}) => {
+
+          return {
+          headerStyle: {
+            backgroundColor: 'white',
+            height: 52
+          },
+          headerLeft:
+            (<TouchableOpacity
+              underlayColor="lightgray"
+              style={{ padding: 7.5 }}
+              onPressIn={() => {
+                navigation.goBack()
+              }}
+            >
+              <Text
+                style={{
+                  paddingTop: 10,
+                  paddingBottom: 10,
+                  marginLeft: 5,
+                  fontSize: 20,
+                  color: '#0F6580'
+                }}
+              >
+                {leftArrow} {navigation.getParam('childName').toUpperCase()}
+              </Text>
+            </TouchableOpacity>)
+        }}
+      
     },
     EngagementForm: {
       screen: AddEngagementForm,

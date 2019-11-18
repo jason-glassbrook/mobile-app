@@ -222,7 +222,7 @@ export function CaseViewScreen(props) {
         onScrollToTop={() => setIsScrolling(false)}
         scrollEventThrottle={16}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           underlayColor="lightgray"
           style={{ padding: 7.5 }}
           onPressIn={() => {
@@ -234,12 +234,13 @@ export function CaseViewScreen(props) {
               paddingTop: 10,
               paddingBottom: 10,
               marginLeft: 5,
-              fontSize: 15
+              fontSize: 20,
+              color: '#0F6580'
             }}
           >
             {leftArrow} ALL CASES
             </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View>
           <ListItem
             title={caseData.full_name}

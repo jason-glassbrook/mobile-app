@@ -186,7 +186,7 @@ function ConnectionsView(props) {
       onScrollToTop={() => setIsScrolling(false)}
       scrollEventThrottle={16}
     >
-      <TouchableOpacity
+      {/* <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
         onPressIn={() => {
@@ -198,12 +198,13 @@ function ConnectionsView(props) {
             paddingTop: 10,
             paddingBottom: 10,
             marginLeft: 5,
-            fontSize: 15
+            fontSize: 20,
+            color: '#0F6580'
           }}
         >
           {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <View>
         <ListItem
