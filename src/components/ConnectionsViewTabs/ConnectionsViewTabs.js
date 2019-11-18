@@ -13,6 +13,7 @@ import {
   Platform,
   TouchableHighlight,
   Alert,
+  Image,
   Linking,
 } from 'react-native';
 import { ListItem, Button, Avatar } from "react-native-elements";
@@ -46,11 +47,10 @@ export const Engagement = (props) => {
         marginBottom:20 
       }}
     >
-      <Avatar
-        containerStyle={{ marginLeft: 15, marginRight: 15, marginTop: 5 }}
-        source={{ uri: props.engagement.created_by.picture }}
-        size="medium"
-        rounded />
+      <Image
+        style={{ height: 50, width: 50, borderRadius: 25, overflow: 'hidden', marginLeft: 15, marginRight: 15, marginTop: 5 }}
+        source={{ uri: props.engagement.created_by.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"}}
+      />
       <View>
     <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
         {props.engagement.data.subject ? <Text>Subject: {props.engagement.data.subject}</Text> : null}

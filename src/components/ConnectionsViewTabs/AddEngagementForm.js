@@ -210,7 +210,6 @@ const AddEngagementForm = props => {
               onPress={() => {
                 // console.log('the id is referring to', props.id)
                 props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
-                props.closeForm(props.getEngagements(props.id))
               }}
             >
               <Text style={styles.buttonText}>SAVE</Text>
