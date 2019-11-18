@@ -18,7 +18,8 @@ import {
   getCaseData,
   getUserCases,
   setUserCreds,
-  setModalVisible
+  setModalVisible,
+  authChecker
 } from "../store/actions"
 import axios from "axios";
 import {
@@ -96,9 +97,10 @@ const goToTop = () => {
   // }, [scrollLocation])
 
   useEffect(() => {
+    props.authChecker()
     props.getUserCases()
     console.log('FamilyConnectionsAccessToken', props.accessToken)
-  }, [props.accessToken])
+  }, [props.loadingUser, props.accessToken])
  
   const setModalVisible = (visible) => {
     setState({ ...state, modalVisible: visible });
@@ -531,7 +533,10 @@ const mapStateToProps = state => {
     isLoading,
     caseDataError,
   } = state.userCases;
-  const {accessToken} = state.auth
+  const {
+    accessToken, 
+    loadingUser
+  } = state.auth
 
   return {
     results,
@@ -539,6 +544,7 @@ const mapStateToProps = state => {
     accessToken,
     isLoading,
     caseDataError,
+    loadingUser
   };
 };
 
@@ -547,5 +553,6 @@ export default connect(
   getUserCases,
   getCaseData,
   setUserCreds,
-  setModalVisible
+  setModalVisible,
+  authChecker
 })(FamilyConnectionsScreen);

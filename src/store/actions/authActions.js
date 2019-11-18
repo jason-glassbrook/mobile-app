@@ -29,7 +29,7 @@ export const authChecker = () => dispatch => {
       dispatch({ type: SET_LOGGED_IN_TRUE, payload: decodedIdToken })
     }
   })
-  .catch(err => 'error')
+  .catch(err => console.log(err))
 }
 
 // Sign Up Modal Sequence Actions

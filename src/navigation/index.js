@@ -207,6 +207,74 @@ const PeopleSearchNavigator = createStackNavigator(
 
 // Following StackNavigators are inside "More" drawer:
 
+const CustomDrawerNavigator = createStackNavigator({
+  More: {
+    screen: CustomDrawer,
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 52
+      },
+      headerLeft:
+        (<Image
+          source={logoImg}
+          style={{ width: 225, height: 90 }}
+          resizeMode="contain"
+        />)
+    }
+  },
+  MyAccount: {
+    screen: AuthenticationView,
+    initialRouteName: 'MyAccount',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 52
+      },
+      headerLeft:
+        (<Image
+          source={logoImg}
+          style={{ width: 225, height: 90 }}
+          resizeMode="contain"
+        />)
+    }
+  },
+  About: {
+    screen: AboutScreen,
+    // initialRouteName: 'About',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor
+      }
+    },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 52
+      },
+      headerLeft:
+        (<Image
+          source={logoImg}
+          style={{ width: 225, height: 90 }}
+          resizeMode="contain"
+        />)
+    }
+  },
+})
+
 const MyAccountNavigator = createStackNavigator({
   MyAccount: {
     screen: AuthenticationView,
@@ -325,7 +393,7 @@ const DrawerNavigator = createDrawerNavigator({
   {
     drawerPosition: 'right',
     drawerType: 'front',
-    drawerWidth: 225,
+    drawerWidth: '100%',
     hideStatusBar: true,
     contentOptions: {
       activeTintColor: constants.highlightColor,
@@ -363,7 +431,7 @@ const BottomNavigator = createBottomTabNavigator(
     },
 
     MoreNavigator: {
-      screen: DrawerNavigator,
+      screen: CustomDrawerNavigator,
       navigationOptions: {
         tabBarLabel: 'MORE',
         tabBarIcon: ({ tintColor }) => (
@@ -373,7 +441,6 @@ const BottomNavigator = createBottomTabNavigator(
             color={tintColor}
           />
         ),
-        tabBarOnPress: (props) => props.navigation.toggleDrawer()
       },
     },
   },
@@ -396,17 +463,17 @@ const BottomNavigator = createBottomTabNavigator(
 
 
 const AppBottomSwitchNavigator = createSwitchNavigator({
-  More: { screen: BottomNavigator },
-  About: { screen: DrawerNavigator },
-  // Impact: { screen: DrawerNavigator },
-  MyProfile: { screen: DrawerNavigator },
-  Support: { screen: DrawerNavigator },
-  PrivacyPolicy: { screen: DrawerNavigator },
-  TermsOfService: { screen: DrawerNavigator },
-  About: { screen: DrawerNavigator },
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
-  Authentication: { screen: DrawerNavigator },
+  More: { screen: CustomDrawerNavigator },
+  // About: { screen: DrawerNavigator },
+  // Impact: { screen: DrawerNavigator },
+  // MyProfile: { screen: DrawerNavigator },
+  // Support: { screen: DrawerNavigator },
+  // PrivacyPolicy: { screen: DrawerNavigator },
+  // TermsOfService: { screen: DrawerNavigator },
+  // About: { screen: DrawerNavigator },
+  // Authentication: { screen: DrawerNavigator },
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);
