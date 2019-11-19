@@ -62,7 +62,7 @@ export const Engagement = (props) => {
     <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
         {props.engagement.data.subject ? <Text>Subject: {props.engagement.data.subject}</Text> : null}
         <Text>{props.engagement.data.note}</Text>
-        <Text style={{color: 'gray'}}>{moment(props.engagement.created_at).format('MMMM Do YYYY, h:mm a')}</Text>
+        <Text style={{color: 'gray'}}>{moment(props.engagement.created_at).format('MMM Do YYYY, h:mm a')}</Text>
       </View>
     </View>
   )
@@ -72,15 +72,15 @@ export const Documents = (props) => {
 
   const docIcon = (name) => {
     if (name.slice(-3) === 'pdf') {
-      return <AntDesign name="pdffile1" size={30} />
+      return <AntDesign name="pdffile1" size={34} />
     } else if (name.slice(-3) === 'jpg') {
-      return <AntDesign name="picture" size={30} />
+      return <AntDesign name="picture" size={34} />
     } else if (name.slice(-4) === 'jpeg') {
-      return <AntDesign name="picture" size={30} />
+      return <AntDesign name="picture" size={34} />
     } else if (name.slice(-3) === 'png') {
-      return <AntDesign name="picture" size={30} />
+      return <AntDesign name="picture" size={34} />
     } else {
-      return <Entypo name="attachment" size={30} />
+      return <Entypo name="attachment" size={34} />
     }
   }
 
@@ -92,8 +92,13 @@ export const Documents = (props) => {
         leftIcon={docIcon(props.document.original_file_name)}
         to pDivider={true}
         onPress={() => Linking.openURL(props.document.attachment)}
-        subtitle={props.document.created_by.full_name + ' - ' + props.document.created_at.substring(0, 10)}
-        chevron
+        subtitle={
+          <View>
+            <Text>{props.document.created_by.full_name}</Text>
+            <Text>{moment(props.document.created_at).format('MMM Do YYYY, h:mm a')}</Text>
+          </View>
+        }
+      chevron
       />
     </View>
   )
