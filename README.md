@@ -28,6 +28,7 @@ You can find the project repo at [Connect Our Kids RN Repo](https://github.com/c
 [Product Canvas](https://docs.google.com/document/d/1deZi-ucUPVX1uKFpFDO8XlMUkK_RvsCPk5gzOhVPDbw/edit#)
 
 [UX Design files](https://balsamiq.cloud/snv27r3/p7n83ab/rEEED)
+[ChangeLog](./CHANGELOG.md)
 
 ## Mission Statement
 
