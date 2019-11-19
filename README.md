@@ -1,30 +1,39 @@
 # Connect Our Kids
 
-You can find the repo for the project at [connect our kids repo](https://github.com/labs13-connect-kids/mobile).
+You can find the repo for the project at [connect our kids repo](https://github.com/connect-our-kids/mobile-app).
 
-## Contributors
+## Labs17 Contributors
+ ### Team Lead: <br/><br/>Irving Duran <br/> <img src="https://avatars2.githubusercontent.com/u/32081816?s=460&v=4" width = "130"/>
 
-|                                      [Asa Shalom](https://github.com/AsaOfDiamonds)                                      |                                                                                   [Ryan Walker](https://github.com/rytwalker)                                                                                    |                                              [Tyler Spaulding](https://github.com/NightlyD3V)                                              |                                          [Michael (Max) Gunter](https://github.com/maxgunter99)                                           |                                               [Pedro Montesinos](https://github.com/pedrolmr)                                               |                                             [Sean Pheneger](https://github.com/wcolts2000)                                              |
-| :----------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
-|      [<img src="https://avatars1.githubusercontent.com/u/36455310?s=460&v=4" width = "200" />](https://github.com/)      | [<img src="https://media.licdn.com/dms/image/C4E03AQFsiDBJExdQjA/profile-displayphoto-shrink_200_200/0?e=1565827200&v=beta&t=fiPrTzYTLJm0obKX6hzUXADFieDjy05f8bxmufvEYjc" width = "200" />](https://github.com/) |               [<img src="https://avatars0.githubusercontent.com/u/45692071?s=460&v=4" width = "200" />](https://github.com/)               |              [<img src="https://avatars2.githubusercontent.com/u/47502855?s=460&v=4" width = "200" />](https://github.com/)               |             [<img src="https://avatars2.githubusercontent.com/u/20940599?s=460&amp;v=4" width = "200" />](https://github.com/)              |             [<img src="https://avatars1.githubusercontent.com/u/41925787?s=460&v=4" width = "200" />](https://github.com/)              |
-|                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AsaOfDiamonds)                |                                                              [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/rytwalker)                                                              |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NightlyD3V)                           |                         [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/maxgunter99)                          |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/pedrolmr)                            |                         [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wcolts2000)                         |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/shalom1/) |                          [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/https://www.linkedin.com/in/ryan-walker-41082b47/)                          | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tyler-spaulding-58337b132/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/michael-gunter-5383a0181/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/pedro-montesinos-64a247127/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/sean-pheneger-5393a089/) |
+ [ <img  src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/irvingduran/)
+ [<img  src="https://github.com/favicon.ico" width="15"> ](https://github.com/fixmylifedesigns)
 
+ 
 
+|                                        [Bryan Szendel](https://github.com/bryanszendel)                                        |                                                                                [Blaine Blonquist](https://github.com/bquizza5)                                                                                  |                                            [Tania Keller](https://github.com/taniamichelle)                                             |                                      [Scott Beeker](https://github.com/dangolbeeker)                                      |                                        [Marques Johnson](https://github.com/MarquesJ8023)                                        |                                                                          [Bishop Lake](https://github.com/Bishop-Lake)                                                                           |
+| :----------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|         [<img src="https://avatars1.githubusercontent.com/u/22917212?s=400&v=4" width = "200" />](https://github.com/)         | [<img src="https://media.licdn.com/dms/image/C5603AQFSIIGpVlhmYA/profile-displayphoto-shrink_200_200/0?e=1579132800&v=beta&t=Raa3lrnncUO6SpQPYu2IhcNzXbOu3vAWCdHz_BmA_wE" width = "200" />](https://github.com/) |             [<img src="https://avatars1.githubusercontent.com/u/51134714?s=460&v=4" width = "200" />](https://github.com/)              |      [<img src="https://avatars2.githubusercontent.com/u/49079747?s=460&v=4" width = "200" />](https://github.com/)       |          [<img src="https://avatars0.githubusercontent.com/u/46509067?s=460&v=4" width = "200" />](https://github.com/)          | [<img src="https://media.licdn.com/dms/image/C4E03AQGmlTAVB1w04w/profile-displayphoto-shrink_200_200/0?e=1579132800&v=beta&t=yEs0u882pRGjVNXPJFwtn4G6Fl_Ut39koAjGvclAxAU" />](https://github.com/) |
+|                    [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/bryanszendel)                    |                                                              [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/bquizza5)                                                               |                       [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/taniamichelle)                        |                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/dangolbeeker)                 |                    [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/MarquesJ8023)                     |                                                     [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/bishopsgithub)                                                     |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/bryan-szendel/) |                                    [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/blaine-blonquist-0b2b9bb2/)                                    | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tania-keller-2a741818a/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/beekbeek/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/marques-johnson/) |                               [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/bishop-lake-2a389018a/)                               |
 
 [![React Native Version][rn-image]][rn-url]
-[![License][license-image]][license-url] 
-
+[![License][license-image]][license-url]
 
 ## Project Overview
 
-You can find the project repo at [Connect Our Kids RN Repo](https://github.com/labs13-connect-kids/mobile).
+You can find the project repo at [Connect Our Kids RN Repo](https://github.com/connect-our-kids/mobile-app).
 
-[Trello Board](https://trello.com/b/NUgsesAO/labs-13-connect-kids)
+[Trello Board](trello.com/b/svxEuquq/labs-17-connect-our-kids-social-worker-app)
 
 [Product Canvas](https://docs.google.com/document/d/1deZi-ucUPVX1uKFpFDO8XlMUkK_RvsCPk5gzOhVPDbw/edit#)
 
 [UX Design files](https://balsamiq.cloud/snv27r3/p7n83ab/rEEED)
+
+[Version 2 Application Flow](https://www.figma.com/file/SLjHC3TQIBspRBNgRM9xMr/Untitled?node-id=0%3A1)
+
+[Overview video of our Changes](https://www.youtube.com/watch?v=isHGElZI3-Y&feature=youtu.be)
+
+[ChangeLog](./CHANGELOG.md)
 
 ## Mission Statement
 
@@ -45,6 +54,8 @@ In the future, the registered user will have access to full features of Family C
 - People Search
 - Best Practices
 - Family Connections
+- Upload Documents
+- Bottom Navigation
 
 ### Authentication with Auth0
 
@@ -81,13 +92,16 @@ People Search API [development api](https://dev.search.connectourkids.org/)
 - Android Studio https://developer.android.com/studio
 - Android Studio Emulator https://docs.expo.io/versions/latest/workflow/android-studio-emulator/
 - Xcode https://developer.apple.com/xcode/
-- iOS Simulator https://docs.expo.io/versions/v33.0.0/workflow/ios-simulator/ 
+- iOS Simulator https://docs.expo.io/versions/v33.0.0/workflow/ios-simulator/
 
 ## Screen Flow
 
-- part 1 
-![Screen Flow 1](screens1.PNG)
-![Screen Flow 2](loginSignUpPaths.PNG)
+- part 1
+ 
+  ![Screen Flow 2](loginSignUpPaths.PNG)
+
+  -Version 2
+  ![Updated Screen Flow](appflow.png)
 
 ## Contributing
 
@@ -142,3 +156,26 @@ See [People Search API](https://docs.google.com/document/d/1145R9-FcmA1NMXMAwbzF
 [rn-url]: https://facebook.github.io/react-native/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE
+
+#
+
+# Labs13 Contributors
+
+|                                      [Asa Shalom](https://github.com/AsaOfDiamonds)                                      |                                                                                   [Ryan Walker](https://github.com/rytwalker)                                                                                    |                                              [Tyler Spaulding](https://github.com/NightlyD3V)                                              |                                          [Michael (Max) Gunter](https://github.com/maxgunter99)                                           |                                               [Pedro Montesinos](https://github.com/pedrolmr)                                               |                                             [Sean Pheneger](https://github.com/wcolts2000)                                              |
+| :----------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
+|      [<img src="https://avatars1.githubusercontent.com/u/36455310?s=460&v=4" width = "200" />](https://github.com/)      | [<img src="https://media.licdn.com/dms/image/C4E03AQFsiDBJExdQjA/profile-displayphoto-shrink_200_200/0?e=1565827200&v=beta&t=fiPrTzYTLJm0obKX6hzUXADFieDjy05f8bxmufvEYjc" width = "200" />](https://github.com/) |               [<img src="https://avatars0.githubusercontent.com/u/45692071?s=460&v=4" width = "200" />](https://github.com/)               |              [<img src="https://avatars2.githubusercontent.com/u/47502855?s=460&v=4" width = "200" />](https://github.com/)               |             [<img src="https://avatars2.githubusercontent.com/u/20940599?s=460&amp;v=4" width = "200" />](https://github.com/)              |             [<img src="https://avatars1.githubusercontent.com/u/41925787?s=460&v=4" width = "200" />](https://github.com/)              |
+|                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/AsaOfDiamonds)                |                                                              [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/rytwalker)                                                              |                          [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/NightlyD3V)                           |                         [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/maxgunter99)                          |                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/pedrolmr)                            |                         [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/wcolts2000)                         |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/shalom1/) |                          [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/https://www.linkedin.com/in/ryan-walker-41082b47/)                          | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/tyler-spaulding-58337b132/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/michael-gunter-5383a0181/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/pedro-montesinos-64a247127/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/sean-pheneger-5393a089/) |
+
+[![React Native Version][rn-image]][rn-url]
+[![License][license-image]][license-url]
+
+## Project Overview
+
+You can find the project repo at [Connect Our Kids RN Repo](https://github.com/labs13-connect-kids/mobile).
+
+[Trello Board](https://trello.com/b/NUgsesAO/labs-13-connect-kids)
+
+[Product Canvas](https://docs.google.com/document/d/1deZi-ucUPVX1uKFpFDO8XlMUkK_RvsCPk5gzOhVPDbw/edit#)
+
+[UX Design files](https://balsamiq.cloud/snv27r3/p7n83ab/rEEED)
