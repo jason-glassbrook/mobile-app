@@ -302,7 +302,13 @@ const CustomDrawerNavigator = createStackNavigator({
               navigation.goBack()
             }}
           />
-        </TouchableOpacity>)
+        </TouchableOpacity>),
+      headerTitle:
+      (<Image
+        source={logoImg}
+        style={{ width: 225, height: 90 }}
+        resizeMode="contain"
+      />)
     }}
   },
   About: {
@@ -339,7 +345,13 @@ const CustomDrawerNavigator = createStackNavigator({
               navigation.goBack()
             }}
           />
-        </TouchableOpacity>)
+        </TouchableOpacity>),
+      headerTitle:
+      (<Image
+        source={logoImg}
+        style={{ width: 225, height: 90 }}
+        resizeMode="contain"
+      />)
     }}
   },
 })
@@ -359,7 +371,7 @@ const MyAccountNavigator = createStackNavigator({
         backgroundColor: 'white',
         height: 52
       },
-      headerLeft:
+      headerTitle:
         (<Image
           source={logoImg}
           style={{ width: 225, height: 90 }}
