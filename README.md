@@ -29,6 +29,8 @@ You can find the project repo at [Connect Our Kids RN Repo](https://github.com/c
 
 [UX Design files](https://balsamiq.cloud/snv27r3/p7n83ab/rEEED)
 
+[Version 2 Application Flow](https://www.figma.com/file/SLjHC3TQIBspRBNgRM9xMr/Untitled?node-id=0%3A1)
+
 [ChangeLog](./CHANGELOG.md)
 
 ## Mission Statement
@@ -95,6 +97,9 @@ People Search API [development api](https://dev.search.connectourkids.org/)
 - part 1
  
   ![Screen Flow 2](loginSignUpPaths.PNG)
+
+  -Version 2
+  ![Updated Screen Flow](appflow.png)
 
 ## Contributing
 
