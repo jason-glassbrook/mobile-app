@@ -93,7 +93,7 @@ People Search API [development api](https://dev.search.connectourkids.org/)
 ## Screen Flow
 
 - part 1
-  ![Screen Flow 1](screens1.PNG)
+ 
   ![Screen Flow 2](loginSignUpPaths.PNG)
 
 ## Contributing
