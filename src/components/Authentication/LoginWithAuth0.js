@@ -8,7 +8,6 @@ class LoginWithAuth0 extends Component {
   onRegister = () => {};
 
   render() {
-    // console.log('login props: ', this.props);
     return (
       <Login
       idToken={this.props.idToken ? this.props.idToken : null}  

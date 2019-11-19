@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     TextInput,
+    Picker
 } from "react-native";
 import SwitchToggle from 'react-native-switch-toggle';
 import { Feather } from '@expo/vector-icons';
@@ -19,10 +20,11 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 import Constants from 'expo-constants';
 import { AntDesign, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import RNPickerSelect from 'react-native-picker-select';
 
 const AddDocForm = props => {
     const [title, setTitle] = useState('')
-    const [category, setCategory] = useState(3) // 1-Education, 2-Friends, 3-Network, 4-Other, 5-Relatives, 6-Sports
+    const [category, setCategory] = useState(4) // 1-Education, 2-Friends, 3-Network, 4-Other, 5-Relatives, 6-Sports
     const [tags, setTags] = useState([])
     const [notes, setNotes] = useState('')
     const [attachment, setAttachment] = useState(null)
@@ -52,10 +54,28 @@ const AddDocForm = props => {
 
         if (!result.cancelled) {
             setAttachment(result.uri);
-            console.log('attachment', result.uri)
         }
-        console.log('result', result)
     };
+
+    // // 1-Education, 2-Friends, 3-Network, 4-Other, 5-Relatives, 6-Sports
+    // const categoryHandler = (e) => {
+    //   let category = e
+    //   if (category === 'Education'){
+    //     setCategory(1)
+    //   } else if (category === 'Friends'){
+    //     setCategory(2)
+    //   } else if (category === 'Network'){
+    //     setCategory(3)
+    //   } else if (category === 'Other'){
+    //     setCategory(4)
+    //   } else if (category === 'Relatives'){
+    //     setCategory(5)
+    //   } else if (category === 'Sports'){
+    //     setCategory(6)
+    //   } else {
+    //     console.log('category broken')
+    //   }
+    // }
 
     return (
         <ScrollView 
@@ -118,11 +138,59 @@ const AddDocForm = props => {
                 value={title}
               />
             </View>
+            {/* // 1-Education, 2-Friends, 3-Network, 4-Other, 5-Relatives, 6-Sports */}
+            
+            <View 
+              style={{
+                minHeight: 25, 
+                marginTop: 5, 
+                marginBottom: 5, 
+                width: '95%', 
+                backgroundColor: 'white', 
+                borderRadius: 4, 
+                padding: 2
+              }}
+            >
+              <RNPickerSelect
+              selectedValue={category}
+              style={{
+                height: 50, 
+                width: 100,
+                placeholder: {
+                  color: '#AAA9AD',
+                  padding: 4, 
+                  paddingRight: 80, 
+                  fontSize: 15,
+                },
+                inputIOS: {
+                  color: '#000',
+                  padding: 4, 
+                  paddingRight: 80, 
+                  fontSize: 15,
+                }
+              }}
+              placeholder={{label: 'SELECT CATEGORY...'}}
+              onValueChange={(value, index) =>
+                setCategory(value)}
+              
+              items={[
+                {key: 1, label:"Education", value:1 },
+                {key: 2, label:"Friends", value:2 },
+                {key: 3, label:"Network", value:3 },
+                {key: 4, label: 'Relatives', value: 5},
+                {key: 5, label: "Sports", value:6 },
+                {key: 6, label: "Other", value: 4}
+              ]} 
+              />
+            </View>
+            
+              
+
             <View
               style={{ 
-                maxHeight: 120, 
+                height: 70,
                 marginTop: 5, 
-                marginBottom: 30, 
+                marginBottom: 10, 
                 width: '95%', 
                 backgroundColor: 'white', 
                 borderRadius: 4, 
@@ -136,14 +204,20 @@ const AddDocForm = props => {
                 placeholder='NOTES'
                 placeholderTextColor={'#AAA9AD'}
                 style={{ 
-                  padding: 4, 
-                  paddingRight: 80, 
-                  paddingBottom: 80, 
+                  paddingTop: 4, 
+                  paddingLeft: 4, 
+                  height: '100%',
+                  width: '100%',
+                  alignSelf: 'flex-start',
                   fontSize: 15,
                 }}
                 textAlignVertical='top'
                 name="notes"
                 value={notes}
+                multiline
+                numberOfLines={4}
+                returnKeyType="default"
+                enablesReturnKeyAutomatically
               /> 
             </View>
             <View style={{ width: '95%' }}>
@@ -161,8 +235,8 @@ const AddDocForm = props => {
                     style={{ 
                       width: 125, 
                       height: 125, 
-                      marginBottom: 12, 
-                      marginTop: 12 
+                      marginBottom: 4, 
+                      marginTop: 4 
                     }} 
                   /> : 
                   <MaterialCommunityIcons
@@ -227,7 +301,8 @@ const AddDocForm = props => {
                     <TouchableOpacity
                       style={styles.saveButton}
                       onPress={() => {
-                        props.postConnectionDocument(props.id, title, category, isPublic, notes, attachment)
+                        console.log(props.navigation.getParam('id'), title, category, isPublic, notes, attachment)
+                        props.postConnectionDocument(props.navigation.getParam('id'), title, category, isPublic, notes, attachment)
                         props.navigation.goBack()
                       }}
                     >

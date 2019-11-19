@@ -62,7 +62,6 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
             type: 'image/jpg',
             name: 'photo.jpg',
         });
-        // console.log('formBody', formBody)
         return formBody
     }
     

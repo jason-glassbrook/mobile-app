@@ -17,7 +17,7 @@ async function saveToRecentSearches(newSearch) {
       JSON.stringify(storageSearches)
     );
   } catch (error) {
-    // console.log('SaveToRecentSearches Error: ', error);
+    console.log('SaveToRecentSearches Error: ', error);
   }
 }
 

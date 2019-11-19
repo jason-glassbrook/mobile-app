@@ -20,7 +20,7 @@ const AuthenticationView = (props) => {
     // if (props.loadingUser) {
       props.authChecker()
     // }
-    console.log('firing')
+
   }, [props.loadingUser])
 
   return (

@@ -22,12 +22,10 @@ const PersonInfoRow = ({
     handlePressDirections = (data, postalCode, city) => {
       if (postalCode === undefined) {
         let address = `${city}, ${data}`;
-        console.log(address);
         const type = 'address';
         showConModal(address, type);
       } else {
         let address = `${city}, ${data} ${postalCode}`;
-        console.log(address);
         const type = 'address404';
         showConModal(address, type);
       }

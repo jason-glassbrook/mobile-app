@@ -21,7 +21,7 @@ export const getCaseConnectionsReducer = (state = initialState, action) => {
             };
 
         case GET_CASE_CONNECTIONS_SUCCESS:
-            // console.log("case connections payload", action.payload);
+
             return {
                 ...state,
                 isLoadingConnections: false,

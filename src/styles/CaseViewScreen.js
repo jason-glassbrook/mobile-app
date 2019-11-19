@@ -33,7 +33,6 @@ export default function CaseViewScreen(props) {
 
 
   let caseData = props.caseData;
-  console.log(props.caseData);
   return (
     <View>
       <View
@@ -45,7 +44,7 @@ export default function CaseViewScreen(props) {
       >
         <Text>{caseData.full_name}</Text>
         <View>
-          <ListItem leftAvatar={{ source: { uri: caseData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png" } }} />
+          <ListItem leftAvatar={{ source: { uri: caseData.picture || placeholderImg } }} />
           <Text>Gender: {caseData.gender}</Text>
           <Text>Date of Birth: {caseData.birthday}</Text>
           <Text>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted : "no address available"}</Text>

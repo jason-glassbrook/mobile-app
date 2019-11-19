@@ -17,7 +17,6 @@ export const logOut = email => {
 };
 
 export const setUserCreds = (decodedToken, auth0Data) => {
-  console.log('decoded Token, Auth0data', decodedToken, auth0Data)
   return { type: SET_USER_CREDS, decodedToken, auth0Data };
 };
 

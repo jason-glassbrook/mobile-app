@@ -21,7 +21,7 @@ export const getCaseDataReducer = (state = initialState, action) => {
             };
 
         case GET_CASE_DATA_SUCCESS:
-            // console.log("case data payload", action.payload);
+
             return {
                 ...state,
                 isLoadingCaseData: false,

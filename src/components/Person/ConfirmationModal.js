@@ -22,7 +22,6 @@ export const ConfirmationModal = ({
 }) => {
   const handlePressDirections = data => {
     let daddr = data;
-    // console.log( daddr );
     if (Platform.OS === 'ios') {
       Linking.openURL(`http://maps.apple.com/?daddr=${daddr}`);
     } else {
@@ -111,7 +110,6 @@ export const ConfirmationModal = ({
             style={options.blueButton}
             onPress={() => {
               if (type === 'email') {
-                // console.log( 'EMAIL TO:', data.address )
                 let options = createOptions(null, 'email', index);
                 sendEvent(
                   user.email,
@@ -125,7 +123,6 @@ export const ConfirmationModal = ({
               }
 
               if (type === 'phone') {
-                // console.log( 'CALL TO:', data.number )
                 let options = createOptions(null, 'phone', index);
                 sendEvent(
                   user.email,
@@ -139,7 +136,6 @@ export const ConfirmationModal = ({
               }
 
               if (type === 'address') {
-                // console.log( 'MAP TO:', data )
                 let options = createOptions(null, 'address', index);
                 sendEvent(
                   user.email,
@@ -153,7 +149,6 @@ export const ConfirmationModal = ({
               }
 
               if (type === 'address404') {
-                // console.log('MAP TO:', data)
                 let options = createOptions(null, 'address', index);
                 sendEvent(
                   user.email,
@@ -167,7 +162,6 @@ export const ConfirmationModal = ({
               }
 
               if (type === 'url') {
-                // console.log( 'URL TO:', data )
                 let options = createOptions(null, 'url', index);
                 sendEvent(
                   user.email,
@@ -180,7 +174,6 @@ export const ConfirmationModal = ({
                 toggleModal()
               }
               if (type === 'name') {
-                // console.log( 'RELATIONSHIP TO:', data )
                 let options = createOptions(null, 'relationship', index);
                 sendEvent(
                   user.email,
@@ -223,7 +216,6 @@ export const ConfirmationModal = ({
             onPress={() => {
               if (type === 'email') {
                 info = data.address;
-                // console.log('SEARCH EMAIL:', data.address);
                 let options = createOptions(null, 'email', index);
                 sendEvent(
                   user.email,
@@ -239,7 +231,6 @@ export const ConfirmationModal = ({
 
               if (type === 'phone') {
                 info = data.display;
-                // console.log('SEARCH PHONE:', data.number);
                 let options = createOptions(null, 'phone', index);
                 sendEvent(
                   user.email,
@@ -255,7 +246,6 @@ export const ConfirmationModal = ({
 
               if (type === 'address') {
                 info = data;
-                // console.log('SEARCH MAP TO:', data);
                 let options = createOptions(null, 'address', index);
                 sendEvent(
                   user.email,
@@ -271,7 +261,6 @@ export const ConfirmationModal = ({
 
               if (type === 'url') {
                 info = data.url;
-                // console.log('SEARCH URL:', data);
                 let options = createOptions(null, 'url', index);
                 sendEvent(
                   user.email,
@@ -287,7 +276,6 @@ export const ConfirmationModal = ({
 
               if (type === 'name') {
                 info = data;
-                // console.log('RELATIONSHIP TO:', data);
                 let options = createOptions(null, 'relationship', index);
                 sendEvent(
                   user.email,

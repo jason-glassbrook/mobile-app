@@ -99,7 +99,6 @@ const goToTop = () => {
   useEffect(() => {
     props.authChecker()
     props.getUserCases()
-    console.log('FamilyConnectionsAccessToken', props.accessToken)
   }, [props.loadingUser, props.accessToken])
  
   const setModalVisible = (visible) => {
@@ -119,7 +118,6 @@ const goToTop = () => {
       ...state,
       searchKeywords: event
     });
-    // console.log(state.searchKeywords);
   };
 
   // ------GENDER FILTER functionality------

@@ -57,7 +57,7 @@ export const connectionEngagementsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoadingDocs: false,
-                docsData: { ...action.payload }
+                docsData: action.payload
             };
 
         case POST_CONNECTION_DOCUMENT_FAILURE:

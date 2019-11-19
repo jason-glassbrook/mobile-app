@@ -37,7 +37,6 @@ const Login = props => {
           <Text style={{ marginTop: 6, marginBottom: 6, fontSize: 16   }}>Last Name</Text>
           <Text style={{ marginTop: 6, marginBottom: 6, fontSize: 16   }}>Email</Text>  
         </View>
-        {/* <Button title='log' onPress={() => { console.log('Login props.idToken', props.idToken) }} /> */}
         <View style={{ justifyContent: 'flex-start', alignItems: 'flex-start', width: '70%'}} >
           <View style={{
             width: '100%',
