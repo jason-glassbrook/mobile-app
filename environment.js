@@ -25,8 +25,8 @@ const ENV = {
   },
   prod: {
     auth0Domain: `login.connectourkids.org`,
-    // auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
-    auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
+    auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
+    // auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
     peopleSearchURL: 'https://dev.search.connectourkids.org/api/search-v2',
     eventTrackingURL: 'https://dev.search.connectourkids.org/api/sendEvent'
     // Add other keys you want here
