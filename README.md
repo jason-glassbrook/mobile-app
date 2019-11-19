@@ -5,8 +5,8 @@ You can find the repo for the project at [connect our kids repo](https://github.
 ## Labs17 Contributors
  ### Team Lead: <br/><br/>Irving Duran <br/> <img src="https://avatars2.githubusercontent.com/u/32081816?s=460&v=4" width = "130"/>
 
- [ <img align='center' src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/irvingduran/)
- [<img align='center' src="https://github.com/favicon.ico" width="15"> ](https://github.com/fixmylifedesigns)
+ [ <img align="center" src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/irvingduran/)
+ [<img align="center" src="https://github.com/favicon.ico" width="15"> ](https://github.com/fixmylifedesigns)
  
  
 
