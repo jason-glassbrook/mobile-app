@@ -31,6 +31,8 @@ You can find the project repo at [Connect Our Kids RN Repo](https://github.com/c
 
 [Version 2 Application Flow](https://www.figma.com/file/SLjHC3TQIBspRBNgRM9xMr/Untitled?node-id=0%3A1)
 
+[Overview video of our Changes](https://www.youtube.com/watch?v=isHGElZI3-Y&feature=youtu.be)
+
 [ChangeLog](./CHANGELOG.md)
 
 ## Mission Statement
