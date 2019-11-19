@@ -1,5 +1,6 @@
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios'
+import getEnvVars from '../../../environment'
 export const POST_CONNECTION_ENGAGEMENTS_START = "POST_CONNECTION_ENGAGEMENTS_START";
 export const POST_CONNECTION_ENGAGEMENTS_SUCCESS = "POST_CONNECTION_ENGAGEMENTS_SUCCESS";
 export const POST_CONNECTION_ENGAGEMENTS_FAILURE = "POST_CONNECTION_ENGAGEMENTS_FAILURE";
@@ -7,6 +8,8 @@ export const POST_CONNECTION_DOCUMENT_START = "POST_CONNECTION_DOCUMENT_START";
 export const POST_CONNECTION_DOCUMENT_SUCCESS = "POST_CONNECTION_DOCUMENT_SUCCESS";
 export const POST_CONNECTION_DOCUMENT_FAILURE = "POST_CONNECTION_DOCUMENT_FAILURE";
 export const CLEAR_CONNECTION_ENGAGEMENTS = "CLEAR_CONNECTION_ENGAGEMENTS";
+
+const { familyConnectionsURL } = getEnvVars()
 
 export const postConnectionEngagements = (id, note, subject, dataType, dueDate, isPublic) => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
@@ -25,7 +28,7 @@ export const postConnectionEngagements = (id, note, subject, dataType, dueDate, 
             }
             dispatch({ type: POST_CONNECTION_ENGAGEMENTS_START });
             axios
-                .post(`https://family-staging.connectourkids.org/api/v1/person/${id}/histories/`, body, {
+                .post(`${familyConnectionsURL}/api/v1/person/${id}/histories/`, body, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
                     },
@@ -70,7 +73,7 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
             dispatch({ type: POST_CONNECTION_DOCUMENT_START });
             console.log(createFormBody())
             axios
-                .post('https://family-staging.connectourkids.org/api/v1/documents/', createFormBody(), {
+                .post(`${familyConnectionsURL}/api/v1/documents/`, createFormBody(), {
                     headers: {
                         Accept: 'application/json',
                         "Content-Type": 'multipart/form-data',
@@ -85,7 +88,7 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
                     });
                 })
                 .catch(error => {
-                    console.log('ERROR', error);
+                    console.log('ERROR', JSON.stringify(error));
                     dispatch({
                         type: POST_CONNECTION_DOCUMENT_FAILURE,
                         payload: error

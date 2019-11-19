@@ -10,7 +10,7 @@ export const getCaseData = (pk) => dispatch => {
         .then((accessToken) => {
             dispatch({ type: GET_CASE_DATA_START });
             axios
-                .get(`https://family-staging.connectourkids.org/api/v1/cases/${pk}/`, {
+                .get(`${familyConnectionsURL}/api/v1/cases/${pk}/`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }

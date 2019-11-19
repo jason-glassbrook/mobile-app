@@ -8,7 +8,7 @@ import getRefreshToken from './getRefreshToken'
 import getNewAccessToken from './getNewAccessToken'
 // import { verifier, challenge } from './auth0Verifiers'
 
-const { auth0Domain, auth0ClientId } = getEnvVars();
+const { auth0Domain, auth0ClientId, auth0RedirectScheme } = getEnvVars();
 
 const toQueryString = params => {
   return (
@@ -101,12 +101,12 @@ const initialLogin = async (AuthSession, setUserCreds) => {
 
   // if no refresh_token exists, then this is a first time and we need to perform initial /authorize endpoint
 
-  const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
+  // const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
 
   // Structure the auth parameters and URL
   const queryParams = toQueryString({
     client_id: auth0ClientId,
-    redirect_uri: redirectUrl,
+    redirect_uri: auth0RedirectScheme,
     audience: 'https://api-staging.connectourkids.org/',
     response_type: 'code id_token token', // id_token will return a JWT token
     scope: 'offline_access openid profile email', // retrieve the user's profile

@@ -17,7 +17,7 @@ export const getEngagements = (id) => dispatch => {
         .then((accessToken) => {
             dispatch({ type: GET_ENGAGEMENTS_START });
             axios
-                .get(`https://family-staging.connectourkids.org/api/v1/person/${id}/histories/`, {
+                .get(`${familyConnectionsURL}/api/v1/person/${id}/histories/`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
