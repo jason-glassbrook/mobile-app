@@ -33,6 +33,8 @@ import CaseListComponent from "../components/CaseListComponent";
 import { MaterialIcons } from '@expo/vector-icons';
 import ScrollToTop from '../UI/ScrollToTop'
 
+const placeholderImg = require('../../assets/profile_placeholder.png')
+
 export function CaseViewScreen(props) {
 
   const [searchKeywords, setSearchKeywords] = useState('')
@@ -105,11 +107,10 @@ export function CaseViewScreen(props) {
   useEffect(() => {
     props.getCaseData(props.navigation.getParam('pk'));
     props.getCaseConnections(props.navigation.getParam('pk'));
-    console.log('useEffect')
   }, [false]);
 
   let caseData = props.caseData;
-  // console.log(props.caseData);
+
 
   const handleKeywordChange = (e) => {
     setSearchKeywords(e)
@@ -149,15 +150,13 @@ export function CaseViewScreen(props) {
       //remove everyone without a status
       let noStatus = props.caseConnections.filter((connection) => !connection.person.status)
       let filteredList = props.caseConnections.filter((connection) => connection.person.status)
-      // console.log('person   +   color')
-      // for (i in filteredList) {
-      //   console.log(filteredList[i].person.full_name + ' ' + filteredList[i].person.status.color)
-      // }
+
+
 
       if (!filtersSelected[1]) {
         //if filter1 not selected, remove everyone with filter1
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6AA84F')
-        // console.log('length***************************', filteredList.length)
+
       }
       if (!filtersSelected[2]) {
         //if filter2 not selected, remove everyone with filter2
@@ -222,7 +221,7 @@ export function CaseViewScreen(props) {
         onScrollToTop={() => setIsScrolling(false)}
         scrollEventThrottle={16}
       >
-        <TouchableOpacity
+        {/* <TouchableOpacity
           underlayColor="lightgray"
           style={{ padding: 7.5 }}
           onPressIn={() => {
@@ -234,12 +233,13 @@ export function CaseViewScreen(props) {
               paddingTop: 10,
               paddingBottom: 10,
               marginLeft: 5,
-              fontSize: 15
+              fontSize: 20,
+              color: '#0F6580'
             }}
           >
             {leftArrow} ALL CASES
             </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <View>
           <ListItem
             title={caseData.full_name}
@@ -258,15 +258,25 @@ export function CaseViewScreen(props) {
                 width: 80, 
                 borderRadius: 40, 
                 overflow: 'hidden'}}>
-                <Image 
+                {caseData.picture ?
+                (<Image 
                   // defaultSource={{uri: }}
-                  source={{uri: caseData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"}} 
+                  source={{uri: caseData.picture }} 
                   style={{
                     height: 80, 
                     width: 80, 
                     borderRadius: 40, 
                     overflow: 'hidden'}} 
-                />
+                />) :
+                (<Image 
+                  // defaultSource={{uri: }}
+                  source={placeholderImg} 
+                  style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden'}} 
+                />)}
               </View>
             }
           />
@@ -289,7 +299,7 @@ export function CaseViewScreen(props) {
               height: 36,
               borderTopLeftRadius: 4,
               borderTopRightRadius: 4,
-              backgroundColor: '#0F6580',
+              backgroundColor: constants.highlightColor,
               // borderWidth: 0.5,
               // borderColor: '#0F6580',
               justifyContent: 'center',
@@ -297,7 +307,7 @@ export function CaseViewScreen(props) {
               flexDirection: 'row'
             }}>
               <View>
-                <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text>
+                <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#FFFFFF' }}>Connections</Text>
               </View>
             </View>
             <SearchBar
@@ -340,8 +350,8 @@ export function CaseViewScreen(props) {
                   return (
                     <CaseListComponent
                       pressed={() => {
-                        // console.log('**************connection****************')
                         props.navigation.navigate('ConnectionsView', { connectionData: connection, childName: caseData.full_name })
+                        setIsScrolling(false)
                       }}
                       key={index}
                       connection={connection} />

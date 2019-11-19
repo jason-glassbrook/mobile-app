@@ -25,7 +25,8 @@ const Login = props => {
             ? 'Welcome back, ' + props.idToken.given_name + '!'
             : 'Welcome to Connect Our Kids!'}
         </Text>
-        <Divider style={{width: '100%', height: 1.25, backgroundColor: '#E5E4E2', marginTop: 10, marginBottom: 10}} />    
+        {props.isLoggedIn && props.idToken && props.idToken.email ?
+        <Divider style={{width: '100%', height: 1, backgroundColor: '#E5E4E2', marginTop: 20, marginBottom: 6}} /> : null}   
       </View>
       
       {props.isLoggedIn && props.idToken &&
@@ -37,7 +38,6 @@ const Login = props => {
           <Text style={{ marginTop: 6, marginBottom: 6, fontSize: 16   }}>Last Name</Text>
           <Text style={{ marginTop: 6, marginBottom: 6, fontSize: 16   }}>Email</Text>  
         </View>
-        {/* <Button title='log' onPress={() => { console.log('Login props.idToken', props.idToken) }} /> */}
         <View style={{ justifyContent: 'flex-start', alignItems: 'flex-start', width: '70%'}} >
           <View style={{
             width: '100%',

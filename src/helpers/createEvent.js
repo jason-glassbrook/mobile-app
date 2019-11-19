@@ -11,7 +11,6 @@ const { eventTrackingURL } = getEnvVars();
 // relationshipIndex: 0
 
 export const sendUserInfo = emailAddress => {
-  console.log(emailAddress);
   axios.post(eventTrackingURL, { emailAddress });
 };
 
@@ -38,11 +37,10 @@ export const sendEvent = (
   if (options !== null) {
     bodyObject['options'] = options;
   }
-  console.log(bodyObject);
+
   return axios
     .post(eventTrackingURL, JSON.stringify(bodyObject))
     .then(res => {
-      console.log('EVENT TRACKING RES: ', res);
       return res;
     })
     .catch(err => {
@@ -52,16 +50,16 @@ export const sendEvent = (
 };
 
 export const createOptions = (listLength, noun, index) => {
-  console.log('listLength', listLength, ' noun ', noun, ' index ', index);
+
   let options = {};
   if (listLength === null) {
     options[`${noun}Index`] = index;
-    console.log(options);
+    
     return options;
   } else {
     options.possibleMatches = listLength;
     options.personMatch = listLength === 0;
-    console.log(options);
+    
     return options;
   }
 };

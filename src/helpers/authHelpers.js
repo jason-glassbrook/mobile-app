@@ -102,7 +102,6 @@ const initialLogin = async (AuthSession, setUserCreds) => {
   // if no refresh_token exists, then this is a first time and we need to perform initial /authorize endpoint
 
   const redirectUrl = "exp://127.0.0.1:19000/--/expo-auth-session";
-  console.log(`Redirect URL: ${redirectUrl}`);
 
   // Structure the auth parameters and URL
   const queryParams = toQueryString({
@@ -127,7 +126,6 @@ const initialLogin = async (AuthSession, setUserCreds) => {
   });
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
 
-  console.log(`AuthURL: ${authUrl}`);
 
   // Perform the authentication
   const response = await AuthSessionCustom.startAsync({ authUrl });
@@ -141,7 +139,6 @@ const initialLogin = async (AuthSession, setUserCreds) => {
 
   // await SecureStore.setItemAsync('cok_auth_code', JSON.stringify(response.params.code))
   // await SecureStore.setItemAsync('cok_id_token', JSON.stringify(response.params.id_token))
-  console.log('AUTH response', response);
 
   // assume success
 

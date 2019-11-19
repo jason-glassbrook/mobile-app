@@ -88,13 +88,11 @@ class SearchResultScreen extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log('CDU SRS');
     if (
       prevProps.isLoggedIn === false &&
       this.props.isLoggedIn === true &&
       this.state.requestObject
     ) {
-      // console.log('requestobj: ', this.state.requestObject);
       this.props.resetPerson();
       let requestObject = { ...this.state.requestObject };
       requestObject['authToken'] = this.props.accessToken;
@@ -267,7 +265,6 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => {
-  // console.log(state);
   const { error, isFetching, person, possiblePersons } = state.people;
   const {
     accessToken,

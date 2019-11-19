@@ -33,6 +33,8 @@ import {
 } from "react-native-elements";
 import formatTelephone from '../helpers/formatTelephone.js'
 
+const placeholderImg = require('../../assets/profile_placeholder.png')
+
 const CaseListComponent = (props) => {
     return (
         <View style={{paddingLeft: 2, paddingRight: 2}}>
@@ -86,14 +88,23 @@ const CaseListComponent = (props) => {
                                 borderRadius: 25, 
                                 overflow: 'hidden'}}
                         >
+                            {props.connection.person.picture ?
                             <Image 
-                                source={{uri: props.connection.person.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"}} 
+                                source={{uri: props.connection.person.picture}} 
                                 style={{
                                 height: 50, 
                                 width: 50, 
                                 borderRadius: 25, 
                                 overflow: 'hidden'}} 
-                            />
+                            /> :
+                            <Image 
+                                source={placeholderImg} 
+                                style={{
+                                height: 50, 
+                                width: 50, 
+                                borderRadius: 25, 
+                                overflow: 'hidden'}} 
+                            />}
                         </View>
                     }
                     to pDivider={true}

@@ -10,7 +10,7 @@
       "android",
       "web"
     ],
-    "version": "1.0.6",
+    "version": "2.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -32,6 +32,6 @@
       "package": "com.connectOurKids.connectOurKids",
       "versionCode": 3
     },
-    "description": ""
+    "description": "There are over 100,000 children waiting to be adopted this year in the United States. Connect Our Kids is on a mission to find permanent loving homes for all of them. We deliver free technology to social workers, CASA volunteers, and family recruiters to magnify their impact."
   }
 }

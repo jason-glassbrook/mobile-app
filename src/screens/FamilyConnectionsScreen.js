@@ -18,7 +18,8 @@ import {
   getCaseData,
   getUserCases,
   setUserCreds,
-  setModalVisible
+  setModalVisible,
+  authChecker
 } from "../store/actions"
 import axios from "axios";
 import {
@@ -42,10 +43,11 @@ import CaseViewScreen from "./CaseViewScreen.js";
 import ConnectionsLogin from "../components/Authentication/ConnectionsLogin"
 import Loader from "../components/Loader/Loader";
 import ScrollToTop from '../UI/ScrollToTop';
+import moment from "moment";
 
 
 const FamilyConnectionsScreen = (props) => {
-  
+
   const initialState = {
     searchKeywords: "",
     gender: "Gender",
@@ -72,6 +74,9 @@ const FamilyConnectionsScreen = (props) => {
   }
   const [state, setState] = useState(initialState)
   const [isScrolling, setIsScrolling] = useState(false)
+  const [options, setOptions] = useState({ x: 0, y: 0, animated: true })
+  const [a, setA] = useState(null)
+
 
   const genderAssignment = (gender) => {
     if (gender === 'M') {
@@ -85,9 +90,12 @@ const FamilyConnectionsScreen = (props) => {
     }
   }
 
-const goToTop = () => {
-    scroll.scrollTo({x: 0, y: 0, animated: true});
-  } 
+  // scrollTo(options? : {x?: number, y?: number, animated?: boolean} | number,);
+
+  const goToTop = () => {
+
+    scroll.scrollTo(options);
+  }
 
   // useEffect(() => {
   //   if (scrollLocation <= 100) {
@@ -96,10 +104,10 @@ const goToTop = () => {
   // }, [scrollLocation])
 
   useEffect(() => {
+    props.authChecker()
     props.getUserCases()
-    console.log('FamilyConnectionsAccessToken', props.accessToken)
-  }, [props.accessToken])
- 
+  }, [props.loadingUser, props.accessToken])
+
   const setModalVisible = (visible) => {
     setState({ ...state, modalVisible: visible });
   }
@@ -117,7 +125,6 @@ const goToTop = () => {
       ...state,
       searchKeywords: event
     });
-    // console.log(state.searchKeywords);
   };
 
   // ------GENDER FILTER functionality------
@@ -209,292 +216,290 @@ const goToTop = () => {
     props.isLoading ?
       <Loader /> :
       props.results[0] ?
-      <SafeAreaView>
-        <View 
-          style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}
-        >
-          <SearchBar
-            inputStyle={{ fontSize: 16 }}
-            inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
-            placeholder="Search Name..."
-            placeholderTextColor="#8D8383"
-            // lightTheme
-            round
-            name="searchKeywords"
-            value={state.searchKeywords}
-            onChangeText={handleKeywordChange}
-            // create searchbar target platform.os
-            platform="ios"
-            containerStyle={styles.searchBar}
-          />
-          <TouchableHighlight
-            onPressIn={() => {
-              setModalVisible(true);
-            }}>
-            <View
-              style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}
-            >
-              <MaterialIcons
-                name="filter-list"
-                color='black'
-                size={32}
-              /><Text style={{ fontSize: 16 }}>Filter</Text>
-            </View>
-          </TouchableHighlight>
-        </View>
-
-        {/* FILTERS BUTTON - onPress Modal */}
-        <Modal
-          animationType="fade"
-          transparent={false}
-          visible={state.modalVisible}
-        >
-          <ScrollView scrollsToTop>
-            <View
-              style={{
-                marginTop: 100,
-                // justifyContent: "space-evenly",
-                alignSelf: "left"
-              }}
-            >
-              <Text
-                style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
+        <SafeAreaView>
+          <View
+            style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}
+          >
+            <SearchBar
+              inputStyle={{ fontSize: 16 }}
+              inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
+              placeholder="Search Name..."
+              placeholderTextColor="#8D8383"
+              // lightTheme
+              round
+              name="searchKeywords"
+              value={state.searchKeywords}
+              onChangeText={handleKeywordChange}
+              // create searchbar target platform.os
+              platform="ios"
+              containerStyle={styles.searchBar}
+            />
+            <TouchableHighlight
+              onPressIn={() => {
+                setModalVisible(true);
+              }}>
+              <View
+                style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}
               >
-                Gender
+                <MaterialIcons
+                  name="filter-list"
+                  color='black'
+                  size={32}
+                /><Text style={{ fontSize: 16 }}>Filter</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+
+          {/* FILTERS BUTTON - onPress Modal */}
+          <Modal
+            animationType="fade"
+            transparent={false}
+            visible={state.modalVisible}
+          >
+            <ScrollView scrollsToTop>
+              <View
+                style={{
+                  marginTop: 100,
+                  // justifyContent: "space-evenly",
+                  alignSelf: "left"
+                }}
+              >
+                <Text
+                  style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
+                >
+                  Gender
               </Text>
 
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Male"
-                size={16}
-                checked={state.filters.male}
-                onPress={() =>
-                  setState({
-                    ...state,
-                    filters: {
-                      ...state.filters,
-                      male: !state.filters.male
-                    }
-                  })
-                }
-              />
+                <CheckBox
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: "white"
+                  }}
+                  title="Male"
+                  size={16}
+                  checked={state.filters.male}
+                  onPress={() =>
+                    setState({
+                      ...state,
+                      filters: {
+                        ...state.filters,
+                        male: !state.filters.male
+                      }
+                    })
+                  }
+                />
 
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Female"
-                size={16}
-                checked={state.filters.female}
-                // onPress={checkHandler}
-                onPress={() =>
-                  setState({
-                    ...state,
-                    filters: {
-                      ...state.filters,
-                      female: !state.filters.female
-                    }
-                  })
-                }
-              />
+                <CheckBox
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: "white"
+                  }}
+                  title="Female"
+                  size={16}
+                  checked={state.filters.female}
+                  // onPress={checkHandler}
+                  onPress={() =>
+                    setState({
+                      ...state,
+                      filters: {
+                        ...state.filters,
+                        female: !state.filters.female
+                      }
+                    })
+                  }
+                />
 
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Unspecified"
-                size={16}
-                checked={state.filters.unspecified}
-                onPress={() =>
-                  setState({
-                    ...state,
-                    filters: {
-                      ...state.filters,
-                      unspecified: !state.filters.unspecified
-                    }
-                  })
-                }
-              />
+                <CheckBox
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: "white"
+                  }}
+                  title="Unspecified"
+                  size={16}
+                  checked={state.filters.unspecified}
+                  onPress={() =>
+                    setState({
+                      ...state,
+                      filters: {
+                        ...state.filters,
+                        unspecified: !state.filters.unspecified
+                      }
+                    })
+                  }
+                />
 
-              {/* <Divider
+                {/* <Divider
                 style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
               /> */}
 
-              <Text
-                style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
-              >
-                Sort By
+                <Text
+                  style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
+                >
+                  Sort By
               </Text>
 
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Last Name"
-                size={16}
-                checked={state.filters.name}
-                onPress={() =>
-                  setState({
-                    ...state,
-                    filters: {
-                      ...state.filters,
-                      name: !state.filters.name,
-                      DOB: false,
-                      created: false,
-                      updated: false
-                    }
-                  })
-                }
-              />
-
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Date Created"
-                size={16}
-                checked={state.filters.created}
-                onPress={() =>
-                  setState({
-                    ...state,
-                    filters: {
-                      ...state.filters,
-                      name: false,
-                      DOB: false,
-                      created: !state.filters.created,
-                      updated: false
-                    }
-                  })
-                }
-              />
-
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Last Updated"
-                size={16}
-                checked={state.filters.updated}
-                onPress={() =>
-                  setState({
-                    ...state,
-                    filters: {
-                      ...state.filters,
-                      name: false,
-                      DOB: false,
-                      created: false,
-                      updated: !state.filters.updated
-                    }
-                  })
-                }
-              />
-            </View>
-          </ScrollView>
-          <View
-            style={{
-              alignContent: "center",
-              alignSelf: 'center',
-              marginBottom: 200,
-              width: 100,
-              fontSize: 80,
-              fontWeight: "bold",
-            }}
-          >
-            <TouchableHighlight>
-              <Button
-                buttonStyle={{ backgroundColor: constants.highlightColor }}
-                title="Apply"
-                onPress={() => {
-                  setModalVisible(!state.modalVisible);
-                }}
-              />
-            </TouchableHighlight>
-          </View>
-        </Modal>
-
-        {/* Case List Todos:
-       Cache case info from API for faster loading */}
-        {/* Case List View Starts Here */}
-        <View style={{ paddingBottom: 170 }}>
-          <View>
-              { isScrolling ?
-              <ScrollToTop 
-                style={{
-                  position: 'absolute',
-                  zIndex: 1000,
-                  bottom: constants.headerHeight,
-                  right: 46,
-                }}
-                onPress={goToTop}
-              /> : null} 
-            <ScrollView
-              ref={(a) => {scroll = a}}
-              contentInset={{bottom: constants.headerHeight}}
-              scrollsToTop
-              onScroll={(e) => {
-                if (e.nativeEvent.contentOffset.y <= 250) {
-                  setIsScrolling(false)
-                } else if (e.nativeEvent.contentOffset.y >=250) {
-                  setIsScrolling(true)
-                }
-              }}
-              onScrollToTop={() => setIsScrolling(false)}
-              scrollEventThrottle={16}
-            >
-              {props.isLoading ? (
-                <Loader />
-              ) : (
-                  SearchedCases.map((result, index) => (
-                    <ListItem
-                      key={index}
-                      title={result.full_name}
-                      titleStyle={{ color: "#5A6064" }}
-                      subtitle={`${
-                        result.gender ?
-                          genderAssignment(result.gender)
-                          : "Unspecified Gender"
-                        } ${result.birthday ? `Birthday: ${result.birthday}` : ''}`}
-                      subtitleStyle={{ color: "#9FABB3" }}
-                      leftAvatar={
-                        <View style={{
-                          height: 50, 
-                          width: 50, 
-                          borderRadius: 25, 
-                          overflow: 'hidden'}}>
-                          <Image 
-                            source={{uri: result.picture}} 
-                            style={{
-                              height: 50, 
-                              width: 50, 
-                              borderRadius: 25, 
-                              overflow: 'hidden'}} 
-                          />
-                        </View>
+                <CheckBox
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: "white"
+                  }}
+                  title="Last Name"
+                  size={16}
+                  checked={state.filters.name}
+                  onPress={() =>
+                    setState({
+                      ...state,
+                      filters: {
+                        ...state.filters,
+                        name: !state.filters.name,
+                        DOB: false,
+                        created: false,
+                        updated: false
                       }
-                      // leftAvatar={{ defaultSource: { uri: result.picture } }}
-                      to pDivider={true}
-                      onPress={async () => {
-                        props.navigation.navigate('CaseView', { pk: result.pk, caseData: result })
-  
-                      }}
-                    />
-                  ))
-                )}
+                    })
+                  }
+                />
+
+                <CheckBox
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: "white"
+                  }}
+                  title="Date Created"
+                  size={16}
+                  checked={state.filters.created}
+                  onPress={() =>
+                    setState({
+                      ...state,
+                      filters: {
+                        ...state.filters,
+                        name: false,
+                        DOB: false,
+                        created: !state.filters.created,
+                        updated: false
+                      }
+                    })
+                  }
+                />
+
+                <CheckBox
+                  containerStyle={{
+                    backgroundColor: "white",
+                    borderColor: "white"
+                  }}
+                  title="Last Updated"
+                  size={16}
+                  checked={state.filters.updated}
+                  onPress={() =>
+                    setState({
+                      ...state,
+                      filters: {
+                        ...state.filters,
+                        name: false,
+                        DOB: false,
+                        created: false,
+                        updated: !state.filters.updated
+                      }
+                    })
+                  }
+                />
+              </View>
             </ScrollView>
+            <View
+              style={{
+                alignContent: "center",
+                alignSelf: 'center',
+                marginBottom: 200,
+                width: 100,
+                fontSize: 80,
+                fontWeight: "bold",
+              }}
+            >
+              <TouchableHighlight>
+                <Button
+                  buttonStyle={{ backgroundColor: constants.highlightColor }}
+                  title="Apply"
+                  onPress={() => {
+                    setModalVisible(!state.modalVisible);
+                  }}
+                />
+              </TouchableHighlight>
+            </View>
+          </Modal>
+
+          {/* Case List Todos:
+       Cache case info from API for faster loading */}
+          {/* Case List View Starts Here */}
+          <View style={{ paddingBottom: 170 }}>
+            <View>
+              {isScrolling ?
+                <ScrollToTop
+                  style={{
+                    position: 'absolute',
+                    zIndex: 1000,
+                    bottom: constants.headerHeight,
+                    right: 46,
+                  }}
+                  onPress={() => goToTop()}
+                /> : null}
+              <ScrollView
+                ref={(a) => scroll = a}
+                contentInset={{ bottom: constants.headerHeight }}
+                scrollsToTop
+                onScroll={(e) => {
+                  if (e.nativeEvent.contentOffset.y <= 250) {
+                    setIsScrolling(false)
+                  } else if (e.nativeEvent.contentOffset.y >= 250) {
+                    setIsScrolling(true)
+                  }
+                }}
+                onScrollToTop={() => setIsScrolling(false)}
+                scrollEventThrottle={16}
+              >
+                {props.isLoading ? (
+                  <Loader />
+                ) : (
+                    SearchedCases.map((result, index) => (
+                      <ListItem
+                        key={index}
+                        title={result.full_name}
+                        titleStyle={{ color: "#5A6064" }}
+                        subtitle={`${genderAssignment(result.gender)}${result.birthday ? ('\nBirth: ' + result.birthday) : ''}`}
+                        subtitleStyle={{ color: "#9FABB3" }}
+                        leftAvatar={
+                          <View style={{
+                            height: 50,
+                            width: 50,
+                            borderRadius: 25,
+                            overflow: 'hidden'
+                          }}>
+                            <Image
+                              source={{ uri: result.picture }}
+                              style={{
+                                height: 50,
+                                width: 50,
+                                borderRadius: 25,
+                                overflow: 'hidden'
+                              }}
+                            />
+                          </View>
+                        }
+                        // leftAvatar={{ defaultSource: { uri: result.picture } }}
+                        to pDivider={true}
+                        onPress={() => {
+                          props.navigation.navigate('CaseView', { pk: result.pk, caseData: result })
+                          setIsScrolling(false)
+                        }}
+                      />
+                    ))
+                  )}
+              </ScrollView>
+            </View>
           </View>
-        </View>
-      </SafeAreaView>
-      : 
-      <ConnectionsLogin 
-          setUserCreds={props.setUserCreds} 
+        </SafeAreaView>
+        :
+        <ConnectionsLogin
+          setUserCreds={props.setUserCreds}
           setModalVisible={props.setModalVisible}
         />
   )
@@ -531,7 +536,10 @@ const mapStateToProps = state => {
     isLoading,
     caseDataError,
   } = state.userCases;
-  const {accessToken} = state.auth
+  const {
+    accessToken,
+    loadingUser
+  } = state.auth
 
   return {
     results,
@@ -539,6 +547,7 @@ const mapStateToProps = state => {
     accessToken,
     isLoading,
     caseDataError,
+    loadingUser
   };
 };
 
@@ -547,5 +556,6 @@ export default connect(
   getUserCases,
   getCaseData,
   setUserCreds,
-  setModalVisible
+  setModalVisible,
+  authChecker
 })(FamilyConnectionsScreen);

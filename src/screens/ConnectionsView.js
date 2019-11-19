@@ -39,6 +39,8 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
 import Loader from '../components/Loader/Loader';
 import ScrollToTop from '../UI/ScrollToTop'
 
+const placeholderImg = require('../../assets/profile_placeholder.png')
+
 function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
   const [tabs, setTabs] = useState({
@@ -55,9 +57,8 @@ function ConnectionsView(props) {
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
-    console.log('ConnectionsViewFiring')
-    console.log('props.isLoadingDocs', props.isLoadingDocs)
-  }, [props.isLoadingDocs])
+
+  }, [props.isLoadingDocs, props.isLoadingEngagements])
 
   const styles = StyleSheet.create({
     tabs: {
@@ -96,19 +97,19 @@ function ConnectionsView(props) {
     },
 
     engagementSelected: {
-      backgroundColor: "#0F6580",
-      color: '#E5E4E2',
+      backgroundColor: constants.highlightColor,
+      color: '#FFFFFF',
       borderWidth: 1,
-      borderColor: "#0F6580",
+      borderColor: constants.highlightColor,
       borderTopLeftRadius: 4,
       overflow: "hidden"
     },
 
     documentsSelected: {
-      backgroundColor: "#0F6580",
-      color: '#E5E4E2',
+      backgroundColor: constants.highlightColor,
+      color: '#FFFFFF',
       borderWidth: 1,
-      borderColor: "#0F6580",
+      borderColor: constants.highlightColor,
       borderTopRightRadius: 4,
       overflow: "hidden"
     },
@@ -120,7 +121,7 @@ function ConnectionsView(props) {
     },
 
     iconContainer: {
-      backgroundColor: '#E5E4E2',
+      // backgroundColor: '#E5E4E2',
       height: 45,
       width: 45,
       borderRadius: 22.5,
@@ -130,7 +131,7 @@ function ConnectionsView(props) {
 
     iconStyles: {
       fontSize: 28,
-      backgroundColor: '#E5E4E2',
+      // backgroundColor: '#E5E4E2',
       color: '#0F6580',
       width: 28,
       height: 28,
@@ -186,7 +187,7 @@ function ConnectionsView(props) {
       onScrollToTop={() => setIsScrolling(false)}
       scrollEventThrottle={16}
     >
-      <TouchableOpacity
+      {/* <TouchableOpacity
         underlayColor="lightgray"
         style={{ padding: 7.5 }}
         onPressIn={() => {
@@ -198,12 +199,13 @@ function ConnectionsView(props) {
             paddingTop: 10,
             paddingBottom: 10,
             marginLeft: 5,
-            fontSize: 15
+            fontSize: 20,
+            color: '#0F6580'
           }}
         >
           {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       <View>
         <ListItem
@@ -240,14 +242,23 @@ function ConnectionsView(props) {
                     borderRadius: 40, 
                     overflow: 'hidden'}}
             >
+                {connectionData.picture ?
                 <Image 
-                    source={{uri: connectionData.picture || "https://www.trzcacak.rs/myfile/full/214-2143533_default-avatar-comments-default-avatar-icon-png.png"}} 
+                    source={{uri: connectionData.picture }} 
                     style={{
                     height: 80, 
                     width: 80, 
                     borderRadius: 40, 
                     overflow: 'hidden'}} 
-                />
+                /> :
+                <Image 
+                    source={placeholderImg} 
+                    style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden'}} 
+                />}
             </View>
         }
         />
@@ -267,7 +278,7 @@ function ConnectionsView(props) {
           <View style={[styles.tabs]}>
             <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
               <Text
-                style={[{ color: '#E5E4E2', fontSize: 17.5 }, tabs.engagement ? { color: '#E5E4E2' } : { color: '#000' }]}
+                style={[{ color: '#FFFFFF', fontSize: 17.5 }, tabs.engagement ? { color: '#FFFFFF' } : { color: '#000' }]}
                 onPress={() => {
                   setTabs({
                     engagement: true,
@@ -281,7 +292,7 @@ function ConnectionsView(props) {
 
             <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
               <Text
-                style={[{ color: '#E5E4E2', fontSize: 17.5 }, tabs.docs ? { color: '#E5E4E2' } : { color: '#000' }]}
+                style={[{ color: '#FFFFFF', fontSize: 17.5 }, tabs.docs ? { color: '#FFFFFF' } : { color: '#000' }]}
                 onPress={() => {
                   setTabs({
                     engagement: false,
@@ -340,7 +351,7 @@ function ConnectionsView(props) {
                           name='phone'
                           style={{
                             fontSize: 28,
-                            backgroundColor: '#E5E4E2',
+                            // backgroundColor: '#E5E4E2',
                             color: '#0F6580',
                             width: 28,
                             height: 28,
@@ -418,7 +429,7 @@ function ConnectionsView(props) {
                   <TouchableOpacity
                     onPress={() => {
                       // setAddDocVisible(true)
-                      props.navigation.navigate('DocumentForm')
+                      props.navigation.navigate('DocumentForm', {id: connectionData.pk})
                     }}
                     style={{ 
                       width: 162, 
@@ -436,7 +447,7 @@ function ConnectionsView(props) {
                 <View style={{ width: '100%', maxHeight: '100%' }} >
                   {props.isLoadingDocs ? <Loader /> :
                     props.documents.map((document) => {
-                      // console.log('pk' + ' ' + document.pk)
+
                       return (
                         <Documents key={document.pk} document={document} />)
                     })}
@@ -465,7 +476,7 @@ function ConnectionsView(props) {
 const mapStateToProps = state => {
   return {
     engagements: state.connection.engagements,
-    isLoadingEngagements: state.connection.isLoadingEngagements,
+    isLoadingEngagements: state.engagements.isLoadingEngagements,
     engagementsError: state.connection.engagementsError,
     documents: state.connection.documents,
     isLoadingDocuments: state.connection.isLoadingDocuments,

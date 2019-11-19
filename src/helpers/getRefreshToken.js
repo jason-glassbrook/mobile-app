@@ -11,7 +11,7 @@ const getRefreshToken = async () => {
 
   const code = await SecureStore.getItemAsync('cok_auth_code');
   // const device = Constants.deviceName;
-  // console.log('CODE DEVICE', code, device)
+
   const refreshParams = {
     client_id: auth0ClientId,
     // code_verifier: verifier,
@@ -33,7 +33,7 @@ const getRefreshToken = async () => {
       await SecureStore.setItemAsync('cok_refresh_token', res.data.refresh_token);
       // SecureStore.setItemAsync('cok_access_token', JSON.stringify(res.data.access_token)),
       await SecureStore.setItemAsync('cok_id_token', res.data.id_token);
-      console.log('REFRESH', await SecureStore.getItemAsync('cok_refresh_token'))
+
       // console.log('res', res)
     })
     .catch(err => console.log(err))

@@ -33,7 +33,7 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm'
 import logoImg from '../../assets/logo.png';
 import CustomDrawer from './CustomDrawer'
 
-
+const leftArrow = '\u2190';
 //Following StackNavigators are in BottomNav:
 const FamilyConnectionsNavigator = createStackNavigator(
   {
@@ -62,46 +62,86 @@ const FamilyConnectionsNavigator = createStackNavigator(
     CaseView: {
       screen: CaseViewScreen,
       initialRouteName: 'FamilyConnections',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      },
-      navigationOptions: {
+      // defaultNavigationOptions: {
+      //   headerStyle: {
+      //     height: constants.headerHeight,
+      //     backgroundColor: constants.highlightColor
+      //   }
+      // },
+      
+      navigationOptions: ({navigation}) => {
+
+        return {
         headerStyle: {
           backgroundColor: 'white',
           height: 52
         },
         headerLeft:
-          (<Image
-            source={logoImg}
-            style={{ width: 225, height: 90 }}
-            resizeMode="contain"
-          />)
-      }
+          (<TouchableOpacity
+            underlayColor="lightgray"
+            style={{ padding: 7.5 }}
+            onPressIn={() => {
+              navigation.goBack()
+            }}
+          >
+            <Text
+              style={{
+                paddingTop: 10,
+                paddingBottom: 10,
+                marginLeft: 5,
+                fontSize: 20,
+                color: '#0F6580'
+              }}
+            >
+              {leftArrow} ALL CASES
+              </Text>
+          </TouchableOpacity>)
+      }}
+      
     },
     ConnectionsView: {
       screen: ConnectionsView,
       initialRouteName: 'FamilyConnections',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      },
-      navigationOptions: {
-        headerStyle: {
-          backgroundColor: 'white',
-          height: 52
-        },
-        headerLeft:
-          (<Image
-            source={logoImg}
-            style={{ width: 225, height: 90 }}
-            resizeMode="contain"
-          />)
-      }
+      // defaultNavigationOptions: {
+      //   headerStyle: {
+      //     height: constants.headerHeight,
+      //     backgroundColor: constants.highlightColor
+      //   }
+      // },
+      // navigationOptions: {
+      //   headerStyle: {
+      //     backgroundColor: 'white',
+      //     height: 52
+      //   },
+        navigationOptions: ({navigation}) => {
+
+          return {
+          headerStyle: {
+            backgroundColor: 'white',
+            height: 52
+          },
+          headerLeft:
+            (<TouchableOpacity
+              underlayColor="lightgray"
+              style={{ padding: 7.5 }}
+              onPressIn={() => {
+                navigation.goBack()
+              }}
+            >
+              <Text
+                style={{
+                  paddingTop: 10,
+                  paddingBottom: 10,
+                  marginLeft: 5,
+                  fontSize: 20,
+                  color: '#0F6580'
+                }}
+              >
+                {leftArrow} {navigation.getParam('childName').toUpperCase()}
+              </Text>
+            </TouchableOpacity>)
+        }}
+      
     },
     EngagementForm: {
       screen: AddEngagementForm,
@@ -206,6 +246,103 @@ const PeopleSearchNavigator = createStackNavigator(
 );
 
 // Following StackNavigators are inside "More" drawer:
+
+const CustomDrawerNavigator = createStackNavigator({
+  More: {
+    screen: CustomDrawer,
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+    navigationOptions: {
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 52
+      },
+      headerLeft:
+        (<Image
+          source={logoImg}
+          style={{ width: 225, height: 90 }}
+          resizeMode="contain"
+        />)
+    }
+  },
+  MyAccount: {
+    screen: AuthenticationView,
+    initialRouteName: 'MyAccount',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor,
+      }
+    },
+    navigationOptions: ({navigation}) => {
+      return {
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 52
+      },
+      headerLeft:
+        (<TouchableOpacity 
+          style={{ 
+            width: 64, 
+            height: 64, 
+            marginLeft: 10, 
+            marginBottom: 15, 
+            justifyContent: 'flex-end' 
+          }}
+        >
+          <Ionicons
+            name="md-arrow-back"
+            size={32}
+            color="#AAA9AD"
+            onPress={() => {
+              navigation.goBack()
+            }}
+          />
+        </TouchableOpacity>)
+    }}
+  },
+  About: {
+    screen: AboutScreen,
+    // initialRouteName: 'About',
+    defaultNavigationOptions: {
+      headerStyle: {
+        height: constants.headerHeight,
+        backgroundColor: constants.highlightColor
+      }
+    },
+    navigationOptions: ({navigation}) => {
+
+      return {
+      headerStyle: {
+        backgroundColor: 'white',
+        height: 52
+      },
+      headerLeft:
+        (<TouchableOpacity 
+          style={{ 
+            width: 64, 
+            height: 64, 
+            marginLeft: 10, 
+            marginBottom: 15, 
+            justifyContent: 'flex-end' 
+          }}
+        >
+          <Ionicons
+            name="md-arrow-back"
+            size={32}
+            color="#AAA9AD"
+            onPress={() => {
+              navigation.goBack()
+            }}
+          />
+        </TouchableOpacity>)
+    }}
+  },
+})
 
 const MyAccountNavigator = createStackNavigator({
   MyAccount: {
@@ -325,7 +462,7 @@ const DrawerNavigator = createDrawerNavigator({
   {
     drawerPosition: 'right',
     drawerType: 'front',
-    drawerWidth: 225,
+    drawerWidth: '100%',
     hideStatusBar: true,
     contentOptions: {
       activeTintColor: constants.highlightColor,
@@ -339,7 +476,7 @@ const BottomNavigator = createBottomTabNavigator(
     PeopleSearchNavigator: {
       screen: PeopleSearchNavigator,
       navigationOptions: {
-        tabBarLabel: 'SEARCH',
+        tabBarLabel: 'PEOPLE SEARCH',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
             name="md-search"
@@ -352,7 +489,7 @@ const BottomNavigator = createBottomTabNavigator(
     FamilyConnections: {
       screen: FamilyConnectionsNavigator,
       navigationOptions: {
-        tabBarLabel: 'CONNECTIONS',
+        tabBarLabel: 'FAMILY CONNECTIONS',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
             name="md-people"
@@ -363,7 +500,7 @@ const BottomNavigator = createBottomTabNavigator(
     },
 
     MoreNavigator: {
-      screen: DrawerNavigator,
+      screen: CustomDrawerNavigator,
       navigationOptions: {
         tabBarLabel: 'MORE',
         tabBarIcon: ({ tintColor }) => (
@@ -373,7 +510,6 @@ const BottomNavigator = createBottomTabNavigator(
             color={tintColor}
           />
         ),
-        tabBarOnPress: (props) => props.navigation.toggleDrawer()
       },
     },
   },
@@ -396,17 +532,17 @@ const BottomNavigator = createBottomTabNavigator(
 
 
 const AppBottomSwitchNavigator = createSwitchNavigator({
-  More: { screen: BottomNavigator },
-  About: { screen: DrawerNavigator },
-  // Impact: { screen: DrawerNavigator },
-  MyProfile: { screen: DrawerNavigator },
-  Support: { screen: DrawerNavigator },
-  PrivacyPolicy: { screen: DrawerNavigator },
-  TermsOfService: { screen: DrawerNavigator },
-  About: { screen: DrawerNavigator },
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
-  Authentication: { screen: DrawerNavigator },
+  More: { screen: CustomDrawerNavigator },
+  // About: { screen: DrawerNavigator },
+  // Impact: { screen: DrawerNavigator },
+  // MyProfile: { screen: DrawerNavigator },
+  // Support: { screen: DrawerNavigator },
+  // PrivacyPolicy: { screen: DrawerNavigator },
+  // TermsOfService: { screen: DrawerNavigator },
+  // About: { screen: DrawerNavigator },
+  // Authentication: { screen: DrawerNavigator },
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);

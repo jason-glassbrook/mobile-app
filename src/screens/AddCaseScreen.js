@@ -47,7 +47,7 @@ export default function AddCaseScreen(props) {
     //handle the changes to the form
     function handleChange(e) {
         setCaseInput({ ...caseInput, [e.target.name]: e.target.value })
-        console.log(caseInput)
+
     }
 
     return (

@@ -53,7 +53,7 @@ const AddEngagementForm = props => {
   //set type of engagement
   useEffect(() => {
     
-    setPerson(props.id)
+    setPerson(props.navigation.getParam('id'))
 
     const dataTypeHelper = (type) => {
       if (type === 'N') {
@@ -127,7 +127,7 @@ const AddEngagementForm = props => {
         </View> : null}
         <View 
           style={{
-            minHeight: noteSizeHelper(dataType),
+            height: noteSizeHelper(dataType),
             marginBottom: 5,
             width: '100%',
             backgroundColor: 'white',
@@ -147,8 +147,8 @@ const AddEngagementForm = props => {
             name="note"
             style={{ 
               padding: 4, 
-              paddingRight: 80, 
-              paddingBottom: noteSizeHelper(dataType), 
+              width: '100%', 
+              height: '100%',
               fontSize: 15
             }}
             textAlignVertical='top'
@@ -208,8 +208,8 @@ const AddEngagementForm = props => {
             <TouchableOpacity 
               style={styles.saveButton}
               onPress={() => {
-                // console.log('the id is referring to', props.id)
-                props.postConnectionEngagements(props.id, note, subject, props.data_type, dueDate, isPublic)
+                props.postConnectionEngagements(person, note, subject, props.navigation.getParam('data_type'), dueDate, isPublic)
+                props.navigation.goBack()
               }}
             >
               <Text style={styles.buttonText}>SAVE</Text>

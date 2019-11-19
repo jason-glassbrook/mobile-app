@@ -23,13 +23,13 @@ const getNewAccessToken = async () => {
     .then(async res => {
       await SecureStore.setItemAsync('cok_access_token', res.data.access_token);
       await SecureStore.setItemAsync('cok_id_token', res.data.id_token);
-      // console.log('Res.Data', res.data);
+
       return res.data;
     })
     .catch(err => console.log(err))
 
     const cok_access_token = await SecureStore.getItemAsync('cok_access_token')
-    console.log('New Access Token', cok_access_token)
+
 }
 
 export default getNewAccessToken;

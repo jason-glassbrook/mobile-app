@@ -29,14 +29,11 @@ class SearchForm extends Component {
   };
 
   componentDidUpdate(prevProps, prevState) {
-    // console.log('SF CDU', this.props);
     if (this.props.searchMe && this.props.queryType) {
       this.inputHandler(this.props.queryType, this.props.info);
       this.handleFormSubmit();
       this.props.stopSearchMe();
-      // console.log('Search Success');
     }
-    // console.log('its not starting');
   }
 
   inputHandler = (name, value) => {
@@ -78,7 +75,6 @@ class SearchForm extends Component {
     const inputObj = this.findInputWithLength();
 
     if (!inputObj) {
-      // console.log('No input');
       return;
     }
 
@@ -144,7 +140,6 @@ class SearchForm extends Component {
     if (name && input) {
       return { [name]: input };
     } else {
-      // console.log('Something went wrong!');
     }
   };
 
@@ -191,7 +186,7 @@ class SearchForm extends Component {
         break;
 
       default:
-        // console.log('Something happened ERROR');
+
         break;
     }
     return person;
