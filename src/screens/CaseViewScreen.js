@@ -299,7 +299,7 @@ export function CaseViewScreen(props) {
               height: 36,
               borderTopLeftRadius: 4,
               borderTopRightRadius: 4,
-              backgroundColor: '#0F6580',
+              backgroundColor: constants.highlightColor,
               // borderWidth: 0.5,
               // borderColor: '#0F6580',
               justifyContent: 'center',
@@ -307,7 +307,7 @@ export function CaseViewScreen(props) {
               flexDirection: 'row'
             }}>
               <View>
-                <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#E5E4E2' }}>Connections</Text>
+                <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#FFFFFF' }}>Connections</Text>
               </View>
             </View>
             <SearchBar
@@ -351,6 +351,7 @@ export function CaseViewScreen(props) {
                     <CaseListComponent
                       pressed={() => {
                         props.navigation.navigate('ConnectionsView', { connectionData: connection, childName: caseData.full_name })
+                        setIsScrolling(false)
                       }}
                       key={index}
                       connection={connection} />

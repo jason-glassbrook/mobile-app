@@ -25,7 +25,8 @@ const Login = props => {
             ? 'Welcome back, ' + props.idToken.given_name + '!'
             : 'Welcome to Connect Our Kids!'}
         </Text>
-        <Divider style={{width: '100%', height: 1.25, backgroundColor: '#E5E4E2', marginTop: 10, marginBottom: 10}} />    
+        {props.isLoggedIn && props.idToken && props.idToken.email ?
+        <Divider style={{width: '100%', height: 1, backgroundColor: '#E5E4E2', marginTop: 20, marginBottom: 6}} /> : null}   
       </View>
       
       {props.isLoggedIn && props.idToken &&

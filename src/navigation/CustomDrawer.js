@@ -58,7 +58,7 @@ const CustomDrawer = (props) => {
         <>
         
             <Divider
-            style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
+            style={{ height: 1, backgroundColor: "lightgray", marginLeft: 15, marginRight: 15 }}
             />
             <TouchableOpacity 
                 style={styles.links} 
