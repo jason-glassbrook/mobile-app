@@ -78,7 +78,6 @@ function ConnectionsView(props) {
       height: 36,
       fontSize: 17.5,
       textAlign: 'center',
-      // paddingTop: 8,
       backgroundColor: '#E5E4E2'
     },
 
@@ -92,7 +91,6 @@ function ConnectionsView(props) {
       height: 36,
       fontSize: 17.5,
       textAlign: 'center',
-      // paddingTop: 8,
       backgroundColor: '#E5E4E2'
     },
 
@@ -121,7 +119,6 @@ function ConnectionsView(props) {
     },
 
     iconContainer: {
-      // backgroundColor: '#E5E4E2',
       height: 45,
       width: 45,
       borderRadius: 22.5,
@@ -131,7 +128,6 @@ function ConnectionsView(props) {
 
     iconStyles: {
       fontSize: 28,
-      // backgroundColor: '#E5E4E2',
       color: '#0F6580',
       width: 28,
       height: 28,
@@ -166,8 +162,6 @@ function ConnectionsView(props) {
             bottom: 15,
             right: 38,
             backgroundColor: 'white', 
-            // borderWidth: 1, 
-            // borderColor: 'lightgray',
             padding: 8,
             borderRadius: 35
           }}
@@ -187,26 +181,7 @@ function ConnectionsView(props) {
       onScrollToTop={() => setIsScrolling(false)}
       scrollEventThrottle={16}
     >
-      {/* <TouchableOpacity
-        underlayColor="lightgray"
-        style={{ padding: 7.5 }}
-        onPressIn={() => {
-          props.navigation.goBack()
-        }}
-      >
-        <Text
-          style={{
-            paddingTop: 10,
-            paddingBottom: 10,
-            marginLeft: 5,
-            fontSize: 20,
-            color: '#0F6580'
-          }}
-        >
-          {leftArrow} {props.navigation.getParam('childName').toUpperCase()}
-        </Text>
-      </TouchableOpacity> */}
-
+      
       <View>
         <ListItem
           title={connectionData.full_name}
@@ -268,8 +243,6 @@ function ConnectionsView(props) {
         <View
           style={{
             borderRadius: 4,
-            // borderColor: '#0F6580',
-            // borderWidth: 0.5,
             width: '100%',
             alignItems: 'flex-start',
             justifyContent: 'flex-start',
@@ -310,8 +283,6 @@ function ConnectionsView(props) {
               <View 
                 style={{ 
                   width: '100%', 
-                  // borderWidth: 0.5, 
-                  // borderColor: '#E5E4E2', 
                   minHeight: 350 
                 }}
               >
@@ -321,7 +292,6 @@ function ConnectionsView(props) {
                     justifyContent: 'space-evenly',
                     alignItems: 'center',
                     marginTop: 12,
-                    // marginBottom: 12
                   }}
                 >
                   <View style={styles.iconLabelContainer}>
@@ -351,14 +321,12 @@ function ConnectionsView(props) {
                           name='phone'
                           style={{
                             fontSize: 28,
-                            // backgroundColor: '#E5E4E2',
                             color: '#0F6580',
                             width: 28,
                             height: 28,
                             marginHorizontal: 10,
                             transform: [{ rotate: '-90deg' }]
                           }}
-                        // iconStyles={{}}
                         />
                       </TouchableOpacity>
                     </View>
@@ -398,7 +366,6 @@ function ConnectionsView(props) {
                   </View>
                 </View>
 
-                {/* <ScrollView style={{ maxHeight: '70%' }}> */}
                   <View>
                     {
                       engagementsNoDocuments.map((engagement) => {
@@ -409,26 +376,22 @@ function ConnectionsView(props) {
 
                       })}
                   </View>
-                {/* </ScrollView> */}
               </View>
               : null
           }
 
           {
             tabs.docs ?
-              // <View style={{borderWidth: 2}}>
               <View 
                 style={{ 
                   minHeight: 350, 
-                  // borderWidth: 0.5, 
-                  // borderColor: '#E5E4E2', 
+ 
                   width: '100%' 
                   }}
               >
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                   <TouchableOpacity
                     onPress={() => {
-                      // setAddDocVisible(true)
                       props.navigation.navigate('DocumentForm', {id: connectionData.pk})
                     }}
                     style={{ 
@@ -458,16 +421,6 @@ function ConnectionsView(props) {
           }
         </View>
       </View>
-      {/* <Modal
-        visible={formVisible}
-      >
-        <AddEngagementForm closeForm={() => { setFormVisible(false) }} data_type={engagementType} id={connectionData.pk} />
-      </Modal> */}
-      {/* <Modal
-        visible={addDocVisible}
-      >
-        <AddDocForm closeForm={() => { setAddDocVisible(false) }} id={connectionData.pk} />
-      </Modal> */}
     </ScrollView>
     </View>
   );

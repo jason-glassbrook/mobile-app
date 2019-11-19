@@ -9,6 +9,9 @@ export const POST_CONNECTION_DOCUMENT_SUCCESS = "POST_CONNECTION_DOCUMENT_SUCCES
 export const POST_CONNECTION_DOCUMENT_FAILURE = "POST_CONNECTION_DOCUMENT_FAILURE";
 export const CLEAR_CONNECTION_ENGAGEMENTS = "CLEAR_CONNECTION_ENGAGEMENTS";
 
+// this action grabs all the engagements for a specified connection
+
+// define familyConnectionsURL from environment for axios calls
 const { familyConnectionsURL } = getEnvVars()
 
 export const postConnectionEngagements = (id, note, subject, dataType, dueDate, isPublic) => dispatch => {
@@ -41,7 +44,7 @@ export const postConnectionEngagements = (id, note, subject, dataType, dueDate, 
                     });
                 })
                 .catch(error => {
-                    // console.log(error, error.response, error.response.data);
+
                     dispatch({
                         type: POST_CONNECTION_ENGAGEMENTS_FAILURE,
                         payload: error.data

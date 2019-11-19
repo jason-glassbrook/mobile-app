@@ -23,7 +23,6 @@ import {
   showModal,
   getInfo
 } from '../store/actions';
-// import { createEvent } from '../helpers/createEvent';
 import headerConfig from '../helpers/headerConfig';
 import constants from '../helpers/constants';
 import PersonInfo from '../components/Person/PersonInfo';
