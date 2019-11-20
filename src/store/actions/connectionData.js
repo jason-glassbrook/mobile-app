@@ -11,8 +11,9 @@ export const GET_DOCUMENTS_SUCCESS = "GET_DOCUMENTS_SUCCESS";
 export const GET_DOCUMENTS_FAILURE = "GET_DOCUMENTS_FAILURE";
 export const CLEAR_DOCUMENTS = "CLEAR_DOCUMENTS";
 
-//grab the history of engagments between specific child and person
+// this action grabs the history of engagments between specific child and person
 
+// define familyConnectionsURL from environment for axios calls
 const { familyConnectionsURL } = getEnvVars()
 
 export const getEngagements = (id) => dispatch => {
@@ -26,14 +27,14 @@ export const getEngagements = (id) => dispatch => {
                     }
                 })
                 .then(res => {
-                    // console.log('GET ENGAGEMENTS RESPONSE', res.data.results);
+
                     dispatch({
                         type: GET_ENGAGEMENTS_SUCCESS,
                         payload: res.data.results
                     });
                 })
                 .catch(err => {
-                    // console.log(err);
+
                     dispatch({
                         type: GET_ENGAGEMENTS_FAILURE,
                         payload: err.response

@@ -17,12 +17,6 @@ const initialState = {
     docsError: ''
 };
 
-// const initialDocState = {
-//     data: {},
-//     isLoadingDocs: false,
-//     docsError: ''
-// }
-
 export const connectionEngagementsReducer = (state = initialState, action) => {
     switch (action.type) {
         case POST_CONNECTION_ENGAGEMENTS_START:
@@ -72,30 +66,3 @@ export const connectionEngagementsReducer = (state = initialState, action) => {
     }
 };
 
-// export const connectionDocumentsReducer = (state = initialDocState, action) => {
-//     switch (action.type) {
-//         case POST_CONNECTION_DOCUMENT_START:
-//             return {
-//                 ...state,
-//                 isLoadingDocs: true,
-//                 docsError: ""
-//             };
-
-//         case POST_CONNECTION_DOCUMENT_SUCCESS:
-//             return {
-//                 ...state,
-//                 isLoadingDocs: false,
-//                 data: { ...action.payload }
-//             };
-
-//         case POST_CONNECTION_DOCUMENT_FAILURE:
-//             return {
-//                 ...state,
-//                 isLoadingDocs: false,
-//                 docsError: "Error adding document. Please try again later."
-//             };
-
-//         default:
-//             return state;
-//     }
-// };

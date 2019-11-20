@@ -167,11 +167,11 @@ export function CaseViewScreen(props) {
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#CC0000')
       }
       if (!filtersSelected[4]) {
-
+        //if filter4 not selected, remove everyone with filter4
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#9900FF')
       }
       if (!filtersSelected[5]) {
-        //if filter1 not selected, remove everyone with filter1
+        //if filter5 not selected, remove everyone with filter5
         filteredList = filteredList.filter((connection) => connection.person.status.color.toUpperCase() !== '#6FA8DC')
       }
       if (filtersSelected[0]) {
@@ -221,25 +221,7 @@ export function CaseViewScreen(props) {
         onScrollToTop={() => setIsScrolling(false)}
         scrollEventThrottle={16}
       >
-        {/* <TouchableOpacity
-          underlayColor="lightgray"
-          style={{ padding: 7.5 }}
-          onPressIn={() => {
-            props.navigation.goBack()
-          }}
-        >
-          <Text
-            style={{
-              paddingTop: 10,
-              paddingBottom: 10,
-              marginLeft: 5,
-              fontSize: 20,
-              color: '#0F6580'
-            }}
-          >
-            {leftArrow} ALL CASES
-            </Text>
-        </TouchableOpacity> */}
+        
         <View>
           <ListItem
             title={caseData.full_name}
@@ -260,7 +242,6 @@ export function CaseViewScreen(props) {
                 overflow: 'hidden'}}>
                 {caseData.picture ?
                 (<Image 
-                  // defaultSource={{uri: }}
                   source={{uri: caseData.picture }} 
                   style={{
                     height: 80, 
@@ -269,7 +250,6 @@ export function CaseViewScreen(props) {
                     overflow: 'hidden'}} 
                 />) :
                 (<Image 
-                  // defaultSource={{uri: }}
                   source={placeholderImg} 
                   style={{
                     height: 80, 
@@ -288,10 +268,6 @@ export function CaseViewScreen(props) {
               flexDirection: "column",
               width: '95%',
               minHeight: 350,
-              // borderTopLeftRadius: 4,
-              // borderTopRightRadius: 4,
-              // borderWidth: 0.5,
-              // borderColor: '#E5E4E2',
             }}
           >
             <View style={{
@@ -300,8 +276,6 @@ export function CaseViewScreen(props) {
               borderTopLeftRadius: 4,
               borderTopRightRadius: 4,
               backgroundColor: constants.highlightColor,
-              // borderWidth: 0.5,
-              // borderColor: '#0F6580',
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row'

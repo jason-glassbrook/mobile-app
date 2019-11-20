@@ -1,3 +1,5 @@
+// This is your main screen for Family Connections
+
 import React, { Component, useState, useEffect } from "react"
 import {
   SafeAreaView,
@@ -32,19 +34,12 @@ import {
 } from "react-native-elements";
 import * as SecureStore from 'expo-secure-store';
 import { MaterialIcons } from '@expo/vector-icons';
-
-// import { Picker } from 'react-native-picker-dropdown';
 import constants from "../helpers/constants";
-
-// import screen components
-// discontinued work on AddCaseScreen. Button and Modal also commented out below
-// import AddCaseScreen from "./AddCaseScreen";
 import CaseViewScreen from "./CaseViewScreen.js";
 import ConnectionsLogin from "../components/Authentication/ConnectionsLogin"
 import Loader from "../components/Loader/Loader";
 import ScrollToTop from '../UI/ScrollToTop';
 import moment from "moment";
-
 
 const FamilyConnectionsScreen = (props) => {
 
@@ -77,7 +72,6 @@ const FamilyConnectionsScreen = (props) => {
   const [options, setOptions] = useState({ x: 0, y: 0, animated: true })
   const [a, setA] = useState(null)
 
-
   const genderAssignment = (gender) => {
     if (gender === 'M') {
       return 'Male'
@@ -90,18 +84,9 @@ const FamilyConnectionsScreen = (props) => {
     }
   }
 
-  // scrollTo(options? : {x?: number, y?: number, animated?: boolean} | number,);
-
   const goToTop = () => {
-
     scroll.scrollTo(options);
   }
-
-  // useEffect(() => {
-  //   if (scrollLocation <= 100) {
-  //     setIsScrolling(false)
-  //   }
-  // }, [scrollLocation])
 
   useEffect(() => {
     props.authChecker()
@@ -260,7 +245,6 @@ const FamilyConnectionsScreen = (props) => {
               <View
                 style={{
                   marginTop: 100,
-                  // justifyContent: "space-evenly",
                   alignSelf: "left"
                 }}
               >
@@ -297,7 +281,6 @@ const FamilyConnectionsScreen = (props) => {
                   title="Female"
                   size={16}
                   checked={state.filters.female}
-                  // onPress={checkHandler}
                   onPress={() =>
                     setState({
                       ...state,
@@ -327,10 +310,6 @@ const FamilyConnectionsScreen = (props) => {
                     })
                   }
                 />
-
-                {/* <Divider
-                style={{ height: 1, backgroundColor: "lightgray", margin: 20 }}
-              /> */}
 
                 <Text
                   style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
@@ -484,7 +463,6 @@ const FamilyConnectionsScreen = (props) => {
                             />
                           </View>
                         }
-                        // leftAvatar={{ defaultSource: { uri: result.picture } }}
                         to pDivider={true}
                         onPress={() => {
                           props.navigation.navigate('CaseView', { pk: result.pk, caseData: result })
@@ -503,7 +481,6 @@ const FamilyConnectionsScreen = (props) => {
           setModalVisible={props.setModalVisible}
         />
   )
-
 } // end of FamilyConnectionsScreen
 
 const styles = StyleSheet.create({

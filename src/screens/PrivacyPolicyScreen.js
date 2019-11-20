@@ -41,15 +41,3 @@ export default connect(
 
 
 
-
-// ***withNavigation***
-//return (<Button title='Back' onPress{() => {navigation.goBack()}}/>)
-//export default withNavigation(PrivacyPolicyScreen)
-
-// ***NavigationActions.back***        
-// const backAction = NavigationActions.back({
-//     key: 'FamilyConnectionsScreen'
-// });
-// return (
-//     navigation.dispatch(backAction)
-// );

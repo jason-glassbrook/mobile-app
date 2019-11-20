@@ -33,7 +33,13 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm'
 import logoImg from '../../assets/logo.png';
 import CustomDrawer from './CustomDrawer'
 
+// This is the primary NAVIGATION file. Everything in this file determines how to navigate around through the Bottom Navbar and "More" Drawer.
+// If you add new screens into the app, you'll need to add them into the appropriate stacks below in order for React Navigation to know how to route the user.
+// refer to React navigation docs for more details: https://reactnavigation.org/docs/en/bottom-tab-navigator.html
+// Custom drawer code can be found in navigation > CustomDrawer.js
+
 const leftArrow = '\u2190';
+
 //Following StackNavigators are in BottomNav:
 const FamilyConnectionsNavigator = createStackNavigator(
   {
@@ -62,15 +68,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
     CaseView: {
       screen: CaseViewScreen,
       initialRouteName: 'FamilyConnections',
-      // defaultNavigationOptions: {
-      //   headerStyle: {
-      //     height: constants.headerHeight,
-      //     backgroundColor: constants.highlightColor
-      //   }
-      // },
-      
       navigationOptions: ({navigation}) => {
-
         return {
         headerStyle: {
           backgroundColor: 'white',
@@ -102,19 +100,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
     ConnectionsView: {
       screen: ConnectionsView,
       initialRouteName: 'FamilyConnections',
-      // defaultNavigationOptions: {
-      //   headerStyle: {
-      //     height: constants.headerHeight,
-      //     backgroundColor: constants.highlightColor
-      //   }
-      // },
-      // navigationOptions: {
-      //   headerStyle: {
-      //     backgroundColor: 'white',
-      //     height: 52
-      //   },
         navigationOptions: ({navigation}) => {
-
           return {
           headerStyle: {
             backgroundColor: 'white',
@@ -141,7 +127,6 @@ const FamilyConnectionsNavigator = createStackNavigator(
               </Text>
             </TouchableOpacity>)
         }}
-      
     },
     EngagementForm: {
       screen: AddEngagementForm,
@@ -153,7 +138,6 @@ const FamilyConnectionsNavigator = createStackNavigator(
         }
       },
       navigationOptions: ({navigation}) => {
-        
         return {
           headerStyle: {
           backgroundColor: 'white',
@@ -189,8 +173,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
           backgroundColor: constants.highlightColor
         }
       },
-      navigationOptions: ({navigation}) => {
-        
+      navigationOptions: ({navigation}) => {  
         return {
           headerStyle: {
           backgroundColor: 'white',
@@ -356,133 +339,8 @@ const CustomDrawerNavigator = createStackNavigator({
   },
 })
 
-const MyAccountNavigator = createStackNavigator({
-  MyAccount: {
-    screen: AuthenticationView,
-    initialRouteName: 'MyAccount',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    },
-    navigationOptions: {
-      headerStyle: {
-        backgroundColor: 'white',
-        height: 52
-      },
-      headerTitle:
-        (<Image
-          source={logoImg}
-          style={{ width: 225, height: 90 }}
-          resizeMode="contain"
-        />)
-    }
-  },
-})
-
-const AboutNavigator = createStackNavigator(
-  {
-    About: {
-      screen: AboutScreen,
-      // initialRouteName: 'About',
-      defaultNavigationOptions: {
-        headerStyle: {
-          height: constants.headerHeight,
-          backgroundColor: constants.highlightColor
-        }
-      }
-    },
-  }
-);
-
-const SupportNavigator = createStackNavigator({
-  Support: {
-    screen: SupportScreen,
-    // initialRouteName: 'Support',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    },
-  },
-})
-
-// const ImpactNavigator = createStackNavigator({
-//   Impact: {
-//     screen: ImpactScreen,
-//     // initialRouteName: 'Impact',
-//     defaultNavigationOptions: {
-//       headerStyle: {
-//         height: constants.headerHeight,
-//         backgroundColor: constants.highlightColor,
-//       }
-//     },
-//   },
-// })
-
-const PrivacyPolicyNavigator = createStackNavigator({
-  PrivacyPolicy: {
-    screen: PrivacyPolicyScreen,
-    // initialRouteName: 'PrivacyPolicy',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    },
-  },
-})
-
-const TermsOfServiceNavigator = createStackNavigator({
-  Terms: {
-    screen: TermsOfServiceScreen,
-    // initialRouteName: 'TermsOfService',
-    defaultNavigationOptions: {
-      headerStyle: {
-        height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
-      }
-    },
-  },
-})
-
-const DrawerNavigator = createDrawerNavigator({
-  'My Account': {
-    screen: MyAccountNavigator,
-  },
-  'About': {
-    screen: AboutNavigator,
-  },
-  // 'Impact Dashboard': {
-  //   screen: ImpactNavigator,
-  // },
-  'Support': {
-    screen: SupportNavigator,
-  },
-  'Privacy Policy': {
-    screen: PrivacyPolicyNavigator,
-  },
-  'Terms of Service': {
-    screen: TermsOfServiceNavigator,
-  },
-  'Log Out': {
-    screen: MyAccountNavigator,
-  }
-},
-  {
-    drawerPosition: 'right',
-    drawerType: 'front',
-    drawerWidth: '100%',
-    hideStatusBar: true,
-    contentOptions: {
-      activeTintColor: constants.highlightColor,
-      // DrawerItems: onItemPress('Terms', () => Linking.openUrl('https://www.connectourkids.org/terms'))
-    },
-    // contentComponent: (props) => <CustomDrawer {...props} />
-  })
-
+// BottomNavigator determines the items/icons that show on the very bottom of the app. 
+// 'People Search', 'Family Connections', and 'More'
 const BottomNavigator = createBottomTabNavigator(
   {
     PeopleSearchNavigator: {
@@ -542,19 +400,10 @@ const BottomNavigator = createBottomTabNavigator(
     }
   })
 
-
 const AppBottomSwitchNavigator = createSwitchNavigator({
   FamilyConnections: { screen: BottomNavigator },
   PeopleSearch: { screen: BottomNavigator },
   More: { screen: CustomDrawerNavigator },
-  // About: { screen: DrawerNavigator },
-  // Impact: { screen: DrawerNavigator },
-  // MyProfile: { screen: DrawerNavigator },
-  // Support: { screen: DrawerNavigator },
-  // PrivacyPolicy: { screen: DrawerNavigator },
-  // TermsOfService: { screen: DrawerNavigator },
-  // About: { screen: DrawerNavigator },
-  // Authentication: { screen: DrawerNavigator },
 });
 
 const AppContainer = createAppContainer(AppBottomSwitchNavigator);

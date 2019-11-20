@@ -6,6 +6,9 @@ export const GET_CASE_CONNECTIONS_SUCCESS = "GET_CASE_CONNECTIONS_SUCCESS";
 export const GET_CASE_CONNECTIONS_FAILURE = "GET_CASE_CONNECTIONS_FAILURE";
 export const CLEAR_CASE_CONNECTIONS = "CLEAR_CASE_CONNECTIONS";
 
+// this action grabs all connections for a specified case
+
+// define familyConnectionsURL from environment for axios calls
 const { familyConnectionsURL } = getEnvVars()
 
 export const getCaseConnections = (pk) => dispatch => {
@@ -19,14 +22,14 @@ export const getCaseConnections = (pk) => dispatch => {
                     }
                 })
                 .then(res => {
-                    // console.log(res);
+
                     dispatch({
                         type: GET_CASE_CONNECTIONS_SUCCESS,
                         payload: res.data.results
                     });
                 })
                 .catch(err => {
-                    // console.log(err);
+
                     dispatch({
                         type: GET_CASE_CONNECTIONS_FAILURE,
                         payload: err.response
