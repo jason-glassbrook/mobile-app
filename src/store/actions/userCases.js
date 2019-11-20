@@ -25,7 +25,7 @@ export const getUserCases = () => dispatch => {
 
                 dispatch({
                     type: GET_USER_CASES_SUCCESS,
-                    payload: response.data,
+                    payload: response.data.results,
                 });
             })
             .catch(error => {

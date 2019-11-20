@@ -23,11 +23,11 @@ export const getUserCasesReducer = (state = initialState, action) => {
             };
 
         case GET_USER_CASES_SUCCESS:
-
             return {
                 ...state,
                 isLoading: false,
-                ...action.payload
+                // ...action.payload,
+                results: [...action.payload]
             };
 
         case GET_USER_CASES_FAILURE:

@@ -70,7 +70,6 @@ const FamilyConnectionsScreen = (props) => {
   const [state, setState] = useState(initialState)
   const [isScrolling, setIsScrolling] = useState(false)
   const [options, setOptions] = useState({ x: 0, y: 0, animated: true })
-  const [a, setA] = useState(null)
 
   const genderAssignment = (gender) => {
     if (gender === 'M') {
@@ -89,9 +88,11 @@ const FamilyConnectionsScreen = (props) => {
   }
 
   useEffect(() => {
-    props.authChecker()
-    props.getUserCases()
-  }, [props.loadingUser, props.accessToken])
+    if (!props.results[0]) {
+      props.authChecker()
+      props.getUserCases()
+    }
+  }, [props.results]) 
 
   const setModalVisible = (visible) => {
     setState({ ...state, modalVisible: visible });
