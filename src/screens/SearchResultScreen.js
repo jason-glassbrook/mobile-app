@@ -81,7 +81,7 @@ class SearchResultScreen extends React.Component {
 
       fetchPerson(
         JSON.stringify(requestObject),
-        this.props.user ? this.props.user.email : null
+        this.props.user ? this.props.user.email : null,
       );
     }
   }
