@@ -34,8 +34,7 @@ const ENV = {
     auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
     auth0Audience: 'https://family.connectourkids.org/api/v1/',
     // auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
-    // auth0RedirectScheme: 'connectourkids://127.0.0.1:19000/--/expo-auth-session',
-    auth0RedirectScheme: 'exp://127.0.0.1:19000/--/expo-auth-session',
+    auth0RedirectScheme: 'connectourkids://127.0.0.1:19000/--/expo-auth-session',
     familyConnectionsURL: 'https://family.connectourkids.org',
     peopleSearchURL: 'https://search.connectourkids.org/api/search-v2',
     eventTrackingURL: 'https://search.connectourkids.org/api/sendEvent'
