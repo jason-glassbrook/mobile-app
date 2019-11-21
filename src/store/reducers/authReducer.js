@@ -4,7 +4,9 @@ import {
   SET_MODAL_VISIBLE,
   SET_VIDEO_AGREE_VISIBLE,
   SET_VIDEO_PLAYER_VISIBLE,
-  SET_LOGGED_IN_TRUE
+  SET_LOGGED_IN_STATUS,
+  SET_ACCESS_TOKEN,
+  SET_ID_TOKEN
 } from './../actions/actionTypes';
 import * as SecureStore from 'expo-secure-store';
 import {clearUserCases} from './userCasesReducer';
@@ -13,7 +15,7 @@ const initialState = {
   user: null,
   error: null,
   isLoggedIn: false,
-  loadingUser: false,
+  loadingUser: true,
   accessToken: null,
   expiresIn: null,
   idToken: null,
@@ -35,13 +37,26 @@ export const authReducer = (state = initialState, action) => {
         error: null,
         loadingUser: true
       };
-    case SET_LOGGED_IN_TRUE: 
+      case SET_ID_TOKEN: 
       return {
         ...state,
-        isLoggedIn: true,
+        // isLoggedIn: true,
         idToken: action.payload,
-        loadingUser: true
+        // loadingUser: true
       }
+      case SET_ACCESS_TOKEN: 
+      return {
+        ...state,
+        // isLoggedIn: true,
+        accessToken: action.payload,
+        // loadingUser: true
+      }
+      case SET_LOGGED_IN_STATUS: 
+        return {
+          ...state,
+          isLoggedIn: action.payload,
+          loadingUser: false
+        }
     case SET_MODAL_VISIBLE:
       return {
         ...state,
