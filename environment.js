@@ -32,7 +32,7 @@ const ENV = {
   prod: {
     auth0Domain: `login.connectourkids.org`,
     auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
-    auth0Audience: 'https://family.connectourkids.org/api/v1/', // 'https://search.connectourkids.org/api/' this is for People Search
+    auth0Audience: 'https://api.connectourkids.org/',
     auth0RedirectScheme: 'connectourkids://127.0.0.1:19000/--/expo-auth-session',
     familyConnectionsURL: 'https://family.connectourkids.org',
     peopleSearchURL: 'https://search.connectourkids.org/api/search-v2',
