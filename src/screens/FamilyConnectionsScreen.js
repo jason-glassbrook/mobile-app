@@ -87,7 +87,6 @@ const FamilyConnectionsScreen = (props) => {
     // if (!props.results[0]) {
       props.authChecker()
       props.getUserCases()
-      console.log('User Cases', props.results)
     // }
   }, [props.loadingUser]) 
 

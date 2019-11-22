@@ -26,28 +26,19 @@ export const authChecker = () => dispatch => {
   SecureStore.getItemAsync('cok_access_token')
     .then(res => {
       if (res) {
-        // const decodedIdToken = jwtDecode(res)
-        // const accessToken = res        
         dispatch({ type: SET_ACCESS_TOKEN, payload: res })
-        console.log('we checked for access token', res)
-        // return accessToken
         SecureStore.getItemAsync('cok_id_token')
         .then(res => {
           if (res) {
             const decodedIdToken = jwtDecode(res)
             dispatch({ type: SET_ID_TOKEN, payload: decodedIdToken })
-            console.log('we checked for id token', decodedIdToken)
-            // dispatch({ type: SET_ACCESS_TOKEN, payload: accessToken})
             dispatch({ type: SET_LOGGED_IN_STATUS, payload: true })
-            console.log('set logged in true')
           } else {
             dispatch({ type: SET_LOGGED_IN_STATUS, payload: false })
-            console.log('set logged in false')
           }
         })
       } else {
         dispatch({ type: SET_LOGGED_IN_STATUS, payload: false })
-        console.log('logged out at access token')
       }
     })
   .catch(err => console.log(err))
