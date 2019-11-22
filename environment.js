@@ -13,6 +13,7 @@ const ENV = {
   dev: {
     auth0Domain: 'login.connectourkids.org',
     auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
+    auth0Audience: 'https://api-staging.connectourkids.org/',
     familyConnectionsURL: 'https://family-staging.connectourkids.org',
     auth0RedirectScheme: 'exp://127.0.0.1:19000/--/expo-auth-session',
     peopleSearchURL: 'https://dev.search.connectourkids.org/api/search-v2',
@@ -21,6 +22,7 @@ const ENV = {
   staging: {
     auth0Domain: 'login.connectourkids.org',
     auth0ClientId: '3dKTXilDyoCV3YP06e90059KI6bPERYQ',
+    auth0Audience: 'https://api-staging.connectourkids.org/',
     familyConnectionsURL: 'https://family-staging.connectourkids.org',
     auth0RedirectScheme: 'exp://127.0.0.1:19000/--/expo-auth-session',
     peopleSearchURL: 'https://dev.search.connectourkids.org/api/search-v2',
@@ -30,6 +32,7 @@ const ENV = {
   prod: {
     auth0Domain: `login.connectourkids.org`,
     auth0ClientId: 'QzXVCpRPy4m6IOPpm6Jl644nQIvpTknR',
+    auth0Audience: 'https://api.connectourkids.org/',
     auth0RedirectScheme: 'connectourkids://127.0.0.1:19000/--/expo-auth-session',
     familyConnectionsURL: 'https://family.connectourkids.org',
     peopleSearchURL: 'https://search.connectourkids.org/api/search-v2',

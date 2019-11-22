@@ -327,7 +327,7 @@ const mapStateToProps = state => {
   } = state.people;
   const {
     // accessToken,
-    idToken,
+    // idToken,
     isLoggedIn,
     user,
     modalVisible,
@@ -337,7 +337,7 @@ const mapStateToProps = state => {
   return {
     // accessToken,
     error,
-    idToken,
+    // idToken,
     isFetching,
     isLoggedIn,
     person,

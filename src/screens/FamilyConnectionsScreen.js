@@ -23,7 +23,6 @@ import {
   setModalVisible,
   authChecker
 } from "../store/actions"
-import axios from "axios";
 import {
   ListItem,
   Image,
@@ -32,14 +31,12 @@ import {
   CheckBox,
   Divider
 } from "react-native-elements";
-import * as SecureStore from 'expo-secure-store';
 import { MaterialIcons } from '@expo/vector-icons';
 import constants from "../helpers/constants";
 import CaseViewScreen from "./CaseViewScreen.js";
 import ConnectionsLogin from "../components/Authentication/ConnectionsLogin"
 import Loader from "../components/Loader/Loader";
 import ScrollToTop from '../UI/ScrollToTop';
-import moment from "moment";
 
 const FamilyConnectionsScreen = (props) => {
 
@@ -65,7 +62,6 @@ const FamilyConnectionsScreen = (props) => {
     caseVisible: false,
     addCaseModalVisible: true,
     pk: '',
-    isLoggedIn: false
   }
   const [state, setState] = useState(initialState)
   const [isScrolling, setIsScrolling] = useState(false)
@@ -88,11 +84,11 @@ const FamilyConnectionsScreen = (props) => {
   }
 
   useEffect(() => {
-    if (!props.results[0]) {
+    // if (!props.results[0]) {
       props.authChecker()
       props.getUserCases()
-    }
-  }, [props.results]) 
+    // }
+  }, [props.loadingUser]) 
 
   const setModalVisible = (visible) => {
     setState({ ...state, modalVisible: visible });
@@ -199,7 +195,7 @@ const FamilyConnectionsScreen = (props) => {
   });
 
   return (
-    props.isLoading ?
+    props.isLoadingCases ?
       <Loader /> :
       props.results[0] ?
         <SafeAreaView>
@@ -511,7 +507,7 @@ const mapStateToProps = state => {
   } = state.caseData;
   const {
     results,
-    isLoading,
+    isLoadingCases,
     caseDataError,
   } = state.userCases;
   const {
@@ -523,7 +519,7 @@ const mapStateToProps = state => {
     results,
     caseData,
     accessToken,
-    isLoading,
+    isLoadingCases,
     caseDataError,
     loadingUser
   };

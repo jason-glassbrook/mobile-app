@@ -301,7 +301,6 @@ const AddDocForm = props => {
                     <TouchableOpacity
                       style={styles.saveButton}
                       onPress={() => {
-                        console.log(props.navigation.getParam('id'), title, category, isPublic, notes, attachment)
                         props.postConnectionDocument(props.navigation.getParam('id'), title, category, isPublic, notes, attachment)
                         props.navigation.goBack()
                       }}

@@ -17,8 +17,6 @@ const { familyConnectionsURL } = getEnvVars()
 export const postConnectionEngagements = (id, note, subject, dataType, dueDate, isPublic) => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
-            console.log('accessToken', accessToken)
-            console.log('formState in reducer action', id, note, subject, dataType, isPublic)
             const body = {
                 data: {
                     note: note,
@@ -37,7 +35,6 @@ export const postConnectionEngagements = (id, note, subject, dataType, dueDate, 
                     },
                 })
                 .then(res => {
-                    console.log('res.data in actions', res.data);
                     dispatch({
                         type: POST_CONNECTION_ENGAGEMENTS_SUCCESS,
                         payload: res.data,
@@ -74,7 +71,6 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {          
             dispatch({ type: POST_CONNECTION_DOCUMENT_START });
-            console.log(createFormBody())
             axios
                 .post(`${familyConnectionsURL}/api/v1/documents/`, createFormBody(), {
                     headers: {
@@ -84,14 +80,12 @@ export const postConnectionDocument = (id, title, category, isPublic, notes, att
                     },
                 })
                 .then(res => {
-                    console.log('res in actions', res.data);
                     dispatch({
                         type: POST_CONNECTION_DOCUMENT_SUCCESS,
                         payload: res.data,
                     });
                 })
                 .catch(error => {
-                    console.log('ERROR', JSON.stringify(error));
                     dispatch({
                         type: POST_CONNECTION_DOCUMENT_FAILURE,
                         payload: error

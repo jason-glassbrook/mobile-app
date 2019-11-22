@@ -8,7 +8,7 @@ import getRefreshToken from './getRefreshToken'
 import getNewAccessToken from './getNewAccessToken'
 // import { verifier, challenge } from './auth0Verifiers'
 
-const { auth0Domain, auth0ClientId, auth0RedirectScheme } = getEnvVars();
+const { auth0Domain, auth0Audience, auth0ClientId, auth0RedirectScheme } = getEnvVars();
 
 const toQueryString = params => {
   return (
@@ -53,7 +53,7 @@ const initialLogin = async (AuthSession, setUserCreds) => {
   const queryParams = toQueryString({
     client_id: auth0ClientId,
     redirect_uri: auth0RedirectScheme,
-    audience: 'https://api-staging.connectourkids.org/',
+    audience: auth0Audience,
     response_type: 'code id_token token', // id_token will return a JWT token
     scope: 'offline_access openid profile email', // retrieve the user's profile
     device: Constants.deviceName,

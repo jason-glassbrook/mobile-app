@@ -16,23 +16,23 @@ export const getUserCases = () => dispatch => {
     .then((accessToken) => {
         dispatch({ type: GET_USER_CASES_START });
         axios
-            .get(`${familyConnectionsURL}/api/v1/cases/`, {
+            .get(`${familyConnectionsURL}/api/v1/cases/?page=1&page_size=100&status=Open`, {
                 headers: {
+                    Accept: 'application/json',
                     Authorization: `Bearer ${accessToken}`
                 }
             })
-            .then(response => {
-
+            .then(res => {
                 dispatch({
                     type: GET_USER_CASES_SUCCESS,
-                    payload: response.data.results,
+                    payload: res.data,
                 });
             })
             .catch(error => {
-
                 dispatch({
                     type: GET_USER_CASES_FAILURE,
-                    payload: error.response.data
+                    payload: error.response.data,
+                    
                 });
             }); 
     })

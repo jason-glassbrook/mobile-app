@@ -54,7 +54,7 @@ export const getDocuments = (id) => dispatch => {
         .then((accessToken) => {
             dispatch({ type: GET_DOCUMENTS_START });
             axios
-                .get(`https://family-staging.connectourkids.org/api/v1/person/${id}/documents/`, {
+                .get(`${familyConnectionsURL}/api/v1/person/${id}/documents/`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }

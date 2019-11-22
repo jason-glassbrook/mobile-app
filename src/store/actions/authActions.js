@@ -4,7 +4,9 @@ import {
   SET_VIDEO_AGREE_VISIBLE,
   SET_VIDEO_PLAYER_VISIBLE,
   SET_USER_CREDS,
-  SET_LOGGED_IN_TRUE
+  SET_LOGGED_IN_STATUS,
+  SET_ACCESS_TOKEN,
+  SET_ID_TOKEN
 } from './actionTypes';
 import { sendEvent } from './../../helpers/createEvent';
 import * as SecureStore from 'expo-secure-store'
@@ -21,13 +23,24 @@ export const setUserCreds = (decodedToken, auth0Data) => {
 };
 
 export const authChecker = () => dispatch => {
-  SecureStore.getItemAsync('cok_id_token')
-  .then(res => {
-    if (res) {
-      const decodedIdToken = jwtDecode(res)
-      dispatch({ type: SET_LOGGED_IN_TRUE, payload: decodedIdToken })
-    }
-  })
+  SecureStore.getItemAsync('cok_access_token')
+    .then(res => {
+      if (res) {
+        dispatch({ type: SET_ACCESS_TOKEN, payload: res })
+        SecureStore.getItemAsync('cok_id_token')
+        .then(res => {
+          if (res) {
+            const decodedIdToken = jwtDecode(res)
+            dispatch({ type: SET_ID_TOKEN, payload: decodedIdToken })
+            dispatch({ type: SET_LOGGED_IN_STATUS, payload: true })
+          } else {
+            dispatch({ type: SET_LOGGED_IN_STATUS, payload: false })
+          }
+        })
+      } else {
+        dispatch({ type: SET_LOGGED_IN_STATUS, payload: false })
+      }
+    })
   .catch(err => console.log(err))
 }
 

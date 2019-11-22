@@ -4,7 +4,7 @@ import getEnvVars from '../../environment.js';
 // import { verifier, challenge } from './auth0Verifiers';
 import Constants from 'expo-constants';
 
-const { auth0ClientId } = getEnvVars();
+const { auth0ClientId, auth0Audience } = getEnvVars();
 
 // Get a Refresh Token using 'Authorization Code Flow' ( code ) and save to SecureStorage for use in retrieving new Access Tokens
 const getRefreshToken = async () => {
@@ -17,7 +17,7 @@ const getRefreshToken = async () => {
     // code_verifier: verifier,
     // code_challenge: challenge,
     // response_type: 'code',
-    audience: 'https://family-staging.connectourkids.org/api/v1/',
+    audience: auth0Audience,
     scope: 'openid profile email offline_access',
     // redirect_uri: 'exp://127.0.0.1:19000/--/expo-auth-session',
     // state: 'asldfkj6748fjh9pjshhjs',
@@ -34,7 +34,6 @@ const getRefreshToken = async () => {
       // SecureStore.setItemAsync('cok_access_token', JSON.stringify(res.data.access_token)),
       await SecureStore.setItemAsync('cok_id_token', res.data.id_token);
 
-      // console.log('res', res)
     })
     .catch(err => console.log(err))
     
