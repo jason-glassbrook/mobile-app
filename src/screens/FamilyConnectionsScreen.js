@@ -440,7 +440,7 @@ const FamilyConnectionsScreen = (props) => {
                         key={index}
                         title={result.full_name}
                         titleStyle={{ color: "#5A6064" }}
-                        subtitle={`${genderAssignment(result.gender)}${result.birthday ? ('\nBirth: ' + result.birthday) : ''}`}
+                        subtitle={`${genderAssignment(result.gender)}${result.birthday ? ('\nBirth: ' + result.birthday.raw) : ''}`}
                         subtitleStyle={{ color: "#9FABB3" }}
                         leftAvatar={
                           <View style={{

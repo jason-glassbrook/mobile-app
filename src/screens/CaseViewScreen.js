@@ -226,7 +226,7 @@ export function CaseViewScreen(props) {
             subtitle={
               <View>
                 {caseData.gender ? <Text style={{ color: '#434245' }}>{genderAssignment(caseData.gender)}</Text> : null}
-                {caseData.birthday ? <Text style={{ color: '#434245' }}>Date of Birth: {caseData.birthday}</Text> : null}
+                {caseData.birthday ? <Text style={{ color: '#434245' }}>Date of Birth: {caseData.birthday.raw}</Text> : null}
                 {caseData.address && caseData.address.formatted ? <Text style={{ color: '#434245' }}>{caseData.address.formatted}</Text> : null}
                 {caseData.foster_care ? <Text style={{ color: '#434245' }}>Initiation: {caseData.foster_care}</Text> : null}
               </View>

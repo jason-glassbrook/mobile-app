@@ -1,4 +1,4 @@
-import AuthSessionCustom from './AuthSessionCustom.js';
+import {AuthSession} from 'expo';
 import getEnvVars from '../../environment.js';
 import jwtDecode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
@@ -6,6 +6,7 @@ import * as LocalAuthentication from 'expo-local-authentication';
 import Constants from 'expo-constants';
 import getRefreshToken from './getRefreshToken'
 import getNewAccessToken from './getNewAccessToken'
+import AuthSessionCustom from "./AuthSessionCustom";
 // import { verifier, challenge } from './auth0Verifiers'
 
 const { auth0Domain, auth0Audience, auth0ClientId, auth0RedirectScheme } = getEnvVars();
@@ -32,20 +33,20 @@ const setItem = async (key, value, options) => {
 
 const handleLogin = async (AuthSession, setUserCreds) => {
   // for handleLogin, you'll likely want to implement 2 login flows - i.e. initialLogin below and another one... perhaps reLogin...
-  // the idea is that the first time a user logs in, it will call initialLogin, and then other times, you'll want to call 
-  // another request that will use a refresh token from Auth0 to get a new access token. 
-  // This is desired by Travis to make a more seamless login/re-login experience for the user. 
+  // the idea is that the first time a user logs in, it will call initialLogin, and then other times, you'll want to call
+  // another request that will use a refresh token from Auth0 to get a new access token.
+  // This is desired by Travis to make a more seamless login/re-login experience for the user.
   // We began this process below and initialLogin is the only 'actual' working login flow
 
   await initialLogin();
-    
+
     const id_token = await SecureStore.getItemAsync('cok_id_token');
     const decoded = jwtDecode(id_token);
     const { name, email } = decoded;
     setUserCreds(decoded, id_token);
 };
 
-const initialLogin = async (AuthSession, setUserCreds) => {
+const initialLogin = async () => {
 
   // if no refresh_token exists, then this is a first time and we need to perform initial /authorize endpoint
 
@@ -62,10 +63,12 @@ const initialLogin = async (AuthSession, setUserCreds) => {
   });
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
 
-  // Perform the authentication - AuthSessionCustom creates an authentication session in your browser behind the scenes. 
-  // This is why after your first login, you only need to hit 'Authorize' in Auth0 and you don't have to type in username/password every time. 
+  // Perform the authentication - AuthSessionCustom creates an authentication session in your browser behind the scenes.
+  // This is why after your first login, you only need to hit 'Authorize' in Auth0 and you don't have to type in username/password every time.
   // If you clear Safari cache or other browser cache, you lose this session and will need to fully login with username and password
-  const response = await AuthSessionCustom.startAsync({ authUrl });
+  const response = true ? await AuthSession.startAsync({ authUrl: authUrl }) : AuthSessionCustom.startAsync( { authUrl: authUrl});
+
+
 
   if (response.error) {
     Alert('Authentication error', response.error_description || 'something went wrong');

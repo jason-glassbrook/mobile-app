@@ -46,7 +46,7 @@ export default function CaseViewScreen(props) {
         <View>
           <ListItem leftAvatar={{ source: { uri: caseData.picture || placeholderImg } }} />
           <Text>Gender: {caseData.gender}</Text>
-          <Text>Date of Birth: {caseData.birthday}</Text>
+          <Text>Date of Birth: {caseData.birthday.raw}</Text>
           <Text>Residence: {caseData.address && caseData.address.formatted ? caseData.address.formatted : "no address available"}</Text>
           <Text>Initiation:{caseData.foster_care}</Text>
         </View>
