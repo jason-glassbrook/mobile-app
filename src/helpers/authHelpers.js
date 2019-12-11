@@ -66,7 +66,7 @@ const initialLogin = async () => {
   // Perform the authentication - AuthSessionCustom creates an authentication session in your browser behind the scenes.
   // This is why after your first login, you only need to hit 'Authorize' in Auth0 and you don't have to type in username/password every time.
   // If you clear Safari cache or other browser cache, you lose this session and will need to fully login with username and password
-  const response = true ? await AuthSession.startAsync({ authUrl: authUrl }) : AuthSessionCustom.startAsync( { authUrl: authUrl});
+  const response = __DEV__ ? await AuthSession.startAsync({ authUrl: authUrl }) : AuthSessionCustom.startAsync( { authUrl: authUrl});
 
 
 
