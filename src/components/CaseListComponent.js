@@ -31,7 +31,7 @@ import {
     Badge,
     SocialIcon
 } from "react-native-elements";
-import formatTelephone from '../helpers/formatTelephone.js'
+import * as TelephoneHelpers from '../helpers/telephoneHelpers.js'
 
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
@@ -44,7 +44,7 @@ const CaseListComponent = (props) => {
                 <ListItem
                     title={props.connection.person.full_name}
                     titleStyle={{ color: "#5A6064" }}
-                    subtitle={formatTelephone(props.connection.person)}
+                    subtitle={TelephoneHelpers.format(TelephoneHelpers.selectPrimaryTelephone(props.connection.person))}
                     subtitleStyle={{color: "#5A6064"}}
                     leftAvatar={
                         <View 
@@ -64,7 +64,6 @@ const CaseListComponent = (props) => {
                             />
                         </View>
                       }
-                    to pDivider={true}
                     onPress={async () => {
                         props.pressed()
 
@@ -78,7 +77,7 @@ const CaseListComponent = (props) => {
                 <ListItem
                     title={props.connection.person.full_name}
                     titleStyle={{ color: "#5A6064" }}
-                    subtitle={formatTelephone(props.connection.person)}
+                    subtitle={TelephoneHelpers.format(TelephoneHelpers.selectPrimaryTelephone(props.connection.person))}
                     subtitleStyle={{color: "#5A6064"}}
                     leftAvatar={
                         <View 
@@ -107,7 +106,6 @@ const CaseListComponent = (props) => {
                             />}
                         </View>
                     }
-                    to pDivider={true}
                     onPress={async () => {
                         props.pressed()
 

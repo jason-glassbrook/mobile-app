@@ -189,7 +189,7 @@ export function CaseViewScreen(props) {
 
   const leftArrow = '\u2190';
 
-  goToTop = () => {
+  const goToTop = () => {
     scroll.scrollTo({x: 0, y: 0, animated: true});
   };
 

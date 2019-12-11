@@ -30,7 +30,7 @@ import {
   MaterialIcons
 } from '@expo/vector-icons';
 import { Engagement, Documents } from '../components/ConnectionsViewTabs/ConnectionsViewTabs';
-import formatTelephone from '../helpers/formatTelephone.js';
+import * as TelephoneHelpers from '../helpers/telephoneHelpers.js';
 import AddEngagementForm from '../components/ConnectionsViewTabs/AddEngagementForm';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -190,10 +190,10 @@ function ConnectionsView(props) {
             <View>
               {connectionData.telephones ?
                 <TouchableOpacity
-                  onPress={() => Linking.openURL(`tel:${formatTelephone(connectionData)}`)}
+                  onPress={() => Linking.openURL(`tel:${TelephoneHelpers.numbersOnly(TelephoneHelpers.selectPrimaryTelephone(connectionData))}`)}
                 >
                   <Text style={{ color: '#434245' }}>
-                    {formatTelephone(connectionData)}
+                    {TelephoneHelpers.format(TelephoneHelpers.selectPrimaryTelephone(connectionData))}
                   </Text>
                 </TouchableOpacity>
                 : null}
