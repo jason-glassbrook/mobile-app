@@ -22,7 +22,7 @@ export const getCaseConnections = (pk) => dispatch => {
                     }
                 })
                 .then(res => {
-
+                    //console.log("Case data: " + JSON.stringify(res), null, 4);
                     dispatch({
                         type: GET_CASE_CONNECTIONS_SUCCESS,
                         payload: res.data.results

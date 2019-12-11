@@ -188,12 +188,12 @@ function ConnectionsView(props) {
           titleStyle={{ fontSize: 18 }}
           subtitle={
             <View>
-              {connectionData.telephone ?
+              {connectionData.telephones ?
                 <TouchableOpacity
-                  onPress={() => Linking.openURL(`tel:${connectionData.telephone}`)}
+                  onPress={() => Linking.openURL(`tel:${formatTelephone(connectionData)}`)}
                 >
                   <Text style={{ color: '#434245' }}>
-                    {formatTelephone(connectionData.telephone)}
+                    {formatTelephone(connectionData)}
                   </Text>
                 </TouchableOpacity>
                 : null}

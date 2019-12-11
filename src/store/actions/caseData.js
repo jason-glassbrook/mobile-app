@@ -22,7 +22,6 @@ export const getCaseData = (pk) => dispatch => {
                     }
                 })
                 .then(res => {
-
                     dispatch({
                         type: GET_CASE_DATA_SUCCESS,
                         payload: res.data

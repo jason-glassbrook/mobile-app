@@ -44,7 +44,7 @@ const CaseListComponent = (props) => {
                 <ListItem
                     title={props.connection.person.full_name}
                     titleStyle={{ color: "#5A6064" }}
-                    subtitle={formatTelephone(props.connection.person.telephone)}
+                    subtitle={formatTelephone(props.connection.person)}
                     subtitleStyle={{color: "#5A6064"}}
                     leftAvatar={
                         <View 
@@ -78,7 +78,7 @@ const CaseListComponent = (props) => {
                 <ListItem
                     title={props.connection.person.full_name}
                     titleStyle={{ color: "#5A6064" }}
-                    subtitle={formatTelephone(props.connection.person.telephone)}
+                    subtitle={formatTelephone(props.connection.person)}
                     subtitleStyle={{color: "#5A6064"}}
                     leftAvatar={
                         <View 

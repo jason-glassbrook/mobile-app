@@ -92,9 +92,6 @@ export function CaseViewScreen(props) {
       marginLeft: 10,
       marginRight: 10
     },
-    selected: {
-      borderWidth: 2,
-    },
     descriptionModalItems: {
       flexDirection: 'row',
       height: 50,
@@ -114,7 +111,7 @@ export function CaseViewScreen(props) {
 
   const handleKeywordChange = (e) => {
     setSearchKeywords(e)
-  }
+  };
 
   const genderAssignment = (gender) => {
     if (gender === 'M') {
@@ -126,7 +123,7 @@ export function CaseViewScreen(props) {
     } else {
       return null
     }
-  }
+  };
 
   //sort by name
   const name = (a, b) => {
@@ -194,7 +191,7 @@ export function CaseViewScreen(props) {
 
   goToTop = () => {
     scroll.scrollTo({x: 0, y: 0, animated: true});
-  } 
+  };
 
   return (
     <View>
