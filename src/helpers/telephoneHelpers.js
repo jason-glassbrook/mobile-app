@@ -3,8 +3,6 @@ export const format = (telephoneObject) => {
   if (telephoneObject !== null) {
       let telephoneNumber = telephoneObject.telephone;
 
-      console.log("telephone number: " + telephoneNumber);
-
       if(telephoneNumber.slice(0,2) == "+1") {
           telephoneNumber = telephoneNumber.slice(2);
       }
