@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d2905849-cb48-4fe1-8214-cdcf3e781da0" name="Default Changelist" comment="Added support for IntelliJ. Fix for authHelpers during dev mode.">
+    <list default="true" id="d2905849-cb48-4fe1-8214-cdcf3e781da0" name="Default Changelist" comment="Fix for production login.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Authentication/Login.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Authentication/Login.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helpers/authHelpers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/authHelpers.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -94,7 +94,8 @@
       <updated>1576052367585</updated>
       <workItem from="1576052374857" duration="5893000" />
       <workItem from="1576061245430" duration="1000" />
-      <workItem from="1576061762701" duration="442000" />
+      <workItem from="1576061762701" duration="2756000" />
+      <workItem from="1576547167996" duration="3369000" />
     </task>
     <task id="LOCAL-00001" summary="Quick fix for multiple telephones.">
       <created>1576054273335</created>
@@ -131,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1576059440587</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fix for production login.">
+      <created>1576074194610</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1576074194610</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -166,6 +174,7 @@
     <MESSAGE value="One more telephone fix." />
     <MESSAGE value="Fix for android Auth." />
     <MESSAGE value="Added support for IntelliJ. Fix for authHelpers during dev mode." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added support for IntelliJ. Fix for authHelpers during dev mode." />
+    <MESSAGE value="Fix for production login." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix for production login." />
   </component>
 </project>

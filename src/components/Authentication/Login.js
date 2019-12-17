@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'center',
     marginBottom: 10
   },
   text: {
