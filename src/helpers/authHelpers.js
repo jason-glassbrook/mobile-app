@@ -63,9 +63,10 @@ const initialLogin = async () => {
     nonce: 'nonce', // ideally, this will be a random value
   });
 
-  console.log(AuthSession.getRedirectUrl());
-
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
+
+  console.log("AuthURL");
+  console.log(authUrl);
 
   // Perform the authentication - AuthSessionCustom creates an authentication session in your browser behind the scenes.
   // This is why after your first login, you only need to hit 'Authorize' in Auth0 and you don't have to type in username/password every time.
