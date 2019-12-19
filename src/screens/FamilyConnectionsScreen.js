@@ -450,21 +450,15 @@ const FamilyConnectionsScreen = (props) => {
                             borderRadius: 25,
                             overflow: 'hidden'
                           }}>
-                            {
-                              (
-                                <Image
-                              source={ result.picture ? { uri: result.picture } : { uri: placeholderImg}}
+                            <Image
+                              source = { {uri: result.picture }}
                               style={{
                                 height: 50,
                                 width: 50,
                                 borderRadius: 25,
                                 overflow: 'hidden'
                               }}
-                   
                             />
-                              )
-                            }
-                            
                           </View>
                         }
                         to pDivider={true}

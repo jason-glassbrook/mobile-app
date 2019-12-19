@@ -4,6 +4,7 @@ import { store } from './src/store/store';
 import * as Font from 'expo-font';
 import constants from './src/helpers/constants';
 import Navigator from './src/navigation';
+import {StatusBar } from 'react-native';
 
 export default class App extends Component {
   state = { fontLoaded: false };
@@ -27,6 +28,7 @@ export default class App extends Component {
   render() {
     return this.state.fontLoaded ? (
       <Provider store={store}>
+        <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
         <Navigator />
       </Provider>
     ) : null;
