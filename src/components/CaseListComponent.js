@@ -61,6 +61,7 @@ const CaseListComponent = (props) => {
                                 width: 50, 
                                 borderRadius: 25, 
                                 overflow: 'hidden'}} 
+                                defaultSource = {placeholderImg}
                             />
                         </View>
                       }
@@ -95,6 +96,7 @@ const CaseListComponent = (props) => {
                                 width: 50, 
                                 borderRadius: 25, 
                                 overflow: 'hidden'}} 
+                                defaultSource = {placeholderImg}
                             /> :
                             <Image 
                                 source={placeholderImg} 
