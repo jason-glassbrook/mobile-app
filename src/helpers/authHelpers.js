@@ -62,6 +62,9 @@ const initialLogin = async () => {
     prompt: 'consent',
     nonce: 'nonce', // ideally, this will be a random value
   });
+
+  console.log("Send the following URL to Travis");
+  console.log(AuthSession.getRedirectUrl());
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
 
   // Perform the authentication - AuthSessionCustom creates an authentication session in your browser behind the scenes.
