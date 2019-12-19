@@ -54,7 +54,7 @@ const initialLogin = async () => {
   // Structure the auth parameters and URL. These are required to generate the appropriate idToken and accessToken response.
   const queryParams = toQueryString({
     client_id: auth0ClientId,
-    redirect_uri: Platform.OS != 'ios' ? AuthSession.getRedirectUrl() : auth0RedirectScheme,
+    redirect_uri: auth0RedirectScheme,
     audience: auth0Audience,
     response_type: 'code id_token token', // id_token will return a JWT token
     scope: 'offline_access openid profile email', // retrieve the user's profile
@@ -62,6 +62,9 @@ const initialLogin = async () => {
     prompt: 'consent',
     nonce: 'nonce', // ideally, this will be a random value
   });
+
+  console.log(AuthSession.getRedirectUrl());
+
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
 
   // Perform the authentication - AuthSessionCustom creates an authentication session in your browser behind the scenes.
