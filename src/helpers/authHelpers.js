@@ -54,7 +54,7 @@ const initialLogin = async () => {
   // Structure the auth parameters and URL. These are required to generate the appropriate idToken and accessToken response.
   const queryParams = toQueryString({
     client_id: auth0ClientId,
-    redirect_uri: auth0RedirectScheme,
+    redirect_uri: Platform.OS != 'ios' ? AuthSession.getRedirectUrl() : auth0RedirectScheme,
     audience: auth0Audience,
     response_type: 'code id_token token', // id_token will return a JWT token
     scope: 'offline_access openid profile email', // retrieve the user's profile
@@ -63,10 +63,9 @@ const initialLogin = async () => {
     nonce: 'nonce', // ideally, this will be a random value
   });
 
+  console.log("Send the following URL to Travis");
+  console.log(AuthSession.getRedirectUrl());
   const authUrl = `https://${auth0Domain}/authorize` + queryParams;
-
-  console.log("AuthURL");
-  console.log(authUrl);
 
   // Perform the authentication - AuthSessionCustom creates an authentication session in your browser behind the scenes.
   // This is why after your first login, you only need to hit 'Authorize' in Auth0 and you don't have to type in username/password every time.
