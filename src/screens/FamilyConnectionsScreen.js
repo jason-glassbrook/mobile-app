@@ -39,6 +39,7 @@ import Loader from "../components/Loader/Loader";
 import ScrollToTop from '../UI/ScrollToTop';
 
 const placeholderImg = require('../../assets/profile_placeholder.png');
+
 const FamilyConnectionsScreen = (props) => {
 
   const initialState = {
@@ -243,7 +244,8 @@ const FamilyConnectionsScreen = (props) => {
               <View
                 style={{
                   marginTop: 100,
-                  alignSelf: "left"
+                  //this breaks the app, should be flexStart
+                  alignSelf: "flex-start"
                 }}
               >
                 <Text
