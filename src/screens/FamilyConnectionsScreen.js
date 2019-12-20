@@ -451,7 +451,7 @@ const FamilyConnectionsScreen = (props) => {
                             overflow: 'hidden'
                           }}>
                             <Image
-                              source = { {uri: result.picture }}
+                              source = {  result.picture? { uri: result.picture}: placeholderImg }
                               style={{
                                 height: 50,
                                 width: 50,
