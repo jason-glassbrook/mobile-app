@@ -39,6 +39,7 @@ import Loader from "../components/Loader/Loader";
 import ScrollToTop from '../UI/ScrollToTop';
 
 const placeholderImg = require('../../assets/profile_placeholder.png');
+
 const FamilyConnectionsScreen = (props) => {
 
   const initialState = {
@@ -451,7 +452,7 @@ const FamilyConnectionsScreen = (props) => {
                             overflow: 'hidden'
                           }}>
                             <Image
-                              source = { {uri: result.picture }}
+                              source = {  result.picture? { uri: result.picture}: placeholderImg }
                               style={{
                                 height: 50,
                                 width: 50,
