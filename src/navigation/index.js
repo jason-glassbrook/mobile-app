@@ -55,7 +55,8 @@ const FamilyConnectionsNavigator = createStackNavigator(
       navigationOptions: {
         headerStyle: {
           backgroundColor: 'white',
-          height: 52
+          height: 52,
+          color: 'black'
         },
         headerLeft:
           (<Image

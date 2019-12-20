@@ -245,6 +245,7 @@ export function CaseViewScreen(props) {
                     width: 80, 
                     borderRadius: 40, 
                     overflow: 'hidden'}} 
+                    defaultSource = {placeholderImg}
                 />) :
                 (<Image 
                   source={placeholderImg} 
@@ -253,6 +254,7 @@ export function CaseViewScreen(props) {
                     width: 80, 
                     borderRadius: 40, 
                     overflow: 'hidden'}} 
+                    defaultSource = {placeholderImg}
                 />)}
               </View>
             }
