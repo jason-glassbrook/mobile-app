@@ -245,7 +245,7 @@ const FamilyConnectionsScreen = (props) => {
                 style={{
                   marginTop: 100,
                   //this breaks the app, should be flexStart
-                  alignSelf: "left"
+                  alignSelf: "flex-start"
                 }}
               >
                 <Text
