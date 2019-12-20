@@ -8,6 +8,11 @@ import {
     GET_DOCUMENTS_SUCCESS,
     GET_DOCUMENTS_FAILURE,
     CLEAR_DOCUMENTS,
+
+    GET_DETAILS_START,
+    GET_DETAILS_SUCCESS,
+    GET_DETAILS_FAILURE,
+    CLEAR_DETAILS,
 } from "../actions/connectionData";
 
 const initialState = {
@@ -17,6 +22,9 @@ const initialState = {
     documents: [],
     isLoadingDocuments: false,
     documentsError: "",
+    details: [],
+    isLoadingDetails: false,
+    detailsError: "",
 };
 
 export const connectionReducer = (state = initialState, action) => {
@@ -72,8 +80,33 @@ export const connectionReducer = (state = initialState, action) => {
         case CLEAR_DOCUMENTS:
             return {
                 documents: []
-            }
+            };
 
+            case GET_DETAILS_START:
+                return {
+                    ...state,
+                    isLoadingDetails: true,
+                    detailsError: ""
+                };
+    
+            case GET_DETAILS_SUCCESS:
+                return {
+                    ...state,
+                    isLoadingEngagements: false,
+                    details: action.payload
+                };
+    
+            case GET_DETAILS_FAILURE:
+                return {
+                    ...state,
+                    isLoadingConnections: false,
+                    detailsError: "Error loading details data. Please try again later."
+                };
+    
+            case CLEAR_DETAILS:
+                return {
+                    details: []
+                }
         default:
             return state;
     }

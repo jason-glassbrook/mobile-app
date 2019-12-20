@@ -45,7 +45,8 @@ function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
   const [tabs, setTabs] = useState({
     engagement: true,
-    docs: false
+    docs: false,
+    details: false, 
   })
 
   const [formVisible, setFormVisible] = useState(false)
