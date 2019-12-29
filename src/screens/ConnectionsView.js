@@ -20,7 +20,8 @@ import {
   getEngagements,
   getDocuments,
   clearDocuments,
-  clearEngagements
+  clearEngagements,
+  getDetails
 } from "../store/actions/connectionData";
 import {
   Ionicons, 
@@ -45,7 +46,8 @@ function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
   const [tabs, setTabs] = useState({
     engagement: true,
-    docs: false
+    docs: false,
+    details:false
   })
 
   const [formVisible, setFormVisible] = useState(false)
@@ -53,10 +55,11 @@ function ConnectionsView(props) {
   const [engagementType, setEngagementType] = useState()
   const [image, setImage] = useState({})
   const [isScrolling, setIsScrolling] = useState(false)
-
+  console.log('this is the one you must find ', props.details)
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
+    props.getDetails(props.navigation.getParam('connectionData').person.pk)
 
   }, [props.isLoadingDocs, props.isLoadingEngagements])
 
@@ -69,7 +72,7 @@ function ConnectionsView(props) {
     },
 
     engagementTab: {
-      width: "47.5%",
+      width: "33.3%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -82,7 +85,19 @@ function ConnectionsView(props) {
     },
 
     documentsTab: {
-      width: "47.5%",
+      width: "33.3%",
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      // borderTopRightRadius: 4,
+      borderColor: '#E5E4E2',
+      height: 36,
+      fontSize: 17.5,
+      textAlign: 'center',
+      backgroundColor: '#E5E4E2'
+    },
+    detailsTab: {
+      width: "33.3%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -104,6 +119,14 @@ function ConnectionsView(props) {
     },
 
     documentsSelected: {
+      backgroundColor: constants.highlightColor,
+      color: '#FFFFFF',
+      borderWidth: 1,
+      borderColor: constants.highlightColor,
+      borderTopRightRadius: 4,
+      overflow: "hidden"
+    },
+    detailsSelected: {
       backgroundColor: constants.highlightColor,
       color: '#FFFFFF',
       borderWidth: 1,
@@ -257,6 +280,7 @@ function ConnectionsView(props) {
                   setTabs({
                     engagement: true,
                     docs: false,
+                    details: false
                   });
                 }}
               >
@@ -271,12 +295,28 @@ function ConnectionsView(props) {
                   setTabs({
                     engagement: false,
                     docs: true,
+                    details: false
                   });
                 }}
               >
                 Documents
               </Text>
             </View>
+            <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
+              <Text
+                style={[{ color: '#FFFFFF', fontSize: 17.5 }, tabs.details ? { color: '#FFFFFF' } : { color: '#000' }]}
+                onPress={() => {
+                  setTabs({
+                    engagement: false,
+                    docs: false,
+                    details:true
+                  });
+                }}
+              >
+                Details
+              </Text>
+            </View>
+            
           </View>
 
           {
@@ -420,6 +460,21 @@ function ConnectionsView(props) {
               // </View> 
               : null
           }
+          {
+            tabs.details ?
+              <View 
+                style={{ 
+                  minHeight: 350, 
+ 
+                  width: '100%' 
+                  }}
+              >
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                {props.isLoadingDetails ? <Loader /> :<Text>{props.details.first_name}</Text>}
+              </View>
+             </View> 
+              : null
+          }
         </View>
       </View>
     </ScrollView>
@@ -435,7 +490,9 @@ const mapStateToProps = state => {
     documents: state.connection.documents,
     isLoadingDocuments: state.connection.isLoadingDocuments,
     isLoadingDocs: state.engagements.isLoadingDocs,
-    documentsError: state.connection.documentsError
+    documentsError: state.connection.documentsError,
+    details: state.connection.details,
+    isLoadingDetails: state.connection.isLoadingDetails 
   }
 }
 
@@ -445,6 +502,7 @@ export default connect(
     getEngagements,
     clearEngagements,
     getDocuments,
-    clearDocuments
+    clearDocuments,
+    getDetails
   }
 )(ConnectionsView);
