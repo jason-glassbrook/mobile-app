@@ -45,7 +45,8 @@ function ConnectionsView(props) {
   const connectionData = props.navigation.getParam('connectionData').person
   const [tabs, setTabs] = useState({
     engagement: true,
-    docs: false
+    docs: false,
+    details: false, 
   })
 
   const [formVisible, setFormVisible] = useState(false)
@@ -69,7 +70,7 @@ function ConnectionsView(props) {
     },
 
     engagementTab: {
-      width: "47.5%",
+      width: "33.3%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -82,7 +83,19 @@ function ConnectionsView(props) {
     },
 
     documentsTab: {
-      width: "47.5%",
+      width: "33.3%",
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderTopRightRadius: 4,
+      borderColor: '#E5E4E2',
+      height: 36,
+      fontSize: 17.5,
+      textAlign: 'center',
+      backgroundColor: '#E5E4E2'
+    },
+    detailsTab: {
+      width: "33.3%",
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
@@ -104,6 +117,14 @@ function ConnectionsView(props) {
     },
 
     documentsSelected: {
+      backgroundColor: constants.highlightColor,
+      color: '#FFFFFF',
+      borderWidth: 1,
+      borderColor: constants.highlightColor,
+      borderTopRightRadius: 4,
+      overflow: "hidden"
+    },
+    detailsSelected: {
       backgroundColor: constants.highlightColor,
       color: '#FFFFFF',
       borderWidth: 1,
@@ -257,6 +278,7 @@ function ConnectionsView(props) {
                   setTabs({
                     engagement: true,
                     docs: false,
+                    details: false,
                   });
                 }}
               >
@@ -271,12 +293,28 @@ function ConnectionsView(props) {
                   setTabs({
                     engagement: false,
                     docs: true,
+                    details: false,
                   });
                 }}
               >
                 Documents
               </Text>
             </View>
+            <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
+              <Text
+                style={[{ color: '#FFFFFF', fontSize: 17.5 }, tabs.details ? { color: '#FFFFFF' } : { color: '#000' }]}
+                onPress={() => {
+                  setTabs({
+                    engagement: false,
+                    docs: false, 
+                    details: true,
+                  });
+                }}
+              >
+                Details
+              </Text>
+            </View>
+
           </View>
 
           {
