@@ -85,12 +85,12 @@ export const clearDocuments = () => dispatch => {
     dispatch({ type: CLEAR_DOCUMENTS })
 }
 
-export const getDetails = () => dispatch => {
+export const getDetails = (id) => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
             dispatch({ type: GET_DETAILS_START });
             axios
-                .get(`${familyConnectionsURL}/api/v1/person/${id}/details/`, {
+            .get(`${familyConnectionsURL}/api/v1/individualperson/?id=${id}`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }

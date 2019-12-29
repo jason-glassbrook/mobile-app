@@ -22,7 +22,7 @@ const initialState = {
     documents: [],
     isLoadingDocuments: false,
     documentsError: "",
-    details: [],
+    details: {},
     isLoadingDetails: false,
     detailsError: "",
 };
@@ -92,20 +92,20 @@ export const connectionReducer = (state = initialState, action) => {
             case GET_DETAILS_SUCCESS:
                 return {
                     ...state,
-                    isLoadingEngagements: false,
-                    details: action.payload
+                    isLoadingDetails: false,
+                    details: {...action.payload[0]}
                 };
     
             case GET_DETAILS_FAILURE:
                 return {
                     ...state,
-                    isLoadingConnections: false,
+                    isLoadingDetails: false,
                     detailsError: "Error loading details data. Please try again later."
                 };
     
             case CLEAR_DETAILS:
                 return {
-                    details: []
+                    details: {}
                 }
         default:
             return state;
