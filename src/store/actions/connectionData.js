@@ -90,7 +90,7 @@ export const getDetails = (id) => dispatch => {
         .then((accessToken) => {
             dispatch({ type: GET_DETAILS_START });
             axios
-            .get(`${familyConnectionsURL}/api/v1/individualperson/?id=${id}`, {
+            .get(`${familyConnectionsURL}/api/v1/individualperson/?id=${id}`, { 
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }

@@ -469,7 +469,33 @@ function ConnectionsView(props) {
                   }}
               >
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                {props.isLoadingDetails ? <Loader /> :<Text>{props.details.first_name}</Text>}
+                {props.isLoadingDetails ? <Loader />:
+
+                <View>
+                  <Text>First Name {props.details.first_name}</Text>
+                  <Text>Middle Name {props.details.middle_name}</Text>
+                  <Text>Last Name {props.details.last_name}</Text>
+                  <Text>Suffix {props.details.suffix}</Text>
+                  <Text>Date of Birth {props.details.last_name}</Text>
+                  <Text>Gender {props.details.gender}</Text>
+                  <Text>Deceased {props.details.deceased? 'True': 'False'}</Text>
+                  <Text>Residence {props.details.addresses.length?
+                  props.details.addresses.map(address=>{address})
+                  :null}</Text>
+                  <Text>Telephone {props.details.telephones.length?
+                  props.details.addresses.map(telephone=>{telephone})
+                  :null}</Text>
+                  <Text>Email {props.details.emails.length?
+                  props.details.addresses.map(email=>{email})
+                  :null}</Text>
+                  <Text>Job Title {props.details.job_title}</Text>
+                  <Text>Employer {props.details.employer}</Text>
+                  <Text>Salary Range {props.details.salary_range}</Text>
+                  <Text>Facebook {props.details.facebook}</Text>
+                  <Text>LinkedIn {props.details.linkedin}</Text>
+                  <Text>Twitter {props.details.twitter}</Text>
+                </View>
+                }
               </View>
              </View> 
               : null
