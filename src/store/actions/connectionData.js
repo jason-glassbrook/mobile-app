@@ -85,26 +85,24 @@ export const clearDocuments = () => dispatch => {
     dispatch({ type: CLEAR_DOCUMENTS })
 }
 
-export const getDetails = (id) => dispatch => {
+export const getDetails = () => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
             dispatch({ type: GET_DETAILS_START });
             axios
-                // .get(`${familyConnectionsURL}/api/v1/person/${id}/details/`, {
-                .get(`${familyConnectionsURL}/api/v1/individualperson/?id=${id}`, {
+                .get(`${familyConnectionsURL}/api/v1/person/${id}/details/`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
                 })
-                .then(res => {  
-                    console.log('SOMEBODY COME LOOK AT THIS IT WORKED!!! ',res)
+                .then(res => {
+
                     dispatch({
                         type: GET_DETAILS_SUCCESS,
                         payload: res.data.results
                     });
                 })
                 .catch(err => {
-                    console.log(err)
                     dispatch({
                         type: GET_DETAILS_FAILURE,
                         payload: err.response
@@ -112,4 +110,3 @@ export const getDetails = (id) => dispatch => {
                 });
         })
 }
-

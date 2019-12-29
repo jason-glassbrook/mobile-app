@@ -47,7 +47,7 @@ function ConnectionsView(props) {
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false,
-    details:false
+    details: false, 
   })
 
   const [formVisible, setFormVisible] = useState(false)
@@ -89,7 +89,7 @@ function ConnectionsView(props) {
       justifyContent: 'center',
       alignItems: 'center',
       borderWidth: 1,
-      // borderTopRightRadius: 4,
+      borderTopRightRadius: 4,
       borderColor: '#E5E4E2',
       height: 36,
       fontSize: 17.5,
@@ -280,7 +280,7 @@ function ConnectionsView(props) {
                   setTabs({
                     engagement: true,
                     docs: false,
-                    details: false
+                    details: false,
                   });
                 }}
               >
@@ -295,7 +295,7 @@ function ConnectionsView(props) {
                   setTabs({
                     engagement: false,
                     docs: true,
-                    details: false
+                    details: false,
                   });
                 }}
               >
@@ -308,15 +308,14 @@ function ConnectionsView(props) {
                 onPress={() => {
                   setTabs({
                     engagement: false,
-                    docs: false,
-                    details:true
+                    docs: false, 
+                    details: true,
                   });
                 }}
               >
                 Details
               </Text>
             </View>
-            
           </View>
 
           {
