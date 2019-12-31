@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     rootView:{
         display:'flex',
         justifyContent:'flex-start',
-        width:'90%',
+        width:'95%',
         margin: 0
     },
     header:{
@@ -28,21 +28,36 @@ const styles = StyleSheet.create({
         color: '#a1a1a1',
         fontWeight: 'bold',
     },
-    text:{
+    textView:{//container that wraps every text row, ex) First Name John
+        width: '60%',
+        display: 'flex',
+        flexDirection:'row',
+        justifyContent: 'space-between',
+        alignContent:'flex-start',
+        alignItems:'flex-start',
+
+    },
+    labelText:{
         marginBottom: 25
+    },
+    contentText:{
+        // marginHorizontal: 20
+        width:'100%',
+        textAlign:'left',
+        alignSelf:'flex-start',
     }
 })
 return(
     <View style={styles.rootView}>
         <View style={styles.header}><Text style={styles.headerText}>INFORMATION</Text></View>
         <View>
-            <Text style={styles.text}>First Name {details.first_name}</Text>
-            <Text style={styles.text}>Middle Name {details.middle_name}</Text>
-            <Text style={styles.text}>Last Name {details.last_name}</Text>
-            <Text style={styles.text}>Suffix {details.suffix}</Text>
-            <Text style={styles.text}>Date of Birth {details.birthday}</Text>
-            <Text style={styles.text}>Gender {details.gender}</Text>
-            <Text style={styles.text}>Deceased {details.deceased? 'Yes': 'No'}</Text>
+            <View style={styles.textView}><Text style={styles.labelText}>First Name </Text><Text style={styles.contentText}>{details.first_name}</Text></View>
+            <View style={styles.textView}><Text style={styles.labelText}>Middle Name </Text><Text style={styles.contentText}>{details.middle_name}</Text></View>
+            <View style={styles.textView}><Text style={styles.labelText}>Last Name </Text><Text style={styles.contentText}>{details.last_name}</Text></View>
+            <View style={styles.textView}><Text style={styles.labelText}>Suffix </Text><Text style={styles.contentText}>{details.suffix}</Text></View>
+            <View style={styles.textView}><Text style={styles.labelText}>Date of Birth </Text><Text style={styles.contentText}>{details.birthday}</Text></View>
+            <View style={styles.textView}><Text style={styles.labelText}>Gender </Text><Text style={styles.contentText}>{details.gender}</Text></View>
+            <View style={styles.textView}><Text style={styles.labelText}>Deceased </Text><Text style={styles.contentText}>{details.deceased? 'Yes': 'No'}</Text></View>
         </View>
         <View style={styles.header}><Text style={styles.headerText}>CONTACT DETAILS</Text></View>
         <View>
