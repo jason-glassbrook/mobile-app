@@ -29,7 +29,7 @@ export default function ConnectionsDetailsView({ details }) {
             fontWeight: 'bold',
         },
         textView: {//container that wraps every text row, ex) First Name John
-            width: '70%',
+            width: '100%',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -38,16 +38,28 @@ export default function ConnectionsDetailsView({ details }) {
 
         },
         labelText: {
+            width: '25%',
             marginBottom: 25
         },
         contentText: {
             // marginHorizontal: 20
+<<<<<<< HEAD
 
             display: 'flex',
             flexDirection: 'column',
 
 
 
+=======
+            width:'75%',
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign:'left',
+            marginLeft: 35
+           
+            
+           
+>>>>>>> 01ec2afe54370b8e863e1d14167b6687843076a3
             // textAlign: 'left',
 
         },
@@ -56,6 +68,7 @@ export default function ConnectionsDetailsView({ details }) {
             // display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
+            marginLeft: 17
 
         },
         phoneDiv: {
@@ -65,7 +78,8 @@ export default function ConnectionsDetailsView({ details }) {
             flexWrap: 'wrap',
         },
         addPad: {
-            padding: '5%'
+            padding: '5%',
+            paddingTop: 2
         }
     })
 
