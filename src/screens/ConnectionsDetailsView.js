@@ -70,7 +70,8 @@ export default function ConnectionsDetailsView({ details }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Date of Birth</Text>
-                    {/* <Text style={styles.contentText}>{details.birthday}</Text> birthday is an object --> { "day": null, "month": null, "raw": "", "year": null,}*/}
+                    {!details.birthday?null:details.birthday.day?<Text style={styles.labelText}>{details.birthday.month}/{details.birthday.day}/{details.birthday.year}</Text>:null}
+                    {/* <Text style={styles.contentText}>{details.birthday}</Text> birthday is an object --> { "day": null, "month": null, "raw": "", "year": null,} */}
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Gender</Text>
@@ -85,7 +86,12 @@ export default function ConnectionsDetailsView({ details }) {
             <View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Residence</Text>
-                    {details.addresses.length ? details.addresses.map(address => <Text style={styles.contentText}>{address}</Text>) : null}
+                    {details.addresses.length ? details.addresses.map(address =>
+                        <>
+                            <Text style={styles.contentText}>{address.route}</Text>
+
+                        </>)
+                        : null}
                 </View>
                 <View style={styles.textView}>
                     {console.log(details.telephones)}
