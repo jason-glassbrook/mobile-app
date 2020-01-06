@@ -25,8 +25,9 @@ import {
 } from "../store/actions/caseData";
 import {
   getCaseConnections,
-  clearCaseConnections
+  clearCaseConnections,
 } from "../store/actions/caseConnections"
+
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
@@ -36,7 +37,7 @@ import ScrollToTop from '../UI/ScrollToTop'
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
 export function CaseViewScreen(props) {
-
+  console.log('this is props, ', props)
   const [searchKeywords, setSearchKeywords] = useState('')
 
   const [filtersSelected, setFiletersSelected] = useState({
@@ -378,13 +379,15 @@ export function CaseViewScreen(props) {
 const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;
   const { caseConnections, isLoadingConnections, connectionsError } = state.caseConnections;
+  const details = state.details
   return {
     caseData,
     isLoadingCaseData,
     isLoadingConnections,
     caseDataError,
     connectionsError,
-    caseConnections
+    caseConnections,
+    details
   };
 };
 
