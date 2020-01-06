@@ -74,6 +74,17 @@ export default function ConnectionsDetailsView({ details }) {
         }
     })
 
+    const teleFormat = (phoneNumber) =>{
+        let phoneNumberArr = phoneNumber.split('')
+        if (phoneNumberArr.length===10){
+            return `(${phoneNumberArr.slice(0,3).join('')})-${phoneNumberArr.slice(3,6).join('')}-${phoneNumberArr.slice(6,10).join('')}`
+        }
+        else if(phoneNumberArr.length===11){
+            return `${phoneNumberArr[0]}-(${phoneNumberArr.splice(1,4).join('')})-${phoneNumberArr.splice(4,7).join('')}-${phoneNumberArr.splice(7,11).join('')}`
+        }
+        else return phoneNumber
+    }
+
     return (
         <View style={styles.rootView}>
             {/* INFORMATION SECTION */}
@@ -126,7 +137,7 @@ export default function ConnectionsDetailsView({ details }) {
                     {console.log(details.telephones)}
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
-                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text key={index} style={styles.contentText}>{telephoneObj.telephone}</Text>) : null}
+                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text key={index} style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
