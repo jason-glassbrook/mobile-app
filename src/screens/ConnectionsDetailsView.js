@@ -42,11 +42,27 @@ export default function ConnectionsDetailsView({ details }) {
         },
         contentText: {
             // marginHorizontal: 20
-            width: '35%',
-            textAlign: 'left',
-            alignSelf: 'flex-start',
+            
+            display: 'flex',
+            flexDirection: 'column',
+           
+            
+           
+            // textAlign: 'left',
+            
+        },
+        addressDiv: {
+            width: "100%",
+            // display: 'flex',
+            flexDirection:'column',
+            flexWrap: 'wrap',
+
+        },
+        addPad: {
+            padding: '5%'
         }
     })
+  
     return (
         <View style={styles.rootView}>
             {/* INFORMATION SECTION */}
@@ -70,9 +86,7 @@ export default function ConnectionsDetailsView({ details }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Date of Birth</Text>
-                    {!details.birthday?null:details.birthday.day?<Text style={styles.labelText}>{details.birthday.month}/{details.birthday.day}/{details.birthday.year}</Text>:null}
-                    {/* <Text style={styles.contentText}>{details.birthday}</Text> birthday is an object --> { "day": null, "month": null, "raw": "", "year": null,} */}
-                </View>
+                    {!details.birthday?null:details.birthday.day?<Text style={styles.labelText}>{details.birthday.month}/{details.birthday.day}/{details.birthday.year}</Text>:null}                </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Gender</Text>
                     <Text style={styles.contentText}>{details.gender}</Text>
@@ -86,12 +100,16 @@ export default function ConnectionsDetailsView({ details }) {
             <View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Residence</Text>
-                    {details.addresses.length ? details.addresses.map(address =>
-                        <>
-                            <Text style={styles.contentText}>{address.route}</Text>
-
-                        </>)
-                        : null}
+                    <View style = {styles.addressDiv}>
+                    {details.addresses.length ? details.addresses.map(address => 
+                    <View style = {styles.addPad}>
+                            <Text>{address.street_number} {address.route}</Text>
+                            <Text>{address.route}{','} {address.state_code}</Text>
+                            <Text>{address.postal_code}{','} {address.country}</Text>
+                           
+                    </View>
+                    ) : null}
+                    </View>
                 </View>
                 <View style={styles.textView}>
                     {console.log(details.telephones)}
