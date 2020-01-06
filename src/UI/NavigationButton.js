@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 50
   },
   textInput: {
-    borderColor: 'black',
+    borderColor: 'red',
     borderWidth: 1,
     borderStyle: 'solid'
   }
