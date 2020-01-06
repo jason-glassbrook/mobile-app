@@ -195,9 +195,6 @@ function ConnectionsView(props) {
       <View 
       style={{
         borderWidth: 1,
-        display: 'flex',
-        flexDirection: 'column',
-        height: 300
       }}
       >
         <ListItem
