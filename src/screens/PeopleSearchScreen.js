@@ -266,10 +266,10 @@ class PeopleSearchScreen extends React.Component {
                 </TouchableHighlight>
               )}
             </View>
-            <SearchFooter
+            {/* <SearchFooter
               openModal={this.openModal}
               controlModal={this.controlModal}
-            />
+            /> */}
           </ScrollView>
         </SafeAreaView>
       </Container>
