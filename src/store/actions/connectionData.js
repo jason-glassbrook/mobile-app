@@ -11,6 +11,11 @@ export const GET_DOCUMENTS_SUCCESS = "GET_DOCUMENTS_SUCCESS";
 export const GET_DOCUMENTS_FAILURE = "GET_DOCUMENTS_FAILURE";
 export const CLEAR_DOCUMENTS = "CLEAR_DOCUMENTS";
 
+export const GET_DETAILS_START = "GET_DETAILS_START"
+export const GET_DETAILS_SUCCESS = "GET_DETAILS_SUCCESS"
+export const GET_DETAILS_FAILURE = "GET_DOCUMENTS_FAILURE"
+//https://family-staging.connectourkids.org/api/v1/individualperson/?
+
 // this action grabs the history of engagments between specific child and person
 
 // define familyConnectionsURL from environment for axios calls
@@ -80,12 +85,12 @@ export const clearDocuments = () => dispatch => {
     dispatch({ type: CLEAR_DOCUMENTS })
 }
 
-export const getDetails = () => dispatch => {
+export const getDetails = (id) => dispatch => {
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
             dispatch({ type: GET_DETAILS_START });
             axios
-                .get(`${familyConnectionsURL}/api/v1/person/${id}/details/`, {
+            .get(`${familyConnectionsURL}/api/v1/individualperson/?id=${id}`, { 
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
@@ -98,7 +103,6 @@ export const getDetails = () => dispatch => {
                     });
                 })
                 .catch(err => {
-
                     dispatch({
                         type: GET_DETAILS_FAILURE,
                         payload: err.response

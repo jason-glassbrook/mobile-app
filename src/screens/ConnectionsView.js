@@ -20,7 +20,8 @@ import {
   getEngagements,
   getDocuments,
   clearDocuments,
-  clearEngagements
+  clearEngagements,
+  getDetails
 } from "../store/actions/connectionData";
 import {
   Ionicons, 
@@ -38,6 +39,7 @@ import Constants from 'expo-constants';
 import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
 import Loader from '../components/Loader/Loader';
 import ScrollToTop from '../UI/ScrollToTop'
+import ConnectionsDetailsView from './ConnectionsDetailsView'
 
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
@@ -54,10 +56,11 @@ function ConnectionsView(props) {
   const [engagementType, setEngagementType] = useState()
   const [image, setImage] = useState({})
   const [isScrolling, setIsScrolling] = useState(false)
-
+  console.log('this is the one you must find ', props.details)
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
+    props.getDetails(props.navigation.getParam('connectionData').person.pk)
 
   }, [props.isLoadingDocs, props.isLoadingEngagements])
 
@@ -314,7 +317,6 @@ function ConnectionsView(props) {
                 Details
               </Text>
             </View>
-
           </View>
 
           {
@@ -458,6 +460,23 @@ function ConnectionsView(props) {
               // </View> 
               : null
           }
+          {
+            tabs.details ?
+              <View 
+                style={{ 
+                  minHeight: 350, 
+ 
+                  width: '100%' 
+                  }}
+              >
+                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                {props.isLoadingDetails ? <Loader />:
+                 <ConnectionsDetailsView details={props.details}/>
+                }
+              </View>
+             </View> 
+              : null
+          }
         </View>
       </View>
     </ScrollView>
@@ -473,7 +492,9 @@ const mapStateToProps = state => {
     documents: state.connection.documents,
     isLoadingDocuments: state.connection.isLoadingDocuments,
     isLoadingDocs: state.engagements.isLoadingDocs,
-    documentsError: state.connection.documentsError
+    documentsError: state.connection.documentsError,
+    details: state.connection.details,
+    isLoadingDetails: state.connection.isLoadingDetails 
   }
 }
 
@@ -483,6 +504,7 @@ export default connect(
     getEngagements,
     clearEngagements,
     getDocuments,
-    clearDocuments
+    clearDocuments,
+    getDetails
   }
 )(ConnectionsView);
