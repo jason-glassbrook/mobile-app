@@ -52,22 +52,39 @@ export default function ConnectionsDetailsView({ details }) {
             
            
             // textAlign: 'left',
-            
+
         },
         addressDiv: {
             width: "100%",
             // display: 'flex',
-            flexDirection:'column',
+            flexDirection: 'column',
             flexWrap: 'wrap',
             marginLeft: 17
 
+        },
+        phoneDiv: {
+            width: "100%",
+            // display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
         },
         addPad: {
             padding: '5%',
             paddingTop: 2
         }
     })
-  
+
+    const teleFormat = (phoneNumber) =>{
+        let phoneNumberArr = phoneNumber.split('')
+        if (phoneNumberArr.length===10){
+            return `(${phoneNumberArr.slice(0,3).join('')}) ${phoneNumberArr.slice(3,6).join('')}-${phoneNumberArr.slice(6,10).join('')}`
+        }
+        else if(phoneNumberArr.length===11){
+            return `${phoneNumberArr[0]}-(${phoneNumberArr.splice(1,4).join('')}) ${phoneNumberArr.splice(4,7).join('')}-${phoneNumberArr.splice(7,11).join('')}`
+        }
+        else return phoneNumber
+    }
+
     return (
         <View style={styles.rootView}>
             {/* INFORMATION SECTION */}
@@ -91,8 +108,7 @@ export default function ConnectionsDetailsView({ details }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Date of Birth</Text>
-                    {/* <Text style={styles.contentText}>{details.birthday}</Text> birthday is an object --> { "day": null, "month": null, "raw": "", "year": null,}*/}
-                </View>
+                    {!details.birthday ? null : details.birthday.day ? <Text style={styles.contentText}>{details.birthday.month}/{details.birthday.day}/{details.birthday.year}</Text> : null}</View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Gender</Text>
                     <Text style={styles.contentText}>{details.gender}</Text>
@@ -106,21 +122,23 @@ export default function ConnectionsDetailsView({ details }) {
             <View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Residence</Text>
-                    <View style = {styles.addressDiv}>
-                    {details.addresses.length ? details.addresses.map(address => 
-                    <View style = {styles.addPad}>
-                            <Text>{address.street_number} {address.route}</Text>
-                            <Text>{address.route}{','} {address.state_code}</Text>
-                            <Text>{address.postal_code}{','} {address.country}</Text>
-                           
-                    </View>
-                    ) : null}
+                    <View style={styles.addressDiv}>
+                        {details.addresses.length ? details.addresses.map(address =>
+                            <View style={styles.addPad}>
+                                <Text>{address.street_number} {address.route}</Text>
+                                <Text>{address.route}{','} {address.state_code}</Text>
+                                <Text>{address.postal_code}{','} {address.country}</Text>
+
+                            </View>
+                        ) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
                     {console.log(details.telephones)}
                     <Text style={styles.labelText}>Telephone</Text>
-                    {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text key={index} style={styles.contentText}>{telephoneObj.telephone}</Text>) : null}
+                    <View style={styles.phoneDiv}>
+                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text key={index} style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
+                    </View>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
