@@ -70,76 +70,61 @@ function ConnectionsView(props) {
       flexDirection: "row",
       justifyContent: "center",
       alignItems: 'center',
+      borderBottomWidth: 1,
+      borderTopRightRadius: 4,
+      borderBottomColor: '#EBEBEB',
     },
 
     engagementTab: {
       width: "33.3%",
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: 1,
-      borderTopLeftRadius: 4,
-      borderColor: '#E5E4E2',
       height: 36,
       fontSize: 17.5,
       textAlign: 'center',
-      backgroundColor: '#E5E4E2'
     },
 
     documentsTab: {
       width: "33.3%",
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: 1,
-      borderTopRightRadius: 4,
-      borderColor: '#E5E4E2',
       height: 36,
       fontSize: 17.5,
       textAlign: 'center',
-      backgroundColor: '#E5E4E2'
     },
     detailsTab: {
       width: "33.3%",
       justifyContent: 'center',
       alignItems: 'center',
-      borderWidth: 1,
-      borderTopRightRadius: 4,
-      borderColor: '#E5E4E2',
       height: 36,
       fontSize: 17.5,
       textAlign: 'center',
-      backgroundColor: '#E5E4E2'
     },
 
     engagementSelected: {
-      backgroundColor: constants.highlightColor,
       color: '#FFFFFF',
-      borderWidth: 1,
-      borderColor: constants.highlightColor,
-      borderTopLeftRadius: 4,
-      overflow: "hidden"
+      borderBottomWidth: 3,
+      borderBottomColor: '#1D6491',
+      overflow: "hidden",
     },
 
     documentsSelected: {
-      backgroundColor: constants.highlightColor,
       color: '#FFFFFF',
-      borderWidth: 1,
-      borderColor: constants.highlightColor,
-      borderTopRightRadius: 4,
-      overflow: "hidden"
+      borderBottomWidth: 3,
+      borderBottomColor: '#1D6491',
+      overflow: "hidden",
     },
     detailsSelected: {
-      backgroundColor: constants.highlightColor,
       color: '#FFFFFF',
-      borderWidth: 1,
-      borderColor: constants.highlightColor,
-      borderTopRightRadius: 4,
+      borderBottomWidth: 3,
+      borderBottomColor: '#1D6491',
       overflow: "hidden"
     },
 
     iconLabelContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 20
+      marginBottom: 20, 
     },
 
     iconContainer: {
@@ -239,7 +224,8 @@ function ConnectionsView(props) {
                     height: 80, 
                     width: 80, 
                     borderRadius: 40, 
-                    overflow: 'hidden'}}
+                    overflow: 'hidden',
+                   }}
             >
                 {connectionData.picture ?
                 <Image 
@@ -276,7 +262,7 @@ function ConnectionsView(props) {
           <View style={[styles.tabs]}>
             <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
               <Text
-                style={[{ color: '#FFFFFF', fontSize: 17.5 }, tabs.engagement ? { color: '#FFFFFF' } : { color: '#000' }]}
+                style={[{ color: '#444444', fontSize: 17.5 }, tabs.engagement ? { color: '#444444' } : { color: '#444444' }]}
                 onPress={() => {
                   setTabs({
                     engagement: true,
@@ -291,7 +277,7 @@ function ConnectionsView(props) {
 
             <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
               <Text
-                style={[{ color: '#FFFFFF', fontSize: 17.5 }, tabs.docs ? { color: '#FFFFFF' } : { color: '#000' }]}
+                style={[{ color: '#444444', fontSize: 17.5 }, tabs.docs ? { color: '#444444' } : { color: '#444444' }]}
                 onPress={() => {
                   setTabs({
                     engagement: false,
@@ -305,7 +291,7 @@ function ConnectionsView(props) {
             </View>
             <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
               <Text
-                style={[{ color: '#FFFFFF', fontSize: 17.5 }, tabs.details ? { color: '#FFFFFF' } : { color: '#000' }]}
+                style={[{ color: '#444444', fontSize: 17.5 }, tabs.details ? { color: '#444444' } : { color: '#444444' }]}
                 onPress={() => {
                   setTabs({
                     engagement: false,
@@ -324,7 +310,9 @@ function ConnectionsView(props) {
               <View 
                 style={{ 
                   width: '100%', 
-                  minHeight: 350 
+                  minHeight: 350,
+                  paddingVertical: 50,
+                  paddingHorizontal: 25,
                 }}
               >
                 <View
