@@ -29,7 +29,7 @@ export default function ConnectionsDetailsView({ details }) {
             fontWeight: 'bold',
         },
         textView: {//container that wraps every text row, ex) First Name John
-            width: '70%',
+            width: '100%',
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -38,13 +38,16 @@ export default function ConnectionsDetailsView({ details }) {
 
         },
         labelText: {
+            width: '25%',
             marginBottom: 25
         },
         contentText: {
             // marginHorizontal: 20
-            
+            width:'75%',
             display: 'flex',
             flexDirection: 'column',
+            textAlign:'left',
+            marginLeft: 35
            
             
            
@@ -56,10 +59,12 @@ export default function ConnectionsDetailsView({ details }) {
             // display: 'flex',
             flexDirection:'column',
             flexWrap: 'wrap',
+            marginLeft: 17
 
         },
         addPad: {
-            padding: '5%'
+            padding: '5%',
+            paddingTop: 2
         }
     })
   
