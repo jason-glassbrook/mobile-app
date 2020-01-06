@@ -40,6 +40,7 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
 import Loader from '../components/Loader/Loader';
 import ScrollToTop from '../UI/ScrollToTop'
 import ConnectionsDetailsView from './ConnectionsDetailsView'
+import { Row } from 'native-base';
 
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
@@ -191,17 +192,24 @@ function ConnectionsView(props) {
       scrollEventThrottle={16}
     >
       
-      <View>
+      <View 
+      style={{
+        borderWidth: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        height: 300
+      }}
+      >
         <ListItem
           title={connectionData.full_name}
-          titleStyle={{ fontSize: 18 }}
+          titleStyle={{ fontSize: 18}}
           subtitle={
             <View>
               {connectionData.telephones ?
                 <TouchableOpacity
                   onPress={() => Linking.openURL(`tel:${TelephoneHelpers.numbersOnly(TelephoneHelpers.selectPrimaryTelephone(connectionData))}`)}
                 >
-                  <Text style={{ color: '#434245' }}>
+                  <Text style={{ color: '#434245'}}>
                     {TelephoneHelpers.format(TelephoneHelpers.selectPrimaryTelephone(connectionData))}
                   </Text>
                 </TouchableOpacity>
@@ -234,7 +242,8 @@ function ConnectionsView(props) {
                     height: 80, 
                     width: 80, 
                     borderRadius: 40, 
-                    overflow: 'hidden'}} 
+                    overflow: 'hidden',
+                    }} 
                     defaultSource = {placeholderImg}
                 /> :
                 <Image 
@@ -256,7 +265,7 @@ function ConnectionsView(props) {
             borderRadius: 4,
             width: '100%',
             alignItems: 'flex-start',
-            justifyContent: 'flex-start',
+            justifyContent: 'flex-start'
           }}
         >
           <View style={[styles.tabs]}>
