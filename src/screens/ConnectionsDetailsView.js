@@ -64,7 +64,7 @@ export default function ConnectionsDetailsView({ details }) {
         },
         addPad: {
             padding: '5%',
-            paddingTop: 2
+            paddingTop: 2,
         }
     })
   
