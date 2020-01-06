@@ -43,14 +43,6 @@ export default function ConnectionsDetailsView({ details }) {
         },
         contentText: {
             // marginHorizontal: 20
-<<<<<<< HEAD
-
-            display: 'flex',
-            flexDirection: 'column',
-
-
-
-=======
             width:'75%',
             display: 'flex',
             flexDirection: 'column',
@@ -59,7 +51,6 @@ export default function ConnectionsDetailsView({ details }) {
            
             
            
->>>>>>> 01ec2afe54370b8e863e1d14167b6687843076a3
             // textAlign: 'left',
 
         },
@@ -106,7 +97,7 @@ export default function ConnectionsDetailsView({ details }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Date of Birth</Text>
-                    {!details.birthday ? null : details.birthday.day ? <Text style={styles.labelText}>{details.birthday.month}/{details.birthday.day}/{details.birthday.year}</Text> : null}</View>
+                    {!details.birthday ? null : details.birthday.day ? <Text style={styles.contentText}>{details.birthday.month}/{details.birthday.day}/{details.birthday.year}</Text> : null}</View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Gender</Text>
                     <Text style={styles.contentText}>{details.gender}</Text>
