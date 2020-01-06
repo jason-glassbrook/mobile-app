@@ -80,7 +80,7 @@ export default function ConnectionsDetailsView({ details }) {
             return `(${phoneNumberArr.slice(0,3).join('')}) ${phoneNumberArr.slice(3,6).join('')}-${phoneNumberArr.slice(6,10).join('')}`
         }
         else if(phoneNumberArr.length===11){
-            return `${phoneNumberArr[0]}-(${phoneNumberArr.splice(1,4).join('')}) ${phoneNumberArr.splice(4,7).join('')}-${phoneNumberArr.splice(7,11).join('')}`
+            return `${phoneNumberArr[0]}(${phoneNumberArr.slice(1,4).join('')}) ${phoneNumberArr.slice(4,7).join('')}-${phoneNumberArr.slice(7,11).join('')}`
         }
         else return phoneNumber
     }
