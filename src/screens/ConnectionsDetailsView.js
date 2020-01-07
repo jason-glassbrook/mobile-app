@@ -70,11 +70,11 @@ export default function ConnectionsDetailsView({ details }) {
         },
         addPad: {
             padding: '5%',
-            paddingTop: 2
+            paddingTop: 2,
         }
     })
 
-    const teleFormat = (phoneNumber) =>{
+    const teleFormat = (phoneNumber) =>{ 
         let phoneNumberArr = phoneNumber.split('')
         if (phoneNumberArr.length===10){
             return `(${phoneNumberArr.slice(0,3).join('')}) ${phoneNumberArr.slice(3,6).join('')}-${phoneNumberArr.slice(6,10).join('')}`

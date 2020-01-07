@@ -120,11 +120,11 @@ const FamilyConnectionsNavigator = createStackNavigator(
                   paddingTop: 10,
                   paddingBottom: 10,
                   marginLeft: 5,
-                  fontSize: 20,
-                  color: '#0F6580'
+                  fontSize: 27,
+                  color: '#8b8b89'
                 }}
               >
-                {leftArrow} {navigation.getParam('childName').toUpperCase()}
+                {leftArrow} 
               </Text>
             </TouchableOpacity>)
         }}
