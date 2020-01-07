@@ -147,6 +147,11 @@ function ConnectionsView(props) {
     iconLabel: {
       color: '#0F6580',
       fontSize: 12
+    }, avatarName: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems:'center',
+      paddingBottom:'18%'
     }
   })
 
@@ -192,12 +197,39 @@ function ConnectionsView(props) {
       scrollEventThrottle={16}
     >
       
+      <View>
+      <View style = {styles.avatarName}>
       <View 
-      style={{
-        borderWidth: 1,
-      }}
-      >
-        <ListItem
+                style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden',
+                   }}
+            >
+                {connectionData.picture ?
+                <Image 
+                    source={{uri: connectionData.picture }} 
+                    style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden',
+                    }} 
+                    defaultSource = {placeholderImg}
+                /> :
+                <Image 
+                    source={placeholderImg} 
+                    style={{
+                    height: 80, 
+                    width: 80, 
+                    borderRadius: 40, 
+                    overflow: 'hidden'}} 
+                />}
+                </View>
+              <Text>{connectionData.full_name}</Text>
+      </View>
+        {/* <ListItem
           title={connectionData.full_name}
           titleStyle={{ fontSize: 18}}
           subtitle={
@@ -253,7 +285,7 @@ function ConnectionsView(props) {
                 />}
             </View>
         }
-        />
+        /> */}
       </View>
 
       <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
@@ -268,7 +300,7 @@ function ConnectionsView(props) {
           <View style={[styles.tabs]}>
             <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
               <Text
-                style={[{ color: '#444444', fontSize: 17.5 }, tabs.engagement ? { color: '#444444' } : { color: '#444444' }]}
+                style={[{ color: '#444444', fontSize: 17.5 , paddingBottom: 9}, tabs.engagement ? { color: '#444444' } : { color: '#444444' }]}
                 onPress={() => {
                   setTabs({
                     engagement: true,
@@ -283,7 +315,7 @@ function ConnectionsView(props) {
 
             <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
               <Text
-                style={[{ color: '#444444', fontSize: 17.5 }, tabs.docs ? { color: '#444444' } : { color: '#444444' }]}
+                style={[{ color: '#444444', fontSize: 17.5, paddingBottom: 9}, tabs.docs ? { color: '#444444' } : { color: '#444444' }]}
                 onPress={() => {
                   setTabs({
                     engagement: false,
@@ -297,7 +329,7 @@ function ConnectionsView(props) {
             </View>
             <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
               <Text
-                style={[{ color: '#444444', fontSize: 17.5 }, tabs.details ? { color: '#444444' } : { color: '#444444' }]}
+                style={[{ color: '#444444', fontSize: 17.5 , paddingBottom: 9}, tabs.details ? { color: '#444444' } : { color: '#444444' }]}
                 onPress={() => {
                   setTabs({
                     engagement: false,
