@@ -227,65 +227,15 @@ function ConnectionsView(props) {
                     overflow: 'hidden'}} 
                 />}
                 </View>
-              <Text>{connectionData.full_name}</Text>
+              <Text
+              style={{
+                fontSize: 30,
+                color: '#444444',
+                paddingTop: 15,
+                fontFamily: constants.lotoFamily
+              }}
+              >{connectionData.full_name}</Text>
       </View>
-        {/* <ListItem
-          title={connectionData.full_name}
-          titleStyle={{ fontSize: 18}}
-          subtitle={
-            <View>
-              {connectionData.telephones ?
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(`tel:${TelephoneHelpers.numbersOnly(TelephoneHelpers.selectPrimaryTelephone(connectionData))}`)}
-                >
-                  <Text style={{ color: '#434245'}}>
-                    {TelephoneHelpers.format(TelephoneHelpers.selectPrimaryTelephone(connectionData))}
-                  </Text>
-                </TouchableOpacity>
-                : null}
-              {connectionData.email ?
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(`mailto:${connectionData.email}`)}
-                >
-                  <Text style={{ color: '#434245' }}>
-                    {connectionData.email}
-                  </Text>
-                </TouchableOpacity>
-                : null}
-              {connectionData.address && connectionData.address.formatted ? <Text style={{ color: '#434245' }}>{connectionData.address.formatted}</Text> : null}
-            </View>
-          }
-          leftAvatar={
-            <View 
-                style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden',
-                   }}
-            >
-                {connectionData.picture ?
-                <Image 
-                    source={{uri: connectionData.picture }} 
-                    style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden',
-                    }} 
-                    defaultSource = {placeholderImg}
-                /> :
-                <Image 
-                    source={placeholderImg} 
-                    style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden'}} 
-                />}
-            </View>
-        }
-        /> */}
       </View>
 
       <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
