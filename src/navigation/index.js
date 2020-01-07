@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {
   TouchableWithoutFeedback,
+
   Image,
   Text,
   TouchableOpacity

@@ -20,7 +20,8 @@ export default class App extends Component {
   async componentDidMount() {
     await Font.loadAsync({
       [constants.fontFamily]: require('./assets/fonts/Futura-Light.otf'),
-      [constants.headerFont]: require('./assets/fonts/Futura-Medium.otf')
+      [constants.headerFont]: require('./assets/fonts/Futura-Medium.otf'),
+      [constants.lotoFamily]: require('./assets/fonts/Lato-Light.ttf')
     });
     this.setState({ fontLoaded: true });
   }
