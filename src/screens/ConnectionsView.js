@@ -227,6 +227,7 @@ function ConnectionsView(props) {
                     overflow: 'hidden'
                   }}
                 />}
+<<<<<<< HEAD
             </View>
             <Text>{connectionData.full_name}</Text>
           </View>
@@ -288,6 +289,19 @@ function ConnectionsView(props) {
         }
         /> */}
         </View>
+=======
+                </View>
+              <Text
+              style={{
+                fontSize: 30,
+                color: '#444444',
+                paddingTop: 15,
+                fontFamily: constants.lotoFamily
+              }}
+              >{connectionData.full_name}</Text>
+      </View>
+      </View>
+>>>>>>> b41ae396ea2559f93ce79302571921d48adbf56f
 
         <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
           <View
