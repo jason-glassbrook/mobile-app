@@ -40,6 +40,7 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
 import Loader from '../components/Loader/Loader';
 import ScrollToTop from '../UI/ScrollToTop'
 import ConnectionsDetailsView from './ConnectionsDetailsView'
+import EditConnectionsForm from "../components/ConnectionsViewTabs/EditConnectionForm"
 
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
@@ -56,7 +57,7 @@ function ConnectionsView(props) {
   const [engagementType, setEngagementType] = useState()
   const [image, setImage] = useState({})
   const [isScrolling, setIsScrolling] = useState(false)
-  console.log('this is the one you must find ', props.details)
+  // console.log('this is the one you must find ', props.details)
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
@@ -465,13 +466,12 @@ function ConnectionsView(props) {
               <View 
                 style={{ 
                   minHeight: 350, 
- 
                   width: '100%' 
                   }}
               >
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 {props.isLoadingDetails ? <Loader />:
-                 <ConnectionsDetailsView details={props.details}/>
+                  <EditConnectionsForm id={connectionData.pk} details={props.details}/> 
                 }
               </View>
              </View> 
@@ -483,6 +483,8 @@ function ConnectionsView(props) {
     </View>
   );
 }
+
+{/* <ConnectionsDetailsView details={props.details}/> */}
 
 const mapStateToProps = state => {
   return {
