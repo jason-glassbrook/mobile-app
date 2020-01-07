@@ -13,6 +13,7 @@ import {
     GET_DETAILS_SUCCESS,
     GET_DETAILS_FAILURE,
     CLEAR_DETAILS,
+    SET_DETAILS
 } from "../actions/connectionData";
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
     details: {},
     isLoadingDetails: false,
     detailsError: "",
+    detailsTab:false
 };
 
 export const connectionReducer = (state = initialState, action) => {
@@ -106,6 +108,12 @@ export const connectionReducer = (state = initialState, action) => {
             case CLEAR_DETAILS:
                 return {
                     details: {}
+                }
+                case SET_DETAILS:
+                    console.log(state.detailsTab)
+                return {
+                    ...state,
+                    detailsTab: action.payload
                 }
         default:
             return state;

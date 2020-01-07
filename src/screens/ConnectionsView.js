@@ -21,12 +21,13 @@ import {
   getDocuments,
   clearDocuments,
   clearEngagements,
-  getDetails
+  getDetails,
+  setDetails
 } from "../store/actions/connectionData";
 import {
-  Ionicons, 
-  AntDesign, 
-  MaterialCommunityIcons, 
+  Ionicons,
+  AntDesign,
+  MaterialCommunityIcons,
   Feather,
   MaterialIcons
 } from '@expo/vector-icons';
@@ -49,7 +50,7 @@ function ConnectionsView(props) {
   const [tabs, setTabs] = useState({
     engagement: true,
     docs: false,
-    details: false, 
+    details: false,
   })
 
   const [formVisible, setFormVisible] = useState(false)
@@ -57,7 +58,6 @@ function ConnectionsView(props) {
   const [engagementType, setEngagementType] = useState()
   const [image, setImage] = useState({})
   const [isScrolling, setIsScrolling] = useState(false)
-  console.log('this is the one you must find ', props.details)
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
@@ -125,7 +125,7 @@ function ConnectionsView(props) {
     iconLabelContainer: {
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: 20, 
+      marginBottom: 20,
     },
 
     iconContainer: {
@@ -150,8 +150,8 @@ function ConnectionsView(props) {
     }, avatarName: {
       display: 'flex',
       justifyContent: 'center',
-      alignItems:'center',
-      paddingBottom:'18%'
+      alignItems: 'center',
+      paddingBottom: '18%'
     }
   })
 
@@ -164,72 +164,73 @@ function ConnectionsView(props) {
   }
 
   const goToTop = () => {
-    scroll.scrollTo({x: 0, y: 0, animated: true});
-  } 
-  
+    scroll.scrollTo({ x: 0, y: 0, animated: true });
+  }
+
   return (
-    <View>  
-      { isScrolling ?
-        <ScrollToTop 
+    <View>
+      {isScrolling ?
+        <ScrollToTop
           style={{
             position: 'absolute',
             zIndex: 1000,
             bottom: 15,
             right: 38,
-            backgroundColor: 'white', 
+            backgroundColor: 'white',
             padding: 8,
             borderRadius: 35
           }}
           onPress={goToTop}
         /> : null}
-      <ScrollView 
-        ref={(a) => {scroll = a}}
+      <ScrollView
+        ref={(a) => { scroll = a }}
         style={{ maxHeight: '100%', width: '100%' }}
         scrollsToTop
         onScroll={(e) => {
           if (e.nativeEvent.contentOffset.y <= 250) {
             setIsScrolling(false)
-          } else if (e.nativeEvent.contentOffset.y >=250) {
+          } else if (e.nativeEvent.contentOffset.y >= 250) {
             setIsScrolling(true)
           }
         }}
-      onScrollToTop={() => setIsScrolling(false)}
-      scrollEventThrottle={16}
-    >
-      
-      <View>
-      <View style = {styles.avatarName}>
-      <View 
-                style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden',
-                   }}
+        onScrollToTop={() => setIsScrolling(false)}
+        scrollEventThrottle={16}
+      >
+
+        <View>
+          <View style={styles.avatarName}>
+            <View
+              style={{
+                height: 80,
+                width: 80,
+                borderRadius: 40,
+                overflow: 'hidden',
+              }}
             >
-                {connectionData.picture ?
-                <Image 
-                    source={{uri: connectionData.picture }} 
-                    style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
+              {connectionData.picture ?
+                <Image
+                  source={{ uri: connectionData.picture }}
+                  style={{
+                    height: 80,
+                    width: 80,
+                    borderRadius: 40,
                     overflow: 'hidden',
-                    }} 
-                    defaultSource = {placeholderImg}
+                  }}
+                  defaultSource={placeholderImg}
                 /> :
-                <Image 
-                    source={placeholderImg} 
-                    style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden'}} 
+                <Image
+                  source={placeholderImg}
+                  style={{
+                    height: 80,
+                    width: 80,
+                    borderRadius: 40,
+                    overflow: 'hidden'
+                  }}
                 />}
-                </View>
-              <Text>{connectionData.full_name}</Text>
-      </View>
-        {/* <ListItem
+            </View>
+            <Text>{connectionData.full_name}</Text>
+          </View>
+          {/* <ListItem
           title={connectionData.full_name}
           titleStyle={{ fontSize: 18}}
           subtitle={
@@ -286,152 +287,155 @@ function ConnectionsView(props) {
             </View>
         }
         /> */}
-      </View>
+        </View>
 
-      <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
-        <View
-          style={{
-            borderRadius: 4,
-            width: '100%',
-            alignItems: 'flex-start',
-            justifyContent: 'flex-start'
-          }}
-        >
-          <View style={[styles.tabs]}>
-            <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
-              <Text
-                style={[{ color: '#444444', fontSize: 17.5 , paddingBottom: 9}, tabs.engagement ? { color: '#444444' } : { color: '#444444' }]}
-                onPress={() => {
-                  setTabs({
-                    engagement: true,
-                    docs: false,
-                    details: false,
-                  });
-                }}
-              >
-                Engagements
-              </Text>
-            </View>
-
-            <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
-              <Text
-                style={[{ color: '#444444', fontSize: 17.5, paddingBottom: 9}, tabs.docs ? { color: '#444444' } : { color: '#444444' }]}
-                onPress={() => {
-                  setTabs({
-                    engagement: false,
-                    docs: true,
-                    details: false,
-                  });
-                }}
-              >
-                Documents
-              </Text>
-            </View>
-            <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
-              <Text
-                style={[{ color: '#444444', fontSize: 17.5 , paddingBottom: 9}, tabs.details ? { color: '#444444' } : { color: '#444444' }]}
-                onPress={() => {
-                  setTabs({
-                    engagement: false,
-                    docs: false, 
-                    details: true,
-                  });
-                }}
-              >
-                Details
-              </Text>
-            </View>
-          </View>
-
-          {
-            tabs.engagement ?
-              <View 
-                style={{ 
-                  width: '100%', 
-                  minHeight: 350,
-                  paddingVertical: 50,
-                  paddingHorizontal: 25,
-                }}
-              >
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    alignItems: 'center',
-                    marginTop: 12,
+        <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
+          <View
+            style={{
+              borderRadius: 4,
+              width: '100%',
+              alignItems: 'flex-start',
+              justifyContent: 'flex-start'
+            }}
+          >
+            <View style={[styles.tabs]}>
+              <View style={[styles.engagementTab, tabs.engagement ? styles.engagementSelected : null]}>
+                <Text
+                  style={[{ color: '#444444', fontSize: 17.5, paddingBottom: 9 }, tabs.engagement ? { color: '#444444' } : { color: '#444444' }]}
+                  onPress={() => {
+                    setTabs({
+                      engagement: true,
+                      docs: false,
+                      details: false,
+                    });
+                    props.detailsTab ? props.getDetails(false) : null
                   }}
                 >
-                  <View style={styles.iconLabelContainer}>
-                    <View style={styles.iconContainer}>
-                      <TouchableOpacity
-                        onPress={ () => {
-                          passEngagementType('N')
-                        }}
-                      >
-                        <AntDesign
-                          name='file1'
-                          style={styles.iconStyles}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                    <Text style={styles.iconLabel}>ADD NOTE</Text>
-                  </View>
+                  Engagements
+              </Text>
+              </View>
 
-                  <View style={styles.iconLabelContainer}>
-                    <View style={styles.iconContainer}>
-                      <TouchableOpacity
-                        onPress={() => {
-                          passEngagementType('C')
-                        }}
-                      >
-                        <MaterialIcons
-                          name='phone'
-                          style={{
-                            fontSize: 28,
-                            color: '#0F6580',
-                            width: 28,
-                            height: 28,
-                            marginHorizontal: 10,
-                            transform: [{ rotate: '-90deg' }]
+              <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
+                <Text
+                  style={[{ color: '#444444', fontSize: 17.5, paddingBottom: 9 }, tabs.docs ? { color: '#444444' } : { color: '#444444' }]}
+                  onPress={() => {
+                    setTabs({
+                      engagement: false,
+                      docs: true,
+                      details: false,
+                    });
+                    props.detailsTab ? props.getDetails(false) : null
+                  }}
+                >
+                  Documents
+              </Text>
+              </View>
+              <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
+                <Text
+                  style={[{ color: '#444444', fontSize: 17.5, paddingBottom: 9 }, tabs.details ? { color: '#444444' } : { color: '#444444' }]}
+                  onPress={() => {
+                    setTabs({
+                      engagement: false,
+                      docs: false,
+                      details: true,
+                    });
+                    props.detailsTab === false ? props.getDetails(true) : null
+                  }}
+                >
+                  Details
+              </Text>
+              </View>
+            </View>
+
+            {
+              tabs.engagement ?
+                <View
+                  style={{
+                    width: '100%',
+                    minHeight: 350,
+                    paddingVertical: 50,
+                    paddingHorizontal: 25,
+                  }}
+                >
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      justifyContent: 'space-evenly',
+                      alignItems: 'center',
+                      marginTop: 12,
+                    }}
+                  >
+                    <View style={styles.iconLabelContainer}>
+                      <View style={styles.iconContainer}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            passEngagementType('N')
                           }}
-                        />
-                      </TouchableOpacity>
+                        >
+                          <AntDesign
+                            name='file1'
+                            style={styles.iconStyles}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <Text style={styles.iconLabel}>ADD NOTE</Text>
                     </View>
-                    <Text style={styles.iconLabel}>LOG CALL</Text>
-                  </View>
 
-                  <View style={styles.iconLabelContainer}>
-                    <View style={styles.iconContainer}>
-                      <TouchableOpacity
-                        onPress={async () => {
-                          passEngagementType('E')
-                        }}
-                      >
-                        <MaterialIcons
-                          name='email'
-                          style={styles.iconStyles}
-                        />
-                      </TouchableOpacity>
+                    <View style={styles.iconLabelContainer}>
+                      <View style={styles.iconContainer}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            passEngagementType('C')
+                          }}
+                        >
+                          <MaterialIcons
+                            name='phone'
+                            style={{
+                              fontSize: 28,
+                              color: '#0F6580',
+                              width: 28,
+                              height: 28,
+                              marginHorizontal: 10,
+                              transform: [{ rotate: '-90deg' }]
+                            }}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <Text style={styles.iconLabel}>LOG CALL</Text>
                     </View>
-                    <Text style={styles.iconLabel}>LOG EMAIL</Text>
-                  </View>
 
-                  <View style={styles.iconLabelContainer}>
-                    <View style={styles.iconContainer}>
-                      <TouchableOpacity
-                        onPress={async () => {
-                          passEngagementType('R')
-                        }}
-                      >
-                        <MaterialCommunityIcons
-                          name='clock-outline'
-                          style={styles.iconStyles}
-                        />
-                      </TouchableOpacity>
+                    <View style={styles.iconLabelContainer}>
+                      <View style={styles.iconContainer}>
+                        <TouchableOpacity
+                          onPress={async () => {
+                            passEngagementType('E')
+                          }}
+                        >
+                          <MaterialIcons
+                            name='email'
+                            style={styles.iconStyles}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <Text style={styles.iconLabel}>LOG EMAIL</Text>
                     </View>
-                    <Text style={styles.iconLabel}>REMINDER</Text>
+
+                    <View style={styles.iconLabelContainer}>
+                      <View style={styles.iconContainer}>
+                        <TouchableOpacity
+                          onPress={async () => {
+                            passEngagementType('R')
+                          }}
+                        >
+                          <MaterialCommunityIcons
+                            name='clock-outline'
+                            style={styles.iconStyles}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                      <Text style={styles.iconLabel}>REMINDER</Text>
+                    </View>
                   </View>
-                </View>
 
                   <View>
                     {
@@ -443,69 +447,70 @@ function ConnectionsView(props) {
 
                       })}
                   </View>
-              </View>
-              : null
-          }
-
-          {
-            tabs.docs ?
-              <View 
-                style={{ 
-                  minHeight: 350, 
- 
-                  width: '100%' 
-                  }}
-              >
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      props.navigation.navigate('DocumentForm', {id: connectionData.pk})
-                    }}
-                    style={{ 
-                      width: 162, 
-                      height: 40, 
-                      backgroundColor: constants.highlightColor, 
-                      borderRadius: 4, 
-                      justifyContent: 'center', 
-                      alignItems: 'center', 
-                      marginTop: 18, 
-                      marginBottom: 10 }}
-                  >
-                    <Text style={{ color: "#FFFFFF", fontSize: 18 }}>Add Document</Text>
-                  </TouchableOpacity>
                 </View>
-                <View style={{ width: '100%', maxHeight: '100%' }} >
-                  {props.isLoadingDocs ? <Loader /> :
-                    props.documents.map((document) => {
+                : null
+            }
 
-                      return (
-                        <Documents key={document.pk} document={document} />)
-                    })}
-                </View>
-              </View>
-              // </View> 
-              : null
-          }
-          {
-            tabs.details ?
-              <View 
-                style={{ 
-                  minHeight: 350, 
- 
-                  width: '100%' 
+            {
+              tabs.docs ?
+                <View
+                  style={{
+                    minHeight: 350,
+
+                    width: '100%'
                   }}
-              >
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                {props.isLoadingDetails ? <Loader />:
-                 <ConnectionsDetailsView details={props.details}/>
-                }
-              </View>
-             </View> 
-              : null
-          }
+                >
+                  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity
+                      onPress={() => {
+                        props.navigation.navigate('DocumentForm', { id: connectionData.pk })
+                      }}
+                      style={{
+                        width: 162,
+                        height: 40,
+                        backgroundColor: constants.highlightColor,
+                        borderRadius: 4,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        marginTop: 18,
+                        marginBottom: 10
+                      }}
+                    >
+                      <Text style={{ color: "#FFFFFF", fontSize: 18 }}>Add Document</Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ width: '100%', maxHeight: '100%' }} >
+                    {props.isLoadingDocs ? <Loader /> :
+                      props.documents.map((document) => {
+
+                        return (
+                          <Documents key={document.pk} document={document} />)
+                      })}
+                  </View>
+                </View>
+                // </View> 
+                : null
+            }
+            {
+              tabs.details ?
+                <View
+                  style={{
+                    minHeight: 350,
+
+                    width: '100%'
+                  }}
+                >
+                  <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                    {props.isLoadingDetails ? <Loader /> :
+                      <ConnectionsDetailsView details={props.details} />
+                    }
+                  </View>
+                </View>
+                : null
+            }
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
     </View>
   );
 }
@@ -520,7 +525,8 @@ const mapStateToProps = state => {
     isLoadingDocs: state.engagements.isLoadingDocs,
     documentsError: state.connection.documentsError,
     details: state.connection.details,
-    isLoadingDetails: state.connection.isLoadingDetails 
+    isLoadingDetails: state.connection.isLoadingDetails,
+    detailsTab: state.connection.detailsTab
   }
 }
 
@@ -531,6 +537,7 @@ export default connect(
     clearEngagements,
     getDocuments,
     clearDocuments,
-    getDetails
+    getDetails,
+    setDetails
   }
 )(ConnectionsView);
