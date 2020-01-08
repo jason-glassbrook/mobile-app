@@ -20,13 +20,18 @@ export default function ConnectionsDetailsView({ details }) {
             margin: 0
         },
         header: {
-            marginVertical: 20,
+            marginTop: 1,            
+            marginBottom: 20,
             borderBottomWidth: .75,
-            borderBottomColor: 'black'
+            borderBottomColor: 'black',
+            display: 'flex',
+            flexDirection:'row',
+            justifyContent: 'space-between'
         },
         headerText: {
             color: '#a1a1a1',
             fontWeight: 'bold',
+
         },
         textView: {//container that wraps every text row, ex) First Name John
             width: '100%',
@@ -43,14 +48,14 @@ export default function ConnectionsDetailsView({ details }) {
         },
         contentText: {
             // marginHorizontal: 20
-            width:'75%',
+            width: '75%',
             display: 'flex',
             flexDirection: 'column',
-            textAlign:'left',
+            textAlign: 'left',
             marginLeft: 35
-           
-            
-           
+
+
+
             // textAlign: 'left',
 
         },
@@ -71,16 +76,22 @@ export default function ConnectionsDetailsView({ details }) {
         addPad: {
             padding: '5%',
             paddingTop: 2,
+        },
+        edit:{
+            color:'#0279AC', 
+            paddingTop:20, 
+            paddingRight:5, 
+            textAlign:'right'
         }
     })
 
-    const teleFormat = (phoneNumber) =>{ 
+    const teleFormat = (phoneNumber) => {
         let phoneNumberArr = phoneNumber.split('')
-        if (phoneNumberArr.length===10){
-            return `(${phoneNumberArr.slice(0,3).join('')}) ${phoneNumberArr.slice(3,6).join('')}-${phoneNumberArr.slice(6,10).join('')}`
+        if (phoneNumberArr.length === 10) {
+            return `(${phoneNumberArr.slice(0, 3).join('')}) ${phoneNumberArr.slice(3, 6).join('')}-${phoneNumberArr.slice(6, 10).join('')}`
         }
-        else if(phoneNumberArr.length===11){
-            return `${phoneNumberArr[0]}(${phoneNumberArr.slice(1,4).join('')}) ${phoneNumberArr.slice(4,7).join('')}-${phoneNumberArr.slice(7,11).join('')}`
+        else if (phoneNumberArr.length === 11) {
+            return `${phoneNumberArr[0]}(${phoneNumberArr.slice(1, 4).join('')}) ${phoneNumberArr.slice(4, 7).join('')}-${phoneNumberArr.slice(7, 11).join('')}`
         }
         else return phoneNumber
     }
@@ -88,7 +99,11 @@ export default function ConnectionsDetailsView({ details }) {
     return (
         <View style={styles.rootView}>
             {/* INFORMATION SECTION */}
-            <View style={styles.header}><Text style={styles.headerText}>INFORMATION</Text></View>
+            {/* onPress needed for edit */}
+            <Text style={styles.edit}>Edit</Text> 
+            <View style={styles.header}>
+                <Text style={styles.headerText}>INFORMATION</Text>
+            </View>
             <View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>First Name</Text>
@@ -123,18 +138,16 @@ export default function ConnectionsDetailsView({ details }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Residence</Text>
                     <View style={styles.addressDiv}>
-                        {details.addresses.length ? details.addresses.map(address =>
-                            <View style={styles.addPad}>
+                        {details.addresses.length ? details.addresses.map((address, ind) =>
+                            <View key={ind} style={styles.addPad}>
                                 <Text>{address.street_number} {address.route}</Text>
                                 <Text>{address.route}{','} {address.state_code}</Text>
                                 <Text>{address.postal_code}{','} {address.country}</Text>
-
                             </View>
                         ) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
-                    {console.log(details.telephones)}
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
                         {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text key={index} style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
