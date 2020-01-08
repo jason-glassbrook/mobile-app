@@ -155,7 +155,7 @@ function EditConnectionForm(props) {
             <Text>Street Address 2</Text>
             <TextInput style={styles.textInput} value={val.raw} placeholder="Street Address 2" />
 
-            <View>
+            <View style={styles.addressDetail}>
               <Text>City</Text>
               <TextInput style={styles.textInput} value={val.locality} placeholder="City" />
 
@@ -268,6 +268,21 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "white"
+  },
+  addressDetail: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  addressInput: {
+    flex: 1,
+    color: "black",
+    borderColor: "silver",
+    borderWidth: 1,
+    borderRadius: 5,
+    padding: 15,
+    margin: 10,
+    width: "45%"
   }
 })
 
