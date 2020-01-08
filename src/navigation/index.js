@@ -143,7 +143,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
             headerTitle: (
               <Image
                 source={logoImg}
-                style={{ width: 225, height: 90, marginLeft: 30}}
+                style={{ width: 225, height: 90, justifyContent: 'center'}}
                 resizeMode="contain"
               />
             )
