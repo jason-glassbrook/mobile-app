@@ -7,6 +7,7 @@ import {
     ScrollView,
     Button,
     Linking,
+    Platform,
     Modal,
     Image
 } from 'react-native';
@@ -150,7 +151,16 @@ export default function ConnectionsDetailsView({ details }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
-                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text key={index} style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
+                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => 
+                        <Text key={index} 
+                        style={styles.contentText}
+                        onPress={()=>{
+                            Platform.OS==='android'? Linking.openURL(`tel: ${telephoneObj.telephone}`):Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
+                        }}
+                        >
+                        {teleFormat(telephoneObj.telephone)}
+                        </Text>
+                        ) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
