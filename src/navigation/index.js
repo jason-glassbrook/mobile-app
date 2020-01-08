@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import {
   TouchableWithoutFeedback,
-  View,
+
   Image,
   Text,
   TouchableOpacity
@@ -139,15 +139,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
               </Text>
               {/* <Text>Edit Details</Text> */}
               {/* if details true show edit, if not don't */}
-            </TouchableOpacity>),
-            headerTitle: (
-              <Image
-                source={logoImg}
-                style={{ width: 225, height: 90, marginLeft: 30}}
-                resizeMode="contain"
-              />
-            )
-            
+            </TouchableOpacity>)
         }
       }
     },
@@ -261,7 +253,7 @@ const CustomDrawerNavigator = createStackNavigator({
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: constants.highlightColor,
       }
     },
     navigationOptions: {
@@ -378,9 +370,7 @@ const BottomNavigator = createBottomTabNavigator(
           <Ionicons
             name="md-search"
             size={36}
-            color={tintColor} 
-            style={{borderTop: '1px solid black'}}
-            />
+            color={tintColor} />
         )
       },
     },
@@ -416,10 +406,10 @@ const BottomNavigator = createBottomTabNavigator(
   {
     initialRouteName: 'FamilyConnections',
     tabBarOptions: {
-      inactiveTintColor: 'rgba(24, 23, 21, 0.5)',
-      activeTintColor: constants.highlightColor,
+      inactiveTintColor: '#FFFFFF',
+      activeTintColor: '#212529',
       style: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: constants.highlightColor,
         height: 55,
         paddingTop: 3,
         paddingBottom: 3,
