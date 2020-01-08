@@ -41,11 +41,8 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
 import Loader from '../components/Loader/Loader';
 import ScrollToTop from '../UI/ScrollToTop'
 import ConnectionsDetailsView from './ConnectionsDetailsView'
-<<<<<<< HEAD
 import EditConnectionsForm from "../components/ConnectionsViewTabs/EditConnectionForm"
-=======
 import { Row } from 'native-base';
->>>>>>> 56a8ff0ea136824c5b76ce94e6afda34f7da4165
 
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
@@ -64,10 +61,7 @@ function ConnectionsView(props) {
   const [engagementType, setEngagementType] = useState()
   const [image, setImage] = useState({})
   const [isScrolling, setIsScrolling] = useState(false)
-<<<<<<< HEAD
   // console.log('this is the one you must find ', props.details)
-=======
->>>>>>> 56a8ff0ea136824c5b76ce94e6afda34f7da4165
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
@@ -446,28 +440,6 @@ function ConnectionsView(props) {
                       })}
                   </View>
                 </View>
-<<<<<<< HEAD
-              </View>
-              // </View> 
-              : null
-          }
-          {
-            tabs.details ?
-              <View 
-                style={{ 
-                  minHeight: 350, 
-                  width: '100%' 
-                  }}
-              >
-                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                {props.isLoadingDetails ? <Loader />:
-                  <EditConnectionsForm id={connectionData.pk} details={props.details}/> 
-                }
-              </View>
-             </View> 
-              : null
-          }
-=======
                 // </View> 
                 : null
             }
@@ -489,7 +461,6 @@ function ConnectionsView(props) {
                 : null
             }
           </View>
->>>>>>> 56a8ff0ea136824c5b76ce94e6afda34f7da4165
         </View>
       </ScrollView>
     </View>

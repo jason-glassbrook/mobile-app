@@ -37,11 +37,7 @@ import ScrollToTop from '../UI/ScrollToTop'
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
 export function CaseViewScreen(props) {
-<<<<<<< HEAD
   // console.log('this is props, ', props)
-=======
-  
->>>>>>> 56a8ff0ea136824c5b76ce94e6afda34f7da4165
   const [searchKeywords, setSearchKeywords] = useState('')
 
   const [filtersSelected, setFiletersSelected] = useState({
