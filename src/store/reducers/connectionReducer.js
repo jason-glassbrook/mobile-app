@@ -109,10 +109,10 @@ export const connectionReducer = (state = initialState, action) => {
                 return {
                     details: {}
                 }
-                case SET_DETAILS:
-                    console.log(state.detailsTab)
+            case SET_DETAILS:
                 return {
                     ...state,
+                    isLoadingDetails: false,
                     detailsTab: action.payload
                 }
         default:

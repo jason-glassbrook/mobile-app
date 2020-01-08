@@ -51,8 +51,10 @@ function ConnectionsView(props) {
     engagement: true,
     docs: false,
     details: false,
-  })
+  });
+  const [editing, setEditing] = useState(false);
 
+  // console.log(props.getDetails)
   const [formVisible, setFormVisible] = useState(false)
   const [addDocVisible, setAddDocVisible] = useState(false)
   const [engagementType, setEngagementType] = useState()
@@ -227,81 +229,17 @@ function ConnectionsView(props) {
                     overflow: 'hidden'
                   }}
                 />}
-<<<<<<< HEAD
             </View>
-            <Text>{connectionData.full_name}</Text>
-          </View>
-          {/* <ListItem
-          title={connectionData.full_name}
-          titleStyle={{ fontSize: 18}}
-          subtitle={
-            <View>
-              {connectionData.telephones ?
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(`tel:${TelephoneHelpers.numbersOnly(TelephoneHelpers.selectPrimaryTelephone(connectionData))}`)}
-                >
-                  <Text style={{ color: '#434245'}}>
-                    {TelephoneHelpers.format(TelephoneHelpers.selectPrimaryTelephone(connectionData))}
-                  </Text>
-                </TouchableOpacity>
-                : null}
-              {connectionData.email ?
-                <TouchableOpacity
-                  onPress={() => Linking.openURL(`mailto:${connectionData.email}`)}
-                >
-                  <Text style={{ color: '#434245' }}>
-                    {connectionData.email}
-                  </Text>
-                </TouchableOpacity>
-                : null}
-              {connectionData.address && connectionData.address.formatted ? <Text style={{ color: '#434245' }}>{connectionData.address.formatted}</Text> : null}
-            </View>
-          }
-          leftAvatar={
-            <View 
-                style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden',
-                   }}
-            >
-                {connectionData.picture ?
-                <Image 
-                    source={{uri: connectionData.picture }} 
-                    style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden',
-                    }} 
-                    defaultSource = {placeholderImg}
-                /> :
-                <Image 
-                    source={placeholderImg} 
-                    style={{
-                    height: 80, 
-                    width: 80, 
-                    borderRadius: 40, 
-                    overflow: 'hidden'}} 
-                />}
-            </View>
-        }
-        /> */}
-        </View>
-=======
-                </View>
-              <Text
+            <Text
               style={{
                 fontSize: 30,
                 color: '#444444',
                 paddingTop: 15,
                 fontFamily: constants.lotoFamily
               }}
-              >{connectionData.full_name}</Text>
-      </View>
-      </View>
->>>>>>> b41ae396ea2559f93ce79302571921d48adbf56f
+            >{connectionData.full_name}</Text>
+          </View>
+        </View>
 
         <View style={[{ justifyContent: 'flex-start', width: '100%', alignItems: 'flex-start' }]}>
           <View
@@ -322,7 +260,7 @@ function ConnectionsView(props) {
                       docs: false,
                       details: false,
                     });
-                    props.detailsTab ? props.getDetails(false) : null
+                    // props.detailsTab ? props.getDetails(false) : null
                   }}
                 >
                   Engagements
@@ -338,7 +276,7 @@ function ConnectionsView(props) {
                       docs: true,
                       details: false,
                     });
-                    props.detailsTab ? props.getDetails(false) : null
+                    // props.detailsTab ? props.getDetails(false) : null
                   }}
                 >
                   Documents
@@ -353,7 +291,7 @@ function ConnectionsView(props) {
                       docs: false,
                       details: true,
                     });
-                    props.detailsTab === false ? props.getDetails(true) : null
+                    props.setDetails(true)
                   }}
                 >
                   Details

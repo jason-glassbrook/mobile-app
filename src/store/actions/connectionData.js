@@ -18,7 +18,7 @@ export const GET_DETAILS_FAILURE = "GET_DOCUMENTS_FAILURE"
 export const SET_DETAILS = 'SET_DETAILS'
 //https://family-staging.connectourkids.org/api/v1/individualperson/?
 
-// this action grabs the history of engagments between specific child and person
+// this action grabs the history of engagements between specific child and person
 
 // define familyConnectionsURL from environment for axios calls
 const { familyConnectionsURL } = getEnvVars()
@@ -113,6 +113,6 @@ export const getDetails = (id) => dispatch => {
         })
 }
 
-export const setDetails =(bool) => payload =>{
+export const setDetails =(bool) => dispatch =>{
     dispatch({type:SET_DETAILS, payload:bool})
 }
