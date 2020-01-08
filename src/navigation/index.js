@@ -378,8 +378,7 @@ const BottomNavigator = createBottomTabNavigator(
           <Ionicons
             name="md-search"
             size={36}
-            color={tintColor} 
-            style={{borderTop: '1px solid black'}}
+            color={tintColor}
             />
         )
       },

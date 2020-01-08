@@ -153,7 +153,8 @@ function ConnectionsView(props) {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingBottom: '18%'
+      paddingBottom: '10%',
+      paddingTop: '5%'
     }
   })
 
@@ -302,7 +303,7 @@ function ConnectionsView(props) {
                   style={{
                     width: '100%',
                     minHeight: 350,
-                    paddingVertical: 20,
+                    paddingVertical: 15,
                     paddingHorizontal: 25,
                   }}
                 >
@@ -311,7 +312,8 @@ function ConnectionsView(props) {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginTop: 12
+                      marginTop: 4,
+                      marginBottom: 20,
                     }}
                   >
                     <View style={styles.iconLabelContainer}>
