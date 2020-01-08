@@ -26,13 +26,13 @@ export const Engagement = (props) => {
 
   const getDataIcon = () => {
     if (props.engagement.data_type === 'N') {
-      return <AntDesign name='file1' size={16} color='#0F6580' />
+      return <MaterialIcons name='note-add' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'E') {
-      return <MaterialIcons name='email' size={16} color='#0F6580' />
+      return <MaterialCommunityIcons name='email-plus' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'C') {
-      return <MaterialIcons name='phone' size={16} color='#0F6580' />
+      return <MaterialCommunityIcons name='phone-plus' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'R') {
-      return <MaterialCommunityIcons name='clock-outline' size={16} color='#0F6580' />
+      return <MaterialCommunityIcons name='reminder' size={16} color='#0F6580' />
     } else if (props.engagement.data_type === 'D') {
       return 'Document'
     } else {
