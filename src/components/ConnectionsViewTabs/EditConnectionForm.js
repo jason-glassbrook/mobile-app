@@ -323,24 +323,6 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   buttonText: {
-<<<<<<< HEAD
-    color: "white"
-  },
-  addressDetail: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  addressInput: {
-    flex: 1,
-    color: "black",
-    borderColor: "silver",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 15,
-    margin: 10,
-    width: "45%"
-=======
     color: "white",
     fontSize: 20
   },
@@ -351,7 +333,6 @@ const styles = StyleSheet.create({
   },
   addressDetail: {
     width: "40%"
->>>>>>> 790fe52e335c7ee2adfccf48a97d47516b0f87a4
   }
 })
 
