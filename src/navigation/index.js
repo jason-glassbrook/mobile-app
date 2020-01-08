@@ -253,7 +253,7 @@ const CustomDrawerNavigator = createStackNavigator({
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
-        backgroundColor: constants.highlightColor,
+        backgroundColor: '#FFFFFF',
       }
     },
     navigationOptions: {
@@ -370,7 +370,9 @@ const BottomNavigator = createBottomTabNavigator(
           <Ionicons
             name="md-search"
             size={36}
-            color={tintColor} />
+            color={tintColor} 
+            style={{borderTop: '1px solid black'}}
+            />
         )
       },
     },
@@ -406,10 +408,10 @@ const BottomNavigator = createBottomTabNavigator(
   {
     initialRouteName: 'FamilyConnections',
     tabBarOptions: {
-      inactiveTintColor: '#FFFFFF',
-      activeTintColor: '#212529',
+      inactiveTintColor: 'rgba(24, 23, 21, 0.5)',
+      activeTintColor: constants.highlightColor,
       style: {
-        backgroundColor: constants.highlightColor,
+        backgroundColor: '#FFFFFF',
         height: 55,
         paddingTop: 3,
         paddingBottom: 3,
