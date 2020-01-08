@@ -15,6 +15,7 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import * as SecureStore from 'expo-secure-store';
+import Intl from "intl"
 
 import getEnvVars from '../../../environment';
 const { familyConnectionsURL } = getEnvVars()
@@ -45,14 +46,13 @@ function EditConnectionForm(props) {
     form.append("person", JSON.stringify(formData));
 
     axios
-      .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, {
+      .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, form, {
         headers: {
           Authorization: `Bearer ${token}`
-        },
-        body: form
+        }
       })
       .then(res => {
-        console.log("(PATCH)person edited: ", res.data);
+        //console.log("(PATCH)person edited: ", res.data);
       })
       .catch(err => {
         console.log("Unable to edit person", err);
@@ -102,40 +102,56 @@ function EditConnectionForm(props) {
         onChangeText={text => handleChange("last_name", text)} />
 
       <Text>Suffix</Text>
-      <TextInput style={styles.textInput} value={formData["suffix"]} placeholder="Not Specified"
-        onChangeText={text => handleChange("suffix", text)} />
+      <View style={styles.picker}>
+        <Picker selectedValue={formData.suffix} onValueChange={suffix => handleChange("suffix", suffix)}>
+          <Picker.Item label="" value="" />
+          <Picker.Item label="Sr." value="Sr." />
+          <Picker.Item label="Jr." value="Jr." />
+          <Picker.Item label="II" value="II" />
+          <Picker.Item label="III" value="III" />
+          <Picker.Item label="IV" value="IV" />
+          <Picker.Item label="V" value="V" />
+        </Picker>
+      </View>
 
       <View style={styles.dob_gen}>
-        <Text>Date of Birth</Text>
-        <DatePicker
-          date={formData.birthday} //initial date from state
-          mode="date" //The enum of date, datetime and time
-          placeholder="select date"
-          format="DD-MM-YYYY"
-          minDate=""
-          maxDate=""
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0,
-            },
-            dateInput: {
-              marginLeft: 36,
-            },
-          }}
-          onDateChange={date => handleChange("birthday", date)}
-        />
+        <View style={styles["dob_gen_item"]}>
+          <Text>Date of Birth</Text>
+          <DatePicker
+            date={formData.birthday} //initial date from state
+            mode="date" //The enum of date, datetime and time
+            placeholder="select date"
+            format="MM/DD/YYYY"
+            minDate="01/08/1890"
+            maxDate={`01/08/2020`}
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                position: 'absolute',
+                left: 0,
+                top: 4,
+                marginLeft: 0,
+              },
+              dateInput: {
+                marginLeft: 36,
+              },
+            }}
+            onDateChange={date => handleChange("birthday", date)}
+          />
+        </View>
 
-        <Text>Gender</Text>
-        <Picker selectedValue={formData["gender"]} onValueChange={gender => handleChange("gender", gender)}>
-          <Picker.Item label="male" value="M" />
-          <Picker.Item label="female" value="F" />
-          <Picker.Item label="other" value="O" />
-        </Picker>
+        <View style={styles["dob_gen_item"]}>
+          <Text>Gender</Text>
+          <View style={styles.picker}>
+            <Picker selectedValue={formData["gender"]} onValueChange={gender => handleChange("gender", gender)}>
+              <Picker.Item label="male" value="M" />
+              <Picker.Item label="female" value="F" />
+              <Picker.Item label="other" value="O" />
+            </Picker>
+          </View>
+
+        </View>
 
       </View>
 
@@ -146,51 +162,74 @@ function EditConnectionForm(props) {
       <View style={styles.header}><Text>Contact Details</Text></View>
 
 
-      <Text>Residence</Text>
-      {formData.addresses && formData.addresses.map((val, i) => {
-        return (
-          <>
-            <Text>Street Address 1</Text>
-            <TextInput style={styles.textInput} value={val.route} placeholder="Street Address 1" />
-            <Text>Street Address 2</Text>
-            <TextInput style={styles.textInput} value={val.raw} placeholder="Street Address 2" />
+      <View style={{ marginBottom: 30 }}><Text>Residence</Text></View>
+      {
+        formData.addresses && formData.addresses.map((val, i) => {
+          return (
+            <>
+              <Text>Street Address</Text>
+              <TextInput style={styles.textInput} value={val.route} placeholder="Street" />
 
-            <View>
-              <Text>City</Text>
-              <TextInput style={styles.textInput} value={val.locality} placeholder="City" />
+              <View style={styles.addressInfo}>
+                <View style={styles.addressDetail}>
+                  <Text>City</Text>
+                  <TextInput style={styles.textInput} value={val.locality} placeholder="City" />
+                </View>
 
-              <Text>State</Text>
-              <TextInput style={styles.textInput} value={val.state} placeholder="State" />
+                <View style={styles.addressDetail}>
+                  <Text>State</Text>
+                  <TextInput style={styles.textInput} value={val.state} placeholder="State" />
+                </View>
+              </View>
 
-              <Text>Zip Code</Text>
-              <TextInput style={styles.textInput} value={val["postal_code"]} placeholder="Zip Code" />
+              <View style={styles.addressInfo}>
+                <View style={styles.addressDetail}>
+                  <Text>Zip Code</Text>
+                  <TextInput style={styles.textInput} value={val["postal_code"]} placeholder="Zip Code" />
+                </View>
 
-              <Text>Country</Text>
-              <TextInput style={styles.textInput} value={val.country} placeholder="Country" />
-            </View>
-          </>
-        )
-      })}
+                <View style={styles.addressDetail}>
+                  <Text>Country</Text>
+                  <TextInput style={styles.textInput} value={val.country} placeholder="Country" />
+                </View>
+              </View>
+            </>
+          )
+        })
+      }
+      <View style={styles.addButtonRow}>
+        <TouchableOpacity style={styles.addButton} onPress={e => handleNew("addresses")}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+        <Text>Add Address</Text>
+      </View>
 
-      <TouchableOpacity style={styles.addButton} onPress={e => handleNew("addresses")}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
 
-      <Text>Telephone</Text>
-      {formData.telephones && formData.telephones.map((val, i) => {
-        return <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000" />
-      })}
-      <TouchableOpacity style={styles.addButton} onPress={e => handleNew("telephones")}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
+      {
+        formData.telephones && formData.telephones.map((val, i) => {
+          return <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000" />
+        })
+      }
+      <View style={styles.addButtonRow}>
+        <TouchableOpacity style={styles.addButton} onPress={e => handleNew("telephones")}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+        <Text>Add Telephone</Text>
+      </View>
 
-      <Text>Email</Text>
-      {formData.emails && formData.emails.map((val, i) => {
-        return <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com" />
-      })}
-      <TouchableOpacity style={styles.addButton} onPress={e => handleNew("emails")}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
+
+      {
+        formData.emails && formData.emails.map((val, i) => {
+          return <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com" />
+        })
+      }
+      <View style={styles.addButtonRow}>
+        <TouchableOpacity style={styles.addButton} onPress={e => handleNew("emails")}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+        <Text>Add Email</Text>
+      </View>
+
 
       <Text>Job Title</Text>
       <TextInput style={styles.textInput} value={formData["job_title"]}
@@ -201,16 +240,19 @@ function EditConnectionForm(props) {
         onChangeText={text => handleChange("employer", text)} placeholder="Company Name" />
 
       <Text>Salary Range</Text>
-      <Picker selectedValue={formData["salary_range"]}
-        onValueChange={salary => handleChange("salary_range", salary)} >
-        <Picker.Item label="unknown" value="unknown" />
-        <Picker.Item label="<$40,000" value="<$40,000" />
-        <Picker.Item label="$40,001-$80,000" value="$40,001-$80,000" />
-        <Picker.Item label="$81,001-$120,000" value="$81,001-$120,000" />
-        <Picker.Item label="$120,001-$160,000" value="$120,001-$160,000" />
-        <Picker.Item label="$160,001-$200,000" value="$160,001-$200,000" />
-        <Picker.Item label="$200,000+" value="$200,000+" />
-      </Picker>
+      <View style={styles.picker}>
+        <Picker selectedValue={formData["salary_range"]}
+          onValueChange={salary => handleChange("salary_range", salary)} >
+          <Picker.Item label="unknown" value="unknown" />
+          <Picker.Item label="<$40,000" value="<$40,000" />
+          <Picker.Item label="$40,001-$80,000" value="$40,001-$80,000" />
+          <Picker.Item label="$81,001-$120,000" value="$81,001-$120,000" />
+          <Picker.Item label="$120,001-$160,000" value="$120,001-$160,000" />
+          <Picker.Item label="$160,001-$200,000" value="$160,001-$200,000" />
+          <Picker.Item label="$200,000+" value="$200,000+" />
+        </Picker>
+      </View>
+
 
       <View style={styles.header}><Text>Social Media</Text></View>
 
@@ -227,7 +269,7 @@ function EditConnectionForm(props) {
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
 
       <Button onPress={handleSave} title="save" />
-    </View>
+    </View >
   );
 }
 
@@ -253,21 +295,44 @@ const styles = StyleSheet.create({
     padding: 15,
     margin: 10
   },
+  picker: {
+    color: "black",
+    borderColor: "silver",
+    borderWidth: 1,
+    borderRadius: 5
+  },
   dob_gen: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-around"
   },
+  dob_gen_item: {
+    width: "45%"
+  },
   addButton: {
     backgroundColor: "#0279AC",
     borderRadius: 20,
-    height: 40,
-    width: 40,
+    height: 30,
+    width: 30,
     justifyContent: "center",
     alignItems: "center"
   },
+  addButtonRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15
+  },
   buttonText: {
-    color: "white"
+    color: "white",
+    fontSize: 20
+  },
+  addressInfo: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-around"
+  },
+  addressDetail: {
+    width: "40%"
   }
 })
 

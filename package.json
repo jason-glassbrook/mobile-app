@@ -20,6 +20,7 @@
     "expo-web-browser": "^7.0.1",
     "flatted": "^2.0.1",
     "formik": "^2.0.3",
+    "intl": "^1.2.5",
     "jshint": "^2.10.2",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
