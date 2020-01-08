@@ -143,7 +143,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
             headerTitle: (
               <Image
                 source={logoImg}
-                style={{ width: 225, height: 90, marginLeft: 30}}
+                style={{ width: 225, height: 90, justifyContent: 'center'}}
                 resizeMode="contain"
               />
             )
@@ -378,8 +378,7 @@ const BottomNavigator = createBottomTabNavigator(
           <Ionicons
             name="md-search"
             size={36}
-            color={tintColor} 
-            style={{borderTop: '1px solid black'}}
+            color={tintColor}
             />
         )
       },
