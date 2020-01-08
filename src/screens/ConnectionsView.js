@@ -260,26 +260,9 @@ function ConnectionsView(props) {
                       docs: false,
                       details: false,
                     });
-                    // props.detailsTab ? props.getDetails(false) : null
                   }}
                 >
                   Engagements
-              </Text>
-              </View>
-
-              <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
-                <Text
-                  style={[{ color: '#444444', fontSize: 17.5, paddingBottom: 9 }, tabs.docs ? { color: '#444444' } : { color: '#444444' }]}
-                  onPress={() => {
-                    setTabs({
-                      engagement: false,
-                      docs: true,
-                      details: false,
-                    });
-                    // props.detailsTab ? props.getDetails(false) : null
-                  }}
-                >
-                  Documents
               </Text>
               </View>
               <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
@@ -295,6 +278,20 @@ function ConnectionsView(props) {
                   }}
                 >
                   Details
+              </Text>
+              </View>
+              <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
+                <Text
+                  style={[{ color: '#444444', fontSize: 17.5, paddingBottom: 9 }, tabs.docs ? { color: '#444444' } : { color: '#444444' }]}
+                  onPress={() => {
+                    setTabs({
+                      engagement: false,
+                      docs: true,
+                      details: false,
+                    });
+                  }}
+                >
+                  Documents
               </Text>
               </View>
             </View>

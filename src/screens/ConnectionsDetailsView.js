@@ -76,6 +76,12 @@ export default function ConnectionsDetailsView({ details }) {
         addPad: {
             padding: '5%',
             paddingTop: 2,
+        },
+        edit:{
+            color:'#0279AC', 
+            paddingTop:20, 
+            paddingRight:5, 
+            textAlign:'right'
         }
     })
 
@@ -93,7 +99,8 @@ export default function ConnectionsDetailsView({ details }) {
     return (
         <View style={styles.rootView}>
             {/* INFORMATION SECTION */}
-            <Text style={{color:'#0279AC', paddingTop:20, paddingRight:5, textAlign:'right'}}>Edit</Text>
+            {/* onPress needed for edit */}
+            <Text style={styles.edit}>Edit</Text> 
             <View style={styles.header}>
                 <Text style={styles.headerText}>INFORMATION</Text>
             </View>
