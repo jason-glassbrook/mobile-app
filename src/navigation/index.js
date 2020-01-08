@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import {
   TouchableWithoutFeedback,
-
+  View,
   Image,
   Text,
   TouchableOpacity
@@ -139,7 +139,15 @@ const FamilyConnectionsNavigator = createStackNavigator(
               </Text>
               {/* <Text>Edit Details</Text> */}
               {/* if details true show edit, if not don't */}
-            </TouchableOpacity>)
+            </TouchableOpacity>),
+            headerTitle: (
+              <Image
+                source={logoImg}
+                style={{ width: 225, height: 90, marginLeft: 30}}
+                resizeMode="contain"
+              />
+            )
+            
         }
       }
     },
