@@ -302,16 +302,16 @@ function ConnectionsView(props) {
                   style={{
                     width: '100%',
                     minHeight: 350,
-                    paddingVertical: 50,
+                    paddingVertical: 20,
                     paddingHorizontal: 25,
                   }}
                 >
                   <View
                     style={{
                       flexDirection: 'row',
-                      justifyContent: 'space-evenly',
+                      justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginTop: 12,
+                      marginTop: 12
                     }}
                   >
                     <View style={styles.iconLabelContainer}>
@@ -321,8 +321,8 @@ function ConnectionsView(props) {
                             passEngagementType('N')
                           }}
                         >
-                          <AntDesign
-                            name='file1'
+                          <MaterialIcons
+                            name='note-add'
                             style={styles.iconStyles}
                           />
                         </TouchableOpacity>
@@ -337,15 +337,14 @@ function ConnectionsView(props) {
                             passEngagementType('C')
                           }}
                         >
-                          <MaterialIcons
-                            name='phone'
+                          <MaterialCommunityIcons
+                            name='phone-plus'
                             style={{
                               fontSize: 28,
                               color: '#0F6580',
                               width: 28,
                               height: 28,
                               marginHorizontal: 10,
-                              transform: [{ rotate: '-90deg' }]
                             }}
                           />
                         </TouchableOpacity>
@@ -360,8 +359,8 @@ function ConnectionsView(props) {
                             passEngagementType('E')
                           }}
                         >
-                          <MaterialIcons
-                            name='email'
+                          <MaterialCommunityIcons
+                            name='email-plus'
                             style={styles.iconStyles}
                           />
                         </TouchableOpacity>
@@ -377,7 +376,7 @@ function ConnectionsView(props) {
                           }}
                         >
                           <MaterialCommunityIcons
-                            name='clock-outline'
+                            name='reminder'
                             style={styles.iconStyles}
                           />
                         </TouchableOpacity>
