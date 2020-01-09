@@ -21,12 +21,12 @@ export default function ConnectionsDetailsView({ details }) {
             margin: 0
         },
         header: {
-            marginTop: 1,            
+            marginTop: 1,
             marginBottom: 20,
             borderBottomWidth: .75,
             borderBottomColor: 'black',
             display: 'flex',
-            flexDirection:'row',
+            flexDirection: 'row',
             justifyContent: 'space-between'
         },
         headerText: {
@@ -78,11 +78,11 @@ export default function ConnectionsDetailsView({ details }) {
             padding: '5%',
             paddingTop: 2,
         },
-        edit:{
-            color:'#0279AC', 
-            paddingTop:20, 
-            paddingRight:5, 
-            textAlign:'right'
+        edit: {
+            color: '#0279AC',
+            paddingTop: 20,
+            paddingRight: 5,
+            textAlign: 'right'
         }
     })
 
@@ -101,7 +101,7 @@ export default function ConnectionsDetailsView({ details }) {
         <View style={styles.rootView}>
             {/* INFORMATION SECTION */}
             {/* onPress needed for edit */}
-            <Text style={styles.edit}>Edit</Text> 
+            <Text style={styles.edit}>Edit</Text>
             <View style={styles.header}>
                 <Text style={styles.headerText}>INFORMATION</Text>
             </View>
@@ -151,15 +151,15 @@ export default function ConnectionsDetailsView({ details }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
-                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => 
-                        <Text key={index} 
-                        style={styles.contentText}
-                        onPress={()=>{
-                            Platform.OS==='android'? Linking.openURL(`tel: ${telephoneObj.telephone}`):Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
-                        }}
-                        >
-                        {teleFormat(telephoneObj.telephone)}
-                        </Text>
+                        {details.telephones.length ? details.telephones.map((telephoneObj, index) =>
+                            <Text key={index}
+                                style={{ ...styles.contentText, color: 'blue' }}
+                                onPress={() => {
+                                    Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
+                                }}
+                            >
+                                {teleFormat(telephoneObj.telephone)}
+                            </Text>
                         ) : null}
                     </View>
                 </View>
