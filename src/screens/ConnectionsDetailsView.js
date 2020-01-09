@@ -28,7 +28,7 @@ export default function ConnectionsDetailsView({ details, id }) {
         header: {
             marginTop: 1,            
             marginBottom: 20,
-            borderBottomWidth: .75,
+            borderBottomWidth: .5,
             borderBottomColor: 'black',
             display: 'flex',
             flexDirection:'row',
