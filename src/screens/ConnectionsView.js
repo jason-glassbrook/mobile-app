@@ -455,7 +455,7 @@ function ConnectionsView(props) {
                 >
                   <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     {props.isLoadingDetails ? <Loader /> :
-                      <ConnectionsDetailsView details={props.details} />
+                      <ConnectionsDetailsView details={props.details} id={connectionData.pk} />
                     }
                   </View>
                 </View>
@@ -468,7 +468,6 @@ function ConnectionsView(props) {
   );
 }
 
-{/* <ConnectionsDetailsView details={props.details}/> */}
 
 const mapStateToProps = state => {
   return {
