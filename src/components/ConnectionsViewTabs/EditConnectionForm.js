@@ -15,7 +15,8 @@ import {
 } from "react-native";
 import { connect } from "react-redux";
 import * as SecureStore from 'expo-secure-store';
-import Intl from "intl"
+import Intl from "intl";
+
 
 import getEnvVars from '../../../environment';
 const { familyConnectionsURL } = getEnvVars()
@@ -253,7 +254,7 @@ function EditConnectionForm(props) {
         </Picker>
       </View>
 
-
+      
       <View style={styles.header}><Text>Social Media</Text></View>
 
       <Text>Facebook</Text>
@@ -267,6 +268,7 @@ function EditConnectionForm(props) {
       <Text>LinkedIn</Text>
       <TextInput style={styles.textInput} value={formData["linkedin"]}
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
+       
 
       <Button onPress={handleSave} title="save" />
     </View >
