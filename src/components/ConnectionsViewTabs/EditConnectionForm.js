@@ -13,6 +13,7 @@ import {
   Picker,
   CheckBox
 } from "react-native";
+import {getDetails} from "../../store/actions/connectionData"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from "react-redux";
 import * as SecureStore from 'expo-secure-store'
@@ -75,8 +76,6 @@ function EditConnectionForm(props) {
   }
 
   function handleSave() {
-    console.log(formData)
-
     const form = new FormData();
     form.append("person", JSON.stringify(formData));
 
@@ -87,16 +86,20 @@ function EditConnectionForm(props) {
         }
       })
       .then(res => {
-        console.log("***FORM DATA HAS BEEN UPDATED***");
+        props.setEdit(false)
+        props.getDetails(props.id)
       })
       .catch(err => {
         console.log("Unable to edit person", err);
         setError(true);
         setErrorMessage(err);
       })
+
+   
   }
   function handleCancel() {
     props.setEdit(false)
+    props.getDetails(props.id)
   }
 
   function handleNew(name) {
@@ -142,8 +145,8 @@ function EditConnectionForm(props) {
 
       <Text>Suffix</Text>
       <View style={styles.picker}>
-        <Picker selectedValue={formData.suffix} onValueChange={suffix => handleChange("suffix", suffix)}>
-          <Picker.Item label="" value="" />
+        <Picker selectedValue={formData.suffix} onValueChange={suffix => handleChange("suffix", suffix)} >
+          <Picker.Item label="Suffix" value="" />
           <Picker.Item label="Sr." value="Sr." />
           <Picker.Item label="Jr." value="Jr." />
           <Picker.Item label="II" value="II" />
@@ -176,6 +179,9 @@ function EditConnectionForm(props) {
               dateInput: {
                 marginLeft: 36,
                 marginTop: 10,
+                width: '35%',
+                padding: 10,
+                borderRadius: 5
               },
             }}
             onDateChange={date => handleChange("birthday", date)}
@@ -194,8 +200,8 @@ function EditConnectionForm(props) {
         </View>
       </View>
 
-      <View style={{ marginLeft: 10, flexDirection: 'row' }}>
-        <Text>Deceased</Text>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        <Text style={{ marginRight: 10 }}>Deceased</Text>
         <CheckBox value={formData.deceased}
           onChange={deceased => handleChange("deceased", deceased)} />
       </View>
@@ -299,7 +305,7 @@ function EditConnectionForm(props) {
       </View>
 
 
-      <Text>Job Title</Text>
+      <Text style={{ marginTop: 10 }}>Job Title</Text>
       <TextInput style={styles.textInput} value={formData["job_title"]}
         onChangeText={text => handleChange("job_title", text)} placeholder="Job Title" />
 
@@ -311,7 +317,7 @@ function EditConnectionForm(props) {
       <View style={styles.picker}>
         <Picker selectedValue={formData["salary_range"]}
           onValueChange={salary => handleChange("salary_range", salary)} >
-          <Picker.Item label="unknown" value="unknown" />
+          <Picker.Item label="Salary Range" value="" />
           <Picker.Item label="<$40,000" value="<$40,000" />
           <Picker.Item label="$40,001-$80,000" value="$40,001-$80,000" />
           <Picker.Item label="$81,001-$120,000" value="$81,001-$120,000" />
@@ -322,7 +328,7 @@ function EditConnectionForm(props) {
       </View>
     
 
-      <View style={styles.header}><Text>Social Media</Text></View>
+      <View style={styles.header}><Text>SOCIAL MEDIA</Text></View>
 
       <Text>Facebook</Text>
       <TextInput style={styles.textInput} value={formData["facebook"]}
@@ -338,13 +344,13 @@ function EditConnectionForm(props) {
 
       {error ? 
       <View style={styles.errorBox}>
-        <Text style={{ color: '#fff', alignSelf: 'center' }}>{errorMessage}</Text>
+        <Text style={{ color: '#fff', alignSelf: 'center' }}>Unable to Update Connection</Text>
       </View>
       : null}
 
-      <View style= {{justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row'}}>
-        <View style={styles.buttons}><Button onPress={handleSave} title="save" /></View>
-        <View style={styles.buttons}><Button onPress={handleCancel} title="cancel" /></View>
+      <View style= {{justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginBottom: 15}}>
+        <TouchableOpacity onPress={handleCancel} ><Text style={styles.cancelButton} >Cancel</Text></TouchableOpacity>
+        <TouchableOpacity onPress={handleSave}><Text style={styles.saveButton} >Save</Text></TouchableOpacity>
       </View>
     </View >
   );
@@ -353,31 +359,31 @@ function EditConnectionForm(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: '90%',
+    marginHorizontal: 10   /// used to be 90% width
   },
   header: {
     marginTop: 50,
     marginBottom: 30,
-    borderBottomColor: "silver",
-    borderBottomWidth: 2,
-    color: "silver",
+    borderBottomColor: '#171714',
+    borderBottomWidth: .5,
+    color: "#a1a1a1",
     fontSize: 2.3
   },
   textInput: {
     flex: 1,
     color: "black",
-    borderColor: "silver",
+    borderColor:'#181614',
     borderWidth: 1,
     borderRadius: 5,
     padding: 15,
-    margin: 10
+    marginVertical: 10   ///// used to be margin
   },
   picker: {
     color: "black",
-    borderColor: "silver",
+    borderColor: '#181614',
     borderWidth: 1,
     borderRadius: 5,
-    margin: 10
+    marginVertical: 10
   },
   dob_gen: {
     flex: 1,
@@ -397,7 +403,8 @@ const styles = StyleSheet.create({
     width: 30,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 10
+    marginRight: 10,
+    marginBottom: 10
   },
   addButtonRow: {
     flexDirection: "row",
@@ -411,14 +418,32 @@ const styles = StyleSheet.create({
   addressInfo: {
     flex: 1,
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-between"
   },
   addressDetail: {
-    width: "40%"
+    width: "45%"
   },
-  buttons: {
-    width: 100,
-    marginBottom: 15
+  saveButton: {
+    width: 150,
+    marginVertical: 15,
+    marginHorizontal: 10,
+    padding: 10,
+    backgroundColor: '#0279AC',
+    color: '#fff',
+    borderRadius: 5,
+    fontSize: 20,
+    textAlign: 'center'
+  },
+  cancelButton: {
+    width: 150,
+    marginVertical: 15,
+    marginHorizontal: 10,
+    padding: 10,
+    backgroundColor: '#8c8b8a',
+    color: '#fff',
+    borderRadius: 5,
+    fontSize: 20,
+    textAlign: 'center'
   },
   errorBox: {
     justifyContent: 'center',
@@ -434,4 +459,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps, {})(EditConnectionForm); 
+export default connect(mapStateToProps, {getDetails})(EditConnectionForm); 
