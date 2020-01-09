@@ -270,9 +270,10 @@ function EditConnectionForm(props) {
       <Text>LinkedIn</Text>
       <TextInput style={styles.textInput} value={formData["linkedin"]}
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
-
+      <View style= {{justifyContent: 'space-around', alignItems: 'center', flexDirection: 'row'}}>
       <Button onPress={handleSave} title="save" />
       <Button onPress={handleCancel} title="cancel" />
+      </View>
     </View >
   );
 }
