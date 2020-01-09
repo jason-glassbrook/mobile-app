@@ -162,53 +162,6 @@ function EditConnectionForm(props) {
       <View style={styles.header}><Text>Contact Details</Text></View>
 
 
-<<<<<<< HEAD
-      <Text>Residence</Text>
-      {formData.addresses && formData.addresses.map((val, i) => {
-        return (
-          <>
-            <Text>Street Address 1</Text>
-            <TextInput style={styles.textInput} value={val.route} placeholder="Street Address 1" />
-            <Text>Street Address 2</Text>
-            <TextInput style={styles.textInput} value={val.raw} placeholder="Street Address 2" />
-
-            <View style={styles.addressDetail}>
-              <Text>City</Text>
-              <TextInput style={styles.textInput} value={val.locality} placeholder="City" />
-
-              <Text>State</Text>
-              <TextInput style={styles.textInput} value={val.state} placeholder="State" />
-
-              <Text>Zip Code</Text>
-              <TextInput style={styles.textInput} value={val["postal_code"]} placeholder="Zip Code" />
-
-              <Text>Country</Text>
-              <TextInput style={styles.textInput} value={val.country} placeholder="Country" />
-            </View>
-          </>
-        )
-      })}
-
-      <TouchableOpacity style={styles.addButton} onPress={e => handleNew("addresses")}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
-
-      <Text>Telephone</Text>
-      {formData.telephones && formData.telephones.map((val, i) => {
-        return <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000" />
-      })}
-      <TouchableOpacity style={styles.addButton} onPress={e => handleNew("telephones")}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
-
-      <Text>Email</Text>
-      {formData.emails && formData.emails.map((val, i) => {
-        return <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com" />
-      })}
-      <TouchableOpacity style={styles.addButton} onPress={e => handleNew("emails")}>
-        <Text style={styles.buttonText}>+</Text>
-      </TouchableOpacity>
-=======
       <View style={{ marginBottom: 30 }}><Text>Residence</Text></View>
       {
         formData.addresses && formData.addresses.map((val, i) => {
@@ -277,7 +230,6 @@ function EditConnectionForm(props) {
         <Text>Add Email</Text>
       </View>
 
->>>>>>> 790fe52e335c7ee2adfccf48a97d47516b0f87a4
 
       <Text>Job Title</Text>
       <TextInput style={styles.textInput} value={formData["job_title"]}
@@ -371,24 +323,6 @@ const styles = StyleSheet.create({
     marginBottom: 15
   },
   buttonText: {
-<<<<<<< HEAD
-    color: "white"
-  },
-  addressDetail: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  addressInput: {
-    flex: 1,
-    color: "black",
-    borderColor: "silver",
-    borderWidth: 1,
-    borderRadius: 5,
-    padding: 15,
-    margin: 10,
-    width: "45%"
-=======
     color: "white",
     fontSize: 20
   },
@@ -399,7 +333,6 @@ const styles = StyleSheet.create({
   },
   addressDetail: {
     width: "40%"
->>>>>>> 790fe52e335c7ee2adfccf48a97d47516b0f87a4
   }
 })
 
