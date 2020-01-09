@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import EditConnectionForm from '../components/ConnectionsViewTabs/EditConnectionForm';
 
-export default function ConnectionsDetailsView({ details }) {
+export default function ConnectionsDetailsView({ details, id }) {
 
     const [ edit, setEdit ] = useState(false);
 
@@ -195,7 +195,7 @@ export default function ConnectionsDetailsView({ details }) {
                 </View>
             </View>
         </View>
-        : <EditConnectionForm details = {details} setEdit={setEdit} /> 
+        : <EditConnectionForm details = {details} id={id} setEdit={setEdit}  /> 
     ) 
 
 }
