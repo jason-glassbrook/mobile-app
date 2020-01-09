@@ -44,6 +44,7 @@ import ConnectionsDetailsView from './ConnectionsDetailsView'
 import EditConnectionsForm from "../components/ConnectionsViewTabs/EditConnectionForm"
 import { Row } from 'native-base';
 
+
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
 function ConnectionsView(props) {
@@ -454,7 +455,7 @@ function ConnectionsView(props) {
                 >
                   <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     {props.isLoadingDetails ? <Loader /> :
-                      <ConnectionsDetailsView details={props.details} />
+                      <ConnectionsDetailsView details={props.details} id={connectionData.pk} />
                     }
                   </View>
                 </View>
@@ -467,7 +468,6 @@ function ConnectionsView(props) {
   );
 }
 
-{/* <ConnectionsDetailsView details={props.details}/> */}
 
 const mapStateToProps = state => {
   return {
