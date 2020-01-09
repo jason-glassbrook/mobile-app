@@ -200,20 +200,8 @@ function EditConnectionForm(props) {
           onChange={deceased => handleChange("deceased", deceased)} />
       </View>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
       <View style={styles.header}><Text>CONTACT DETAILS</Text></View>
-=======
-      <Text>Deceased</Text>
-      <CheckBox value={formData.deceased}
-        onChange={deceased => handleChange("deceased", deceased)} />
 
-      <View style={styles.header}><Text>Contact Details</Text></View>
->>>>>>> b8352967d99cfc91529a35020eb8b24af7f5a670
-
-=======
-      <View style={styles.header}><Text>CONTACT DETAILS</Text></View>
->>>>>>> fce98582212701d17b49278ac4b9b978225d89a5
 
       <View style={{ marginBottom: 30 }}><Text>Residence</Text></View>
       {
@@ -427,10 +415,6 @@ const styles = StyleSheet.create({
   },
   addressDetail: {
     width: "40%"
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fce98582212701d17b49278ac4b9b978225d89a5
   },
   buttons: {
     width: 100,
@@ -443,11 +427,6 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     marginVertical: 15
-<<<<<<< HEAD
-=======
->>>>>>> b8352967d99cfc91529a35020eb8b24af7f5a670
-=======
->>>>>>> fce98582212701d17b49278ac4b9b978225d89a5
   }
 })
 
