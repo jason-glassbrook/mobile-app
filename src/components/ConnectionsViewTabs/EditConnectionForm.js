@@ -58,6 +58,9 @@ function EditConnectionForm(props) {
         console.log("Unable to edit person", err);
       })
   }
+  function handleCancel() {
+    props.setEdit(false)
+  }
 
   function handleNew(name) {
     setFormData(formData => {
@@ -269,6 +272,7 @@ function EditConnectionForm(props) {
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
 
       <Button onPress={handleSave} title="save" />
+      <Button onPress={handleCancel} title="cancel" />
     </View >
   );
 }
