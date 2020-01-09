@@ -202,7 +202,6 @@ function EditConnectionForm(props) {
 
       <View style={styles.header}><Text>CONTACT DETAILS</Text></View>
 
-
       <View style={{ marginBottom: 30 }}><Text>Residence</Text></View>
       {
         formData.addresses && formData.addresses.map((val, i) => {

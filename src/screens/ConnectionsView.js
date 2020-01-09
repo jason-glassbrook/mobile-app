@@ -44,6 +44,7 @@ import ConnectionsDetailsView from './ConnectionsDetailsView'
 import EditConnectionsForm from "../components/ConnectionsViewTabs/EditConnectionForm"
 import { Row } from 'native-base';
 
+
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
 function ConnectionsView(props) {
