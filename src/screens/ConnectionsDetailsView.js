@@ -164,7 +164,7 @@ export default function ConnectionsDetailsView({ details, id }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
-                    {details.emails.length ? details.emails.map(email => <Text style={styles.contentText}>{email}</Text>) : null}
+                    {details.emails.length ? details.emails.map(emailObj => <Text style={styles.contentText}>{emailObj.email}</Text>) : null}
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
