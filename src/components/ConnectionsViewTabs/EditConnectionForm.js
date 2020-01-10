@@ -25,12 +25,12 @@ const { familyConnectionsURL } = getEnvVars()
 
 let schema = yup.object().shape({
   first_name: yup.string().required(),
-  middle_name: yup.string(),
-  last_name: yup.string(),
-  suffix: yup.string(),
-  dob: yup.string(),
-  gender: yup.string(),
-  deceased: yup.boolean(),
+  middle_name: yup.string().nullable(),
+  last_name: yup.string().nullable(),
+  suffix: yup.string().nullable(),
+  dob: yup.string().nullable(),
+  gender: yup.string().nullable(),
+  deceased: yup.boolean().nullable(),
   addresses:
     yup
       .array()
@@ -67,7 +67,7 @@ function EditConnectionForm(props) {
   const [token, setToken] = useState("");
   const [formData, setFormData] = useState(props.details);
   const [error, setError] = useState(false);
-  const [errors, setErrors] = useState({});
+  const [formErrors, setFormErrors] = useState({});
 
 
   SecureStore.getItemAsync('cok_access_token').then(res => {
@@ -80,10 +80,10 @@ function EditConnectionForm(props) {
     setFormData(formData => {
       let copy = { ...formData }
 
-      schema.validate(copy,{ abortEarly: false })
-      .catch(err => {
-        console.log(err.errors)
-      })
+      // schema.validate(copy,{ abortEarly: false })
+      // .catch(err => {
+      //   console.log(err.errors)
+      // })
 
       if ("index" in options) copy[name][options.index][options.subname] = value
       else copy[name] = value
@@ -94,9 +94,25 @@ function EditConnectionForm(props) {
   }
 
   function handleSave() {
+    let currentErrors = {}
+    schema
+    .validate(formData,{ abortEarly: false })
+    .then(()=>{ // checks the formData with Yup schema, if it passes errors are cleared and save function is run
+      setFormErrors({})
+      save()
+    })
+    .catch(error=>{
+      error.errors.forEach(err => {
+        console.log(err)
+        currentErrors[err.split(" ")[0]] = err;
+    })
+    setFormErrors({...currentErrors })
+  }) 
+
+    function save(){
     const form = new FormData();
     form.append("person", JSON.stringify(formData));
-    console.log('this is the form data line 81, ', formData)
+    console.log('this is the form data line 81, ', form)
 
     axios
       .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, form, {
@@ -113,9 +129,11 @@ function EditConnectionForm(props) {
         setError(true);
         setErrorMessage(err);
       })
-
-
+    }
   }
+
+  console.log('form errors ',formErrors)
+
   function handleCancel() {
     props.setEdit(false)
     props.getDetails(props.id)
@@ -239,7 +257,7 @@ function EditConnectionForm(props) {
                   index: i,
                   subname: "route"
                 })} />
-
+              
               <View style={styles.addressInfo}>
                 <View style={styles.addressDetail}>
                   <Text>City</Text>
