@@ -29,7 +29,7 @@ export default function ConnectionsDetailsView({ details, id }) {
             marginTop: 1,            
             marginBottom: 20,
             borderBottomWidth: .5,
-            borderBottomColor: 'black',
+            borderBottomColor: 'rgba(24, 23, 21, 0.3)',
             display: 'flex',
             flexDirection:'row',
             justifyContent: 'space-between'
