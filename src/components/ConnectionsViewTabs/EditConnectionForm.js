@@ -13,7 +13,7 @@ import {
   Picker,
   CheckBox
 } from "react-native";
-import {getDetails} from "../../store/actions/connectionData"
+import { getDetails } from "../../store/actions/connectionData"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from "react-redux";
 import * as SecureStore from 'expo-secure-store'
@@ -26,26 +26,40 @@ const { familyConnectionsURL } = getEnvVars()
 let schema = yup.object().shape({
   first_name: yup.string().required(),
   middle_name: yup.string(),
-  last_name: yup.string().required(),//?
+  last_name: yup.string(),
   suffix: yup.string(),
-  dob: yup.string().required(),//?
-  gender: yup.string().required(),//?
-  deceased: yup.bool().required(),//?
-  address: yup.string(),
-  city: yup.string(),
-  state: yup.string(),
-  zip: yup.number().positive().integer(),
-  telephones: yup.array().of(yup.object({
-    telephone:yup.string(),
-    is_verified: yup.boolean()
-  })),
-  email: yup.string().email(),
-  job_title: yup.string(),
-  employer: yup.string(),
-  salary_range: yup.string(),
-  facebook: yup.string(),
-  twitter: yup.string(),
-  linkedin: yup.string()
+  dob: yup.string(),
+  gender: yup.string(),
+  deceased: yup.boolean(),
+  addresses:
+    yup
+      .array()
+      .of(yup.object({
+        locality: yup.string().required(),
+        state: yup.string().required(),
+        zip: yup.number().positive().integer()
+      }))
+  ,
+  telephones:
+    yup
+      .array()
+      .of(yup.object({
+        telephone: yup.string(),
+        is_verified: yup.boolean()
+      })).required(),
+  emails:
+    yup
+      .array()
+      .of(yup.object({
+        email: yup.string().email(),
+        is_verified: yup.boolean()
+      })).required(),
+  job_title: yup.string().nullable(),
+  employer: yup.string().nullable(),
+  salary_range: yup.string().nullable(),
+  facebook: yup.string().nullable(),
+  twitter: yup.string().nullable(),
+  linkedin: yup.string().nullable()
 })
 
 
@@ -64,15 +78,16 @@ function EditConnectionForm(props) {
   function handleChange(name, value, options = {}) {
 
     setFormData(formData => {
-      let copy = {...formData}
+      let copy = { ...formData }
 
-      schema.validate(copy).catch(err=>{
-        console.log(err)
+      schema.validate(copy,{ abortEarly: false })
+      .catch(err => {
+        console.log(err.errors)
       })
 
-      if("index" in options) copy[name][options.index][options.subname] = value
+      if ("index" in options) copy[name][options.index][options.subname] = value
       else copy[name] = value
-      
+
       return copy;
     })
 
@@ -99,7 +114,7 @@ function EditConnectionForm(props) {
         setErrorMessage(err);
       })
 
-   
+
   }
   function handleCancel() {
     props.setEdit(false)
@@ -219,49 +234,49 @@ function EditConnectionForm(props) {
           return (
             <>
               <Text>Street Address</Text>
-              <TextInput style={styles.textInput} value={`${val.street_number} ${val.route}`} placeholder="Street" 
-              onChange={route => handleChange("addresses", route,{
-                index:i,
-                subname:"route"
-              })} />
+              <TextInput style={styles.textInput} value={`${val.street_number} ${val.route}`} placeholder="Street"
+                onChange={route => handleChange("addresses", route, {
+                  index: i,
+                  subname: "route"
+                })} />
 
               <View style={styles.addressInfo}>
                 <View style={styles.addressDetail}>
                   <Text>City</Text>
-                  <TextInput style={styles.textInput} value={val.locality} placeholder="City" 
-                  onChange={locality => handleChange("addresses", locality,{
-                    index:i,
-                    subname:"locality"
-                  })}/>
+                  <TextInput style={styles.textInput} value={val.locality} placeholder="City"
+                    onChange={locality => handleChange("addresses", locality, {
+                      index: i,
+                      subname: "locality"
+                    })} />
                 </View>
 
                 <View style={styles.addressDetail}>
                   <Text>State</Text>
-                  <TextInput style={styles.textInput} value={val.state} placeholder="State" 
-                  onChange={state => handleChange("addresses", state,{
-                    index:i,
-                    subname:"state"
-                  })}/>
+                  <TextInput style={styles.textInput} value={val.state} placeholder="State"
+                    onChange={state => handleChange("addresses", state, {
+                      index: i,
+                      subname: "state"
+                    })} />
                 </View>
               </View>
 
               <View style={styles.addressInfo}>
                 <View style={styles.addressDetail}>
                   <Text>Zip Code</Text>
-                  <TextInput style={styles.textInput} value={val["postal_code"]} placeholder="Zip Code" 
-                  onChange={postal_code => handleChange("addresses", postal_code,{
-                    index:i,
-                    subname:"postal_code"
-                  })}/>
+                  <TextInput style={styles.textInput} value={val["postal_code"]} placeholder="Zip Code"
+                    onChange={postal_code => handleChange("addresses", postal_code, {
+                      index: i,
+                      subname: "postal_code"
+                    })} />
                 </View>
 
                 <View style={styles.addressDetail}>
                   <Text>Country</Text>
-                  <TextInput style={styles.textInput} value={val.country} placeholder="Country" 
-                  onChange={country => handleChange("addresses", country,{
-                    index:i,
-                    subname:"country"
-                  })}/>
+                  <TextInput style={styles.textInput} value={val.country} placeholder="Country"
+                    onChange={country => handleChange("addresses", country, {
+                      index: i,
+                      subname: "country"
+                    })} />
                 </View>
               </View>
             </>
@@ -278,11 +293,11 @@ function EditConnectionForm(props) {
 
       {
         formData.telephones && formData.telephones.map((val, i) => {
-          return <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000" 
-          onChange={telephone => handleChange("telephones", telephone,{
-            index:i,
-            subname:"telephone"
-          })}/>
+          return <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000"
+            onChange={telephone => handleChange("telephones", telephone, {
+              index: i,
+              subname: "telephone"
+            })} />
         })
       }
       <View style={styles.addButtonRow}>
@@ -294,11 +309,11 @@ function EditConnectionForm(props) {
 
       {
         formData.emails && formData.emails.map((val, i) => {
-          return <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com" 
-          onChange={email => handleChange("emails", email,{
-            index:i,
-            subname:"email"
-          })}/>
+          return <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com"
+            onChange={email => handleChange("emails", email, {
+              index: i,
+              subname: "email"
+            })} />
         })
       }
       <View style={styles.addButtonRow}>
@@ -330,7 +345,7 @@ function EditConnectionForm(props) {
           <Picker.Item label="$200,000+" value="$200,000+" />
         </Picker>
       </View>
-    
+
 
       <View style={styles.header}><Text>SOCIAL MEDIA</Text></View>
 
@@ -346,13 +361,13 @@ function EditConnectionForm(props) {
       <TextInput style={styles.textInput} value={formData["linkedin"]}
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
 
-      {error ? 
-      <View style={styles.errorBox}>
-        <Text style={{ color: '#fff', alignSelf: 'center' }}>Unable to Update Connection</Text>
-      </View>
-      : null}
+      {error ?
+        <View style={styles.errorBox}>
+          <Text style={{ color: '#fff', alignSelf: 'center' }}>Unable to Update Connection</Text>
+        </View>
+        : null}
 
-      <View style= {{justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginBottom: 15}}>
+      <View style={{ justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row', marginBottom: 15 }}>
         <TouchableOpacity onPress={handleCancel} ><Text style={styles.cancelButton} >Cancel</Text></TouchableOpacity>
         <TouchableOpacity onPress={handleSave}><Text style={styles.saveButton} >Save</Text></TouchableOpacity>
       </View>
@@ -376,7 +391,7 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     color: "black",
-    borderColor:'#181614',
+    borderColor: '#181614',
     borderWidth: 1,
     borderRadius: 5,
     padding: 15,
@@ -463,4 +478,4 @@ const mapStateToProps = state => {
   return {};
 };
 
-export default connect(mapStateToProps, {getDetails})(EditConnectionForm); 
+export default connect(mapStateToProps, { getDetails })(EditConnectionForm); 
