@@ -129,7 +129,13 @@ function EditConnectionForm(props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}><Text>INFORMATION</Text></View>
+      <View style={styles.header}><Text
+      style={{
+        color: 'rgba(24, 23, 21, 0.5)',
+        fontWeight: 'bold',
+      }}
+      >INFORMATION</Text>
+      </View>
 
       <Text>First Name</Text>
       <TextInput style={styles.textInput} value={formData["first_name"]} placeholder="First Name"
@@ -364,15 +370,14 @@ const styles = StyleSheet.create({
   header: {
     marginTop: 50,
     marginBottom: 30,
-    borderBottomColor: '#171714',
+    borderBottomColor: 'rgba(24, 23, 21, 0.3)',
     borderBottomWidth: .5,
-    color: "#a1a1a1",
-    fontSize: 2.3
+    fontSize: 2.3,
   },
   textInput: {
     flex: 1,
-    color: "black",
-    borderColor:'#181614',
+    color: "#444444",
+    borderColor:'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
     padding: 15,
@@ -380,7 +385,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     color: "black",
-    borderColor: '#181614',
+    borderColor: 'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
     marginVertical: 10
