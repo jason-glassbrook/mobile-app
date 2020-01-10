@@ -35,7 +35,10 @@ let schema = yup.object().shape({
   city: yup.string(),
   state: yup.string(),
   zip: yup.number().positive().integer(),
-  telephone: yup.number().positive().integer(),
+  telephones: yup.array().of(yup.object({
+    telephone:yup.string(),
+    is_verified: yup.boolean()
+  })),
   email: yup.string().email(),
   job_title: yup.string(),
   employer: yup.string(),
@@ -50,7 +53,7 @@ function EditConnectionForm(props) {
   const [token, setToken] = useState("");
   const [formData, setFormData] = useState(props.details);
   const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errors, setErrors] = useState({});
 
 
   SecureStore.getItemAsync('cok_access_token').then(res => {
@@ -78,6 +81,7 @@ function EditConnectionForm(props) {
   function handleSave() {
     const form = new FormData();
     form.append("person", JSON.stringify(formData));
+    console.log('this is the form data line 81, ', formData)
 
     axios
       .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, form, {
@@ -215,7 +219,7 @@ function EditConnectionForm(props) {
           return (
             <>
               <Text>Street Address</Text>
-              <TextInput style={styles.textInput} value={val.route} placeholder="Street" 
+              <TextInput style={styles.textInput} value={`${val.street_number} ${val.route}`} placeholder="Street" 
               onChange={route => handleChange("addresses", route,{
                 index:i,
                 subname:"route"
