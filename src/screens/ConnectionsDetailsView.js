@@ -159,12 +159,16 @@ export default function ConnectionsDetailsView({ details, id }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
-                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text key={index} style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
+                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text
+                         key={index} 
+                         style={styles.contentText}
+                         onPress={() => {Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`)}}
+                         >{teleFormat(telephoneObj.telephone)}</Text>) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
-                    {details.emails.length ? details.emails.map((emailObj, ind) => <Text key={ind} style={styles.contentText}>{emailObj.email}</Text>) : null}
+                    {details.emails.length ? details.emails.map(emailObj => <Text style={styles.contentText}>{emailObj.email}</Text>) : null}
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
