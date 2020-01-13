@@ -187,7 +187,7 @@ function EditConnectionForm(props) {
                 marginLeft: 36,
                 marginTop: 10,
                 width: '35%',
-                padding: 10,
+                paddingVertical: 22.8,
                 borderRadius: 5
               },
             }}
@@ -360,6 +360,7 @@ function EditConnectionForm(props) {
         <TouchableOpacity onPress={handleCancel} ><Text style={styles.cancelButton} >Cancel</Text></TouchableOpacity>
         <TouchableOpacity onPress={handleSave}><Text style={styles.saveButton} >Save</Text></TouchableOpacity>
       </View>
+      <View style={{height: 60}}/>
     </View >
   );
 }
@@ -367,7 +368,8 @@ function EditConnectionForm(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 10   /// used to be 90% width
+    marginHorizontal: 10,   /// used to be 90% width
+    color: '#444444'
   },
   header: {
     marginTop: 50,
@@ -376,6 +378,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     fontSize: 2.3,
   },
+
   textInput: {
     flex: 1,
     color: "#444444",
@@ -387,18 +390,19 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   picker: {
-    color: "black",
+    color: "#444444",
     borderColor: 'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
     marginTop: 10,
     marginBottom: 20, 
-    paddingVertical: Platform.OS === 'ios' ? 17.5 : 4,
+    paddingVertical: Platform.OS === 'ios' ? 16 : 4,
     paddingHorizontal: Platform.OS === 'ios' ? 10.5 : 0
   },
   pickerText: {
     fontSize: Platform.OS === 'ios' ? 14 : null,
-    paddingTop: Platform.OS === 'ios' ? 2.5 : null
+    paddingTop: Platform.OS === 'ios' ? 2.5 : null,
+    color: '#444444'
   },
   dob_gen: {
     

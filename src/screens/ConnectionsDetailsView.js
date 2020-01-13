@@ -47,11 +47,12 @@ export default function ConnectionsDetailsView({ details, id }) {
             justifyContent: 'space-between',
             alignContent: 'flex-start',
             alignItems: 'flex-start',
-
         },
         labelText: {
             width: '25%',
-            marginBottom: 25
+            marginBottom: 25,
+            color: '#444444'
+
         },
         contentText: {
             // marginHorizontal: 20
@@ -59,7 +60,9 @@ export default function ConnectionsDetailsView({ details, id }) {
             display: 'flex',
             flexDirection: 'column',
             textAlign: 'left',
-            marginLeft: 35
+            marginLeft: 35,
+            color: '#444444'
+
 
 
 
@@ -71,7 +74,8 @@ export default function ConnectionsDetailsView({ details, id }) {
             // display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
-            marginLeft: 17
+            marginLeft: 17,
+            color: '#444444'
 
         },
         phoneDiv: {
@@ -79,10 +83,13 @@ export default function ConnectionsDetailsView({ details, id }) {
             // display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
+            color: '#444444'
+
         },
         addPad: {
             padding: '5%',
             paddingTop: 2,
+            color: '#444444'
         },
         edit:{
             color:'#0279AC', 
@@ -150,9 +157,9 @@ export default function ConnectionsDetailsView({ details, id }) {
                     <View style={styles.addressDiv}>
                         {details.addresses.length ? details.addresses.map((address, ind) =>
                             <View key={ind} style={styles.addPad}>
-                                <Text>{address.street_number} {address.route}</Text>
-                                <Text>{address.route}{','} {address.state_code}</Text>
-                                <Text>{address.postal_code}{','} {address.country}</Text>
+                                <Text style= {{color: '#444444'}}>{address.street_number} {address.route}</Text>
+                                <Text style = {{color: '#444444'}}>{address.locality}{','} {address.state_code}</Text>
+                                <Text style={{color: '#444444'}}>{address.postal_code}{','} {address.country}</Text>
                             </View>
                         ) : null}
                     </View>
