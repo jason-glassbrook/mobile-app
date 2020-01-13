@@ -10,9 +10,10 @@ import {
   ScrollView,
   Button,
   TextInput,
-  Picker,
-  CheckBox
+  CheckBox,
+  Platform
 } from "react-native";
+import { Picker } from 'react-native-picker-dropdown'
 import {getDetails} from "../../store/actions/connectionData"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from "react-redux";
@@ -150,8 +151,8 @@ function EditConnectionForm(props) {
         onChangeText={text => handleChange("last_name", text)} />
 
       <Text>Suffix</Text>
-      <View style={styles.picker}>
-        <Picker selectedValue={formData.suffix} onValueChange={suffix => handleChange("suffix", suffix)} >
+      <View style={styles.picker} >
+        <Picker selectedValue={formData.suffix} onValueChange={suffix => handleChange("suffix", suffix)} textStyle={styles.pickerText}>
           <Picker.Item label="Suffix" value="" />
           <Picker.Item label="Sr." value="Sr." />
           <Picker.Item label="Jr." value="Jr." />
@@ -197,7 +198,7 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text>Gender</Text>
           <View style={styles.picker}>
-            <Picker selectedValue={formData["gender"]} onValueChange={gender => handleChange("gender", gender)}>
+            <Picker selectedValue={formData["gender"]} onValueChange={gender => handleChange("gender", gender)} textStyle={styles.pickerText}>
               <Picker.Item label="male" value="M" />
               <Picker.Item label="female" value="F" />
               <Picker.Item label="other" value="O" />
@@ -321,7 +322,7 @@ function EditConnectionForm(props) {
 
       <Text>Salary Range</Text>
       <View style={styles.picker}>
-        <Picker selectedValue={formData["salary_range"]}
+        <Picker selectedValue={formData["salary_range"] } textStyle={styles.pickerText}
           onValueChange={salary => handleChange("salary_range", salary)} >
           <Picker.Item label="Salary Range" value="" />
           <Picker.Item label="<$40,000" value="<$40,000" />
@@ -391,9 +392,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20, 
+    paddingVertical: Platform.OS === 'ios' ? 17.5 : 4,
+    paddingHorizontal: Platform.OS === 'ios' ? 10.5 : 0
+  },
+  pickerText: {
+    fontSize: Platform.OS === 'ios' ? 14 : null
   },
   dob_gen: {
+    
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
