@@ -8,7 +8,8 @@ import {
     Button,
     Linking,
     Modal,
-    Image
+    Image,
+    Platform
 } from 'react-native';
 import EditConnectionForm from '../components/ConnectionsViewTabs/EditConnectionForm';
 
@@ -159,16 +160,17 @@ export default function ConnectionsDetailsView({ details, id }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
-                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text
-                         key={index} 
-                         style={styles.contentText}
-                         onPress={() => {Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`)}}
-                         >{teleFormat(telephoneObj.telephone)}</Text>) : null}
+                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text 
+                        onPress={() => {Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`)}}
+                        key={index} 
+                        style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
-                    {details.emails.length ? details.emails.map(emailObj => <Text style={styles.contentText}>{emailObj.email}</Text>) : null}
+                    {details.emails.length ? details.emails.map(emailObj => <Text
+                        onPress={() => {Linking.openURL(`mailto: ${emailObj.email}`)}}
+                    style={styles.contentText}>{emailObj.email}</Text>) : null}
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
