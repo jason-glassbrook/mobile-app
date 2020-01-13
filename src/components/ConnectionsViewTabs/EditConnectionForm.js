@@ -44,7 +44,7 @@ let schema = yup.object().shape({
     yup
       .array()
       .of(yup.object({
-        telephone: yup.string(),
+        telephone: yup.string().min(10),
         is_verified: yup.boolean()
       })).required(),
   emails:
@@ -70,6 +70,7 @@ function EditConnectionForm(props) {
   const [formErrors, setFormErrors] = useState({});
 
 
+
   SecureStore.getItemAsync('cok_access_token').then(res => {
     setToken(res)
   }).catch(err => { console.log(err) })
@@ -80,11 +81,6 @@ function EditConnectionForm(props) {
     setFormData(formData => {
       let copy = { ...formData }
 
-      // schema.validate(copy,{ abortEarly: false })
-      // .catch(err => {
-      //   console.log(err.errors)
-      // })
-
       if ("index" in options) copy[name][options.index][options.subname] = value
       else copy[name] = value
 
@@ -93,46 +89,74 @@ function EditConnectionForm(props) {
 
   }
 
+  function errorValidatorFormatter(err) {
+    // nests errors for fields that are arrays, yup returns '[]' in errors that are arrays
+    // "telephones[3].telephone must be at least 10 characters"
+
+      let fieldErrors = {};
+    
+      if (err.includes('[')) {
+
+        let newErr = err.split('[')
+        let name = newErr[0]
+        let errTemplate = newErr[1].split(']')
+        let errIndex = errTemplate[0] // index of error 3
+        let errDetail = errTemplate[1].slice(1) // message of error
+        let errType = errTemplate[1].split(' ')[0].slice(1)
+
+        fieldErrors[name] = [];
+        fieldErrors[name][errIndex] = {};
+        fieldErrors[name][errIndex][errType] = errDetail
+        return fieldErrors
+
+      }
+      else { 
+        fieldErrors[err.split(" ")[0]] = err.split(' ').slice(1).join('');
+        return fieldErrors
+      }
+
+  }
+
   function handleSave() {
     let currentErrors = {}
     schema
-    .validate(formData,{ abortEarly: false })
-    .then(()=>{ // checks the formData with Yup schema, if it passes errors are cleared and save function is run
-      setFormErrors({})
-      save()
-    })
-    .catch(error=>{
-      error.errors.forEach(err => {
-        console.log(err)
-        currentErrors[err.split(" ")[0]] = err;
-    })
-    setFormErrors({...currentErrors })
-  }) 
-
-    function save(){
-    const form = new FormData();
-    form.append("person", JSON.stringify(formData));
-    console.log('this is the form data line 81, ', form)
-
-    axios
-      .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, form, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
+      .validate(formData, { abortEarly: false })
+      .then((valid) => { // checks the formData with Yup schema, if it passes errors are cleared and save function is run
+        console.log(valid)
+        setFormErrors({})
+        save()
       })
-      .then(res => {
-        props.setEdit(false)
-        props.getDetails(props.id)
-      })
-      .catch(err => {
-        console.log("Unable to edit person", err);
-        setError(true);
-        setErrorMessage(err);
+      .catch(error => {
+        let errObj = {}
+        error.errors.forEach(err => {
+          errObj = {...errObj,...errorValidatorFormatter(err)}
+        })
+        setFormErrors(errObj)
       })
     }
-  }
 
-  console.log('form errors ',formErrors)
+    function save() {
+      const form = new FormData();
+      form.append("person", JSON.stringify(formData));
+     
+      axios
+        .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, form, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(res => {
+          props.setEdit(false)
+          props.getDetails(props.id)
+        })
+        .catch(err => {
+          console.log("Unable to edit person", err);
+          setError(true);
+        })
+    }
+  
+
+  console.log('form errors ', formErrors)
 
   function handleCancel() {
     props.setEdit(false)
@@ -162,6 +186,17 @@ function EditConnectionForm(props) {
       }
 
     })
+  }
+
+  function TRY(path){
+    let v ;
+    console.log(path)
+    try{
+      v = eval(path)
+    }catch(err){
+      return undefined;
+    }
+    return v;
   }
 
   return (
@@ -257,7 +292,8 @@ function EditConnectionForm(props) {
                   index: i,
                   subname: "route"
                 })} />
-              
+              <Text>{TRY(`formErrors["addresses"][${i}]["route"]`)}</Text>
+
               <View style={styles.addressInfo}>
                 <View style={styles.addressDetail}>
                   <Text>City</Text>
@@ -266,6 +302,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "locality"
                     })} />
+                  <Text>{TRY(`formErrors["addresses"][${i}]["locality"]`)}</Text>
                 </View>
 
                 <View style={styles.addressDetail}>
@@ -275,6 +312,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "state"
                     })} />
+                    <Text>{TRY(`formErrors["addresses"][${i}]["state"]`)}</Text>
                 </View>
               </View>
 
@@ -286,6 +324,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "postal_code"
                     })} />
+                    <Text>{TRY(`formErrors["addresses"][${i}]["postal_code"]`)}</Text>
                 </View>
 
                 <View style={styles.addressDetail}>
@@ -295,6 +334,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "country"
                     })} />
+                    <Text>{TRY(`formErrors["addresses"][${i}]["country"]`)}</Text>
                 </View>
               </View>
             </>
@@ -311,11 +351,16 @@ function EditConnectionForm(props) {
 
       {
         formData.telephones && formData.telephones.map((val, i) => {
-          return <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000"
-            onChange={telephone => handleChange("telephones", telephone, {
-              index: i,
-              subname: "telephone"
-            })} />
+          return (
+            <>
+              <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000"
+              onChange={telephone => handleChange("telephones", telephone, {
+                index: i,
+                subname: "telephone"
+              })} />
+            <Text style={{color:'#DB272A'}}>{TRY(`formErrors["telephones"][${i}].telephone`)}</Text>
+          </>
+          )
         })
       }
       <View style={styles.addButtonRow}>
@@ -327,11 +372,16 @@ function EditConnectionForm(props) {
 
       {
         formData.emails && formData.emails.map((val, i) => {
-          return <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com"
-            onChange={email => handleChange("emails", email, {
-              index: i,
-              subname: "email"
-            })} />
+          return (
+            <>
+              <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com"
+              onChange={email => handleChange("emails", email, {
+                index: i,
+                subname: "email"
+              })} />
+              <Text>{TRY(`formErrors["emails"][${i}].email`)}</Text>
+            </>
+          )
         })
       }
       <View style={styles.addButtonRow}>
