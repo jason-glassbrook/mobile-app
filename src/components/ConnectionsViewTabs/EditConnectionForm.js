@@ -10,9 +10,10 @@ import {
   ScrollView,
   Button,
   TextInput,
-  Picker,
-  CheckBox
+  CheckBox,
+  Platform
 } from "react-native";
+import { Picker } from 'react-native-picker-dropdown'
 import {getDetails} from "../../store/actions/connectionData"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from "react-redux";
@@ -150,8 +151,8 @@ function EditConnectionForm(props) {
         onChangeText={text => handleChange("last_name", text)} />
 
       <Text>Suffix</Text>
-      <View style={styles.picker}>
-        <Picker selectedValue={formData.suffix} onValueChange={suffix => handleChange("suffix", suffix)} >
+      <View style={styles.picker} >
+        <Picker selectedValue={formData.suffix} onValueChange={suffix => handleChange("suffix", suffix)} textStyle={styles.pickerText}>
           <Picker.Item label="Suffix" value="" />
           <Picker.Item label="Sr." value="Sr." />
           <Picker.Item label="Jr." value="Jr." />
@@ -186,7 +187,7 @@ function EditConnectionForm(props) {
                 marginLeft: 36,
                 marginTop: 10,
                 width: '35%',
-                padding: 10,
+                paddingVertical: 22.8,
                 borderRadius: 5
               },
             }}
@@ -197,7 +198,7 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text>Gender</Text>
           <View style={styles.picker}>
-            <Picker selectedValue={formData["gender"]} onValueChange={gender => handleChange("gender", gender)}>
+            <Picker selectedValue={formData["gender"]} onValueChange={gender => handleChange("gender", gender)} textStyle={styles.pickerText}>
               <Picker.Item label="male" value="M" />
               <Picker.Item label="female" value="F" />
               <Picker.Item label="other" value="O" />
@@ -321,7 +322,7 @@ function EditConnectionForm(props) {
 
       <Text>Salary Range</Text>
       <View style={styles.picker}>
-        <Picker selectedValue={formData["salary_range"]}
+        <Picker selectedValue={formData["salary_range"] } textStyle={styles.pickerText}
           onValueChange={salary => handleChange("salary_range", salary)} >
           <Picker.Item label="Salary Range" value="" />
           <Picker.Item label="<$40,000" value="<$40,000" />
@@ -359,6 +360,7 @@ function EditConnectionForm(props) {
         <TouchableOpacity onPress={handleCancel} ><Text style={styles.cancelButton} >Cancel</Text></TouchableOpacity>
         <TouchableOpacity onPress={handleSave}><Text style={styles.saveButton} >Save</Text></TouchableOpacity>
       </View>
+      <View style={{height: 60}}/>
     </View >
   );
 }
@@ -366,7 +368,8 @@ function EditConnectionForm(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 10   /// used to be 90% width
+    marginHorizontal: 10,   /// used to be 90% width
+    color: '#444444'
   },
   header: {
     marginTop: 50,
@@ -375,6 +378,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     fontSize: 2.3,
   },
+
   textInput: {
     flex: 1,
     color: "#444444",
@@ -382,16 +386,26 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 15,
-    marginVertical: 10   ///// used to be margin
+    marginTop: 10,   ///// used to be margin
+    marginBottom: 20
   },
   picker: {
-    color: "black",
+    color: "#444444",
     borderColor: 'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
-    marginVertical: 10
+    marginTop: 10,
+    marginBottom: 20, 
+    paddingVertical: Platform.OS === 'ios' ? 16 : 4,
+    paddingHorizontal: Platform.OS === 'ios' ? 10.5 : 0
+  },
+  pickerText: {
+    fontSize: Platform.OS === 'ios' ? 14 : null,
+    paddingTop: Platform.OS === 'ios' ? 2.5 : null,
+    color: '#444444'
   },
   dob_gen: {
+    
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -410,7 +424,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    paddingBottom: 2,
+    paddingLeft: 1
   },
   addButtonRow: {
     flexDirection: "row",
@@ -432,21 +448,24 @@ const styles = StyleSheet.create({
   saveButton: {
     width: 150,
     marginVertical: 15,
-    marginHorizontal: 10,
-    padding: 10,
+    // marginHorizontal: 10,
+    padding: 15,
     backgroundColor: '#0279AC',
     color: '#fff',
     borderRadius: 5,
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold'
   },
   cancelButton: {
     width: 150,
     marginVertical: 15,
-    marginHorizontal: 10,
-    padding: 10,
-    backgroundColor: '#8c8b8a',
-    color: '#fff',
+    // marginHorizontal: 10,
+    padding: 14,
+    backgroundColor: '#fff',
+    color: '#0279AC',
+    borderColor: '#0279AC',
+    borderWidth: 1,
     borderRadius: 5,
     fontSize: 20,
     textAlign: 'center'
