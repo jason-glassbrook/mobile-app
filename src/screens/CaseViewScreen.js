@@ -37,7 +37,7 @@ import ScrollToTop from '../UI/ScrollToTop'
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
 export function CaseViewScreen(props) {
-  
+  // console.log('this is props, ', props)
   const [searchKeywords, setSearchKeywords] = useState('')
 
   const [filtersSelected, setFiletersSelected] = useState({
@@ -74,7 +74,7 @@ export function CaseViewScreen(props) {
     },
     searchBar: {
       marginHorizontal: Platform.OS === "ios" ? 5 : 5,
-      width: '98%',
+      width: '75%',
       backgroundColor: Platform.OS === "ios" ? "white" : "white",
     },
     imageStyles: { width: 225, height: 90 },
@@ -284,39 +284,42 @@ export function CaseViewScreen(props) {
                 <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#FFFFFF' }}>Connections</Text>
               </View>
             </View>
-            <SearchBar
-              inputStyle={{ fontSize: 16 }}
-              inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
-              placeholder="Search Name..."
-              placeholderTextColor="#8D8383"
-              // lightTheme
-              round
-              name="searchKeywords"
-              value={searchKeywords}
-              onChangeText={handleKeywordChange}
-              // create searchbar target platform.os
-              platform="ios"
-              containerStyle={styles.searchBar}
-            />
-            <TouchableHighlight
-              onPressIn={() => {
-                setDescriptionVisible(true)
-              }}>
-              <View
-                style={{ 
-                  flexDirection: 'row', 
-                  alignItems: 'center', 
-                  paddingLeft: 10, 
-                  paddingRight: 10 
-                }}
-              >
-                <MaterialIcons
-                  name="filter-list"
-                  color='black'
-                  size={32}
-                /><Text style={{ fontSize: 16 }}>Filter</Text>
-              </View>
-            </TouchableHighlight>
+            <View 
+           style={{
+            flexDirection: "row", alignItems: 'center', justifyContent: 'flex-start', alignContent: 'center', borderBottomWidth: .5, borderBottomColor: '#babab9'
+           }}>
+              <SearchBar
+                inputStyle={{ fontSize: 16 }}
+                inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
+                placeholder="Search Name..."
+                placeholderTextColor="#8D8383"
+                // lightTheme
+                round
+                name="searchKeywords"
+                value={searchKeywords}
+                onChangeText={handleKeywordChange}
+                // create searchbar target platform.os
+                platform="ios"
+                containerStyle={styles.searchBar}
+              />
+              <TouchableHighlight
+                onPressIn={() => {
+                  setDescriptionVisible(true)
+                }}>
+                <View
+                  style={{ 
+                    flexDirection: 'row', 
+                    alignItems: 'center', 
+                  }}
+                >
+                  <MaterialIcons
+                    name="filter-list"
+                    color='black'
+                    size={32}
+                  /><Text style={{ fontSize: 16 }}>Filter</Text>
+                </View>
+              </TouchableHighlight>
+           </View>
             {props.isLoadingConnections ? (
               <Loader />
             ) : (

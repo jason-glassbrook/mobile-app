@@ -41,7 +41,9 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm';
 import Loader from '../components/Loader/Loader';
 import ScrollToTop from '../UI/ScrollToTop'
 import ConnectionsDetailsView from './ConnectionsDetailsView'
+import EditConnectionsForm from "../components/ConnectionsViewTabs/EditConnectionForm"
 import { Row } from 'native-base';
+
 
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
@@ -60,6 +62,7 @@ function ConnectionsView(props) {
   const [engagementType, setEngagementType] = useState()
   const [image, setImage] = useState({})
   const [isScrolling, setIsScrolling] = useState(false)
+  // console.log('this is the one you must find ', props.details)
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
@@ -153,7 +156,8 @@ function ConnectionsView(props) {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      paddingBottom: '18%'
+      paddingBottom: '10%',
+      paddingTop: '5%'
     }
   })
 
@@ -302,7 +306,7 @@ function ConnectionsView(props) {
                   style={{
                     width: '100%',
                     minHeight: 350,
-                    paddingVertical: 20,
+                    paddingVertical: 15,
                     paddingHorizontal: 25,
                   }}
                 >
@@ -311,7 +315,8 @@ function ConnectionsView(props) {
                       flexDirection: 'row',
                       justifyContent: 'space-between',
                       alignItems: 'center',
-                      marginTop: 12
+                      marginTop: 4,
+                      marginBottom: 20,
                     }}
                   >
                     <View style={styles.iconLabelContainer}>
@@ -450,7 +455,7 @@ function ConnectionsView(props) {
                 >
                   <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     {props.isLoadingDetails ? <Loader /> :
-                      <ConnectionsDetailsView details={props.details} />
+                      <ConnectionsDetailsView details={props.details} id={connectionData.pk} />
                     }
                   </View>
                 </View>
@@ -462,6 +467,7 @@ function ConnectionsView(props) {
     </View>
   );
 }
+
 
 const mapStateToProps = state => {
   return {

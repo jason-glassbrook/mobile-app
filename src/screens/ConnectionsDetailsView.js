@@ -10,8 +10,14 @@ import {
     Modal,
     Image
 } from 'react-native';
+import EditConnectionForm from '../components/ConnectionsViewTabs/EditConnectionForm';
 
-export default function ConnectionsDetailsView({ details }) {
+export default function ConnectionsDetailsView({ details, id }) {
+
+    const [ edit, setEdit ] = useState(false);
+
+
+
     const styles = StyleSheet.create({
         rootView: {
             display: 'flex',
@@ -22,8 +28,8 @@ export default function ConnectionsDetailsView({ details }) {
         header: {
             marginTop: 1,            
             marginBottom: 20,
-            borderBottomWidth: .75,
-            borderBottomColor: 'black',
+            borderBottomWidth: .5,
+            borderBottomColor: 'rgba(24, 23, 21, 0.3)',
             display: 'flex',
             flexDirection:'row',
             justifyContent: 'space-between'
@@ -97,10 +103,13 @@ export default function ConnectionsDetailsView({ details }) {
     }
 
     return (
+       edit === false ?  
         <View style={styles.rootView}>
             {/* INFORMATION SECTION */}
             {/* onPress needed for edit */}
-            <Text style={styles.edit}>Edit</Text> 
+            <Text style={styles.edit} onPress={()=> {
+                setEdit(!edit)
+                }}>Edit</Text> 
             <View style={styles.header}>
                 <Text style={styles.headerText}>INFORMATION</Text>
             </View>
@@ -186,6 +195,7 @@ export default function ConnectionsDetailsView({ details }) {
                 </View>
             </View>
         </View>
-    )
+        : <EditConnectionForm details = {details} id={id} setEdit={setEdit}  /> 
+    ) 
 
 }

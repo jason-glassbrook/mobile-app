@@ -139,7 +139,15 @@ const FamilyConnectionsNavigator = createStackNavigator(
               </Text>
               {/* <Text>Edit Details</Text> */}
               {/* if details true show edit, if not don't */}
-            </TouchableOpacity>)
+            </TouchableOpacity>),
+            headerTitle: (
+              <Image
+                source={logoImg}
+                style={{ width: 225, height: 90, justifyContent: 'center'}}
+                resizeMode="contain"
+              />
+            )
+            
         }
       }
     },
@@ -370,7 +378,8 @@ const BottomNavigator = createBottomTabNavigator(
           <Ionicons
             name="md-search"
             size={36}
-            color={tintColor} />
+            color={tintColor}
+            />
         )
       },
     },

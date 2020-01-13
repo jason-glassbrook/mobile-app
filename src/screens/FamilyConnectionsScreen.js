@@ -202,9 +202,9 @@ const FamilyConnectionsScreen = (props) => {
       props.results[0] ?
         <SafeAreaView>
           <View
-            style={{ flexDirection: "column", alignItems: 'flex-start', justifyContent: 'flex-start' }}
+            style={{ flexDirection: "row", alignItems: 'center', justifyContent: 'flex-start', alignContent: 'center', borderBottomWidth: .5, borderBottomColor: '#babab9'}}
           >
-            <SearchBar
+              <SearchBar
               inputStyle={{ fontSize: 16 }}
               inputContainerStyle={{ backgroundColor: '#FAFAFA', height: 45.62 }}
               placeholder="Search Name..."
@@ -223,7 +223,7 @@ const FamilyConnectionsScreen = (props) => {
                 setModalVisible(true);
               }}>
               <View
-                style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 10, paddingRight: 10 }}
+                style={{  alignItems: 'center', flexDirection: 'row'}}
               >
                 <MaterialIcons
                   name="filter-list"
@@ -408,7 +408,7 @@ const FamilyConnectionsScreen = (props) => {
           {/* Case List Todos:
        Cache case info from API for faster loading */}
           {/* Case List View Starts Here */}
-          <View style={{ paddingBottom: 170 }}>
+          <View style={{ paddingBottom: 142 }}>
             <View>
               {isScrolling ?
                 <ScrollToTop
@@ -486,7 +486,7 @@ const styles = StyleSheet.create({
   searchBar: {
     marginRight: 5,
     marginLeft: 5,
-    width: '97%',
+    width: '75%',
     backgroundColor: Platform.OS === "ios" ? "white" : "white",
   },
   filterButton: {
