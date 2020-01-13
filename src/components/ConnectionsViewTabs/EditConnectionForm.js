@@ -381,14 +381,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     padding: 15,
-    marginVertical: 10   ///// used to be margin
+    marginTop: 10,   ///// used to be margin
+    marginBottom: 20
   },
   picker: {
     color: "black",
     borderColor: 'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
-    marginVertical: 10
+    marginTop: 10,
+    marginBottom: 20
   },
   dob_gen: {
     flex: 1,
@@ -409,7 +411,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginRight: 10,
-    marginBottom: 10
+    marginBottom: 10,
+    paddingBottom: 2,
+    paddingLeft: 1
   },
   addButtonRow: {
     flexDirection: "row",
@@ -431,7 +435,7 @@ const styles = StyleSheet.create({
   saveButton: {
     width: 150,
     marginVertical: 15,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     padding: 10,
     backgroundColor: '#0279AC',
     color: '#fff',
@@ -442,7 +446,7 @@ const styles = StyleSheet.create({
   cancelButton: {
     width: 150,
     marginVertical: 15,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     padding: 10,
     backgroundColor: '#8c8b8a',
     color: '#fff',
