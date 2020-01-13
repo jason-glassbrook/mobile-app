@@ -445,20 +445,23 @@ const styles = StyleSheet.create({
     width: 150,
     marginVertical: 15,
     // marginHorizontal: 10,
-    padding: 10,
+    padding: 15,
     backgroundColor: '#0279AC',
     color: '#fff',
     borderRadius: 5,
     fontSize: 20,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold'
   },
   cancelButton: {
     width: 150,
     marginVertical: 15,
     // marginHorizontal: 10,
-    padding: 10,
-    backgroundColor: '#8c8b8a',
-    color: '#fff',
+    padding: 14,
+    backgroundColor: '#fff',
+    color: '#0279AC',
+    borderColor: '#0279AC',
+    borderWidth: 1,
     borderRadius: 5,
     fontSize: 20,
     textAlign: 'center'
