@@ -83,7 +83,8 @@ export default function ConnectionsDetailsView({ details, id }) {
             // display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
-            color: '#444444'
+            color: '#444444',
+            marginBottom: 10
 
         },
         addPad: {
