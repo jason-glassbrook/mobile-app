@@ -397,7 +397,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: Platform.OS === 'ios' ? 10.5 : 0
   },
   pickerText: {
-    fontSize: Platform.OS === 'ios' ? 14 : null
+    fontSize: Platform.OS === 'ios' ? 14 : null,
+    paddingTop: Platform.OS === 'ios' ? 2.5 : null
   },
   dob_gen: {
     
