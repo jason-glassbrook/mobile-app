@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import {
   TouchableWithoutFeedback,
-  View,
+
   Image,
   Text,
   TouchableOpacity
@@ -261,7 +261,7 @@ const CustomDrawerNavigator = createStackNavigator({
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: constants.highlightColor,
       }
     },
     navigationOptions: {

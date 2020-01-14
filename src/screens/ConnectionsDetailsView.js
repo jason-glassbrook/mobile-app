@@ -7,9 +7,9 @@ import {
     ScrollView,
     Button,
     Linking,
+    Platform,
     Modal,
-    Image,
-    Platform
+    Image
 } from 'react-native';
 import EditConnectionForm from '../components/ConnectionsViewTabs/EditConnectionForm';
 
@@ -27,12 +27,12 @@ export default function ConnectionsDetailsView({ details, id }) {
             margin: 0
         },
         header: {
-            marginTop: 1,            
+            marginTop: 1,
             marginBottom: 20,
             borderBottomWidth: .5,
             borderBottomColor: 'rgba(24, 23, 21, 0.3)',
             display: 'flex',
-            flexDirection:'row',
+            flexDirection: 'row',
             justifyContent: 'space-between'
         },
         headerText: {
@@ -47,12 +47,12 @@ export default function ConnectionsDetailsView({ details, id }) {
             justifyContent: 'space-between',
             alignContent: 'flex-start',
             alignItems: 'flex-start',
-
         },
         labelText: {
             width: '25%',
             marginBottom: 25,
-            paddingTop: '1%'
+            color: '#444444'
+
         },
         contentText: {
             // marginHorizontal: 20
@@ -60,7 +60,9 @@ export default function ConnectionsDetailsView({ details, id }) {
             display: 'flex',
             flexDirection: 'column',
             textAlign: 'left',
-            marginLeft: 35
+            marginLeft: 35,
+            color: '#444444'
+
 
 
 
@@ -72,7 +74,8 @@ export default function ConnectionsDetailsView({ details, id }) {
             // display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
-            marginLeft: 17
+            marginLeft: 17,
+            color: '#444444'
 
         },
         phoneDiv: {
@@ -80,16 +83,20 @@ export default function ConnectionsDetailsView({ details, id }) {
             // display: 'flex',
             flexDirection: 'column',
             flexWrap: 'wrap',
+            color: '#444444',
+            marginBottom: 10
+
         },
         addPad: {
             padding: '5%',
             paddingTop: 2,
+            color: '#444444'
         },
-        edit:{
-            color:'#0279AC', 
-            paddingTop:20, 
-            paddingRight:5, 
-            textAlign:'right'
+        edit: {
+            color: '#0279AC',
+            paddingTop: 20,
+            paddingRight: 5,
+            textAlign: 'right'
         }
     })
 
@@ -155,10 +162,10 @@ export default function ConnectionsDetailsView({ details, id }) {
                             onPress={() => {Linking.openURL(`geopoint: ${addressObj.address}`)}}
                             key={ind} 
                             style={styles.addPad}>
-                                <Text>{addressObj.address}</Text>
-                                <Text>{addressObj.street_number} {addressObj.route}</Text>
-                                <Text>{addressObj.route}{','} {addressObj.state_code}</Text>
-                                <Text>{addressObj.postal_code}{','} {addressObj.country}</Text>
+                                <Text style= {{color: '#444444'}}>{addressObj.address}</Text>
+                                <Text style= {{color: '#444444'}}>{addressObj.street_number} {addressObj.route}</Text>
+                                <Text style= {{color: '#444444'}}>{addressObj.route}{','} {addressObj.state_code}</Text>
+                                <Text style= {{color: '#444444'}}>{addressObj.postal_code}{','} {addressObj.country}</Text>
                             </View>
                           
                           ) 
@@ -169,17 +176,21 @@ export default function ConnectionsDetailsView({ details, id }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
-                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text 
-                        onPress={() => {Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`)}}
-                        key={index} 
-                        style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
+                        {details.telephones.length ? details.telephones.map((telephoneObj, index) =>
+                            <Text key={index}
+                                style={{ ...styles.contentText, color: 'blue' }}
+                                onPress={() => {
+                                    Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
+                                }}
+                            >
+                                {teleFormat(telephoneObj.telephone)}
+                            </Text>
+                        ) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
-                    {details.emails.length ? details.emails.map(emailObj => <Text
-                        onPress={() => {Linking.openURL(`mailto: ${emailObj.email}`)}}
-                    style={styles.contentText}>{emailObj.email}</Text>) : null}
+                    {details.emails.length ? details.emails.map((emailObj, ind)=> <Text key={ind} style={styles.contentText}>{emailObj.email}</Text>) : null}
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
