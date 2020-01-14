@@ -37,7 +37,8 @@ export const getEngagements = (id) => dispatch => {
 
                     dispatch({
                         type: GET_ENGAGEMENTS_SUCCESS,
-                        payload: res.data.results
+                        // filter out Reminders as they are not properly implemented yet
+                        payload: res.data.results.filter(engagement => engagement.data_type !== 'R')
                     });
                 })
                 .catch(err => {
