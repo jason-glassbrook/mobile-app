@@ -13,12 +13,8 @@ import {
   CheckBox,
   Platform
 } from "react-native";
-<<<<<<< HEAD
-import { getDetails } from "../../store/actions/connectionData"
-=======
 import { Picker } from 'react-native-picker-dropdown'
 import {getDetails} from "../../store/actions/connectionData"
->>>>>>> a6fcbda62376b059668c831184f5a0e6b7970202
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from "react-redux";
 import * as SecureStore from 'expo-secure-store'
@@ -472,13 +468,8 @@ const styles = StyleSheet.create({
 
   textInput: {
     flex: 1,
-<<<<<<< HEAD
-    color: "black",
-    borderColor: '#181614',
-=======
     color: "#444444",
     borderColor:'rgba(24, 23, 21, 0.5)',
->>>>>>> a6fcbda62376b059668c831184f5a0e6b7970202
     borderWidth: 1,
     borderRadius: 5,
     padding: 15,

@@ -9,8 +9,7 @@ import {
     Linking,
     Platform,
     Modal,
-    Image,
-    Platform
+    Image
 } from 'react-native';
 import EditConnectionForm from '../components/ConnectionsViewTabs/EditConnectionForm';
 
@@ -169,7 +168,6 @@ export default function ConnectionsDetailsView({ details, id }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Telephone</Text>
                     <View style={styles.phoneDiv}>
-<<<<<<< HEAD
                         {details.telephones.length ? details.telephones.map((telephoneObj, index) =>
                             <Text key={index}
                                 style={{ ...styles.contentText, color: 'blue' }}
@@ -180,23 +178,11 @@ export default function ConnectionsDetailsView({ details, id }) {
                                 {teleFormat(telephoneObj.telephone)}
                             </Text>
                         ) : null}
-=======
-                        {details.telephones.length ? details.telephones.map((telephoneObj, index) => <Text 
-                        onPress={() => {Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`)}}
-                        key={index} 
-                        style={styles.contentText}>{teleFormat(telephoneObj.telephone)}</Text>) : null}
->>>>>>> a6fcbda62376b059668c831184f5a0e6b7970202
                     </View>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
-<<<<<<< HEAD
                     {details.emails.length ? details.emails.map((emailObj, ind)=> <Text key={ind} style={styles.contentText}>{emailObj.email}</Text>) : null}
-=======
-                    {details.emails.length ? details.emails.map(emailObj => <Text
-                        onPress={() => {Linking.openURL(`mailto: ${emailObj.email}`)}}
-                    style={styles.contentText}>{emailObj.email}</Text>) : null}
->>>>>>> a6fcbda62376b059668c831184f5a0e6b7970202
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
