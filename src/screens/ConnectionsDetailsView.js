@@ -62,12 +62,15 @@ export default function ConnectionsDetailsView({ details, id }) {
             textAlign: 'left',
             marginLeft: 35,
             color: '#444444'
-
-
-
-
             // textAlign: 'left',
-
+        },
+        linkText: {
+            width: '75%',
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign: 'left',
+            marginLeft: 35,
+            color: '#0279AC'
         },
         addressDiv: {
             width: "100%",
@@ -170,7 +173,7 @@ export default function ConnectionsDetailsView({ details, id }) {
                     <View style={styles.phoneDiv}>
                         {details.telephones.length ? details.telephones.map((telephoneObj, index) =>
                             <Text key={index}
-                                style={{ ...styles.contentText, color: 'blue' }}
+                                style={styles.linkText}
                                 onPress={() => {
                                     Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
                                 }}
@@ -182,15 +185,19 @@ export default function ConnectionsDetailsView({ details, id }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
-                    {details.emails.length ? details.emails.map((emailObj, ind)=> <Text key={ind} style={styles.contentText}>{emailObj.email}</Text>) : null}
+                    {details.emails.length ? details.emails.map((emailObj, ind)=> <Text 
+                    key={ind} 
+                    style={styles.linkText}
+                    onPress={() => {Linking.openURL(`mailto: ${emailObj.email}`)}} 
+                    >{emailObj.email}</Text>) : null}
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
-                    <Text style={styles.contentText}> {details.job_title}</Text>
+                    <Text style={styles.contentText}>{details.job_title}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Employer</Text>
-                    <Text style={styles.contentText}> {details.employer}</Text>
+                    <Text style={styles.contentText}>{details.employer}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Salary Range</Text>
@@ -201,17 +208,18 @@ export default function ConnectionsDetailsView({ details, id }) {
             <View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Facebook</Text>
-                    <Text> {details.facebook}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.facebook}`)}>{details.facebook}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>LinkedIn</Text>
-                    <Text> {details.linkedin}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.linkedin}`)}>{details.linkedin}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Twitter</Text>
-                    <Text>{details.twitter}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.twitter}`)}>{details.twitter}</Text>
                 </View>
             </View>
+            <View style={{height: 60}}/> 
         </View>
         : <EditConnectionForm details = {details} id={id} setEdit={setEdit}  /> 
     ) 
