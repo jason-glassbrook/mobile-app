@@ -51,7 +51,7 @@ let schema = yup.object().shape({
     yup
       .array()
       .of(yup.object({
-        email: yup.string().email(),
+        email: yup.string().email().required(),
         is_verified: yup.boolean()
       })).required(),
   job_title: yup.string().nullable(),
@@ -118,7 +118,8 @@ function EditConnectionForm(props) {
   }
 
   function handleSave() {
-    let currentErrors = {}
+    // let currentErrors = {}
+    setFormErrors({})
     schema
       .validate(formData, { abortEarly: false })
       .then((valid) => { // checks the formData with Yup schema, if it passes errors are cleared and save function is run
@@ -190,7 +191,6 @@ function EditConnectionForm(props) {
 
   function TRY(path){
     let v ;
-    console.log(path)
     try{
       v = eval(path)
     }catch(err){
@@ -292,7 +292,7 @@ function EditConnectionForm(props) {
                   index: i,
                   subname: "route"
                 })} />
-              <Text>{TRY(`formErrors["addresses"][${i}]["route"]`)}</Text>
+              <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["route"]`)}</Text>
 
               <View style={styles.addressInfo}>
                 <View style={styles.addressDetail}>
@@ -302,7 +302,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "locality"
                     })} />
-                  <Text>{TRY(`formErrors["addresses"][${i}]["locality"]`)}</Text>
+                  <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["locality"]`)}</Text>
                 </View>
 
                 <View style={styles.addressDetail}>
@@ -312,7 +312,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "state"
                     })} />
-                    <Text>{TRY(`formErrors["addresses"][${i}]["state"]`)}</Text>
+                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["state"]`)}</Text>
                 </View>
               </View>
 
@@ -324,7 +324,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "postal_code"
                     })} />
-                    <Text>{TRY(`formErrors["addresses"][${i}]["postal_code"]`)}</Text>
+                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["postal_code"]`)}</Text>
                 </View>
 
                 <View style={styles.addressDetail}>
@@ -334,7 +334,7 @@ function EditConnectionForm(props) {
                       index: i,
                       subname: "country"
                     })} />
-                    <Text>{TRY(`formErrors["addresses"][${i}]["country"]`)}</Text>
+                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["country"]`)}</Text>
                 </View>
               </View>
             </>
@@ -358,7 +358,7 @@ function EditConnectionForm(props) {
                 index: i,
                 subname: "telephone"
               })} />
-            <Text style={{color:'#DB272A'}}>{TRY(`formErrors["telephones"][${i}].telephone`)}</Text>
+            <Text style={styles.errorText}>{TRY(`formErrors["telephones"][${i}].telephone`)}</Text>
           </>
           )
         })
@@ -379,7 +379,7 @@ function EditConnectionForm(props) {
                 index: i,
                 subname: "email"
               })} />
-              <Text>{TRY(`formErrors["emails"][${i}].email`)}</Text>
+              <Text style={styles.errorText}>{TRY(`formErrors["emails"][${i}].email`)}</Text>
             </>
           )
         })
@@ -539,6 +539,9 @@ const styles = StyleSheet.create({
     padding: 10,
     marginHorizontal: 10,
     marginVertical: 15
+  },
+  errorText:{
+    color:'#DB272A'
   }
 })
 
