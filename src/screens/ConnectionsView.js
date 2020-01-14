@@ -372,22 +372,6 @@ function ConnectionsView(props) {
                       </View>
                       <Text style={styles.iconLabel}>LOG EMAIL</Text>
                     </View>
-
-                    <View style={styles.iconLabelContainer}>
-                      <View style={styles.iconContainer}>
-                        <TouchableOpacity
-                          onPress={async () => {
-                            passEngagementType('R')
-                          }}
-                        >
-                          <MaterialCommunityIcons
-                            name='reminder'
-                            style={styles.iconStyles}
-                          />
-                        </TouchableOpacity>
-                      </View>
-                      <Text style={styles.iconLabel}>REMINDER</Text>
-                    </View>
                   </View>
 
                   <View>
