@@ -103,6 +103,10 @@ export default function ConnectionsDetailsView({ details, id }) {
         }
     })
 
+    const addressPress = () => {
+        
+    }
+
     const teleFormat = (phoneNumber) => {
         let phoneNumberArr = phoneNumber.split('')
         if (phoneNumberArr.length === 10) {
@@ -160,11 +164,13 @@ export default function ConnectionsDetailsView({ details, id }) {
                     <Text style={styles.labelText}>Residence</Text>
                     <View style={styles.addressDiv}>
                         {details.addresses.length ? details.addresses.map((address, ind) =>
-                            <View key={ind} style={styles.addPad}>
+                            <TouchableOpacity key={ind}
+                            style={styles.addPad}
+                            onPress={() => {Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURI(address.raw)}`)}}>
                                 <Text style= {{color: '#444444'}}>{address.street_number} {address.route}</Text>
                                 <Text style = {{color: '#444444'}}>{address.locality}{','} {address.state_code}</Text>
                                 <Text style={{color: '#444444'}}>{address.postal_code}{','} {address.country}</Text>
-                            </View>
+                            </TouchableOpacity>
                         ) : null}
                     </View>
                 </View>
