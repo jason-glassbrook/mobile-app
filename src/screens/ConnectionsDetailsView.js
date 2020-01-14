@@ -62,12 +62,15 @@ export default function ConnectionsDetailsView({ details, id }) {
             textAlign: 'left',
             marginLeft: 35,
             color: '#444444'
-
-
-
-
             // textAlign: 'left',
-
+        },
+        linkText: {
+            width: '75%',
+            display: 'flex',
+            flexDirection: 'column',
+            textAlign: 'left',
+            marginLeft: 35,
+            color: '#0279AC'
         },
         addressDiv: {
             width: "100%",
@@ -99,6 +102,10 @@ export default function ConnectionsDetailsView({ details, id }) {
             textAlign: 'right'
         }
     })
+
+    const addressPress = () => {
+        
+    }
 
     const teleFormat = (phoneNumber) => {
         let phoneNumberArr = phoneNumber.split('')
@@ -156,21 +163,15 @@ export default function ConnectionsDetailsView({ details, id }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Residence</Text>
                     <View style={styles.addressDiv}>
-                        {details.addresses.length && details.addresses.map((addressObj, ind) =>
-                          (
-                            <View 
-                            onPress={() => {Linking.openURL(`geopoint: ${addressObj.address}`)}}
-                            key={ind} 
-                            style={styles.addPad}>
-                                <Text style= {{color: '#444444'}}>{addressObj.address}</Text>
-                                <Text style= {{color: '#444444'}}>{addressObj.street_number} {addressObj.route}</Text>
-                                <Text style= {{color: '#444444'}}>{addressObj.route}{','} {addressObj.state_code}</Text>
-                                <Text style= {{color: '#444444'}}>{addressObj.postal_code}{','} {addressObj.country}</Text>
-                            </View>
-                          
-                          ) 
-                        )}
-                        
+                        {details.addresses.length ? details.addresses.map((address, ind) =>
+                            <TouchableOpacity key={ind}
+                            style={styles.addPad}
+                            onPress={() => {Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURI(address.raw)}`)}}>
+                                <Text style= {{color: '#444444'}}>{address.street_number} {address.route}</Text>
+                                <Text style = {{color: '#444444'}}>{address.locality}{','} {address.state_code}</Text>
+                                <Text style={{color: '#444444'}}>{address.postal_code}{','} {address.country}</Text>
+                            </TouchableOpacity>
+                        ) : null}
                     </View>
                 </View>
                 <View style={styles.textView}>
@@ -178,7 +179,7 @@ export default function ConnectionsDetailsView({ details, id }) {
                     <View style={styles.phoneDiv}>
                         {details.telephones.length ? details.telephones.map((telephoneObj, index) =>
                             <Text key={index}
-                                style={{ ...styles.contentText, color: 'blue' }}
+                                style={styles.linkText}
                                 onPress={() => {
                                     Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
                                 }}
@@ -190,15 +191,19 @@ export default function ConnectionsDetailsView({ details, id }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Email</Text>
-                    {details.emails.length ? details.emails.map((emailObj, ind)=> <Text key={ind} style={styles.contentText}>{emailObj.email}</Text>) : null}
+                    {details.emails.length ? details.emails.map((emailObj, ind)=> <Text 
+                    key={ind} 
+                    style={styles.linkText}
+                    onPress={() => {Linking.openURL(`mailto: ${emailObj.email}`)}} 
+                    >{emailObj.email}</Text>) : null}
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
-                    <Text style={styles.contentText}> {details.job_title}</Text>
+                    <Text style={styles.contentText}>{details.job_title}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Employer</Text>
-                    <Text style={styles.contentText}> {details.employer}</Text>
+                    <Text style={styles.contentText}>{details.employer}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Salary Range</Text>
@@ -209,17 +214,18 @@ export default function ConnectionsDetailsView({ details, id }) {
             <View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Facebook</Text>
-                    <Text> {details.facebook}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.facebook}`)}>{details.facebook}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>LinkedIn</Text>
-                    <Text> {details.linkedin}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.linkedin}`)}>{details.linkedin}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Twitter</Text>
-                    <Text>{details.twitter}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.twitter}`)}>{details.twitter}</Text>
                 </View>
             </View>
+            <View style={{height: 60}}/> 
         </View>
         : <EditConnectionForm details = {details} id={id} setEdit={setEdit}  /> 
     ) 
