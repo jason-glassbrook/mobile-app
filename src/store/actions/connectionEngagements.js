@@ -18,10 +18,8 @@ export const postConnectionEngagements = (id, note, subject, dataType, dueDate, 
     SecureStore.getItemAsync('cok_access_token')
         .then((accessToken) => {
             const body = {
-                data: {
-                    note: note,
-                    subject: subject,
-                },
+                subject: subject ? subject : "",
+                notes: note,
                 data_type: dataType,
                 due_date: dueDate,
                 is_public: isPublic,
@@ -54,7 +52,7 @@ export const postConnectionEngagements = (id, note, subject, dataType, dueDate, 
 export const postConnectionDocument = (id, title, category, isPublic, notes, attachment) => dispatch => {
     const createFormBody = () => {
         const formBody = new FormData()
-        formBody.append("title", title);
+        formBody.append("title", title ? title : "untitled");   // a title is required by the backend
         formBody.append("category", category);
         formBody.append("tags", "[]");
         formBody.append("is_public", isPublic);
