@@ -193,11 +193,11 @@ export default function ConnectionsDetailsView({ details, id }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Job Title</Text>
-                    <Text style={styles.contentText}> {details.job_title}</Text>
+                    <Text style={styles.contentText}>{details.job_title}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Employer</Text>
-                    <Text style={styles.contentText}> {details.employer}</Text>
+                    <Text style={styles.contentText}>{details.employer}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Salary Range</Text>
@@ -208,11 +208,11 @@ export default function ConnectionsDetailsView({ details, id }) {
             <View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Facebook</Text>
-                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.facebook}`)}> {details.facebook}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.facebook}`)}>{details.facebook}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>LinkedIn</Text>
-                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.linkedin}`)}> {details.linkedin}</Text>
+                    <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.linkedin}`)}>{details.linkedin}</Text>
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Twitter</Text>
