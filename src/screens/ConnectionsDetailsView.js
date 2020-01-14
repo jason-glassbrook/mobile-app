@@ -51,7 +51,8 @@ export default function ConnectionsDetailsView({ details, id }) {
         },
         labelText: {
             width: '25%',
-            marginBottom: 25
+            marginBottom: 25,
+            paddingTop: '1%'
         },
         contentText: {
             // marginHorizontal: 20
@@ -148,13 +149,21 @@ export default function ConnectionsDetailsView({ details, id }) {
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Residence</Text>
                     <View style={styles.addressDiv}>
-                        {details.addresses.length ? details.addresses.map((address, ind) =>
-                            <View key={ind} style={styles.addPad}>
-                                <Text>{address.street_number} {address.route}</Text>
-                                <Text>{address.route}{','} {address.state_code}</Text>
-                                <Text>{address.postal_code}{','} {address.country}</Text>
+                        {details.addresses.length && details.addresses.map((addressObj, ind) =>
+                          (
+                            <View 
+                            onPress={() => {Linking.openURL(`geopoint: ${addressObj.address}`)}}
+                            key={ind} 
+                            style={styles.addPad}>
+                                <Text>{addressObj.address}</Text>
+                                <Text>{addressObj.street_number} {addressObj.route}</Text>
+                                <Text>{addressObj.route}{','} {addressObj.state_code}</Text>
+                                <Text>{addressObj.postal_code}{','} {addressObj.country}</Text>
                             </View>
-                        ) : null}
+                          
+                          ) 
+                        )}
+                        
                     </View>
                 </View>
                 <View style={styles.textView}>
