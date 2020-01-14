@@ -100,6 +100,26 @@ export default function ConnectionsDetailsView({ details, id }) {
         }
     })
 
+    
+        const salaryRange = (num)=>{
+        switch(num){
+            case 2 :
+                return "<$40,000"
+            case 3:
+                return "$40,001-$80,000"
+            case 4:
+                return "$81,001-$120,000"
+            case 5:
+                return "$120,001-$160,000"
+            case 6:
+                return "$160,001-$200,000"
+            case 7:
+                return "$200,000+"
+            default:
+                return ""
+    }
+}
+
     const teleFormat = (phoneNumber) => {
         let phoneNumberArr = phoneNumber.split('')
         if (phoneNumberArr.length === 10) {
@@ -194,7 +214,7 @@ export default function ConnectionsDetailsView({ details, id }) {
                 </View>
                 <View style={styles.textView}>
                     <Text style={styles.labelText}>Salary Range</Text>
-                    <Text style={styles.contentText}> {details.salary_range}</Text>
+                    <Text style={styles.contentText}> {salaryRange(details.salary_range)}</Text>
                 </View>
             </View>
             <View style={styles.header}><Text style={styles.headerText}>SOCIAL MEDIA</Text></View>
