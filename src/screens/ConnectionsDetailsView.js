@@ -219,6 +219,7 @@ export default function ConnectionsDetailsView({ details, id }) {
                     <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.twitter}`)}>{details.twitter}</Text>
                 </View>
             </View>
+            <View style={{height: 60}}/> 
         </View>
         : <EditConnectionForm details = {details} id={id} setEdit={setEdit}  /> 
     ) 
