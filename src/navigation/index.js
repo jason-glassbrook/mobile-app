@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import {
   TouchableWithoutFeedback,
-  View,
+
   Image,
   Text,
   TouchableOpacity
@@ -261,7 +261,7 @@ const CustomDrawerNavigator = createStackNavigator({
     defaultNavigationOptions: {
       headerStyle: {
         height: constants.headerHeight,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: constants.highlightColor,
       }
     },
     navigationOptions: {
@@ -415,10 +415,10 @@ const BottomNavigator = createBottomTabNavigator(
   {
     initialRouteName: 'FamilyConnections',
     tabBarOptions: {
-      inactiveTintColor: 'rgba(24, 23, 21, 0.5)',
-      activeTintColor: constants.highlightColor,
+      inactiveTintColor: '#FFFFFF',
+      activeTintColor: '#212529',
       style: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: constants.highlightColor,
         height: 55,
         paddingTop: 3,
         paddingBottom: 3,
