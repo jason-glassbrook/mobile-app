@@ -411,13 +411,13 @@ function EditConnectionForm(props) {
       <View style={styles.picker}>
         <Picker selectedValue={formData["salary_range"] } textStyle={styles.pickerText}
           onValueChange={salary => handleChange("salary_range", salary)} >
-          <Picker.Item label="Salary Range" value="" />
-          <Picker.Item label="<$40,000" value="<$40,000" />
-          <Picker.Item label="$40,001-$80,000" value="$40,001-$80,000" />
-          <Picker.Item label="$81,001-$120,000" value="$81,001-$120,000" />
-          <Picker.Item label="$120,001-$160,000" value="$120,001-$160,000" />
-          <Picker.Item label="$160,001-$200,000" value="$160,001-$200,000" />
-          <Picker.Item label="$200,000+" value="$200,000+" />
+          <Picker.Item label="Salary Range" value={1} />
+          <Picker.Item label="<$40,000" value={2} />
+          <Picker.Item label="$40,001-$80,000" value={3}/>
+          <Picker.Item label="$81,001-$120,000" value={4}/>
+          <Picker.Item label="$120,001-$160,000" value={5}/>
+          <Picker.Item label="$160,001-$200,000" value={6}/>
+          <Picker.Item label="$200,000+" value={7} />
         </Picker>
       </View>
 

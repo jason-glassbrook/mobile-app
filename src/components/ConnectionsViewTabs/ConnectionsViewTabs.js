@@ -48,6 +48,7 @@ export const Engagement = (props) => {
         justifyContent: "flex-start", 
         marginBottom:20 
       }}
+      key={props.engagement.pk}
     >
       {props.engagement.created_by.picture ?
       <Image
@@ -60,10 +61,11 @@ export const Engagement = (props) => {
         source={placeholderImg}
       />}
       <View>
-    <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
-        {props.engagement.data.subject ? <Text>Subject: {props.engagement.data.subject}</Text> : null}
-        <Text>{props.engagement.data.note}</Text>
-        <Text style={{color: 'gray'}}>{moment(props.engagement.created_at).format('MMM Do YYYY, h:mm a')}</Text>
+        <Text style={{ fontSize: 16 }}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
+        {props.engagement.subject ? <Text>Subject: {props.engagement.subject}</Text> : null}
+        {props.engagement.document && props.engagement.document.title ? <Text>Title: {props.engagement.document.title}</Text> : null}
+        <Text numberOfLines={1}>{props.engagement.data_type === 'D' ? props.engagement.document.notes : props.engagement.notes}</Text>
+        <Text style={{ color: 'gray' }}>{moment(props.engagement.created_at).format('MMM Do YYYY, h:mm a')}</Text>
       </View>
       {/* <View>
     <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
@@ -97,7 +99,7 @@ export const Documents = (props) => {
         title={props.document.title}
         titleStyle={{ color: "#5A6064" }}
         leftIcon={docIcon(props.document.original_file_name)}
-        to pDivider={true}
+        topDivider={true}
         onPress={() => Linking.openURL(props.document.attachment)}
         subtitle={
           <View>
