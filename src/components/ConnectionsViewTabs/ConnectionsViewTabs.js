@@ -65,6 +65,12 @@ export const Engagement = (props) => {
         <Text>{props.engagement.data.note}</Text>
         <Text style={{color: 'gray'}}>{moment(props.engagement.created_at).format('MMM Do YYYY, h:mm a')}</Text>
       </View>
+      {/* <View>
+    <Text style={{fontSize: 16}}>{props.engagement.created_by.full_name} {getDataIcon()} {props.engagement.data_type === 'R' && props.engagement.due_date ? `Due: ${props.engagement.due_date.substring(0, 10)}` : null}</Text>
+        {props.engagement.subject ? <Text>Subject: {props.engagement.subject}</Text> : null}
+        <Text>{props.engagement.note}</Text>
+        <Text style={{color: 'gray'}}>{moment(props.engagement.created_at).format('MMM Do YYYY, h:mm a')}</Text>
+      </View> */}
     </View>
   )
 }
