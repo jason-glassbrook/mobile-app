@@ -8,7 +8,7 @@ import {
   SET_ACCESS_TOKEN,
   SET_ID_TOKEN
 } from './actionTypes';
-import { sendEvent } from './../../helpers/createEvent';
+import { sendEvent } from '../../helpers/createEvent';
 import * as SecureStore from 'expo-secure-store'
 import jwtDecode from 'jwt-decode';
 

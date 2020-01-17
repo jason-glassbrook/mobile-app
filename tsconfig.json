@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+       "target": "es5",
+       "module": "system",
+       "declaration": false,
+       "noImplicitAny": false,
+       "removeComments": true,
+       "noLib": false,
+       "jsx": "react"
+    }
+ }

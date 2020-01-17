@@ -7,7 +7,7 @@ import {
   SET_LOGGED_IN_STATUS,
   SET_ACCESS_TOKEN,
   SET_ID_TOKEN
-} from './../actions/actionTypes';
+} from '../actions/actionTypes';
 import * as SecureStore from 'expo-secure-store';
 import {clearUserCases} from './userCasesReducer';
 
