@@ -6,6 +6,11 @@
        "noImplicitAny": false,
        "removeComments": true,
        "noLib": false,
-       "jsx": "react"
+       "jsx": "react",
+       "lib": ["es6"],
+       "allowSyntheticDefaultImports": true,
+       "esModuleInterop": true,
+       "isolatedModules": true,
+       "moduleResolution": "node"
     }
  }
