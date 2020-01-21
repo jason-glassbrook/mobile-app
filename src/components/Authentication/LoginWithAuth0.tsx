@@ -1,3 +1,5 @@
+// no typescript needed
+
 import React, { Component } from 'react';
 import authHelpers from '../../helpers/authHelpers';
 import { connect } from 'react-redux';

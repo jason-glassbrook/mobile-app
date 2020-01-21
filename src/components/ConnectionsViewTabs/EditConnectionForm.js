@@ -156,9 +156,6 @@ function EditConnectionForm(props) {
           setError(true);
         })
     }
-  
-
-  console.log('form errors ', formErrors)
 
   function handleCancel() {
     props.setEdit(false)

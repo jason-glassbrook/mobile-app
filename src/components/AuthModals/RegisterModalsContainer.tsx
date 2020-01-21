@@ -6,7 +6,7 @@ import VideoModal from './VideoModal';
 import constants from '../../helpers/constants';
 import { sendEvent } from './../../helpers/createEvent';
 
-const RegisterModalsContainer : React.StatelessComponent = props => {
+const RegisterModalsContainer  => {
   return (
     <Modal
       animationType="slide"

@@ -183,9 +183,9 @@ export default function ConnectionsDetailsView({ details, id }) {
                             <TouchableOpacity key={ind}
                             style={styles.addPad}
                             onPress={() => {Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURI(address.raw)}`)}}>
-                                <Text style= {{color: '#444444'}}>{address.street_number} {address.route}</Text>
-                                <Text style = {{color: '#444444'}}>{address.locality}{','} {address.state_code}</Text>
-                                <Text style={{color: '#444444'}}>{address.postal_code}{','} {address.country}</Text>
+                                <Text style= {{color: '#0279AC'}}>{address.street_number} {address.route}</Text>
+                                <Text style = {{color: '#0279AC'}}>{address.locality}{','} {address.state_code}</Text>
+                                <Text style={{color: '#0279AC'}}>{address.postal_code}{','} {address.country}</Text>
                             </TouchableOpacity>
                         ) : null}
                     </View>
