@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     StyleSheet,
     TextInput,
+    Alert,
     Picker
 } from "react-native";
 import SwitchToggle from 'react-native-switch-toggle';
@@ -39,7 +40,7 @@ const AddDocForm = props => {
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
-                alert('Sorry, we need camera roll permissions to make this work!');
+                Alert.alert('Sorry, we need camera roll permissions to make this work!');
             }
         }
     }
@@ -331,7 +332,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: 96,
         height: 36,
-        backgroundColor: 'lightgray',
+        // backgroundColor: 'lightgray',
         borderRadius: 50,
         borderWidth: 1,
         marginTop: 20,

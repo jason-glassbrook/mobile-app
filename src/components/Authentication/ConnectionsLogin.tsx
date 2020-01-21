@@ -1,3 +1,5 @@
+// no typescript needed
+
 import React from 'react';
 import { View, Text, StyleSheet, Linking } from 'react-native';
 import { Button } from 'native-base';
