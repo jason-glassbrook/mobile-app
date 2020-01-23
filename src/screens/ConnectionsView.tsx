@@ -70,7 +70,7 @@ function ConnectionsView(props) {
 
   }, [props.isLoadingDocs, props.isLoadingEngagements])
 
-  const styles = StyleSheet.create({
+  const styles: object = StyleSheet.create({
     tabs: {
       width: "100%",
       flexDirection: "row",
@@ -161,15 +161,15 @@ function ConnectionsView(props) {
     }
   })
 
-  const leftArrow = '\u2190';
+  const leftArrow: string = '\u2190';
 
-  const engagementsNoDocuments = props.engagements.filter((engagement) => engagement.data_type !== 'D')
+  const engagementsNoDocuments : object[] = props.engagements.filter((engagement) => engagement.data_type !== 'D')
 
-  const passEngagementType = (type) => {
+  const passEngagementType: any = (type) => {
     return props.navigation.navigate('EngagementForm', { data_type: type, id: connectionData.pk })
   }
 
-  const goToTop = () => {
+  const goToTop : any = () => {
     scroll.scrollTo({ x: 0, y: 0, animated: true });
   }
 

@@ -373,7 +373,7 @@ const BottomNavigator = createBottomTabNavigator(
     PeopleSearchNavigator: {
       screen: PeopleSearchNavigator,
       navigationOptions: {
-        tabBarLabel: 'PEOPLE SEARCH',
+        tabBarLabel: 'SEARCH',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
             name="md-search"
@@ -423,7 +423,7 @@ const BottomNavigator = createBottomTabNavigator(
         paddingTop: 3,
         paddingBottom: 3,
         justifyContent: 'space-between',
-        width: '100%',
+        width: '100%'
       }
     }
   })

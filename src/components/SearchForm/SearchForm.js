@@ -210,7 +210,7 @@ class SearchForm extends Component {
         <Tabs
           style={styles.container}
           activeTextStyle={{ color: '#64aab8' }}
-          tabBarUnderlineStyle={{ backgroundColor: '#000' }}
+          tabBarUnderlineStyle={{ backgroundColor: '#000'}}
           page={this.state.tabPage}
         >
           <Tab
@@ -222,15 +222,35 @@ class SearchForm extends Component {
             tabStyle={{ backgroundColor: '#fff' }}
           >
             <View style={styles.nameInputFullWidth}>
+            
+            <View style={styles.peopleSearch}>
+              
               <Input
-                placeholder="First and last, middle optional"
+                placeholder="First name"
                 style={styles.textInput}
                 value={this.state.name}
                 onChangeText={text => this.inputHandler('name', text)}
               />
-              <View>
               <Input
-                placeholder="City, State"
+                placeholder="Last name"
+                style={styles.textInput}
+                value={this.state.cityState}
+                onChangeText={text => this.inputHandler('city', text)}
+              />
+            
+              </View>
+             
+               <View style={styles.peopleSearch}>
+              <Input
+                placeholder="City"
+                style={styles.textInput}
+                value={this.state.cityState}
+                onChangeText={text => this.inputHandler('state', text)}
+              />
+              
+              
+              <Input
+                placeholder="State"
                 style={styles.textInput}
                 value={this.state.cityState}
                 onChangeText={text => this.inputHandler('cityState', text)}
@@ -258,7 +278,7 @@ class SearchForm extends Component {
           </Tab>
 
           <Tab
-            heading="Address"
+            heading="Addr."
             activeTextStyle={styles.activeTextStyle}
             textStyle={styles.textStyle}
             activeTabStyle={{ backgroundColor: '#fff' }}
@@ -326,13 +346,18 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     margin: 5,
-    flex: 0
+    flex: 0,
+    
   },
   textInput: {
     borderColor: '#64aab8',
     borderWidth: 1,
     borderStyle: 'solid',
-    width: '100%'
+    borderRadius: 4,
+    width: '45%',
+    marginRight: 12,
+    marginLeft:12
+    
   },
 
   textInputSmall: {
@@ -375,17 +400,25 @@ const styles = StyleSheet.create({
     padding: 10
   },
   activeTextStyle: {
-    color: '#000',
-    fontFamily: constants.fontFamily,
+    color: '#0279AC',
+    fontFamily: constants.lotoFamily,
     fontSize: 16
   },
   textStyle: {
-    color: '#64aab8',
-    fontFamily: constants.fontFamily,
-    fontSize: 16
+    color: '#18171568',
+    fontFamily: constants.lotoFamily,
+    fontSize: 16,
   },
   nameInputFullWidth: {
-    width: '100%'
+    width: '100%',
+    height:'100%'
+  },
+  peopleSearch: {
+    flexDirection: 'row',
+    paddingTop:'10%',
+    width:'100%',
+    justifyContent: 'space-between'
+
   }
 });
 
