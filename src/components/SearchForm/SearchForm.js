@@ -21,6 +21,10 @@ class SearchForm extends Component {
   state = {
     name: '',
     cityState: '',
+    firstName:'',
+    lastName:'',
+    state:'',
+    city:'',
     email: '',
     address: '',
     phone: '',
@@ -67,10 +71,22 @@ class SearchForm extends Component {
 
   };
 
+  changeHandler = (name, text)=>{
+      this.setState({
+        ...this.state,
+        [name]:text,
+      })
+  }
+
   handleFormSubmit = () => {
     let inputKey;
     let inputValue;
     let formattedObject = null;
+    this.setState({
+      ...this.state, 
+      name:`${this.state.firstName} ${this.state.lastName}`, 
+      cityState:`${this.state.city} ${this.state.state}`
+    })
 
     const inputObj = this.findInputWithLength();
 
@@ -228,14 +244,14 @@ class SearchForm extends Component {
               <Input
                 placeholder="First name"
                 style={styles.textInput}
-                value={this.state.name}
-                onChangeText={text => this.inputHandler('name', text)}
+                value={this.state.firstName}
+                onChangeText={text => this.changeHandler('firstName', text)}
               />
               <Input
                 placeholder="Last name"
                 style={styles.textInput}
-                value={this.state.cityState}
-                onChangeText={text => this.inputHandler('city', text)}
+                value={this.state.lastName}
+                onChangeText={text => this.changeHandler('lastName', text)}
               />
             
               </View>
@@ -244,16 +260,16 @@ class SearchForm extends Component {
               <Input
                 placeholder="City"
                 style={styles.textInput}
-                value={this.state.cityState}
-                onChangeText={text => this.inputHandler('state', text)}
+                value={this.state.city}
+                onChangeText={text => this.changeHandler('city', text)}
               />
               
               
               <Input
                 placeholder="State"
                 style={styles.textInput}
-                value={this.state.cityState}
-                onChangeText={text => this.inputHandler('cityState', text)}
+                value={this.state.state}
+                onChangeText={text => this.changeHandler('state', text)}
               />
               </View>
             </View>
