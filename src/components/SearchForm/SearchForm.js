@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button, Tabs, Tab, Input } from 'native-base';
+import { SearchBar } from 'react-native-elements';
 import constants from '../../helpers/constants';
 import {
   isName,
@@ -126,8 +127,8 @@ class SearchForm extends Component {
       searchType = 'url';
       formattedObject = this.formatRequestObject(inputValue, 'url');
     } 
-    if (unusedKeys.includes()){
-
+    if (unusedKeys.includes(inputKey)){
+        null
     }
     else {
       console.log('your input is not valid');
@@ -299,16 +300,15 @@ class SearchForm extends Component {
             style={[{ flex: 0 }]}
           >
             <View style={styles.searchBar}>
-              <Ionicons
-                name="md-search"
-                size={25}
-                color={'rgba(24,23,21,.5)'}
-              />
-              <Input
-                placeholder="Email address"
-                style={styles.textInputWide}
+              <SearchBar
+                placeholder="Search email..."
+                placeholderTextColor='rgba(24,23,21,.5)'
+                containerStyle={styles.textInputWide}
+                inputContainerStyle={{backgroundColor: "#fff"}}
+                inputStyle={{backgroundColor: '#fff'}}
                 value={this.state.email}
-                onChangeText={text => this.inputHandler('email', text)}
+                onChangeText={text => this.changeHandler('email', text)}
+                lightTheme="true"
               />
             </View>
           </Tab>
@@ -321,11 +321,15 @@ class SearchForm extends Component {
             tabStyle={{ backgroundColor: '#fff' }}
           >
             <View>
-              <Input
-                placeholder="Mailing address"
-                style={styles.textInputWide}
+              <SearchBar
+                placeholder="Search address..."
+                placeholderTextColor='rgba(24,23,21,.5)'
+                containerStyle={styles.textInputWide}
+                inputContainerStyle={{backgroundColor: "#fff"}}
+                inputStyle={{backgroundColor: '#fff'}}
                 value={this.state.address}
-                onChangeText={text => this.inputHandler('address', text)}
+                onChangeText={text => this.changeHandler('address', text)}
+                lightTheme="true"
               />
             </View>
           </Tab>
@@ -338,11 +342,15 @@ class SearchForm extends Component {
             tabStyle={{ backgroundColor: '#fff' }}
           >
             <View>
-              <Input
-                placeholder="Phone any format, no letters"
-                style={styles.textInputWide}
+              <SearchBar
+                placeholder="Search phone number..."
+                placeholderTextColor='rgba(24,23,21,.5)'
+                containerStyle={styles.textInputWide}
+                inputContainerStyle={{backgroundColor: "#fff"}}
+                inputStyle={{backgroundColor: '#fff'}}
                 value={this.state.phone}
-                onChangeText={text => this.inputHandler('phone', text)}
+                onChangeText={text => this.changeHandler('phone', text)}
+                lightTheme="true"
               />
             </View>
           </Tab>
@@ -355,11 +363,15 @@ class SearchForm extends Component {
             tabStyle={{ backgroundColor: '#fff' }}
           >
             <View>
-              <Input
-                placeholder="Social profile link or any URL"
-                style={styles.textInputWide}
+              <SearchBar
+                placeholder="Search URL..."
+                placeholderTextColor='rgba(24,23,21,.5)'
+                containerStyle={styles.textInputWide}
+                inputContainerStyle={{backgroundColor: "#fff"}}
+                inputStyle={{backgroundColor: '#fff'}}
                 value={this.state.url}
-                onChangeText={text => this.inputHandler('url', text)}
+                onChangeText={text => this.changeHandler('url', text)}
+                lightTheme="true"
               />
             </View>
           </Tab>
@@ -367,6 +379,10 @@ class SearchForm extends Component {
         <View style={{ flexDirection: 'row' , margin: 16, justifyContent: 'space-between'}}>
           <Button style={styles.button} onPress={()=>{
             this.setState({
+              firstName: '',
+              lastName: '',
+              city: '',
+              state: '',
               name:`${this.state.firstName} ${this.state.lastName}`, 
               cityState:`${this.state.city} ${this.state.state}`,
               email: this.state.email,
@@ -417,11 +433,11 @@ const styles = StyleSheet.create({
     borderWidth: .5,
     borderStyle: 'solid',
     borderRadius: 4,
-    width: '90%',
+    width: '95%',
     marginTop: 45,
     marginRight: 12,
     marginLeft:12,
-    color: 'black'
+    backgroundColor: 'white'
   },
 
   textInputSmall: {
