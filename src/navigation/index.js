@@ -290,7 +290,7 @@ const CustomDrawerNavigator = createStackNavigator({
       return {
         headerStyle: {
           backgroundColor: 'white',
-          height: 52
+          height: 52,
         },
         headerLeft:
           (<TouchableOpacity
@@ -373,7 +373,7 @@ const BottomNavigator = createBottomTabNavigator(
     PeopleSearchNavigator: {
       screen: PeopleSearchNavigator,
       navigationOptions: {
-        tabBarLabel: 'PEOPLE SEARCH',
+        tabBarLabel: 'SEARCH',
         tabBarIcon: ({ tintColor }) => (
           <Ionicons
             name="md-search"
