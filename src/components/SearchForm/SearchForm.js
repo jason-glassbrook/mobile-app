@@ -21,10 +21,6 @@ class SearchForm extends Component {
   state = {
     name: '',
     cityState: '',
-    firstName:'',
-    lastName:'',
-    state:'',
-    city:'',
     email: '',
     address: '',
     phone: '',
@@ -45,8 +41,6 @@ class SearchForm extends Component {
     const inputValue = this.state[name];
     let nameInput;
     let cityStateInput;
-
-    const tabPages = { name: 0, email: 1, address: 2, phone: 3, url: 4 };
 
     if (inputValue.length === 0) {
       if (inputName === 'name') {
@@ -72,21 +66,26 @@ class SearchForm extends Component {
   };
 
   changeHandler = (name, text)=>{
-      this.setState({
-        ...this.state,
-        [name]:text,
-      })
+    const tabPages = { name: 0, email: 1, address: 2, phone: 3, url: 4 };
+    this.setState({
+      ...this.state,
+      [name]:text,
+      tabPage: tabPages[name]
+    })
   }
 
   handleFormSubmit = () => {
     let inputKey;
     let inputValue;
     let formattedObject = null;
-    this.setState({
-      ...this.state, 
-      name:`${this.state.firstName} ${this.state.lastName}`, 
-      cityState:`${this.state.city} ${this.state.state}`
-    })
+
+    // const submitObj = {
+    //   ...this.state, 
+    //   name:`${this.state.firstName} ${this.state.lastName}`, 
+    //   cityState:`${this.state.city} ${this.state.state}`
+    // }
+
+    console.log('this is the state ', this.state)
 
     const inputObj = this.findInputWithLength();
 
@@ -240,27 +239,36 @@ class SearchForm extends Component {
             tabStyle={{ backgroundColor: '#fff' }}
           >
             <View style={styles.nameInputFullWidth}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+              <Text style={{width: '50%', position: 'relative', top: 16, left: 14}}>First Name</Text>
+              <Text style={{width: '50%',position: 'relative', top: 16, left: 14}}>Last Name</Text>
+              </View>
             
             <View style={styles.peopleSearch}>
               
               <Input
-                placeholder="First name"
+                placeholder="e.g. John"
                 style={styles.textInput}
                 value={this.state.firstName}
                 onChangeText={text => this.changeHandler('firstName', text)}
               />
               <Input
-                placeholder="Last name"
+                placeholder="e.g. Smith"
                 style={styles.textInput}
                 value={this.state.lastName}
                 onChangeText={text => this.changeHandler('lastName', text)}
               />
             
               </View>
-             
+
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start'}}>
+              <Text style={{width: '50%', position: 'relative', top: 16, left: 14}}>City</Text>
+              <Text style={{width: '50%',position: 'relative', top: 16, left: 14}}>State</Text>
+
+              </View>
                <View style={styles.peopleSearch}>
               <Input
-                placeholder="City"
+                placeholder="e.g. Boston"
                 style={styles.textInput}
                 value={this.state.city}
                 onChangeText={text => this.changeHandler('city', text)}
@@ -268,7 +276,7 @@ class SearchForm extends Component {
               
               
               <Input
-                placeholder="State"
+                placeholder="e.g. Massachusetts"
                 style={styles.textInput}
                 value={this.state.state}
                 onChangeText={text => this.changeHandler('state', text)}
@@ -346,13 +354,27 @@ class SearchForm extends Component {
             </View>
           </Tab>
         </Tabs>
-        <View style={{ flexDirection: 'row' }}>
-          <Button style={styles.button} onPress={this.handleFormSubmit}>
+        <View style={{ flexDirection: 'row' , margin: 16, justifyContent: 'space-between'}}>
+          <Button style={styles.button} onPress={()=>{
+            this.setState({
+              firstName:null,
+              lastName:null,
+              city:null,
+              state:null,
+              name:`${this.state.firstName} ${this.state.lastName}`, 
+              cityState:`${this.state.city} ${this.state.state}`,
+              email: this.state.email,
+              address: this.state.address,
+              phone: this.state.phone,
+              url: this.state.url,
+              tabPage: this.state.tabPage || 0
+            },()=>this.handleFormSubmit())
+          }}>
             <Text style={styles.buttonText}> Search </Text>
           </Button>
 
           <Button style={styles.greyButton} onPress={this.startOver}>
-            <Text style={styles.buttonText}> Start Over </Text>
+            <Text style={{...styles.buttonText, color: '#0279ac'}}> Clear </Text>
           </Button>
         </View>
       </View>
@@ -368,13 +390,14 @@ const styles = StyleSheet.create({
     
   },
   textInput: {
-    borderColor: '#64aab8',
-    borderWidth: 1,
+    borderColor: 'rgba(24,23,21,.5)',
+    borderWidth: .5,
     borderStyle: 'solid',
     borderRadius: 4,
     width: '45%',
     marginRight: 12,
-    marginLeft:12
+    marginLeft:12,
+    color: 'rgba(24,23,21,.5)'
     
   },
 
@@ -386,9 +409,13 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    margin: 10,
+    
+    marginVertical:15,
     padding: 10,
-    backgroundColor: `${constants.highlightColor}`
+    backgroundColor: '#0279AC',
+    width: '58%',
+    alignItems:'center',
+    justifyContent: 'center'
   },
 
   tab: {
@@ -413,9 +440,17 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   greyButton: {
-    backgroundColor: 'grey',
-    margin: 10,
-    padding: 10
+    backgroundColor: 'white',
+    marginVertical:15,
+    padding: 10,
+    width: '37%',
+    borderWidth: 1,
+    borderColor:'#0279AC',
+    alignItems: 'center',
+    justifyContent:'center',
+    color: '#0279AC'
+
+    
   },
   activeTextStyle: {
     color: '#0279AC',
@@ -433,9 +468,10 @@ const styles = StyleSheet.create({
   },
   peopleSearch: {
     flexDirection: 'row',
-    paddingTop:'10%',
-    width:'100%',
-    justifyContent: 'space-between'
+    paddingTop:'5%',
+    justifyContent:'center',
+    alignItems: 'center',
+    paddingBottom: '5%'
 
   }
 });
