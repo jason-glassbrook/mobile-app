@@ -211,8 +211,10 @@ class SearchForm extends Component {
   startOver = () => {
     this.props.resetReduxState();
     this.setState({
-      name: '',
-      cityState: '',
+      firstName: '',
+      lastName: '',
+      city: '',
+      state: '',
       email: '',
       address: '',
       phone: '',
