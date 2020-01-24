@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { Button, Tabs, Tab, Input } from 'native-base';
 import constants from '../../helpers/constants';
 import {
@@ -16,6 +16,7 @@ import {
   stopSearchMe,
   sendSearchErrorMessage
 } from '../../store/actions';
+import { Ionicons } from '@expo/vector-icons';
 
 class SearchForm extends Component {
   state = {
@@ -79,11 +80,7 @@ class SearchForm extends Component {
     let inputValue;
     let formattedObject = null;
 
-    // const submitObj = {
-    //   ...this.state, 
-    //   name:`${this.state.firstName} ${this.state.lastName}`, 
-    //   cityState:`${this.state.city} ${this.state.state}`
-    // }
+    const unusedKeys = ['firstName', 'lastName', 'city', 'state']
 
     console.log('this is the state ', this.state)
 
@@ -128,7 +125,11 @@ class SearchForm extends Component {
       }
       searchType = 'url';
       formattedObject = this.formatRequestObject(inputValue, 'url');
-    } else {
+    } 
+    if (unusedKeys.includes()){
+
+    }
+    else {
       console.log('your input is not valid');
     }
 
@@ -145,7 +146,7 @@ class SearchForm extends Component {
     let name;
 
     for (let key in this.state) {
-      if (key !== 'cityState' && key !== 'tabPage') {
+      if (key !== 'cityState' && key !== 'tabPage' && this.state[key]) {
         if (this.state[key].length) {
           input = this.state[key];
           name = key;
@@ -227,7 +228,7 @@ class SearchForm extends Component {
         <Tabs
           style={styles.container}
           activeTextStyle={{ color: '#64aab8' }}
-          tabBarUnderlineStyle={{ backgroundColor: '#000'}}
+          tabBarUnderlineStyle={{ backgroundColor: '#0279AC'}}
           page={this.state.tabPage}
         >
           <Tab
@@ -248,12 +249,14 @@ class SearchForm extends Component {
               
               <Input
                 placeholder="e.g. John"
+                placeholderTextColor='rgba(24,23,21,.5)'
                 style={styles.textInput}
                 value={this.state.firstName}
                 onChangeText={text => this.changeHandler('firstName', text)}
               />
               <Input
                 placeholder="e.g. Smith"
+                placeholderTextColor='rgba(24,23,21,.5)'
                 style={styles.textInput}
                 value={this.state.lastName}
                 onChangeText={text => this.changeHandler('lastName', text)}
@@ -269,6 +272,7 @@ class SearchForm extends Component {
                <View style={styles.peopleSearch}>
               <Input
                 placeholder="e.g. Boston"
+                placeholderTextColor='rgba(24,23,21,.5)'
                 style={styles.textInput}
                 value={this.state.city}
                 onChangeText={text => this.changeHandler('city', text)}
@@ -277,6 +281,7 @@ class SearchForm extends Component {
               
               <Input
                 placeholder="e.g. Massachusetts"
+                placeholderTextColor='rgba(24,23,21,.5)'
                 style={styles.textInput}
                 value={this.state.state}
                 onChangeText={text => this.changeHandler('state', text)}
@@ -287,16 +292,21 @@ class SearchForm extends Component {
 
           <Tab
             heading="Email"
-            activeTextStyle={[styles.activeTextStyle]}
+            activeTextStyle={{...styles.activeTextStyle, color: '#0279ac'}}
             textStyle={styles.textStyle}
-            activeTabStyle={[{ backgroundColor: '#fff' }]}
+            activeTabStyle={[{ backgroundColor: '#fff'}]}
             tabStyle={[{ backgroundColor: '#fff' }]}
             style={[{ flex: 0 }]}
           >
-            <View>
+            <View style={styles.searchBar}>
+              <Ionicons
+                name="md-search"
+                size={25}
+                color={'rgba(24,23,21,.5)'}
+              />
               <Input
                 placeholder="Email address"
-                style={styles.textInput}
+                style={styles.textInputWide}
                 value={this.state.email}
                 onChangeText={text => this.inputHandler('email', text)}
               />
@@ -313,7 +323,7 @@ class SearchForm extends Component {
             <View>
               <Input
                 placeholder="Mailing address"
-                style={styles.textInput}
+                style={styles.textInputWide}
                 value={this.state.address}
                 onChangeText={text => this.inputHandler('address', text)}
               />
@@ -330,7 +340,7 @@ class SearchForm extends Component {
             <View>
               <Input
                 placeholder="Phone any format, no letters"
-                style={styles.textInput}
+                style={styles.textInputWide}
                 value={this.state.phone}
                 onChangeText={text => this.inputHandler('phone', text)}
               />
@@ -347,7 +357,7 @@ class SearchForm extends Component {
             <View>
               <Input
                 placeholder="Social profile link or any URL"
-                style={styles.textInput}
+                style={styles.textInputWide}
                 value={this.state.url}
                 onChangeText={text => this.inputHandler('url', text)}
               />
@@ -357,10 +367,6 @@ class SearchForm extends Component {
         <View style={{ flexDirection: 'row' , margin: 16, justifyContent: 'space-between'}}>
           <Button style={styles.button} onPress={()=>{
             this.setState({
-              firstName:null,
-              lastName:null,
-              city:null,
-              state:null,
               name:`${this.state.firstName} ${this.state.lastName}`, 
               cityState:`${this.state.city} ${this.state.state}`,
               email: this.state.email,
@@ -389,6 +395,13 @@ const styles = StyleSheet.create({
     flex: 0,
     
   },
+  searchBar: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
   textInput: {
     borderColor: 'rgba(24,23,21,.5)',
     borderWidth: .5,
@@ -397,8 +410,18 @@ const styles = StyleSheet.create({
     width: '45%',
     marginRight: 12,
     marginLeft:12,
-    color: 'rgba(24,23,21,.5)'
-    
+    color: 'black'
+  },
+  textInputWide: {
+    borderColor: 'rgba(24,23,21,.5)',
+    borderWidth: .5,
+    borderStyle: 'solid',
+    borderRadius: 4,
+    width: '90%',
+    marginTop: 45,
+    marginRight: 12,
+    marginLeft:12,
+    color: 'black'
   },
 
   textInputSmall: {

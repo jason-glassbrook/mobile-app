@@ -378,11 +378,18 @@ const BottomNavigator = createBottomTabNavigator(
       navigationOptions: {
         tabBarLabel: 'SEARCH',
         tabBarIcon: ({ tintColor }) => (
-          <Ionicons
-            name="md-search"
-            size={36}
-            color={tintColor}
-          />
+          <View
+          style={{
+            borderTop: 1,
+            borderColor: "blue"
+          }}
+          >
+            <Ionicons
+              name="md-search"
+              size={36}
+              color={tintColor}
+            />
+          </View>
         )
       },
     },
@@ -419,7 +426,7 @@ const BottomNavigator = createBottomTabNavigator(
     initialRouteName: 'FamilyConnections',
     tabBarOptions: {
       inactiveTintColor: 'rgba(24, 23, 21, 0.5)',
-      activeTintColor: constants.highlightColor,
+      activeTintColor: '#0279AC',
       style: {
         backgroundColor: '#FFFFFF',
         height: 55,

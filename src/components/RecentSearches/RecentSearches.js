@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   noRecentSearchesText: {
-    color: `${constants.highlightColor}`,
+    color: '#0279AC',
     fontFamily: `${constants.fontFamily}`
   }
 });
