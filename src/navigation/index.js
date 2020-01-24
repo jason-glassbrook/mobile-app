@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import {
   TouchableWithoutFeedback,
-
+  View,
   Image,
   Text,
   TouchableOpacity
@@ -34,7 +34,7 @@ import AddDocForm from '../components/ConnectionsViewTabs/AddDocForm'
 import logoImg from '../../assets/logo.png';
 import CustomDrawer from './CustomDrawer'
 import { connect } from "react-redux";
-import {store} from '../store/store'
+import { store } from '../store/store'
 
 // This is the primary NAVIGATION file. Everything in this file determines how to navigate around through the Bottom Navbar and "More" Drawer.
 // If you add new screens into the app, you'll need to add them into the appropriate stacks below in order for React Navigation to know how to route the user.
@@ -68,13 +68,16 @@ const FamilyConnectionsNavigator = createStackNavigator(
           backgroundColor: 'white',
           height: 52,
           color: 'black'
+
         },
         headerLeft:
-          (<Image
-            source={logoImg}
-            style={{ width: 225, height: 90 }}
-            resizeMode="contain"
-          />)
+          (
+            <Image
+              source={logoImg}
+              style={{ width: 225, height: 90 }}
+              resizeMode="contain"
+            />
+          )
       }
     },
     CaseView: {
@@ -121,7 +124,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
           headerLeft:
             (<TouchableOpacity
               underlayColor="lightgray"
-              style={{ padding: 7.5, display:'flex', }}
+              style={{ padding: 7.5, display: 'flex', }}
               onPressIn={() => {
                 navigation.goBack()
               }}
@@ -140,14 +143,14 @@ const FamilyConnectionsNavigator = createStackNavigator(
               {/* <Text>Edit Details</Text> */}
               {/* if details true show edit, if not don't */}
             </TouchableOpacity>),
-            headerTitle: (
-              <Image
-                source={logoImg}
-                style={{ width: 225, height: 90, justifyContent: 'center'}}
-                resizeMode="contain"
-              />
-            )
-            
+          headerTitle: (
+            <Image
+              source={logoImg}
+              style={{ width: 225, height: 90 }}
+              resizeMode="contain"
+            />
+          )
+
         }
       }
     },
@@ -379,7 +382,7 @@ const BottomNavigator = createBottomTabNavigator(
             name="md-search"
             size={36}
             color={tintColor}
-            />
+          />
         )
       },
     },
