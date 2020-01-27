@@ -376,7 +376,7 @@ const BottomNavigator = createBottomTabNavigator(
     PeopleSearchNavigator: {
       screen: PeopleSearchNavigator,
       navigationOptions: {
-        tabBarLabel: 'SEARCH',
+        tabBarLabel: 'PEOPLE SEARCH',
         tabBarIcon: ({ tintColor }) => (
           <View
           style={{
