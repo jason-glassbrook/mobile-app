@@ -90,17 +90,17 @@ const styles = StyleSheet.create({
   modalHeaderStyle: {
     color: constants.highlightColor,
     fontSize: 20,
-    fontFamily: constants.fontFamily
+    fontFamily: constants.lotoFamily
   },
   modalTextStyle: {
-    fontFamily: constants.fontFamily,
+    fontFamily: constants.lotoFamily,
     paddingHorizontal: 20,
     fontSize: 18,
     lineHeight: 25
   },
   buttonContainer: {
     padding: 20,
-    borderTopColor: constants.highlightColor,
+    borderTopColor: '#0279AC',
     borderTopWidth: 1,
     marginTop: 20
   }

@@ -11,7 +11,7 @@ export default function App() {
 
   useEffect(()=>{
     Font.loadAsync({
-      [constants.fontFamily]: require('./assets/fonts/Futura-Light.otf'),
+      [constants.fontFamily]: require('./assets/fonts/Lato-Light.ttf'),
       [constants.headerFont]: require('./assets/fonts/Futura-Medium.otf'),
       [constants.lotoFamily]: require('./assets/fonts/Lato-Light.ttf')
     }).then(res=>{

@@ -111,7 +111,7 @@ class RecentSearches extends Component {
 
 const styles = StyleSheet.create({
   recentSearchesText: {
-    fontFamily: `${constants.fontFamily}`
+    fontFamily: `${constants.lotoFamily}`
   },
   recentSearchButton: {
     marginBottom: 10,
@@ -120,17 +120,20 @@ const styles = StyleSheet.create({
   },
   recentSearchButtonText: {
     fontSize: 20,
-    color: `${constants.highlightColor}`,
-    fontFamily: `${constants.fontFamily}`
+    color: '#0279AC',
+    fontFamily: `${constants.lotoFamily}`
   },
   clearButton: {
-    padding: 20
+    padding: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   clearButtonText: {
     color: '#fff'
+   
   },
   noRecentSearchesText: {
-    color: `${constants.highlightColor}`,
+    color: '#0279AC',
     fontFamily: `${constants.fontFamily}`
   }
 });

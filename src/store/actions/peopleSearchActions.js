@@ -36,6 +36,7 @@ export const fetchPerson = (body, email) => dispatch => {
 };
 
 export const fetchSearchResult = (body, cb, email) => dispatch => {
+  console.log('fetchSearchResult ', body, 'cb ', cb, 'email ', email)
   dispatch({ type: FETCH_SEARCH_RESULT });
   let isPerson = false;
   let options;
