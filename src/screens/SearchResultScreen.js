@@ -45,12 +45,14 @@ class SearchResultScreen extends React.Component {
     info: '',
     index: null
   };
+  
 
   toggleModal = () => {
     this.setState({
       modalVisible: !this.state.modalVisible
     });
   };
+  
 
   componentDidMount() {
     const {
@@ -61,6 +63,7 @@ class SearchResultScreen extends React.Component {
       person,
       resetPerson
     } = this.props;
+    
 
     if (this.props.navigation.state.params) {
       const requestObject = {};
@@ -163,7 +166,11 @@ class SearchResultScreen extends React.Component {
                 style={styles.button}
                 onPress={() => this.props.navigation.goBack()}
               >
-                <Text style={styles.buttonText}>Back</Text>
+                <Text style={{...styles.buttonText , paddingTop: 10,
+                  paddingBottom: 10,
+                  marginLeft: 5,
+                  fontSize: 27,
+                  color: '#0279AC'}}>{'\u2190'}</Text>
               </Button>
             </View>
             <View>
@@ -237,7 +244,7 @@ const styles = StyleSheet.create({
   button: {
     margin: 10,
     padding: 10,
-    backgroundColor: '#508DB3'
+    backgroundColor: '#fff'
   },
 
   tab: {
@@ -245,7 +252,8 @@ const styles = StyleSheet.create({
   },
 
   buttonText: {
-    color: 'white'
+    color: '#0279AC',
+    fontWeight: '500'
   },
 
   link: {

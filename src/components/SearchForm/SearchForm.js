@@ -23,6 +23,10 @@ class SearchForm extends Component {
   state = {
     name: '',
     cityState: '',
+    firstName:'',
+    lastName:'',
+    city:'',
+    state:'',
     email: '',
     address: '',
     phone: '',
@@ -32,40 +36,11 @@ class SearchForm extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.props.searchMe && this.props.queryType) {
-      this.inputHandler(this.props.queryType, this.props.info);
+      this.changeHandler(this.props.queryType, this.props.info);
       this.handleFormSubmit();
       this.props.stopSearchMe();
     }
   }
-
-  inputHandler = (name, value) => {
-    const inputName = name;
-    const inputValue = this.state[name];
-    let nameInput;
-    let cityStateInput;
-
-    if (inputValue.length === 0) {
-      if (inputName === 'name') {
-        cityStateInput = this.state.cityState;
-      } else if (inputName === 'cityState') {
-        nameInput = this.state.name;
-      } else {
-        cityStateInput = '';
-        nameInput = '';
-      }
-      this.setState({
-        name: nameInput,
-        cityState: cityStateInput,
-        email: '',
-        address: '',
-        phone: '',
-        url: '',
-        tabPage: tabPages[name]
-      });
-    }
-    this.setState({ [name]: value });
-
-  };
 
   changeHandler = (name, text)=>{
     const tabPages = { name: 0, email: 1, address: 2, phone: 3, url: 4 };

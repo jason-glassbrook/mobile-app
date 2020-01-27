@@ -275,13 +275,13 @@ export function CaseViewScreen(props) {
               height: 36,
               borderTopLeftRadius: 4,
               borderTopRightRadius: 4,
-              backgroundColor: constants.highlightColor,
+              backgroundColor: '#0279AC',
               justifyContent: 'center',
               alignItems: 'center',
               flexDirection: 'row'
             }}>
               <View>
-                <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#FFFFFF' }}>Connections</Text>
+                <Text style={{ width: '100%', padding: 5, fontSize: 17.5, color: '#FFFFFF'}}>Connections</Text>
               </View>
             </View>
             <View 

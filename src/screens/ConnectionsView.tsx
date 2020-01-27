@@ -143,7 +143,7 @@ function ConnectionsView(props) {
 
     iconStyles: {
       fontSize: 28,
-      color: '#0F6580',
+      color: constants.highlightColor,
       width: 28,
       height: 28,
       marginHorizontal: 10
@@ -346,7 +346,7 @@ function ConnectionsView(props) {
                             name='phone-plus'
                             style={{
                               fontSize: 28,
-                              color: '#0F6580',
+                              color: constants.highlightColor,
                               width: 28,
                               height: 28,
                               marginHorizontal: 10,

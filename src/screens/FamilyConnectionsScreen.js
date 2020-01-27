@@ -244,9 +244,11 @@ const FamilyConnectionsScreen = (props) => {
               <View
                 style={{
                   marginTop: 100,
+                  flex: 1,
                   alignSelf: "flex-start"
                 }}
               >
+                <Text style={{ fontSize: 30, justifyContent: 'center' }}>Filter</Text>
                 <Text
                   style={{ margin: 20, fontSize: 20, fontWeight: "800", textAlign: "left" }}
                 >
