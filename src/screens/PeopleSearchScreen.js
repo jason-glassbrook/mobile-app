@@ -283,7 +283,8 @@ const styles = StyleSheet.create({
     margin: 5
   },
   intro: {
-    padding: 10,
+    paddingTop: 20,
+    paddingLeft: 10,
     fontFamily: constants.fontFamily,
     fontSize: 18
   },
@@ -303,14 +304,17 @@ const styles = StyleSheet.create({
   },
   videoButton: {
     alignItems: 'center',
-    padding: 10,
+    paddingTop: 11,
+    paddingBottom: 11,
     borderWidth: 1,
-    borderColor: constants.highlightColor,
+    borderColor: '#0279AC',
     borderStyle: 'solid',
-    borderRadius: 5
+    borderRadius: 5,
+    marginLeft:17,
+    marginRight:17
   },
   videoButtonText: {
-    color: constants.highlightColor,
+    color: '#0279AC',
     fontWeight: 'bold',
     textTransform: 'uppercase'
   }

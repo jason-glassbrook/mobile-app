@@ -5,7 +5,7 @@ export default {
   devEventTrackingURL: 'https://dev.search.connectourkids.org/api/sendEvent',
   devFamilyConnectionsInterestURL:
     'https://connect-our-kids.herokuapp.com/api/family_connections_interest',
-  highlightColor: '#158FB4',
+  highlightColor: '#0279AC',
   fontFamily: 'futura-light',
   headerFont: 'futura-medium',
   headerHeight: 55,

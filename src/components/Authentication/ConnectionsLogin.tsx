@@ -62,7 +62,7 @@ const ConnectionsLogin = (props) => {
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'row',
-      backgroundColor: constants.highlightColor
+      backgroundColor: '#0279AC'
     },
     btnText: {
       color: '#fff'
@@ -71,7 +71,7 @@ const ConnectionsLogin = (props) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       flexDirection: 'column',
-      justifyContent: 'center',
+      // justifyContent: 'center',
       marginBottom: 10
     }
   });

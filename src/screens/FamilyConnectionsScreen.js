@@ -244,6 +244,7 @@ const FamilyConnectionsScreen = (props) => {
               <View
                 style={{
                   marginTop: 100,
+                  flex: 1,
                   alignSelf: "flex-start"
                 }}
               >

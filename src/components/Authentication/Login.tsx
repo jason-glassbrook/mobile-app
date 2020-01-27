@@ -81,7 +81,7 @@ const Login = props => {
           {props.isLoggedIn ? (
             <View style={{ width: '50%', marginTop: 40 }}>
               <Button
-                style={[styles.button, { backgroundColor: 'red' }]}
+                style={[styles.button, { backgroundColor: 'red' , alignItems: 'center', justifyContent: 'center'}]}
                 onPress={() => {
                   props.idToken && props.idToken.email ? props.logOut(props.idToken.email) : props.logOut()
                   props.clearUserCases()
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: constants.highlightColor
+    backgroundColor: '#0279AC'
   },
   btnText: {
     color: '#fff'
