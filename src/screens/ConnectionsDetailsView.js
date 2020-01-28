@@ -181,78 +181,88 @@ export default function ConnectionsDetailsView({ details, id }) {
                             <Text style={styles.contentText}>{details.deceased ? 'Yes' : 'No'}</Text>
                         </View> : null}
                 </View>
-                {(details.addresses.length || details.telephones.length || details.emails.length || details.job_title || details.salary_range)?<>
-                    <View style={styles.header}><Text style={styles.headerText}>CONTACT DETAILS</Text></View>
-                    <View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Residence</Text>
-                            <View style={styles.addressDiv}>
-                                {details.addresses.length ? details.addresses.map((address, ind) =>
-                                    <TouchableOpacity key={ind}
-                                        style={styles.addPad}
-                                        onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURI(address.raw)}`) }}>
-                                        <Text style={{ color: '#0279AC' }}>{address.street_number} {address.route}</Text>
-                                        <Text style={{ color: '#0279AC' }}>{address.locality}{','} {address.state_code}</Text>
-                                        <Text style={{ color: '#0279AC' }}>{address.postal_code}{','} {address.country}</Text>
-                                    </TouchableOpacity>
-                                ) : null}
-                            </View>
-                        </View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Telephone</Text>
-                            <View style={styles.phoneDiv}>
-                                {details.telephones.length ? details.telephones.map((telephoneObj, index) =>
-                                    <Text key={index}
+                {(details.addresses.length || details.telephones.length || details.emails.length || details.job_title || details.salary_range) ?
+                    <>
+                        <View style={styles.header}><Text style={styles.headerText}>CONTACT DETAILS</Text></View>
+                        <View>
+                        {details.addresses.length?
+                            <View style={styles.textView}>
+                                <Text style={styles.labelText}>Residence</Text>
+                                <View style={styles.addressDiv}>
+                                    {details.addresses.length ? details.addresses.map((address, ind) =>
+                                        <TouchableOpacity key={ind}
+                                            style={styles.addPad}
+                                            onPress={() => { Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${encodeURI(address.raw)}`) }}>
+                                            <Text style={{ color: '#0279AC' }}>{address.street_number} {address.route}</Text>
+                                            <Text style={{ color: '#0279AC' }}>{address.locality}{','} {address.state_code}</Text>
+                                            <Text style={{ color: '#0279AC' }}>{address.postal_code}{','} {address.country}</Text>
+                                        </TouchableOpacity>
+                                    ) : null}
+                                </View>
+                            </View>:null}
+                        {details.telephones.length ?
+                                <View style={styles.textView}>
+                                    <Text style={styles.labelText}>Telephone</Text>
+                                    <View style={styles.phoneDiv}>
+                                        {details.telephones.length ? details.telephones.map((telephoneObj, index) =>
+                                            <Text key={index}
+                                                style={styles.linkText}
+                                                onPress={() => {
+                                                    Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
+                                                }}
+                                            >
+                                                {teleFormat(telephoneObj.telephone)}
+                                            </Text>
+                                        ) : null}
+                                    </View>
+                                </View> : null}
+                            {details.emails.length ?
+                                <View style={styles.textView}>
+                                    <Text style={styles.labelText}>Email</Text>
+                                    {details.emails.length ? details.emails.map((emailObj, ind) => <Text
+                                        key={ind}
                                         style={styles.linkText}
-                                        onPress={() => {
-                                            Platform.OS === 'android' ? Linking.openURL(`tel: ${telephoneObj.telephone}`) : Linking.openURL(`tel:// ${telephoneObj.telephone}`) // might need a promise then catch
-                                        }}
-                                    >
-                                        {teleFormat(telephoneObj.telephone)}
-                                    </Text>
-                                ) : null}
-                            </View>
+                                        onPress={() => { Linking.openURL(`mailto: ${emailObj.email}`) }}
+                                    >{emailObj.email}</Text>) : null}
+                                </View> : null}
+                            {details.job_title ?
+                                <View style={styles.textView}>
+                                    <Text style={styles.labelText}>Job Title</Text>
+                                    <Text style={styles.contentText}>{details.job_title}</Text>
+                                </View> : null}
+                            {details.employer ?
+                                <View style={styles.textView}>
+                                    <Text style={styles.labelText}>Employer</Text>
+                                    <Text style={styles.contentText}>{details.employer}</Text>
+                                </View> : null}
+                            {details.salary_range ?
+                                <View style={styles.textView}>
+                                    <Text style={styles.labelText}>Salary Range</Text>
+                                    <Text style={styles.contentText}> {salaryRange(details.salary_range)}</Text>
+                                </View> : null}
                         </View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Email</Text>
-                            {details.emails.length ? details.emails.map((emailObj, ind) => <Text
-                                key={ind}
-                                style={styles.linkText}
-                                onPress={() => { Linking.openURL(`mailto: ${emailObj.email}`) }}
-                            >{emailObj.email}</Text>) : null}
-                        </View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Job Title</Text>
-                            <Text style={styles.contentText}>{details.job_title}</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Employer</Text>
-                            <Text style={styles.contentText}>{details.employer}</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Salary Range</Text>
-                            <Text style={styles.contentText}> {salaryRange(details.salary_range)}</Text>
-                        </View>
-                    </View>
-                </>:null}
+                    </> : null}
 
-                {(details.facebook || details.linkedin || details.twitter)?<>
+                {(details.facebook || details.linkedin || details.twitter) ? <>
                     <View style={styles.header}><Text style={styles.headerText}>SOCIAL MEDIA</Text></View>
                     <View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Facebook</Text>
-                            <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.facebook}`)}>{details.facebook}</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>LinkedIn</Text>
-                            <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.linkedin}`)}>{details.linkedin}</Text>
-                        </View>
-                        <View style={styles.textView}>
-                            <Text style={styles.labelText}>Twitter</Text>
-                            <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.twitter}`)}>{details.twitter}</Text>
-                        </View>
+                        {details.facebook ?
+                            <View style={styles.textView}>
+                                <Text style={styles.labelText}>Facebook</Text>
+                                <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.facebook}`)}>{details.facebook}</Text>
+                            </View> : null}
+                        {details.linkedin ?
+                            <View style={styles.textView}>
+                                <Text style={styles.labelText}>LinkedIn</Text>
+                                <Text style={styles.linkText} onPress={() => Linking.openURL(`${details.linkedin}`)}>{details.linkedin}</Text>
+                            </View> : null}
+                        {details.linkedin ?
+                            <View style={styles.textView}>
+                                <Text style={styles.labelText}>Twitter</Text>
+                                <Text style={styles.linkText} onPress={() => Linking.openURL(`${c}`)}>{details.twitter}</Text>
+                            </View> : null}
                     </View>
-                </>: null}
+                </> : null}
                 <View style={{ height: 60 }} />
             </View>
             : <EditConnectionForm details={details} id={id} setEdit={setEdit} />
