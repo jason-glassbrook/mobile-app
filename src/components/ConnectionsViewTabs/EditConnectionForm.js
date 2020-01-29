@@ -11,7 +11,7 @@ import {
   Button,
   TextInput,
   CheckBox,
-  Platform
+  Platform,
 } from "react-native";
 import { Picker } from 'react-native-picker-dropdown'
 import {getDetails} from "../../store/actions/connectionData"
@@ -424,6 +424,7 @@ function EditConnectionForm(props) {
 
 
       <View style={styles.header}><Text>SOCIAL MEDIA</Text></View>
+      <KeyboardAwareScrollView>
 
       <Text>Facebook</Text>
       <TextInput style={styles.textInput} value={formData["facebook"]}
@@ -436,7 +437,7 @@ function EditConnectionForm(props) {
       <Text>LinkedIn</Text>
       <TextInput style={styles.textInput} value={formData["linkedin"]}
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
-       
+       </KeyboardAwareScrollView>
 
       {error ?
         <View style={styles.errorBox}>
