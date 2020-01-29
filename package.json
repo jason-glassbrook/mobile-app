@@ -9,6 +9,7 @@
     "lint": "eslint ./src || true"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^2.1.0",
     "@types/jest": "^24.9.0",
     "@types/node": "^13.1.7",
     "@types/react": "^16.9.17",

@@ -1,6 +1,7 @@
 
 import React, { useEffect, useState } from "react"
-import DatePicker from 'react-native-datepicker'
+//import DatePicker from 'react-native-datepicker'
+import DateTimePicker from '@react-native-community/datetimepicker'
 import axios from "axios"
 import {
   Text,
@@ -69,6 +70,7 @@ function EditConnectionForm(props) {
   const [formData, setFormData] = useState(props.details);
   const [error, setError] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [showCal, setShowCal] = useState(false);
 
 
 
@@ -197,6 +199,10 @@ function EditConnectionForm(props) {
     return v;
   }
 
+  function showDatePicker(){
+    setShowCal(true)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}><Text
@@ -236,10 +242,7 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text style={{ marginBottom: 10 }}>Date of Birth</Text>
 
-          
-
-          
-          <DatePicker
+            {/* <DatePicker
             date={formData.birthday} //initial date from state
             mode="date" //The enum of date, datetime and time
             placeholder="select date"
@@ -265,7 +268,13 @@ function EditConnectionForm(props) {
               },
             }}
             onDateChange={(date) => handleChange("birthday", date)}
-          />
+          /> */}
+
+
+          <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
+            <Text>{formData["birthday"]}</Text>
+          </TouchableOpacity>
+
         </View>
 
         <View style={styles["dob_gen_item"]}>
@@ -279,6 +288,11 @@ function EditConnectionForm(props) {
           </View>
         </View>
       </View>
+
+      {showCal && <DateTimePicker 
+        value={formData["birthday"] || new Date}
+
+      />}
 
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ marginRight: 10 }}>Deceased</Text>
@@ -466,7 +480,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     fontSize: 2.3,
   },
+  datePicker: {
+    flex: 1,
+    borderColor:'rgba(24, 23, 21, 0.5)',
+    borderWidth: 1,
+    borderRadius: 5,
 
+
+  },
   textInput: {
     flex: 1,
     color: "#444444",
