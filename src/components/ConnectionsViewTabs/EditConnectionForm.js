@@ -207,9 +207,28 @@ function EditConnectionForm(props) {
   }
 
   function handleDate(date) {
+    setShowCal(false)
     console.log('date selected:', date)
+    const day = date.getDate()
+    const month = date.getMonth() +1
+    const year = date.getFullYear()
+    console.log(month+'/'+day+'/'+year)
+    setFormData({
+      ...formData,
+      birthday: {
+        day, month, year,
+        raw: month+'/'+day+'/'+year
+      }
+    })
+    
 
   }
+
+  {/* "birthday": Object {
+    "day": 1,
+    "month": 1,
+    "raw": "1/1/2020",
+    "year": 2020, */}
 
 
   return (
@@ -281,7 +300,7 @@ function EditConnectionForm(props) {
 
 
           <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
-            {formData.birthday && <Text>{formData.birthday.raw}</Text>}
+            {formData.birthday && <Text style={styles.dateText}>{formData.birthday.raw}</Text>}
           </TouchableOpacity>
 
         </View>
@@ -298,13 +317,6 @@ function EditConnectionForm(props) {
         </View>
       </View>
 
-
-
-{/* "birthday": Object {
-    "day": 1,
-    "month": 1,
-    "raw": "1/1/2020",
-    "year": 2020, */}
 
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ marginRight: 10 }}>Deceased</Text>
@@ -499,12 +511,17 @@ const styles = StyleSheet.create({
     fontSize: 2.3,
   },
   datePicker: {
-    flex: 1,
+    
     borderColor:'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
-
-
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: 20
+    
+  },
+  dateText:{
+    
   },
   textInput: {
     flex: 1,
