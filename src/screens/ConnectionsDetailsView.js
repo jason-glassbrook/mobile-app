@@ -133,7 +133,6 @@ export default function ConnectionsDetailsView({ details, id }) {
         }
         else return phoneNumber
     }
-    console.log(details)
     return (
         edit === false ?
             <View style={styles.rootView}>
