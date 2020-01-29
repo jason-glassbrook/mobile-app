@@ -198,6 +198,8 @@ function EditConnectionForm(props) {
     return v;
   }
 
+  //functions for birthday field date selector
+  //show/hide native picker
   function showDatePicker(){
     setShowCal(true)
   }
@@ -206,13 +208,12 @@ function EditConnectionForm(props) {
     setShowCal(false)
   }
 
+  //handler for date: backend expects birthday object w/ numeric day/month/year and m/d/yyyy date string (leading zeroes not required)
   function handleDate(date) {
-    setShowCal(false)
-    console.log('date selected:', date)
+    setShowCal(false) //must be first or race condition causes picker to reappear after submit
     const day = date.getDate()
     const month = date.getMonth() +1
     const year = date.getFullYear()
-    console.log(month+'/'+day+'/'+year)
     setFormData({
       ...formData,
       birthday: {
@@ -223,14 +224,6 @@ function EditConnectionForm(props) {
     
 
   }
-
-  {/* "birthday": Object {
-    "day": 1,
-    "month": 1,
-    "raw": "1/1/2020",
-    "year": 2020,
-   */}
-
 
   return (
     <View style={styles.container}>
@@ -271,35 +264,7 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text style={{ marginBottom: 10 }}>Date of Birth</Text>
 
-            {/* <DatePicker
-            date={formData.birthday} //initial date from state
-            mode="date" //The enum of date, datetime and time
-            placeholder="select date"
-            format="MM/DD/YYYY"
-            minDate="01/08/1890"
-            maxDate='01/08/2020'
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-                marginTop: 5
-              },
-              dateInput: {
-                marginLeft: 36,
-                marginTop: 10,
-                width: '35%',
-                paddingVertical: 22.8,
-                borderRadius: 5
-              },
-            }}
-            onDateChange={(date) => handleChange("birthday", date)}
-          /> */}
-
-
+        {/* Date picker: styled to match text inputs but triggers native picker via hook */}
           <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
             <Text style={styles.dateText}>{formData.birthday? formData.birthday.raw : ""}</Text>
           </TouchableOpacity>
