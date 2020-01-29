@@ -228,7 +228,8 @@ function EditConnectionForm(props) {
     "day": 1,
     "month": 1,
     "raw": "1/1/2020",
-    "year": 2020, */}
+    "year": 2020,
+   */}
 
 
   return (
@@ -300,7 +301,7 @@ function EditConnectionForm(props) {
 
 
           <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
-            {formData.birthday && <Text style={styles.dateText}>{formData.birthday.raw}</Text>}
+            <Text style={styles.dateText}>{formData.birthday? formData.birthday.raw : ""}</Text>
           </TouchableOpacity>
 
         </View>
@@ -510,19 +511,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     fontSize: 2.3,
   },
-  datePicker: {
-    
-    borderColor:'rgba(24, 23, 21, 0.5)',
-    borderWidth: 1,
-    borderRadius: 5,
-    justifyContent: 'center',
-    paddingHorizontal: 15,
-    paddingVertical: 20
-    
-  },
-  dateText:{
-    
-  },
   textInput: {
     flex: 1,
     color: "#444444",
@@ -559,6 +547,16 @@ const styles = StyleSheet.create({
   },
   dob_gen_item: {
     width: "45%"
+  },
+  datePicker: {  
+    borderColor:'rgba(24, 23, 21, 0.5)',
+    borderWidth: 1,
+    borderRadius: 5,
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: Platform.OS === 'ios' ? 16.3 : 20,
+    height: Platform.OS === 'ios' ? 49 : 60
+    
   },
   addButton: {
     backgroundColor: "#0279AC",
