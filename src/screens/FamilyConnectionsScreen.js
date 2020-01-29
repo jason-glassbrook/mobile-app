@@ -62,7 +62,7 @@ const FamilyConnectionsScreen = props => {
       name: false,
       DOB: false,
       created: false,
-      updated: false
+      updated: false,
     },
     caseVisible: false,
     addCaseModalVisible: true,
@@ -195,8 +195,6 @@ const FamilyConnectionsScreen = props => {
     filteredCases.sort(name);
   }
 
-  const sortByName = () => {};
-
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
   let SearchedCases = filteredCases.filter(result => {
     return (
@@ -296,131 +294,6 @@ const FamilyConnectionsScreen = props => {
               alignSelf: "flex-start"
             }}
           >
-            {/* PERSON STATUS */}
-            <Text
-              style={{
-                fontFamily: constants.lotoFamily,
-                color: "rgba(24, 23, 21, 0.5)",
-                marginLeft: 10,
-                marginTop: 20,
-                marginBottom: 5,
-                fontSize: 14,
-                fontWeight: "800",
-                textAlign: "left"
-              }}
-            >
-              PERSON STATUS
-            </Text>
-            <View
-              style={{
-                borderBottomColor: "rgba(24, 23, 21, 0.3)",
-                borderBottomWidth: 0.5,
-                marginBottom: 10,
-                marginHorizontal: 10
-              }}
-            />
-            <CheckBox
-              containerStyle={{
-                backgroundColor: "white",
-                borderColor: "white"
-              }}
-              title="Not available"
-              size={30}
-              // checked={}
-              onPress={() =>
-                setState({
-                  ...state,
-                  filters: {
-                    ...state.filters
-                  }
-                })
-              }
-            />
-            <CheckBox
-              containerStyle={{
-                backgroundColor: "white",
-                borderColor: "white"
-              }}
-              title="Family candidate"
-              size={30}
-              // checked={}
-              onPress={() =>
-                setState({
-                  ...state,
-                  filters: {
-                    ...state.filters
-                  }
-                })
-              }
-            />
-            <CheckBox
-              containerStyle={{
-                backgroundColor: "white",
-                borderColor: "white"
-              }}
-              title="Highlight"
-              size={30}
-              // checked={}
-              onPress={() =>
-                setState({
-                  ...state,
-                  filters: {
-                    ...state.filters
-                  }
-                })
-              }
-            />
-            <CheckBox
-              containerStyle={{
-                backgroundColor: "white",
-                borderColor: "white"
-              }}
-              title="No-go"
-              size={30}
-              // checked={}
-              onPress={() =>
-                setState({
-                  ...state,
-                  filters: {
-                    ...state.filters
-                  }
-                })
-              }
-            />
-            <CheckBox
-              containerStyle={{
-                backgroundColor: "white",
-                borderColor: "white"
-              }}
-              title="Of interest"
-              size={30}
-              // checked={}
-              onPress={() =>
-                setState({
-                  ...state,
-                  filters: {
-                    ...state.filters
-                  }
-                })
-              }
-            />
-            <CheckBox
-              containerStyle={{
-                backgroundColor: "white",
-                borderColor: "white"
-              }}
-              title="Support candidate"
-              size={30}
-              // checked={}
-              onPress={() =>
-                setState({
-                  ...state,
-                  filters: {
-                    ...state.filters
-                  }
-                })
-              }
-            />
             {/* SORT BY */}
             <Text
               style={{
@@ -472,7 +345,7 @@ const FamilyConnectionsScreen = props => {
                 }
                 }
               />
-              <Text>  Last Name</Text>
+              <Text style={styles.checkboxes}>  Last Name</Text>
             </View>
             <View
               style={{
@@ -502,7 +375,7 @@ const FamilyConnectionsScreen = props => {
                 }
                 }
               />
-              <Text>  Date Created</Text>
+              <Text style={styles.checkboxes}>  Date Created</Text>
             </View>
             <View
               style={{
@@ -532,7 +405,7 @@ const FamilyConnectionsScreen = props => {
                 }
                 }
               />
-              <Text>  Last Updated</Text>
+              <Text style={styles.checkboxes}>  Last Updated</Text>
             </View>
             {/* GENDER */}
             <Text
@@ -563,8 +436,10 @@ const FamilyConnectionsScreen = props => {
                 borderColor: "white"
               }}
               title="Male"
+              textStyle={{...styles.checkboxes}}
               size={30}
               checked={state.filters.male}
+              checkedColor="#0279ac"
               onPress={() =>
                 setState({
                   ...state,
@@ -581,8 +456,10 @@ const FamilyConnectionsScreen = props => {
                 borderColor: "white"
               }}
               title="Female"
+              textStyle={{...styles.checkboxes}}
               size={30}
               checked={state.filters.female}
+              checkedColor="#0279ac"
               onPress={() =>
                 setState({
                   ...state,
@@ -600,8 +477,10 @@ const FamilyConnectionsScreen = props => {
                 marginBottom: 100
               }}
               title="Unspecified"
+              textStyle={{...styles.checkboxes}}
               size={30}
               checked={state.filters.unspecified}
+              checkedColor="#0279ac"
               onPress={() =>
                 setState({
                   ...state,
@@ -622,15 +501,6 @@ const FamilyConnectionsScreen = props => {
             fontSize: 80
           }}
         >
-          {/* <TouchableHighlight>
-            <Button
-              buttonStyle={{ backgroundColor: constants.highlightColor }}
-              title="Apply"
-              onPress={() => {
-                setModalVisible(!state.modalVisible);
-              }}
-            />
-          </TouchableHighlight> */}
         </View>
       </Modal>
 
@@ -742,6 +612,10 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 240,
     color: "black"
+  },
+  checkboxes: {
+    fontSize: 18,
+    fontWeight: "normal"
   }
 });
 

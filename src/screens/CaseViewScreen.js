@@ -33,7 +33,8 @@ import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
 import { MaterialIcons } from '@expo/vector-icons';
 import ScrollToTop from '../UI/ScrollToTop'
-
+import { RadioButton } from "react-native-paper";
+const leftArrow = "\u2190";
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
 export function CaseViewScreen(props) {
@@ -337,6 +338,28 @@ export function CaseViewScreen(props) {
               )}
           </View>
         </View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
         <Modal
           visible={descriptionVisible}
         >
@@ -373,7 +396,274 @@ export function CaseViewScreen(props) {
                 />
               </TouchableHighlight>
             </View>
+            import { Ionicons } from "@expo/vector-icons";
         </Modal>
+
+
+
+
+{/* 
+        <Modal
+        animationType="fade"
+        transparent={false}
+        visible={state.modalVisible}
+      >
+        <View
+          style={{ backgroundColor: "#fff", height: 52, justifyContent: "center" }}
+        >
+          <TouchableOpacity
+            underlayColor="lightgray"
+            style={{
+              padding: 7.5,
+              flex: 1,
+              height: 500,
+              borderBottomWidth: 0.5,
+              borderBottomColor: "rgba(24, 23, 21, 0.3)",
+              backgroundColor: "#fff"
+            }}
+            onPressIn={() => {
+              setModalVisible(!state.modalVisible);
+            }}
+          >
+            <Text
+              style={{
+                padding: 7,
+                fontSize: 18,
+                color: "#0F6580"
+              }}
+            >
+              {leftArrow} RETURN
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <ScrollView
+          scrollsToTop
+          contentContainerStyle={{
+            flexGrow: 1,
+            marginTop: 10
+          }}
+        >
+          <View
+            style={{
+              marginTop: 10,
+              flex: 1,
+              width: "100%",
+              height: "100%",
+              alignSelf: "flex-start"
+            }}
+          >
+            {// SORT BY}
+            <Text
+              style={{
+                fontFamily: constants.lotoFamily,
+                color: "rgba(24, 23, 21, 0.5)",
+                marginLeft: 10,
+                marginTop: 20,
+                marginBottom: 5,
+                fontSize: 14,
+                fontWeight: "800",
+                textAlign: "left"
+              }}
+            >
+              SORT BY
+            </Text>
+            <View
+              style={{
+                borderBottomColor: "rgba(24, 23, 21, 0.3)",
+                borderBottomWidth: 0.5,
+                marginBottom: 10,
+                marginHorizontal: 10
+              }}
+            />
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 10,
+                marginVertical: 10
+              }}
+            >
+              <RadioButton
+                value="Last Name"
+                status= {sort === "Last Name" ? "checked" : "unchecked"}
+                color="#0279ac"
+                checked={state.filters.name}
+                onPress={() => {
+                 setSort("Last Name");
+                  setState({
+                    ...state,
+                    filters: {
+                      ...state.filters,
+                      name: !state.filters.name,
+                      DOB: false,
+                      created: false,
+                      updated: false
+                    }
+                  })
+                }
+                }
+              />
+              <Text style={styles.checkboxes}>  Last Name</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 10,
+                marginVertical: 10
+              }}
+            >
+              <RadioButton
+                value="Date Created"
+                status={sort === "Date Created" ? "checked" : "unchecked"}
+                color="#0279ac"
+                checked={state.filters.created}
+                onPress={() => {
+                  setSort("Date Created");
+                  setState({
+                    ...state,
+                    filters: {
+                      ...state.filters,
+                      name: false,
+                      DOB: false,
+                      created: !state.filters.created,
+                      updated: false
+                    }
+                  })
+                }
+                }
+              />
+              <Text style={styles.checkboxes}>  Date Created</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 10,
+                marginVertical: 10
+              }}
+            >
+              <RadioButton
+                value="Last Updated"
+                status={sort === "Last Updated" ? "checked" : "unchecked"}
+                color="#0279ac"
+                checked={state.filters.updated}
+                onPress={() => {
+                  setSort("Last Updated");
+                  setState({
+                    ...state,
+                    filters: {
+                      ...state.filters,
+                      name: false,
+                      DOB: false,
+                      created: false,
+                      updated: !state.filters.updated
+                    }
+                  })
+                }
+                }
+              />
+              <Text style={styles.checkboxes}>  Last Updated</Text>
+            </View>
+            {// GENDER }
+            <Text
+              style={{
+                fontFamily: constants.lotoFamily,
+                color: "rgba(24, 23, 21, 0.5)",
+                marginLeft: 10,
+                marginTop: 20,
+                marginBottom: 5,
+                fontSize: 14,
+                fontWeight: "800",
+                textAlign: "left"
+              }}
+            >
+              GENDER
+            </Text>
+            <View
+              style={{
+                borderBottomColor: "rgba(24, 23, 21, 0.3)",
+                borderBottomWidth: 0.5,
+                marginBottom: 10,
+                marginHorizontal: 10
+              }}
+            />
+            <CheckBox
+              containerStyle={{
+                backgroundColor: "white",
+                borderColor: "white"
+              }}
+              title="Male"
+              textStyle={{...styles.checkboxes}}
+              size={30}
+              checked={state.filters.male}
+              checkedColor="#0279ac"
+              onPress={() =>
+                setState({
+                  ...state,
+                  filters: {
+                    ...state.filters,
+                    male: !state.filters.male
+                  }
+                })
+              }
+            />
+            <CheckBox
+              containerStyle={{
+                backgroundColor: "white",
+                borderColor: "white"
+              }}
+              title="Female"
+              textStyle={{...styles.checkboxes}}
+              size={30}
+              checked={state.filters.female}
+              checkedColor="#0279ac"
+              onPress={() =>
+                setState({
+                  ...state,
+                  filters: {
+                    ...state.filters,
+                    female: !state.filters.female
+                  }
+                })
+              }
+            />
+            <CheckBox
+              containerStyle={{
+                backgroundColor: "white",
+                borderColor: "white",
+                marginBottom: 100
+              }}
+              title="Unspecified"
+              textStyle={{...styles.checkboxes}}
+              size={30}
+              checked={state.filters.unspecified}
+              checkedColor="#0279ac"
+              onPress={() =>
+                setState({
+                  ...state,
+                  filters: {
+                    ...state.filters,
+                    unspecified: !state.filters.unspecified
+                  }
+                })
+              }
+            />
+          </View>
+        </ScrollView>
+        <View
+          style={{
+            alignContent: "center",
+            alignSelf: "center",
+            width: 100,
+            fontSize: 80
+          }}
+        >
+        </View>
+      </Modal> */}
+
+
+
       </ScrollView>
     </View>
   );
