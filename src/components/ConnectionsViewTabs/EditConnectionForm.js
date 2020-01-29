@@ -200,7 +200,7 @@ function EditConnectionForm(props) {
   }
 
   function showDatePicker(){
-    setShowCal(true)
+    setShowCal(true);    
   }
 
   return (
@@ -272,7 +272,7 @@ function EditConnectionForm(props) {
 
 
           <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
-            <Text>{formData["birthday"]}</Text>
+            <Text>{formData.birthday.raw}</Text>
           </TouchableOpacity>
 
         </View>
@@ -289,10 +289,16 @@ function EditConnectionForm(props) {
         </View>
       </View>
 
-      {showCal && <DateTimePicker 
-        value={formData["birthday"] || new Date}
+      {/* {showCal && <DateTimePicker 
+        value={formData["birthday"] || new Date()}
 
-      />}
+      />} */}
+
+{/* "birthday": Object {
+    "day": 1,
+    "month": 1,
+    "raw": "1/1/2020",
+    "year": 2020, */}
 
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ marginRight: 10 }}>Deceased</Text>
