@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from "react"
-//import DatePicker from 'react-native-datepicker'
-import DateTimePicker from '@react-native-community/datetimepicker'
+import DateTimePickerModal from "react-native-modal-datetime-picker"
 import axios from "axios"
 import {
   Text,
@@ -200,8 +199,18 @@ function EditConnectionForm(props) {
   }
 
   function showDatePicker(){
-    setShowCal(true);    
+    setShowCal(true)
   }
+
+  function hideDatePicker() {
+    setShowCal(false)
+  }
+
+  function handleDate(date) {
+    console.log('date selected:', date)
+
+  }
+
 
   return (
     <View style={styles.container}>
@@ -272,7 +281,7 @@ function EditConnectionForm(props) {
 
 
           <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
-            <Text>{formData.birthday.raw}</Text>
+            {formData.birthday && <Text>{formData.birthday.raw}</Text>}
           </TouchableOpacity>
 
         </View>
@@ -289,10 +298,7 @@ function EditConnectionForm(props) {
         </View>
       </View>
 
-      {/* {showCal && <DateTimePicker 
-        value={formData["birthday"] || new Date()}
 
-      />} */}
 
 {/* "birthday": Object {
     "day": 1,
@@ -305,6 +311,12 @@ function EditConnectionForm(props) {
         <CheckBox value={formData.deceased}
           onChange={deceased => handleChange("deceased", deceased)} />
       </View>
+
+      <DateTimePickerModal 
+            isVisible={showCal}
+            onCancel={hideDatePicker}
+            onConfirm={handleDate}
+          />
 
       <View style={styles.header}><Text>CONTACT DETAILS</Text></View>
 
