@@ -236,16 +236,14 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text style={{ marginBottom: 10 }}>Date of Birth</Text>
 
-          
 
-          
           <DatePicker
             date={formData.birthday} //initial date from state
             mode="date" //The enum of date, datetime and time
             placeholder="select date"
-            format="MM/DD/YYYY"
-            minDate="01/08/1890"
-            maxDate='01/08/2020'
+            format="YYYY-MM-DD"
+            minDate="2016-05-01"
+            maxDate="2016-06-01"
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
