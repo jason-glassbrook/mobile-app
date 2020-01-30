@@ -188,6 +188,8 @@ export function CaseViewScreen(props) {
     return result.person.full_name.toLowerCase().indexOf(searchKeywords.toLowerCase()) != -1;
   });
 
+  console.log(SearchedConnections)
+
   const leftArrow = '\u2190';
 
   const goToTop = () => {
@@ -383,6 +385,7 @@ const mapStateToProps = state => {
   const { caseData, isLoadingCaseData, caseDataError } = state.caseData;
   const { caseConnections, isLoadingConnections, connectionsError } = state.caseConnections;
   const details = state.details
+  const isLoadingDetails = state.connection.isLoadingDetails
   return {
     caseData,
     isLoadingCaseData,
@@ -390,7 +393,8 @@ const mapStateToProps = state => {
     caseDataError,
     connectionsError,
     caseConnections,
-    details
+    details,
+    isLoadingDetails
   };
 };
 

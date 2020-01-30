@@ -15,7 +15,7 @@ import {
   DatePickerAndroid
 } from "react-native";
 import { Picker } from 'react-native-picker-dropdown'
-import {getDetails} from "../../store/actions/connectionData"
+import { getDetails } from "../../store/actions/connectionData"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from "react-redux";
 import * as SecureStore from 'expo-secure-store'
@@ -95,27 +95,27 @@ function EditConnectionForm(props) {
     // nests errors for fields that are arrays, yup returns '[]' in errors that are arrays
     // "telephones[3].telephone must be at least 10 characters"
 
-      let fieldErrors = {};
-    
-      if (err.includes('[')) {
+    let fieldErrors = {};
 
-        let newErr = err.split('[')
-        let name = newErr[0]
-        let errTemplate = newErr[1].split(']')
-        let errIndex = errTemplate[0] // index of error 3
-        let errDetail = errTemplate[1].slice(1) // message of error
-        let errType = errTemplate[1].split(' ')[0].slice(1)
+    if (err.includes('[')) {
 
-        fieldErrors[name] = [];
-        fieldErrors[name][errIndex] = {};
-        fieldErrors[name][errIndex][errType] = errDetail
-        return fieldErrors
+      let newErr = err.split('[')
+      let name = newErr[0]
+      let errTemplate = newErr[1].split(']')
+      let errIndex = errTemplate[0] // index of error 3
+      let errDetail = errTemplate[1].slice(1) // message of error
+      let errType = errTemplate[1].split(' ')[0].slice(1)
 
-      }
-      else { 
-        fieldErrors[err.split(" ")[0]] = err.split(' ').slice(1).join(' ');
-        return fieldErrors
-      }
+      fieldErrors[name] = [];
+      fieldErrors[name][errIndex] = {};
+      fieldErrors[name][errIndex][errType] = errDetail
+      return fieldErrors
+
+    }
+    else {
+      fieldErrors[err.split(" ")[0]] = err.split(' ').slice(1).join(' ');
+      return fieldErrors
+    }
 
   }
 
@@ -131,31 +131,31 @@ function EditConnectionForm(props) {
       .catch(error => {
         let errObj = {}
         error.errors.forEach(err => {
-          errObj = {...errObj,...errorValidatorFormatter(err)}
+          errObj = { ...errObj, ...errorValidatorFormatter(err) }
         })
         setFormErrors(errObj)
       })
-    }
+  }
 
-    function save() {
-      const form = new FormData();
-      form.append("person", JSON.stringify(formData));
-     
-      axios
-        .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, form, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        })
-        .then(res => {
-          props.setEdit(false)
-          props.getDetails(props.id)
-        })
-        .catch(err => {
-          console.log("Unable to edit person", err);
-          setError(true);
-        })
-    }
+  function save() {
+    const form = new FormData();
+    form.append("person", JSON.stringify(formData));
+
+    axios
+      .patch(`${familyConnectionsURL}/api/v1/individualperson/${props.id}/`, form, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        props.setEdit(false)
+        props.getDetails(props.id)
+      })
+      .catch(err => {
+        console.log("Unable to edit person", err);
+        setError(true);
+      })
+  }
 
   function handleCancel() {
     props.setEdit(false)
@@ -187,11 +187,16 @@ function EditConnectionForm(props) {
     })
   }
 
-  function TRY(path){
-    let v ;
-    try{
+  function deleteField(name, id) {
+    console.log(name, id)
+    console.log(formData)
+  }
+
+  function TRY(path) {
+    let v;
+    try {
       v = eval(path)
-    }catch(err){
+    } catch (err) {
       return undefined;
     }
     return v;
@@ -200,10 +205,10 @@ function EditConnectionForm(props) {
   return (
     <View style={styles.container}>
       <View style={styles.header}><Text
-      style={{
-        color: 'rgba(24, 23, 21, 0.5)',
-        fontWeight: 'bold',
-      }}
+        style={{
+          color: 'rgba(24, 23, 21, 0.5)',
+          fontWeight: 'bold',
+        }}
       >INFORMATION</Text>
       </View>
 
@@ -236,9 +241,9 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text style={{ marginBottom: 10 }}>Date of Birth</Text>
 
-          
 
-          
+
+
           <DatePicker
             date={formData.birthday} //initial date from state
             mode="date" //The enum of date, datetime and time
@@ -294,57 +299,63 @@ function EditConnectionForm(props) {
         formData.addresses && formData.addresses.map((val, i) => {
           return (
             <>
-              <Text>Street Address</Text>
-              <TextInput style={styles.textInput} value={`${val.street_number} ${val.route}`} placeholder="Street"
-                onChange={route => handleChange("addresses", route, {
-                  index: i,
-                  subname: "route"
-                })} />
-              <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["route"]`)}</Text>
+                {/* <View style={styles.addButtonRow}>
+                  <TouchableOpacity style={styles.addButton} onPress={() => deleteField("addresses", i )}>
+                    <Text style={styles.buttonText}>-</Text>
+                  </TouchableOpacity>
+                  <Text>Home</Text>
+                </View> */}
+                <Text>Street Address</Text>
+                <TextInput style={styles.textInputArr} value={`${val.street_number} ${val.route}`} placeholder="Street"
+                  onChange={route => handleChange("addresses", route, {
+                    index: i,
+                    subname: "route"
+                  })} />
+                <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["route"]`)}</Text>
 
-              <View style={styles.addressInfo}>
-                <View style={styles.addressDetail}>
-                  <Text>City</Text>
-                  <TextInput style={styles.textInput} value={val.locality} placeholder="City"
-                    onChange={locality => handleChange("addresses", locality, {
-                      index: i,
-                      subname: "locality"
-                    })} />
-                  <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["locality"]`)}</Text>
-                </View>
+                <View key={i} style={styles.addressInfo}>
+                  <View style={styles.addressDetail}>
+                    <Text>City</Text>
+                    <TextInput style={styles.textInputArr} value={val.locality} placeholder="City"
+                      onChange={locality => handleChange("addresses", locality, {
+                        index: i,
+                        subname: "locality"
+                      })} />
+                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["locality"]`)}</Text>
+                  </View>
 
-                <View style={styles.addressDetail}>
-                  <Text>State</Text>
-                  <TextInput style={styles.textInput} value={val.state} placeholder="State"
-                    onChange={state => handleChange("addresses", state, {
-                      index: i,
-                      subname: "state"
-                    })} />
+                  <View style={styles.addressDetail}>
+                    <Text>State</Text>
+                    <TextInput style={styles.textInputArr} value={val.state} placeholder="State"
+                      onChange={state => handleChange("addresses", state, {
+                        index: i,
+                        subname: "state"
+                      })} />
                     <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["state"]`)}</Text>
+                  </View>
                 </View>
-              </View>
 
-              <View style={styles.addressInfo}>
-                <View style={styles.addressDetail}>
-                  <Text>Zip Code</Text>
-                  <TextInput style={styles.textInput} value={val["postal_code"]} placeholder="Zip Code"
-                    onChange={postal_code => handleChange("addresses", postal_code, {
-                      index: i,
-                      subname: "postal_code"
-                    })} />
+                <View style={styles.addressInfo}>
+                  <View style={styles.addressDetail}>
+                    <Text>Zip Code</Text>
+                    <TextInput style={styles.textInputArr} value={val["postal_code"]} placeholder="Zip Code"
+                      onChange={postal_code => handleChange("addresses", postal_code, {
+                        index: i,
+                        subname: "postal_code"
+                      })} />
                     <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["postal_code"]`)}</Text>
-                </View>
+                  </View>
 
-                <View style={styles.addressDetail}>
-                  <Text>Country</Text>
-                  <TextInput style={styles.textInput} value={val.country} placeholder="Country"
-                    onChange={country => handleChange("addresses", country, {
-                      index: i,
-                      subname: "country"
-                    })} />
+                  <View style={styles.addressDetail}>
+                    <Text>Country</Text>
+                    <TextInput style={styles.textInputArr} value={val.country} placeholder="Country"
+                      onChange={country => handleChange("addresses", country, {
+                        index: i,
+                        subname: "country"
+                      })} />
                     <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["country"]`)}</Text>
+                  </View>
                 </View>
-              </View>
             </>
           )
         })
@@ -362,12 +373,12 @@ function EditConnectionForm(props) {
           return (
             <>
               <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000"
-              onChange={telephone => handleChange("telephones", telephone, {
-                index: i,
-                subname: "telephone"
-              })} />
-            <Text style={styles.errorText}>{TRY(`formErrors["telephones"][${i}].telephone`)}</Text>
-          </>
+                onChange={telephone => handleChange("telephones", telephone, {
+                  index: i,
+                  subname: "telephone"
+                })} />
+              <Text style={styles.errorText}>{TRY(`formErrors["telephones"][${i}].telephone`)}</Text>
+            </>
           )
         })
       }
@@ -383,10 +394,10 @@ function EditConnectionForm(props) {
           return (
             <>
               <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com"
-              onChange={email => handleChange("emails", email, {
-                index: i,
-                subname: "email"
-              })} />
+                onChange={email => handleChange("emails", email, {
+                  index: i,
+                  subname: "email"
+                })} />
               <Text style={styles.errorText}>{TRY(`formErrors["emails"][${i}].email`)}</Text>
             </>
           )
@@ -410,14 +421,14 @@ function EditConnectionForm(props) {
 
       <Text>Salary Range</Text>
       <View style={styles.picker}>
-        <Picker selectedValue={formData["salary_range"] } textStyle={styles.pickerText}
+        <Picker selectedValue={formData["salary_range"]} textStyle={styles.pickerText}
           onValueChange={salary => handleChange("salary_range", salary)} >
           <Picker.Item label="Salary Range" value={1} />
           <Picker.Item label="<$40,000" value={2} />
-          <Picker.Item label="$40,001-$80,000" value={3}/>
-          <Picker.Item label="$81,001-$120,000" value={4}/>
-          <Picker.Item label="$120,001-$160,000" value={5}/>
-          <Picker.Item label="$160,001-$200,000" value={6}/>
+          <Picker.Item label="$40,001-$80,000" value={3} />
+          <Picker.Item label="$81,001-$120,000" value={4} />
+          <Picker.Item label="$120,001-$160,000" value={5} />
+          <Picker.Item label="$160,001-$200,000" value={6} />
           <Picker.Item label="$200,000+" value={7} />
         </Picker>
       </View>
@@ -428,19 +439,19 @@ function EditConnectionForm(props) {
       <Text>Facebook</Text>
       <TextInput style={styles.textInput} value={formData["facebook"]}
         onChangeText={text => handleChange("facebook", text)} placeholder="Facebook" />
-        <Text style={styles.errorText}>{formErrors.facebook}</Text>
+      <Text style={styles.errorText}>{formErrors.facebook}</Text>
 
 
       <Text>Twitter</Text>
       <TextInput style={styles.textInput} value={formData["twitter"]}
         onChangeText={text => handleChange("twitter", text)} placeholder="Twitter" />
-        <Text style={styles.errorText}>{formErrors.facebook}</Text>
+      <Text style={styles.errorText}>{formErrors.facebook}</Text>
 
       <Text>LinkedIn</Text>
       <TextInput style={styles.textInput} value={formData["linkedin"]}
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
-        <Text style={styles.errorText}>{formErrors.facebook}</Text>
-      
+      <Text style={styles.errorText}>{formErrors.facebook}</Text>
+
 
       {error ?
         <View style={styles.errorBox}>
@@ -452,7 +463,7 @@ function EditConnectionForm(props) {
         <TouchableOpacity onPress={handleCancel} ><Text style={styles.cancelButton} >Cancel</Text></TouchableOpacity>
         <TouchableOpacity onPress={handleSave}><Text style={styles.saveButton} >Save</Text></TouchableOpacity>
       </View>
-      <View style={{height: 60}}/>
+      <View style={{ height: 60 }} />
     </View >
   );
 }
@@ -474,20 +485,30 @@ const styles = StyleSheet.create({
   textInput: {
     flex: 1,
     color: "#444444",
-    borderColor:'rgba(24, 23, 21, 0.5)',
+    borderColor: 'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
     padding: 15,
     marginTop: 10,   ///// used to be margin
     marginBottom: 20
   },
+  textInputArr: {
+    flex: 1,
+    color: "#444444",
+    borderColor: 'rgba(24, 23, 21, 0.5)',
+    borderBottomWidth: 1,
+    padding: 15,
+    marginTop: 10,   ///// used to be margin
+    marginBottom: 20
+  },
+
   picker: {
     color: "#444444",
     borderColor: 'rgba(24, 23, 21, 0.5)',
     borderWidth: 1,
     borderRadius: 5,
     marginTop: 10,
-    marginBottom: 20, 
+    marginBottom: 20,
     paddingVertical: Platform.OS === 'ios' ? 16 : 4,
     paddingHorizontal: Platform.OS === 'ios' ? 10.5 : 0
   },
@@ -497,7 +518,7 @@ const styles = StyleSheet.create({
     color: '#444444'
   },
   dob_gen: {
-    
+
     flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
@@ -570,8 +591,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 15
   },
-  errorText:{
-    color:'#DB272A'
+  errorText: {
+    color: '#DB272A'
   }
 })
 

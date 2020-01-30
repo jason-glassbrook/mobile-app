@@ -36,6 +36,7 @@ import * as TelephoneHelpers from '../helpers/telephoneHelpers.js'
 const placeholderImg = require('../../assets/profile_placeholder.png')
 
 const CaseListComponent = (props) => {
+    console.log('this is props', props)
     return (
         <View style={{paddingLeft: 2, paddingRight: 2}}>
             {props.connection.person.status ?
