@@ -19,11 +19,6 @@ import {
   clearCaseConnections
 } from "../store/actions/caseConnections";
 
-import {
-  handleAndroidBackButton,
-  removeAndroidBackButtonHandler
-} from '../helpers/backHandler';
-
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
 import CaseListComponent from "../components/CaseListComponent";
