@@ -60,6 +60,7 @@ const FamilyConnectionsScreen = props => {
       ten_thirteen: false,
       fourteen_eighteen: false,
       name: false,
+      last: false,
       DOB: false,
       created: false,
       updated: false,
@@ -71,7 +72,7 @@ const FamilyConnectionsScreen = props => {
   const [state, setState] = useState(initialState);
   const [isScrolling, setIsScrolling] = useState(false);
   const [options, setOptions] = useState({ x: 0, y: 0, animated: true });
-  const [sort, setSort] = useState("Last Name");
+  const [sort, setSort] = useState("Full Name");
 
   const genderAssignment = gender => {
     if (gender === "M") {
@@ -185,7 +186,7 @@ const FamilyConnectionsScreen = props => {
     return comparison;
   };
 
-  if (state.filters.name) {
+  if (state.filters.last) {
     filteredCases.sort(lastName);
   } else if (state.filters.created) {
     filteredCases.sort(created);
@@ -193,7 +194,7 @@ const FamilyConnectionsScreen = props => {
     filteredCases.sort(updated);
   } else {
     // default 
-    filteredCases.sort(lastName);
+    filteredCases.sort(name);
   }
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
@@ -327,17 +328,49 @@ const FamilyConnectionsScreen = props => {
               }}
             >
               <RadioButton
+                value="Full Name"
+                status= {sort === "Full Name" ? "checked" : "unchecked"}
+                color="#0279ac"
+                checked={state.filters.name}
+                onPress={() => {
+                 setSort("Full Name");
+                  setState({
+                    ...state,
+                    filters: {
+                      ...state.filters,
+                      name: !state.filters.name,
+                      last: false,
+                      DOB: false,
+                      created: false,
+                      updated: false
+                    }
+                  })
+                }
+                }
+              />
+              <Text style={styles.checkboxes}>  Full Name</Text>
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginLeft: 10,
+                marginVertical: 10
+              }}
+            >
+              <RadioButton
                 value="Last Name"
                 status= {sort === "Last Name" ? "checked" : "unchecked"}
                 color="#0279ac"
-                checked={state.filters.name}
+                checked={state.filters.last}
                 onPress={() => {
                  setSort("Last Name");
                   setState({
                     ...state,
                     filters: {
                       ...state.filters,
-                      name: !state.filters.name,
+                      name: false,
+                      last: !state.filters.last,
                       DOB: false,
                       created: false,
                       updated: false
@@ -368,6 +401,7 @@ const FamilyConnectionsScreen = props => {
                     filters: {
                       ...state.filters,
                       name: false,
+                      last: false,
                       DOB: false,
                       created: !state.filters.created,
                       updated: false
@@ -398,6 +432,7 @@ const FamilyConnectionsScreen = props => {
                     filters: {
                       ...state.filters,
                       name: false,
+                      last: false,
                       DOB: false,
                       created: false,
                       updated: !state.filters.updated

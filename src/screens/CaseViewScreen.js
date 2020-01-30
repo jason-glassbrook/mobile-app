@@ -9,7 +9,8 @@ import {
   StyleSheet,
   Platform,
   ScrollView,
-  Modal
+  Modal,
+  BackHandler
 } from "react-native";
 import constants from "../helpers/constants";
 import { ListItem, SearchBar, CheckBox } from "react-native-elements";
@@ -34,7 +35,7 @@ export function CaseViewScreen(props) {
 
   const [descriptionVisible, setDescriptionVisible] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  const [sort, setSort] = useState("Last Name");
+  const [sort, setSort] = useState("Full Name");
   const [searchKeywords, setSearchKeywords] = useState("");
   const [filtersSelected, setFiltersSelected] = useState({
     0: false,
@@ -46,11 +47,24 @@ export function CaseViewScreen(props) {
     6: false, //male
     7: false, //female
     8: false, //unspecified gender
-    name: false,
+    name: true,
+    last: false,
     DOB: false,
     created: false,
     updated: false
   });
+
+  function backButtonHandler() {
+    setDescriptionVisible(false)
+  }
+
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
+
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", backButtonHandler);
+    };
+  }, [setDescriptionVisible]);
 
   // on load get case data and case connections through redux
   useEffect(() => {
@@ -78,7 +92,6 @@ export function CaseViewScreen(props) {
 
   //sort by name
   const name = (a, b) => {
-    // not currently in use
     const A = a.person.full_name.toUpperCase();
     const B = b.person.full_name.toUpperCase();
     let comparison = 0;
@@ -126,14 +139,14 @@ export function CaseViewScreen(props) {
     return comparison;
   };
 
-  if (filtersSelected.name) {
+  if (filtersSelected.last) {
     filteredCases.sort(lastName);
   } else if (filtersSelected.created) {
     filteredCases.sort(created);
   } else if (filtersSelected.updated) {
     filteredCases.sort(updated);
   } else {
-    filteredCases.sort(lastName); //switched default to sort by last name, change param to name to sort by full
+    filteredCases.sort(name); //switched default to sort by last name, change param to name to sort by full
   }
 
   // ------FILTER functionality------
@@ -829,15 +842,43 @@ export function CaseViewScreen(props) {
                 }}
               >
                 <RadioButton
+                  value="Full Name"
+                  status={sort === "Full Name" ? "checked" : "unchecked"}
+                  color="#0279ac"
+                  checked={filtersSelected.name}
+                  onPress={() => {
+                    setSort("Full Name");
+                    setFiltersSelected({
+                      ...filtersSelected,
+                      name: !filtersSelected.name,
+                      last: false,
+                      DOB: false,
+                      created: false,
+                      updated: false
+                    });
+                  }}
+                />
+                <Text style={styles.checkboxes}> Full Name</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginLeft: 10,
+                  marginVertical: 10
+                }}
+              >
+                <RadioButton
                   value="Last Name"
                   status={sort === "Last Name" ? "checked" : "unchecked"}
                   color="#0279ac"
-                  checked={filtersSelected.name}
+                  checked={filtersSelected.last}
                   onPress={() => {
                     setSort("Last Name");
                     setFiltersSelected({
                       ...filtersSelected,
-                      name: !filtersSelected.name,
+                      name: false,
+                      last: !filtersSelected.last,
                       DOB: false,
                       created: false,
                       updated: false
@@ -864,6 +905,7 @@ export function CaseViewScreen(props) {
                     setFiltersSelected({
                       ...filtersSelected,
                       name: false,
+                      last: false,
                       DOB: false,
                       created: !filtersSelected.created,
                       updated: false
@@ -891,6 +933,7 @@ export function CaseViewScreen(props) {
                     setFiltersSelected({
                       ...filtersSelected,
                       name: false,
+                      last: false,
                       DOB: false,
                       created: false,
                       updated: !filtersSelected.updated
