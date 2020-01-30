@@ -230,6 +230,7 @@ function EditConnectionForm(props) {
 
   return (
     <View style={styles.container}>
+
       <View style={styles.header}><Text
       style={{
         color: 'rgba(24, 23, 21, 0.5)',
@@ -273,13 +274,11 @@ function EditConnectionForm(props) {
           </TouchableOpacity>
 
         {/* Modal appears over other components when showCal===true */}
-          <DateTimePickerModal 
-            isVisible={showCal}
-            onCancel={hideDatePicker}
-            onConfirm={handleDate}
-          />
-
-
+        <DateTimePickerModal 
+                    isVisible={showCal}
+                    onCancel={hideDatePicker}
+                    onConfirm={handleDate}
+                  />
         </View>
 
         <View style={styles["dob_gen_item"]}>
@@ -473,7 +472,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 10,   /// used to be 90% width
-    color: '#444444'
   },
   header: {
     marginTop: 50,
