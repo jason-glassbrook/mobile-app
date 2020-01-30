@@ -10,9 +10,10 @@ import {
   ScrollView,
   Button,
   TextInput,
-  CheckBox,
-  Platform
+  Platform,
+  BouncyCheckbox
 } from "react-native";
+import {CheckBox} from "react-native-elements"
 import { Picker } from 'react-native-picker-dropdown'
 import {getDetails} from "../../store/actions/connectionData"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -90,6 +91,8 @@ function EditConnectionForm(props) {
     })
 
   }
+
+
 
   function errorValidatorFormatter(err) {
     // nests errors for fields that are arrays, yup returns '[]' in errors that are arrays
@@ -294,8 +297,8 @@ function EditConnectionForm(props) {
 
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ marginRight: 10 }}>Deceased</Text>
-        <CheckBox value={formData.deceased}
-          onChange={deceased => handleChange("deceased", deceased)} />
+        <CheckBox checked={formData.deceased}
+          onIconPress={e => handleChange("deceased", !formData.deceased)} />
       </View>
 
 
