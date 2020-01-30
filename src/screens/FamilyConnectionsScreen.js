@@ -192,7 +192,8 @@ const FamilyConnectionsScreen = props => {
   } else if (state.filters.updated) {
     filteredCases.sort(updated);
   } else {
-    filteredCases.sort(name);
+    // default 
+    filteredCases.sort(lastName);
   }
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
