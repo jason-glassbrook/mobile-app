@@ -10,8 +10,9 @@ import {
   ScrollView,
   Button,
   TextInput,
+  // CheckBox,
   Platform,
-  BouncyCheckbox
+  DatePickerAndroid
 } from "react-native";
 import {CheckBox} from "react-native-elements"
 import { Picker } from 'react-native-picker-dropdown'
@@ -59,9 +60,9 @@ let schema = yup.object().shape({
   job_title: yup.string().nullable(),
   employer: yup.string().nullable(),
   salary_range: yup.string().nullable(),
-  facebook: yup.string().nullable(),
-  twitter: yup.string().nullable(),
-  linkedin: yup.string().nullable()
+  facebook: yup.string().url().nullable(),
+  twitter: yup.string().url().nullable(),
+  linkedin: yup.string().url().nullable()
 })
 
 
@@ -116,7 +117,7 @@ function EditConnectionForm(props) {
 
       }
       else { 
-        fieldErrors[err.split(" ")[0]] = err.split(' ').slice(1).join('');
+        fieldErrors[err.split(" ")[0]] = err.split(' ').slice(1).join(' ');
         return fieldErrors
       }
 
@@ -128,7 +129,6 @@ function EditConnectionForm(props) {
     schema
       .validate(formData, { abortEarly: false })
       .then((valid) => { // checks the formData with Yup schema, if it passes errors are cleared and save function is run
-        console.log(valid)
         setFormErrors({})
         save()
       })
@@ -443,15 +443,19 @@ function EditConnectionForm(props) {
       <Text>Facebook</Text>
       <TextInput style={styles.textInput} value={formData["facebook"]}
         onChangeText={text => handleChange("facebook", text)} placeholder="Facebook" />
+        <Text style={styles.errorText}>{formErrors.facebook}</Text>
+
 
       <Text>Twitter</Text>
       <TextInput style={styles.textInput} value={formData["twitter"]}
         onChangeText={text => handleChange("twitter", text)} placeholder="Twitter" />
+        <Text style={styles.errorText}>{formErrors.facebook}</Text>
 
       <Text>LinkedIn</Text>
       <TextInput style={styles.textInput} value={formData["linkedin"]}
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
-       
+        <Text style={styles.errorText}>{formErrors.facebook}</Text>
+      
 
       {error ?
         <View style={styles.errorBox}>
