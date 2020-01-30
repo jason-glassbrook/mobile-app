@@ -208,7 +208,7 @@ function EditConnectionForm(props) {
     setShowCal(false)
   }
 
-  //handler for date: backend expects birthday object w/ numeric day/month/year and m/d/yyyy date string (leading zeroes not required)
+  //handler for date: backend expects birthday object w/ numeric day/month/year and date string of mm/dd/yyyy, m/d/yyyy, etc
   function handleDate(date) {
     setShowCal(false) //must be first or race condition causes picker to reappear after submit
     const day = date.getDate()
@@ -264,10 +264,18 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text style={{ marginBottom: 10 }}>Date of Birth</Text>
 
-        {/* Date picker: styled to match text inputs but triggers native picker via hook */}
+        {/* Date picker: touchable is styled to match text inputs but triggers picker modal via hook */}
           <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
             <Text style={styles.dateText}>{formData.birthday? formData.birthday.raw : ""}</Text>
           </TouchableOpacity>
+
+        {/* Modal appears over other components when showCal===true */}
+          <DateTimePickerModal 
+            isVisible={showCal}
+            onCancel={hideDatePicker}
+            onConfirm={handleDate}
+          />
+
 
         </View>
 
@@ -290,11 +298,6 @@ function EditConnectionForm(props) {
           onChange={deceased => handleChange("deceased", deceased)} />
       </View>
 
-      <DateTimePickerModal 
-            isVisible={showCal}
-            onCancel={hideDatePicker}
-            onConfirm={handleDate}
-          />
 
       <View style={styles.header}><Text>CONTACT DETAILS</Text></View>
 
