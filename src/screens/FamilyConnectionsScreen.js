@@ -251,6 +251,7 @@ const FamilyConnectionsScreen = props => {
         animationType="fade"
         transparent={false}
         visible={state.modalVisible}
+        onRequestClose={() => setModalVisible(false)}
       >
         <View
           style={{ backgroundColor: "#fff", height: 52, justifyContent: "center" }}

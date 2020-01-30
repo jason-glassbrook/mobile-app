@@ -458,6 +458,7 @@ export function CaseViewScreen(props) {
           animationType="fade"
           transparent={false}
           visible={descriptionVisible}
+          onRequestClose={() => setDescriptionVisible(false)}
         >
           <View
             style={{
