@@ -54,18 +54,6 @@ export function CaseViewScreen(props) {
     updated: false
   });
 
-  function backButtonHandler() {
-    setDescriptionVisible(false)
-  }
-
-  useEffect(() => {
-    BackHandler.addEventListener("hardwareBackPress", backButtonHandler);
-
-    return () => {
-      BackHandler.removeEventListener("hardwareBackPress", backButtonHandler);
-    };
-  }, [setDescriptionVisible]);
-
   // on load get case data and case connections through redux
   useEffect(() => {
     props.getCaseData(props.navigation.getParam("pk"));
@@ -162,9 +150,7 @@ export function CaseViewScreen(props) {
       !filtersSelected[4] &&
       !filtersSelected[5]
     ) {
-      // props.caseConnections.map(connection =>
-      //   console.log(connection.person)
-      // );
+      return genderFilter(props.caseConnections);
     } else {
       //remove everyone without a status
       let noStatus = props.caseConnections.filter(
@@ -211,36 +197,32 @@ export function CaseViewScreen(props) {
         filteredList = filteredList.concat(noStatus);
       }
 
-      // console.log(filteredList)
-
-      // ------GENDER FILTER functionality------
-      if (!filtersSelected[6] && !filtersSelected[7] && !filtersSelected[8]) {
-
-        // if not genders are selected, return the full list
-        filteredList.sort(lastName); //changed default to last name
-        return filteredList;
-
-      } else {
-
-        if (!filtersSelected[6]) {
-          filteredList = filteredList.filter(c => c.person.gender !== "M");
-        }
-
-        if (!filtersSelected[7]) {
-          filteredList = filteredList.filter(c => c.person.gender !== "F");
-        }
-
-        if (!filtersSelected[8]) {
-          filteredList = filteredList.filter(c => c.person.gender !== "O");
-        }
-
-        filteredList.sort(lastName); //changed default to last name
-        return filteredList;
-      }
+      return genderFilter(filteredList);
     }
+  };
 
-    // gender check here first
-    return props.caseConnections;
+  const genderFilter = arr => {
+    // ------GENDER FILTER functionality------
+
+    arr.map(c => console.log(c.person.gender));
+
+    if (!filtersSelected[6] && !filtersSelected[7] && !filtersSelected[8]) {
+      console.log(filtersSelected[6], filtersSelected[7], filtersSelected[8]);
+      return arr;
+    } else {
+      if (!filtersSelected[6]) {
+        arr = arr.filter(c => c.person.gender !== "M");
+      }
+
+      if (!filtersSelected[7]) {
+        arr = arr.filter(c => c.person.gender !== "F");
+      }
+
+      if (!filtersSelected[8]) {
+        arr = arr.filter(c => c.person.gender !== "O");
+      }
+      return arr;
+    }
   };
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
@@ -771,13 +753,18 @@ export function CaseViewScreen(props) {
                 title="Male"
                 textStyle={styles.checkboxes}
                 size={30}
-                checked={filtersSelected.male}
-                onPress={() =>
+                checked={filtersSelected[6]}
+                // onIconPress={setFiltersSelected({
+                //   ...filtersSelected,
+                //   male: true
+                // })}
+                onPress={() => {
                   setFiltersSelected({
                     ...filtersSelected,
-                    male: !filtersSelected.male
-                  })
-                }
+                    6: !filtersSelected[6]
+                  });
+                  console.log("Male pressed", filtersSelected[6]);
+                }}
               />
               <CheckBox
                 containerStyle={{
@@ -787,11 +774,11 @@ export function CaseViewScreen(props) {
                 title="Female"
                 textStyle={styles.checkboxes}
                 size={30}
-                checked={filtersSelected.female}
+                checked={filtersSelected[7]}
                 onPress={() =>
                   setFiltersSelected({
                     ...filtersSelected,
-                    female: !filtersSelected.female
+                    7: !filtersSelected[7]
                   })
                 }
               />
@@ -803,11 +790,11 @@ export function CaseViewScreen(props) {
                 title="Unspecified"
                 textStyle={styles.checkboxes}
                 size={30}
-                checked={filtersSelected.unspecified}
+                checked={filtersSelected[8]}
                 onPress={() =>
                   setFiltersSelected({
                     ...filtersSelected,
-                    unspecified: !filtersSelected.unspecified
+                    8: !filtersSelected[8]
                   })
                 }
               />
