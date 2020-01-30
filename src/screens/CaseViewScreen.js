@@ -5,7 +5,6 @@ import {
   View,
   TouchableHighlight,
   TouchableOpacity,
-  TouchableWithoutFeedback,
   Image,
   StyleSheet,
   Platform,
@@ -13,18 +12,17 @@ import {
   Modal
 } from "react-native";
 import constants from "../helpers/constants";
-import {
-  ListItem,
-  Button,
-  Divider,
-  SearchBar,
-  CheckBox
-} from "react-native-elements";
+import { ListItem, SearchBar, CheckBox } from "react-native-elements";
 import { getCaseData, clearCaseData } from "../store/actions/caseData";
 import {
   getCaseConnections,
   clearCaseConnections
 } from "../store/actions/caseConnections";
+
+import {
+  handleAndroidBackButton,
+  removeAndroidBackButtonHandler
+} from '../helpers/backHandler';
 
 import { connect } from "react-redux";
 import Loader from "../components/Loader/Loader";
@@ -37,12 +35,12 @@ const leftArrow = "\u2190";
 const placeholderImg = require("../../assets/profile_placeholder.png");
 
 export function CaseViewScreen(props) {
-  // console.log("this is props, ", props);
   let filteredCases = props.caseConnections;
-  // console.log("this is case connections", filteredCases);
 
+  const [descriptionVisible, setDescriptionVisible] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [sort, setSort] = useState("Last Name");
   const [searchKeywords, setSearchKeywords] = useState("");
-
   const [filtersSelected, setFiltersSelected] = useState({
     0: false,
     1: false,
@@ -50,28 +48,14 @@ export function CaseViewScreen(props) {
     3: false,
     4: false,
     5: false,
-    male: false,
-    female: false,
-    unspecified: false,
-    zero_five: false,
-    six_nine: false,
-    ten_thirteen: false,
-    fourteen_eighteen: false,
+    6: false, //male
+    7: false, //female
+    8: false, //unspecified gender
     name: false,
     DOB: false,
     created: false,
-    updated: false,
-    not_available: false,
-    family_candidate: false,
-    hightlight: false,
-    no_go: false,
-    of_interest: false,
-    support_candidate: false
+    updated: false
   });
-
-  const [descriptionVisible, setDescriptionVisible] = useState(false);
-  const [isScrolling, setIsScrolling] = useState(false);
-  const [sort, setSort] = useState("Last Name");
 
   // on load get case data and case connections through redux
   useEffect(() => {
@@ -97,27 +81,9 @@ export function CaseViewScreen(props) {
     }
   };
 
-  // ------GENDER FILTER functionality------
-  if (
-    !filtersSelected.male &&
-    !filtersSelected.female &&
-    !filtersSelected.unspecified
-  ) {
-    //if nothing is selected -- do nothing
-  } else {
-    if (!filtersSelected.male) {
-      filteredCases = filteredCases.filter(c => c.gender !== "M");
-    } // if male is not selected -- remove all males
-    if (!filtersSelected.female) {
-      filteredCases = filteredCases.filter(c => c.gender !== "F");
-    }
-    if (!filtersSelected.unspecified) {
-      filteredCases = filteredCases.filter(c => c.gender !== "O");
-    }
-  }
-
   //sort by name
   const name = (a, b) => {
+    // not currently in use
     const A = a.person.full_name.toUpperCase();
     const B = b.person.full_name.toUpperCase();
     let comparison = 0;
@@ -172,12 +138,14 @@ export function CaseViewScreen(props) {
   } else if (filtersSelected.updated) {
     filteredCases.sort(updated);
   } else {
-    filteredCases.sort(lastName);
+    filteredCases.sort(lastName); //switched default to sort by last name, change param to name to sort by full
   }
 
-  //filter functionality
+  // ------FILTER functionality------
   const filteredConnections = () => {
+    // ------STATUS FILTER functionality------
     //if no filters are set, do nothing
+
     if (
       !filtersSelected[0] &&
       !filtersSelected[1] &&
@@ -186,12 +154,16 @@ export function CaseViewScreen(props) {
       !filtersSelected[4] &&
       !filtersSelected[5]
     ) {
-      return props.caseConnections;
+      // props.caseConnections.map(connection =>
+      //   console.log(connection.person)
+      // );
     } else {
       //remove everyone without a status
       let noStatus = props.caseConnections.filter(
         connection => !connection.person.status
       );
+
+      // people with statuses only
       let filteredList = props.caseConnections.filter(
         connection => connection.person.status
       );
@@ -199,47 +171,68 @@ export function CaseViewScreen(props) {
       if (!filtersSelected[1]) {
         //if filter1 not selected, remove everyone with filter1
         filteredList = filteredList.filter(
-          connection =>
-            connection.person.status.color.toUpperCase() !== "#6AA84F"
+          connection => connection.person.status.name !== "Family Candidate"
         );
       }
       if (!filtersSelected[2]) {
         //if filter2 not selected, remove everyone with filter2
         filteredList = filteredList.filter(
-          connection =>
-            connection.person.status.color.toUpperCase() !== "#FFFF00"
+          connection => connection.person.status.name !== "Highlight"
         );
       }
       if (!filtersSelected[3]) {
         //if filter3 not selected, remove everyone with filter3
         filteredList = filteredList.filter(
-          connection =>
-            connection.person.status.color.toUpperCase() !== "#CC0000"
+          connection => connection.person.status.name !== "No-Go"
         );
       }
       if (!filtersSelected[4]) {
         //if filter4 not selected, remove everyone with filter4
         filteredList = filteredList.filter(
-          connection =>
-            connection.person.status.color.toUpperCase() !== "#9900FF"
+          connection => connection.person.status.name !== "Of Interest"
         );
       }
       if (!filtersSelected[5]) {
         //if filter5 not selected, remove everyone with filter5
         filteredList = filteredList.filter(
-          connection =>
-            connection.person.status.color.toUpperCase() !== "#6FA8DC"
+          connection => connection.person.status.name !== "Support Candidate"
         );
       }
       if (filtersSelected[0]) {
         //add back people without a status if no status filter is selected
         filteredList = filteredList.concat(noStatus);
       }
-      //sort by name
-      filteredList.sort(name);
 
-      return filteredList;
+      // console.log(filteredList)
+
+      // ------GENDER FILTER functionality------
+      if (!filtersSelected[6] && !filtersSelected[7] && !filtersSelected[8]) {
+
+        // if not genders are selected, return the full list
+        filteredList.sort(lastName); //changed default to last name
+        return filteredList;
+
+      } else {
+
+        if (!filtersSelected[6]) {
+          filteredList = filteredList.filter(c => c.person.gender !== "M");
+        }
+
+        if (!filtersSelected[7]) {
+          filteredList = filteredList.filter(c => c.person.gender !== "F");
+        }
+
+        if (!filtersSelected[8]) {
+          filteredList = filteredList.filter(c => c.person.gender !== "O");
+        }
+
+        filteredList.sort(lastName); //changed default to last name
+        return filteredList;
+      }
     }
+
+    // gender check here first
+    return props.caseConnections;
   };
 
   // ------SEARCHBAR functionality - filters by case first_name or last_name---------
@@ -751,6 +744,77 @@ export function CaseViewScreen(props) {
                   textAlign: "left"
                 }}
               >
+                GENDER
+              </Text>
+              <View
+                style={{
+                  borderBottomColor: "rgba(24, 23, 21, 0.3)",
+                  borderBottomWidth: 0.5,
+                  marginBottom: 10,
+                  marginHorizontal: 10
+                }}
+              ></View>
+              <CheckBox
+                containerStyle={{
+                  backgroundColor: "white",
+                  borderColor: "white"
+                }}
+                title="Male"
+                textStyle={styles.checkboxes}
+                size={30}
+                checked={filtersSelected.male}
+                onPress={() =>
+                  setFiltersSelected({
+                    ...filtersSelected,
+                    male: !filtersSelected.male
+                  })
+                }
+              />
+              <CheckBox
+                containerStyle={{
+                  backgroundColor: "white",
+                  borderColor: "white"
+                }}
+                title="Female"
+                textStyle={styles.checkboxes}
+                size={30}
+                checked={filtersSelected.female}
+                onPress={() =>
+                  setFiltersSelected({
+                    ...filtersSelected,
+                    female: !filtersSelected.female
+                  })
+                }
+              />
+              <CheckBox
+                containerStyle={{
+                  backgroundColor: "white",
+                  borderColor: "white"
+                }}
+                title="Unspecified"
+                textStyle={styles.checkboxes}
+                size={30}
+                checked={filtersSelected.unspecified}
+                onPress={() =>
+                  setFiltersSelected({
+                    ...filtersSelected,
+                    unspecified: !filtersSelected.unspecified
+                  })
+                }
+              />
+
+              <Text
+                style={{
+                  fontFamily: constants.lotoFamily,
+                  color: "rgba(24, 23, 21, 0.5)",
+                  marginLeft: 10,
+                  marginTop: 20,
+                  marginBottom: 5,
+                  fontSize: 14,
+                  fontWeight: "800",
+                  textAlign: "left"
+                }}
+              >
                 SORT BY
               </Text>
               <View
@@ -818,7 +882,8 @@ export function CaseViewScreen(props) {
                   flexDirection: "row",
                   alignItems: "center",
                   marginLeft: 10,
-                  marginVertical: 10
+                  marginVertical: 10,
+                  marginBottom: 100
                 }}
               >
                 <RadioButton
@@ -838,78 +903,8 @@ export function CaseViewScreen(props) {
                   }}
                 />
                 <Text style={styles.checkboxes}> Last Updated</Text>
+                <View />
               </View>
-              <Text
-                style={{
-                  fontFamily: constants.lotoFamily,
-                  color: "rgba(24, 23, 21, 0.5)",
-                  marginLeft: 10,
-                  marginTop: 20,
-                  marginBottom: 5,
-                  fontSize: 14,
-                  fontWeight: "800",
-                  textAlign: "left"
-                }}
-              >
-                GENDER
-              </Text>
-              <View
-                style={{
-                  borderBottomColor: "rgba(24, 23, 21, 0.3)",
-                  borderBottomWidth: 0.5,
-                  marginBottom: 10,
-                  marginHorizontal: 10
-                }}
-              ></View>
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Male"
-                textStyle={styles.checkboxes}
-                size={30}
-                checked={filtersSelected.male}
-                onPress={() =>
-                  setFiltersSelected({
-                    ...filtersSelected,
-                    male: !filtersSelected.male
-                  })
-                }
-              />
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white"
-                }}
-                title="Female"
-                textStyle={styles.checkboxes}
-                size={30}
-                checked={filtersSelected.female}
-                onPress={() =>
-                  setFiltersSelected({
-                    ...filtersSelected,
-                    female: !filtersSelected.female
-                  })
-                }
-              />
-              <CheckBox
-                containerStyle={{
-                  backgroundColor: "white",
-                  borderColor: "white",
-                  marginBottom: 100
-                }}
-                title="Unspecified"
-                textStyle={styles.checkboxes}
-                size={30}
-                checked={filtersSelected.unspecified}
-                onPress={() =>
-                  setFiltersSelected({
-                    ...filtersSelected,
-                    unspecified: !filtersSelected.unspecified
-                  })
-                }
-              />
             </View>
           </ScrollView>
         </Modal>
