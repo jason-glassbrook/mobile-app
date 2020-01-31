@@ -73,6 +73,7 @@ const FamilyConnectionsScreen = props => {
   const [isScrolling, setIsScrolling] = useState(false);
   const [options, setOptions] = useState({ x: 0, y: 0, animated: true });
   const [sort, setSort] = useState("Full Name");
+  const [rtn, setRtn] = useState('RETURN')
 
   const genderAssignment = gender => {
     if (gender === "M") {
@@ -94,6 +95,7 @@ const FamilyConnectionsScreen = props => {
     // if (!props.results[0]) {
     props.authChecker();
     props.getUserCases();
+    Platform.OS === 'android' ? setRtn('') : null
     // }
   }, [props.loadingUser]);
 
@@ -254,15 +256,12 @@ const FamilyConnectionsScreen = props => {
         onRequestClose={() => setModalVisible(false)}
       >
         <View
-          style={{ backgroundColor: "#fff", height: 52, justifyContent: "center" }}
+          style={{ backgroundColor: "#fff", justifyContent: "center",
+          height: Platform.OS == 'android' ? 20 : 52 }}
         >
         </View>
-        <ScrollView
-          scrollsToTop
-          contentContainerStyle={{
-          }}
-        >
-           <TouchableOpacity
+
+        <TouchableOpacity
             underlayColor="lightgray"
             onPressIn={() => {
               setModalVisible(!state.modalVisible);
@@ -271,15 +270,31 @@ const FamilyConnectionsScreen = props => {
             <Text
               style={{
                 padding: 10, 
-                paddingBottom: 30, 
+                paddingBottom: Platform.OS == 'android' ? 0 : 30,
                 fontSize: 18,
                 paddingTop: 0,
-                color: "#0F6580"
+                color: "#0F6580",
+                marginTop: Platform.OS === 'android' ? -37 : 0
               }}
             >
-              {leftArrow} RETURN
+              <Text
+              style={{
+                fontSize: Platform.OS === 'android' ? 45 : 20,
+                margin: Platform.OS === 'android' ? -50 : 0
+              }}
+              >{leftArrow}
+              </Text>
+              <Text
+              > {rtn}
+              </Text>
             </Text>
           </TouchableOpacity>
+        <ScrollView
+          scrollsToTop
+          contentContainerStyle={{
+          }}
+        >
+    
           <ScrollView
           scrollsToTop
           contentContainerStyle={{

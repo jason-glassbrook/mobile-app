@@ -53,11 +53,13 @@ export function CaseViewScreen(props) {
     created: false,
     updated: false
   });
+  const [rtn, setRtn] = useState('RETURN')
 
   // on load get case data and case connections through redux
   useEffect(() => {
     props.getCaseData(props.navigation.getParam("pk"));
     props.getCaseConnections(props.navigation.getParam("pk"));
+    Platform.OS === 'android' ? setRtn('') : null
   }, [false]);
 
   let caseData = props.caseData;
@@ -441,7 +443,7 @@ export function CaseViewScreen(props) {
           <View
             style={{
               backgroundColor: "#fff",
-              height: 52,
+              height: Platform.OS == 'android' ? 20 : 52,
               justifyContent: "center"
             }}
           >
@@ -449,31 +451,33 @@ export function CaseViewScreen(props) {
           </View>    
           <ScrollView
             scrollsToTop
-            contentContainerStyle={{
-              flexGrow: 1,
-              marginTop: 10
-            }}
           >
            <TouchableOpacity
               underlayColor="lightgray"
-              style={{
-                flex: 1,
-              }}
               onPressIn={() => {
                 setDescriptionVisible(false);
               }}
             >
-               <Text
-                style={{
-                  paddingLeft: 10,
-                  paddingBottom: 0,
-                  fontSize: 18,
-                  paddingTop: 0,
-                  color: "#0F6580",
-                }}
-              >
-                {leftArrow} RETURN
+              <Text
+              style={{
+                padding: 10, 
+                fontSize: 18,
+                paddingBottom: Platform.OS === 'android' ? -20: 0,
+                color: "#0F6580",
+                marginTop: Platform.OS === 'android' ? -37 : 0
+              }}
+            >
+              <Text
+              style={{
+                fontSize: Platform.OS === 'android' ? 45 : 20,
+                margin: Platform.OS === 'android' ? -2 : 0
+              }}
+              >{leftArrow}
               </Text>
+              <Text
+              > {rtn}
+              </Text>
+            </Text>
             </TouchableOpacity>
             <View
               style={{
@@ -489,7 +493,7 @@ export function CaseViewScreen(props) {
                   fontFamily: constants.lotoFamily,
                   color: "rgba(24, 23, 21, 0.5)",
                   marginLeft: 10,
-                  marginTop: 20,
+                  marginTop: Platform.OS === 'android' ? 0 : 20,
                   marginBottom: 5,
                   fontSize: 14,
                   fontWeight: "800",
