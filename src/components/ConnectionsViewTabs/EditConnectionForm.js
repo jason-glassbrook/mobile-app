@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from "react"
-import DatePicker from 'react-native-datepicker'
+import DateTimePickerModal from "react-native-modal-datetime-picker"
 import axios from "axios"
 import {
   Text,
@@ -10,9 +10,11 @@ import {
   ScrollView,
   Button,
   TextInput,
-  CheckBox,
-  Platform
+  // CheckBox,
+  Platform,
+  DatePickerAndroid
 } from "react-native";
+import {CheckBox} from "react-native-elements"
 import { Picker } from 'react-native-picker-dropdown'
 import {getDetails} from "../../store/actions/connectionData"
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -58,9 +60,9 @@ let schema = yup.object().shape({
   job_title: yup.string().nullable(),
   employer: yup.string().nullable(),
   salary_range: yup.string().nullable(),
-  facebook: yup.string().nullable(),
-  twitter: yup.string().nullable(),
-  linkedin: yup.string().nullable()
+  facebook: yup.string().url().nullable(),
+  twitter: yup.string().url().nullable(),
+  linkedin: yup.string().url().nullable()
 })
 
 
@@ -69,6 +71,7 @@ function EditConnectionForm(props) {
   const [formData, setFormData] = useState(props.details);
   const [error, setError] = useState(false);
   const [formErrors, setFormErrors] = useState({});
+  const [showCal, setShowCal] = useState(false);
 
 
 
@@ -89,6 +92,8 @@ function EditConnectionForm(props) {
     })
 
   }
+
+
 
   function errorValidatorFormatter(err) {
     // nests errors for fields that are arrays, yup returns '[]' in errors that are arrays
@@ -112,7 +117,7 @@ function EditConnectionForm(props) {
 
       }
       else { 
-        fieldErrors[err.split(" ")[0]] = err.split(' ').slice(1).join('');
+        fieldErrors[err.split(" ")[0]] = err.split(' ').slice(1).join(' ');
         return fieldErrors
       }
 
@@ -124,7 +129,6 @@ function EditConnectionForm(props) {
     schema
       .validate(formData, { abortEarly: false })
       .then((valid) => { // checks the formData with Yup schema, if it passes errors are cleared and save function is run
-        console.log(valid)
         setFormErrors({})
         save()
       })
@@ -197,8 +201,36 @@ function EditConnectionForm(props) {
     return v;
   }
 
+  //functions for birthday field date selector
+  //show/hide native picker
+  function showDatePicker(){
+    setShowCal(true)
+  }
+
+  function hideDatePicker() {
+    setShowCal(false)
+  }
+
+  //handler for date: backend expects birthday object w/ numeric day/month/year and date string of mm/dd/yyyy, m/d/yyyy, etc
+  function handleDate(date) {
+    setShowCal(false) //must be first or race condition causes picker to reappear after submit
+    const day = date.getDate()
+    const month = date.getMonth() +1
+    const year = date.getFullYear()
+    setFormData({
+      ...formData,
+      birthday: {
+        day, month, year,
+        raw: month+'/'+day+'/'+year
+      }
+    })
+    
+
+  }
+
   return (
     <View style={styles.container}>
+
       <View style={styles.header}><Text
       style={{
         color: 'rgba(24, 23, 21, 0.5)',
@@ -236,34 +268,17 @@ function EditConnectionForm(props) {
         <View style={styles["dob_gen_item"]}>
           <Text style={{ marginBottom: 10 }}>Date of Birth</Text>
 
+        {/* Date picker: touchable is styled to match text inputs but triggers picker modal via hook */}
+          <TouchableOpacity style={styles.datePicker} onPress={showDatePicker} > 
+            <Text style={styles.dateText}>{formData.birthday? formData.birthday.raw : ""}</Text>
+          </TouchableOpacity>
 
-          <DatePicker
-            date={formData.birthday} //initial date from state
-            mode="date" //The enum of date, datetime and time
-            placeholder="select date"
-            format="YYYY-MM-DD"
-            minDate="2016-05-01"
-            maxDate="2016-06-01"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0,
-                marginTop: 5
-              },
-              dateInput: {
-                marginLeft: 36,
-                marginTop: 10,
-                width: '35%',
-                paddingVertical: 22.8,
-                borderRadius: 5
-              },
-            }}
-            onDateChange={(date) => handleChange("birthday", date)}
-          />
+        {/* Modal appears over other components when showCal===true */}
+        <DateTimePickerModal 
+                    isVisible={showCal}
+                    onCancel={hideDatePicker}
+                    onConfirm={handleDate}
+                  />
         </View>
 
         <View style={styles["dob_gen_item"]}>
@@ -278,11 +293,13 @@ function EditConnectionForm(props) {
         </View>
       </View>
 
+
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         <Text style={{ marginRight: 10 }}>Deceased</Text>
-        <CheckBox value={formData.deceased}
-          onChange={deceased => handleChange("deceased", deceased)} />
+        <CheckBox checked={formData.deceased}
+          onIconPress={e => handleChange("deceased", !formData.deceased)} />
       </View>
+
 
       <View style={styles.header}><Text>CONTACT DETAILS</Text></View>
 
@@ -426,15 +443,19 @@ function EditConnectionForm(props) {
       <Text>Facebook</Text>
       <TextInput style={styles.textInput} value={formData["facebook"]}
         onChangeText={text => handleChange("facebook", text)} placeholder="Facebook" />
+        <Text style={styles.errorText}>{formErrors.facebook}</Text>
+
 
       <Text>Twitter</Text>
       <TextInput style={styles.textInput} value={formData["twitter"]}
         onChangeText={text => handleChange("twitter", text)} placeholder="Twitter" />
+        <Text style={styles.errorText}>{formErrors.facebook}</Text>
 
       <Text>LinkedIn</Text>
       <TextInput style={styles.textInput} value={formData["linkedin"]}
         onChangeText={text => handleChange("linkedin", text)} placeholder="LinkedIn" />
-       
+        <Text style={styles.errorText}>{formErrors.facebook}</Text>
+      
 
       {error ?
         <View style={styles.errorBox}>
@@ -455,7 +476,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginHorizontal: 10,   /// used to be 90% width
-    color: '#444444'
   },
   header: {
     marginTop: 50,
@@ -464,7 +484,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: .5,
     fontSize: 2.3,
   },
-
   textInput: {
     flex: 1,
     color: "#444444",
@@ -501,6 +520,16 @@ const styles = StyleSheet.create({
   },
   dob_gen_item: {
     width: "45%"
+  },
+  datePicker: {  
+    borderColor:'rgba(24, 23, 21, 0.5)',
+    borderWidth: 1,
+    borderRadius: 5,
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+    paddingVertical: Platform.OS === 'ios' ? 16.3 : 20,
+    height: Platform.OS === 'ios' ? 49 : 60
+    
   },
   addButton: {
     backgroundColor: "#0279AC",
