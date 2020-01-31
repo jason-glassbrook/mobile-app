@@ -38,7 +38,7 @@ const AddDocForm = props => {
 
     const getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            const { status:string } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
                 Alert.alert('Sorry, we need camera roll permissions to make this work!');
             }
@@ -57,26 +57,6 @@ const AddDocForm = props => {
             setAttachment(result.uri);
         }
     };
-
-    // // 1-Education, 2-Friends, 3-Network, 4-Other, 5-Relatives, 6-Sports
-    // const categoryHandler = (e) => {
-    //   let category = e
-    //   if (category === 'Education'){
-    //     setCategory(1)
-    //   } else if (category === 'Friends'){
-    //     setCategory(2)
-    //   } else if (category === 'Network'){
-    //     setCategory(3)
-    //   } else if (category === 'Other'){
-    //     setCategory(4)
-    //   } else if (category === 'Relatives'){
-    //     setCategory(5)
-    //   } else if (category === 'Sports'){
-    //     setCategory(6)
-    //   } else {
-    //     console.log('category broken')
-    //   }
-    // }
 
     return (
         <ScrollView 
@@ -128,7 +108,7 @@ const AddDocForm = props => {
               }}
             >
               <TextInput
-                onChangeText={(text) => {
+                onChangeText={(text:string) => {
                   setTitle(text)
                 }}
                 placeholder='TITLE'
@@ -171,7 +151,7 @@ const AddDocForm = props => {
                 }
               }}
               placeholder={{label: 'SELECT CATEGORY...'}}
-              onValueChange={(value, index) =>
+              onValueChange={(value:string, index:number) =>
                 setCategory(value)}
               
               items={[
@@ -185,8 +165,6 @@ const AddDocForm = props => {
               />
             </View>
             
-              
-
             <View
               style={{ 
                 height: 70,
@@ -199,7 +177,7 @@ const AddDocForm = props => {
               }}
             >
               <TextInput
-                onChangeText={(text) => {
+                onChangeText={(text:string) => {
                   setNotes(text)
                 }}
                 placeholder='NOTES'
