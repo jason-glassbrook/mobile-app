@@ -25,6 +25,10 @@ import {
   setDetails
 } from "../store/actions/connectionData";
 import {
+  getCaseConnections,
+  clearCaseConnections,
+} from "../store/actions/caseConnections"
+import {
   Ionicons,
   AntDesign,
   MaterialCommunityIcons,
@@ -54,23 +58,15 @@ function ConnectionsView(props) {
     docs: false,
     details: false,
   });
-  const [editing, setEditing] = useState(false);
 
-  // console.log(props.getDetails)
-  const [formVisible, setFormVisible] = useState(false)
-  const [addDocVisible, setAddDocVisible] = useState(false)
-  const [engagementType, setEngagementType] = useState()
-  const [image, setImage] = useState({})
   const [isScrolling, setIsScrolling] = useState(false)
-  // console.log('this is the one you must find ', props.details)
   useEffect(() => {
     props.getEngagements(props.navigation.getParam('connectionData').person.pk)
     props.getDocuments(props.navigation.getParam('connectionData').person.pk)
     props.getDetails(props.navigation.getParam('connectionData').person.pk)
-
   }, [props.isLoadingDocs, props.isLoadingEngagements])
 
-  const styles: object = StyleSheet.create({
+  const styles = StyleSheet.create({
     tabs: {
       width: "100%",
       flexDirection: "row",
@@ -476,6 +472,7 @@ export default connect(
     getDocuments,
     clearDocuments,
     getDetails,
-    setDetails
+    setDetails,
+    getCaseConnections
   }
 )(ConnectionsView);

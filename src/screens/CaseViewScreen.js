@@ -203,11 +203,7 @@ export function CaseViewScreen(props) {
 
   const genderFilter = arr => {
     // ------GENDER FILTER functionality------
-
-    arr.map(c => console.log(c.person.gender));
-
     if (!filtersSelected[6] && !filtersSelected[7] && !filtersSelected[8]) {
-      console.log(filtersSelected[6], filtersSelected[7], filtersSelected[8]);
       return arr;
     } else {
       if (!filtersSelected[6]) {
@@ -761,7 +757,6 @@ export function CaseViewScreen(props) {
                     ...filtersSelected,
                     6: !filtersSelected[6]
                   });
-                  console.log("Male pressed", filtersSelected[6]);
                 }}
               />
               <CheckBox
@@ -1004,7 +999,7 @@ const mapStateToProps = state => {
     caseDataError,
     connectionsError,
     caseConnections,
-    details
+    details,
   };
 };
 
