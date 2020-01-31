@@ -188,8 +188,7 @@ function EditConnectionForm(props) {
   }
 
   function deleteField(name, id) {
-    console.log(name, id)
-    console.log(formData)
+    setFormData({ ...formData, [name]: formData[name].filter((element, index) => id !== index) })
   }
 
   function TRY(path) {
@@ -299,63 +298,63 @@ function EditConnectionForm(props) {
         formData.addresses && formData.addresses.map((val, i) => {
           return (
             <>
-                {/* <View style={styles.addButtonRow}>
-                  <TouchableOpacity style={styles.addButton} onPress={() => deleteField("addresses", i )}>
-                    <Text style={styles.buttonText}>-</Text>
-                  </TouchableOpacity>
-                  <Text>Home</Text>
-                </View> */}
-                <Text>Street Address</Text>
-                <TextInput style={styles.textInputArr} value={`${val.street_number} ${val.route}`} placeholder="Street"
-                  onChange={route => handleChange("addresses", route, {
-                    index: i,
-                    subname: "route"
-                  })} />
-                <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["route"]`)}</Text>
+              <View style={styles.addButtonRow}>
+                <TouchableOpacity style={styles.addButton} onPress={() => deleteField("addresses", i)}>
+                  <Text style={styles.buttonText}>-</Text>
+                </TouchableOpacity>
+                <Text>Home</Text>
+              </View>
+              {/* <Text>Street Address</Text> */}
+              <TextInput style={styles.textInputArr} value={val.street_number ? `${val.street_number} ${val.route}` : null} placeholder="Street Address"
+                onChange={route => handleChange("addresses", route, {
+                  index: i,
+                  subname: "route"
+                })} />
+              <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["route"]`)}</Text>
 
-                <View key={i} style={styles.addressInfo}>
-                  <View style={styles.addressDetail}>
-                    <Text>City</Text>
-                    <TextInput style={styles.textInputArr} value={val.locality} placeholder="City"
-                      onChange={locality => handleChange("addresses", locality, {
-                        index: i,
-                        subname: "locality"
-                      })} />
-                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["locality"]`)}</Text>
-                  </View>
-
-                  <View style={styles.addressDetail}>
-                    <Text>State</Text>
-                    <TextInput style={styles.textInputArr} value={val.state} placeholder="State"
-                      onChange={state => handleChange("addresses", state, {
-                        index: i,
-                        subname: "state"
-                      })} />
-                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["state"]`)}</Text>
-                  </View>
+              <View key={i} style={styles.addressInfo}>
+                <View style={styles.addressDetail}>
+                  {/* <Text>City</Text> */}
+                  <TextInput style={styles.textInputArr} value={val.locality} placeholder="City"
+                    onChange={locality => handleChange("addresses", locality, {
+                      index: i,
+                      subname: "locality"
+                    })} />
+                  <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["locality"]`)}</Text>
                 </View>
 
-                <View style={styles.addressInfo}>
-                  <View style={styles.addressDetail}>
-                    <Text>Zip Code</Text>
-                    <TextInput style={styles.textInputArr} value={val["postal_code"]} placeholder="Zip Code"
-                      onChange={postal_code => handleChange("addresses", postal_code, {
-                        index: i,
-                        subname: "postal_code"
-                      })} />
-                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["postal_code"]`)}</Text>
-                  </View>
-
-                  <View style={styles.addressDetail}>
-                    <Text>Country</Text>
-                    <TextInput style={styles.textInputArr} value={val.country} placeholder="Country"
-                      onChange={country => handleChange("addresses", country, {
-                        index: i,
-                        subname: "country"
-                      })} />
-                    <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["country"]`)}</Text>
-                  </View>
+                <View style={styles.addressDetail}>
+                  {/* <Text>State</Text> */}
+                  <TextInput style={styles.textInputArr} value={val.state} placeholder="State"
+                    onChange={state => handleChange("addresses", state, {
+                      index: i,
+                      subname: "state"
+                    })} />
+                  <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["state"]`)}</Text>
                 </View>
+              </View>
+
+              <View style={styles.addressInfo}>
+                <View style={styles.addressDetail}>
+                  {/* <Text>Zip Code</Text> */}
+                  <TextInput style={styles.textInputArr} value={val["postal_code"]} placeholder="Zip Code"
+                    onChange={postal_code => handleChange("addresses", postal_code, {
+                      index: i,
+                      subname: "postal_code"
+                    })} />
+                  <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["postal_code"]`)}</Text>
+                </View>
+
+                <View style={styles.addressDetail}>
+                  {/* <Text>Country</Text> */}
+                  <TextInput style={styles.textInputArr} value={val.country} placeholder="Country"
+                    onChange={country => handleChange("addresses", country, {
+                      index: i,
+                      subname: "country"
+                    })} />
+                  <Text style={styles.errorText}>{TRY(`formErrors["addresses"][${i}]["country"]`)}</Text>
+                </View>
+              </View>
             </>
           )
         })
@@ -372,6 +371,12 @@ function EditConnectionForm(props) {
         formData.telephones && formData.telephones.map((val, i) => {
           return (
             <>
+              <View style={styles.addButtonRow}>
+                <TouchableOpacity style={styles.addButton} onPress={() => deleteField("telephones", i)}>
+                  <Text style={styles.buttonText}>-</Text>
+                </TouchableOpacity>
+                <Text>Add Telephone</Text>
+              </View>
               <TextInput style={styles.textInput} key={i} value={val.telephone} placeholder="000-000-0000"
                 onChange={telephone => handleChange("telephones", telephone, {
                   index: i,
@@ -393,6 +398,12 @@ function EditConnectionForm(props) {
         formData.emails && formData.emails.map((val, i) => {
           return (
             <>
+              <View style={styles.addButtonRow}>
+                <TouchableOpacity style={styles.addButton} onPress={() => deleteField("emails", i)}>
+                  <Text style={styles.buttonText}>-</Text>
+                </TouchableOpacity>
+                <Text>Add Email</Text>
+              </View>
               <TextInput style={styles.textInput} key={i} value={val.email} placeholder="name@mail.com"
                 onChange={email => handleChange("emails", email, {
                   index: i,
