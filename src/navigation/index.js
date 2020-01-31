@@ -293,7 +293,7 @@ const CustomDrawerNavigator = createStackNavigator({
       return {
         headerStyle: {
           backgroundColor: 'white',
-          height: 52
+          height: 52,
         },
         headerLeft:
           (<TouchableOpacity

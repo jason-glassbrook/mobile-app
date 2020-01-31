@@ -256,54 +256,47 @@ const FamilyConnectionsScreen = props => {
         <View
           style={{ backgroundColor: "#fff", height: 52, justifyContent: "center" }}
         >
-          <TouchableOpacity
+        </View>
+        <ScrollView
+          scrollsToTop
+          contentContainerStyle={{
+          }}
+        >
+           <TouchableOpacity
             underlayColor="lightgray"
-            style={{
-              padding: 7.5,
-              flex: 1,
-              height: 500,
-              borderBottomWidth: 0.5,
-              borderBottomColor: "rgba(24, 23, 21, 0.3)",
-              backgroundColor: "#fff"
-            }}
             onPressIn={() => {
               setModalVisible(!state.modalVisible);
             }}
           >
             <Text
               style={{
-                padding: 7,
+                padding: 10, 
+                paddingBottom: 30, 
                 fontSize: 18,
+                paddingTop: 0,
                 color: "#0F6580"
               }}
             >
               {leftArrow} RETURN
             </Text>
           </TouchableOpacity>
-        </View>
-        <ScrollView
-          scrollsToTop
-          contentContainerStyle={{
-            flexGrow: 1,
-            marginTop: 10
-          }}
-        >
           <View
             style={{
-              marginTop: 10,
+              // marginTop: 10,
               flex: 1,
               width: "100%",
               height: "100%",
               alignSelf: "flex-start"
             }}
           >
+             
             {/* SORT BY */}
             <Text
               style={{
                 fontFamily: constants.lotoFamily,
                 color: "rgba(24, 23, 21, 0.5)",
                 marginLeft: 10,
-                marginTop: 20,
+                // marginTop: 20,
                 marginBottom: 5,
                 fontSize: 14,
                 fontWeight: "800",
