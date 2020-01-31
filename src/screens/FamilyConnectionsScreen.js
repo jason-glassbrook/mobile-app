@@ -280,6 +280,11 @@ const FamilyConnectionsScreen = props => {
               {leftArrow} RETURN
             </Text>
           </TouchableOpacity>
+          <ScrollView
+          scrollsToTop
+          contentContainerStyle={{
+          }}
+        ></ScrollView>
           <View
             style={{
               // marginTop: 10,

@@ -169,8 +169,8 @@ class SearchResultScreen extends React.Component {
                 <Text style={{...styles.buttonText , paddingTop: 10,
                   paddingBottom: 10,
                   marginLeft: 5,
-                  fontSize: 27,
-                  color: '#0279AC'}}>{'\u2190'}</Text>
+                  fontSize: 20,
+                  color: '#0279AC'}}>{'\u2190 Back to Search'}</Text>
               </Button>
             </View>
             <View>
