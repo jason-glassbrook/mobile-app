@@ -449,31 +449,8 @@ export function CaseViewScreen(props) {
               justifyContent: "center"
             }}
           >
-            <TouchableOpacity
-              underlayColor="lightgray"
-              style={{
-                padding: 7.5,
-                flex: 1,
-                height: 500,
-                borderBottomWidth: 0.5,
-                borderBottomColor: "rgba(24, 23, 21, 0.3)",
-                backgroundColor: "#fff"
-              }}
-              onPressIn={() => {
-                setDescriptionVisible(false);
-              }}
-            >
-              <Text
-                style={{
-                  padding: 7,
-                  fontSize: 18,
-                  color: "#0F6580"
-                }}
-              >
-                {leftArrow} RETURN
-              </Text>
-            </TouchableOpacity>
-          </View>
+    
+          </View>    
           <ScrollView
             scrollsToTop
             contentContainerStyle={{
@@ -481,6 +458,27 @@ export function CaseViewScreen(props) {
               marginTop: 10
             }}
           >
+           <TouchableOpacity
+              underlayColor="lightgray"
+              style={{
+                flex: 1,
+              }}
+              onPressIn={() => {
+                setDescriptionVisible(false);
+              }}
+            >
+               <Text
+                style={{
+                  paddingLeft: 10,
+                  paddingBottom: 0,
+                  fontSize: 18,
+                  paddingTop: 0,
+                  color: "#0F6580",
+                }}
+              >
+                {leftArrow} RETURN
+              </Text>
+            </TouchableOpacity>
             <View
               style={{
                 marginTop: 10,
@@ -933,7 +931,7 @@ export function CaseViewScreen(props) {
               </View>
             </View>
           </ScrollView>
-        </Modal>
+           </Modal>
       </ScrollView>
     </View>
   );
