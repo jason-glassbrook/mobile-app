@@ -448,11 +448,8 @@ export function CaseViewScreen(props) {
             }}
           >
     
-          </View>    
-          <ScrollView
-            scrollsToTop
-          >
-           <TouchableOpacity
+          </View>   
+            <TouchableOpacity
               underlayColor="lightgray"
               onPressIn={() => {
                 setDescriptionVisible(false);
@@ -479,6 +476,10 @@ export function CaseViewScreen(props) {
               </Text>
             </Text>
             </TouchableOpacity>
+          <ScrollView
+            scrollsToTop
+          >
+          
             <View
               style={{
                 marginTop: 10,
