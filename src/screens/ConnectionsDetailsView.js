@@ -136,8 +136,6 @@ export default function ConnectionsDetailsView({ details, id }) {
     return (
         edit === false ?
             <View style={styles.rootView}>
-                {/* INFORMATION SECTION */}
-                {/* onPress needed for edit */}
                 <Text style={styles.edit} onPress={() => {
                     setEdit(!edit)
                 }}>Edit</Text>

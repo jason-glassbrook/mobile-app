@@ -1004,7 +1004,7 @@ const mapStateToProps = state => {
     caseDataError,
     connectionsError,
     caseConnections,
-    details
+    details,
   };
 };
 
