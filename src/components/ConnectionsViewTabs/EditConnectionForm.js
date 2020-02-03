@@ -330,12 +330,15 @@ function EditConnectionForm(props) {
             </Text>
           </TouchableOpacity>
 
-          {/* Modal appears over other components when showCal===true */}
+          {/* Modal appears over other components when showCal===true 
+            dark mode on iOS cannot be overridden for this component;
+            modal must respond to dark mode to avoid white-on-white date picker
+          */}
           <DateTimePickerModal
             isVisible={showCal}
             onCancel={hideDatePicker}
             onConfirm={handleDate}
-            isDarkModeEnabled={colorScheme === 'dark'}
+            isDarkModeEnabled={Platform.OS === 'ios' && colorScheme === 'dark'}
           />
         </View>
 
