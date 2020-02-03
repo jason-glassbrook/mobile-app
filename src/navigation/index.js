@@ -142,15 +142,7 @@ const FamilyConnectionsNavigator = createStackNavigator(
               </Text>
               {/* <Text>Edit Details</Text> */}
               {/* if details true show edit, if not don't */}
-            </TouchableOpacity>),
-          headerTitle: (
-            <Image
-              source={logoImg}
-              style={{ width: 225, height: 90 }}
-              resizeMode="contain"
-            />
-          )
-
+            </TouchableOpacity>)
         }
       }
     },
@@ -241,7 +233,19 @@ const PeopleSearchNavigator = createStackNavigator(
           height: constants.headerHeight,
           backgroundColor: constants.highlightColor
         }
-      }
+      },
+      navigationOptions: {
+        headerStyle: {
+          backgroundColor: 'white',
+          height: 52
+        },
+        headerLeft:
+          (<Image
+            source={logoImg}
+            style={{ width: 225, height: 90 }}
+            resizeMode="contain"
+          />)
+      },
     },
     SearchResult: {
       screen: SearchResultScreen,

@@ -102,24 +102,27 @@ function ConnectionsView(props) {
       fontSize: 17.5,
       textAlign: 'center',
     },
+    thatBlue: {
+      color: constants.highlightColor
+    },
 
     engagementSelected: {
-      color: '#FFFFFF',
+      color: 'orange',
       borderBottomWidth: 3,
-      borderBottomColor: '#1D6491',
+      borderBottomColor: constants.highlightColor,
       overflow: "hidden",
     },
 
     documentsSelected: {
-      color: '#FFFFFF',
+      color: constants.highlightColor,
       borderBottomWidth: 3,
-      borderBottomColor: '#1D6491',
+      borderBottomColor: constants.highlightColor,
       overflow: "hidden",
     },
     detailsSelected: {
-      color: '#FFFFFF',
+      color: constants.highlightColor,
       borderBottomWidth: 3,
-      borderBottomColor: '#1D6491',
+      borderBottomColor: constants.highlightColor,
       overflow: "hidden"
     },
 
@@ -262,7 +265,10 @@ function ConnectionsView(props) {
                     });
                   }}
                 >
+                   <Text style={tabs.engagement ? styles.thatBlue : null} >
                   Engagements
+                  </Text>
+
               </Text>
               </View>
               <View style={[styles.detailsTab, tabs.details ? styles.detailsSelected : null]}>
@@ -277,7 +283,11 @@ function ConnectionsView(props) {
                     props.setDetails(true)
                   }}
                 >
+              
+              <Text style={tabs.details ? styles.thatBlue : null} >
                   Details
+                  </Text>
+
               </Text>
               </View>
               <View style={[styles.documentsTab, tabs.docs ? styles.documentsSelected : null]}>
@@ -291,7 +301,9 @@ function ConnectionsView(props) {
                     });
                   }}
                 >
+                    <Text style={tabs.docs ? styles.thatBlue : null} >
                   Documents
+                  </Text>
               </Text>
               </View>
             </View>
