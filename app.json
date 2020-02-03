@@ -27,9 +27,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.connectourkids.connect-our-kids",
-      "infoPlist": {
-        "UIUserInterfaceStyle": "Light"
-      }
     },
     "android": {
       "package": "com.connectOurKids.connectOurKids",

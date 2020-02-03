@@ -22,8 +22,11 @@ import * as SecureStore from "expo-secure-store";
 import Intl from "intl";
 import getEnvVars from "../../../environment";
 import * as yup from "yup";
+import { Appearance } from 'react-native-appearance';
 
 const { familyConnectionsURL } = getEnvVars();
+
+const colorScheme = Appearance.getColorScheme();
 
 let schema = yup.object().shape({
   first_name: yup.string().required(),
@@ -332,6 +335,7 @@ function EditConnectionForm(props) {
             isVisible={showCal}
             onCancel={hideDatePicker}
             onConfirm={handleDate}
+            isDarkModeEnabled={colorScheme === 'dark'}
           />
         </View>
 
