@@ -22,8 +22,11 @@ import * as SecureStore from "expo-secure-store";
 import Intl from "intl";
 import getEnvVars from "../../../environment";
 import * as yup from "yup";
+import { Appearance } from 'react-native-appearance';
 
 const { familyConnectionsURL } = getEnvVars();
+
+const colorScheme = Appearance.getColorScheme();
 
 let schema = yup.object().shape({
   first_name: yup.string().required(),
@@ -327,11 +330,15 @@ function EditConnectionForm(props) {
             </Text>
           </TouchableOpacity>
 
-          {/* Modal appears over other components when showCal===true */}
+          {/* Modal appears over other components when showCal===true 
+            dark mode on iOS cannot be overridden for this component;
+            modal must respond to dark mode to avoid white-on-white date picker
+          */}
           <DateTimePickerModal
             isVisible={showCal}
             onCancel={hideDatePicker}
             onConfirm={handleDate}
+            isDarkModeEnabled={Platform.OS === 'ios' && colorScheme === 'dark'}
           />
         </View>
 

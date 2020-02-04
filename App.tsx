@@ -5,6 +5,7 @@ import * as Font from 'expo-font';
 import constants from './src/helpers/constants';
 import Navigator from './src/navigation';
 import { StatusBar } from 'react-native';
+import { AppearanceProvider } from 'react-native-appearance';
 
 export default function App() {
   let [state,setState] = useState( { fontLoaded: false });
@@ -19,11 +20,14 @@ export default function App() {
     })
   })
 
-  return ( state.fontLoaded ?
+  return ( 
+    <AppearanceProvider>
+    {state.fontLoaded ?
     <Provider store={store}>
       <StatusBar barStyle = "dark-content" hidden = {false} backgroundColor = "#00BCD4" translucent = {true}/>
       <Navigator />
-    </Provider> : null
+    </Provider> : null}
+    </AppearanceProvider>
   ) 
   
 }
